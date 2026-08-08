@@ -1,0 +1,494 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── ENUMS ───────────────────────────────────────────────────
+
+enum Role {
+  STUDENT
+  PROFESSOR
+  ADMIN
+}
+
+enum ContentType {
+  PDF
+  WORD
+  PPT
+  TEXT
+  VIDEO
+  ARTICLE
+  BOOK
+  LINK
+}
+
+enum ContentStatus {
+  DRAFT
+  PENDING_REVIEW
+  APPROVED
+  REJECTED
+}
+
+enum DifficultyLevel {
+  BASIC
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum QuestionType {
+  MULTIPLE_CHOICE
+  TRUE_FALSE
+  SHORT_ANSWER
+  MATCHING
+}
+
+enum AdaptiveAction {
+  CONTINUE
+  PRACTICE
+  EXPLAIN_AGAIN
+  PREREQUISITE
+  RETRIEVE
+  ADVANCED_PRACTICE
+}
+
+enum LearningEventType {
+  LESSON_STARTED
+  LESSON_COMPLETED
+  QUESTION_ANSWERED
+  PRACTICE_COMPLETED
+  FEEDBACK_VIEWED
+  RETRIEVAL_STARTED
+  RETRIEVAL_COMPLETED
+  TOPIC_MASTERED
+  TOPIC_REOPENED
+  ASSESSMENT_STARTED
+  ASSESSMENT_COMPLETED
+}
+
+enum AssessmentStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum RetrievalStatus {
+  PENDING
+  COMPLETED
+  SKIPPED
+}
+
+// ─── USERS & AUTH ────────────────────────────────────────────
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  phone         String?   @unique
+  passwordHash  String
+  role          Role      @default(STUDENT)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  student       Student?
+  professor     Professor?
+
+  @@map("users")
+}
+
+// ─── UNIVERSITY STRUCTURE ────────────────────────────────────
+
+model University {
+  id        String     @id @default(cuid())
+  name      String
+  shortName String?
+  city      String?
+  createdAt DateTime   @default(now())
+
+  faculties Faculty[]
+  students  Student[]
+
+  @@map("universities")
+}
+
+model Faculty {
+  id           String     @id @default(cuid())
+  name         String
+  universityId String
+  university   University @relation(fields: [universityId], references: [id])
+  createdAt    DateTime   @default(now())
+
+  students  Student[]
+  courses   Course[]
+
+  @@map("faculties")
+}
+
+// ─── STUDENT ─────────────────────────────────────────────────
+
+model Student {
+  id           String     @id @default(cuid())
+  userId       String     @unique
+  user         User       @relation(fields: [userId], references: [id])
+  firstName    String
+  lastName     String
+  universityId String
+  university   University @relation(fields: [universityId], references: [id])
+  facultyId    String
+  faculty      Faculty    @relation(fields: [facultyId], references: [id])
+  yearLevel    Int
+  groupName    String?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  // Research: pseudonymized participant ID
+  researchId   String?    @unique
+
+  enrollments         Enrollment[]
+  assessmentSessions  AssessmentSession[]
+  cognitiveProfile    CognitiveProfile?
+  learnerKnowledge    LearnerKnowledge[]
+  attempts            Attempt[]
+  learningEvents      LearningEvent[]
+  interventions       Intervention[]
+  retrievalRecords    RetrievalRecord[]
+  recommendations     Recommendation[]
+
+  @@map("students")
+}
+
+// ─── PROFESSOR ───────────────────────────────────────────────
+
+model Professor {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  firstName String
+  lastName  String
+  title     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  courses Course[]
+
+  @@map("professors")
+}
+
+// ─── COURSE & TOPIC ──────────────────────────────────────────
+
+model Course {
+  id          String    @id @default(cuid())
+  professorId String
+  professor   Professor @relation(fields: [professorId], references: [id])
+  facultyId   String?
+  faculty     Faculty?  @relation(fields: [facultyId], references: [id])
+  title       String
+  description String?
+  semester    String?
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  topics      Topic[]
+  enrollments Enrollment[]
+
+  @@map("courses")
+}
+
+model Topic {
+  id                  String   @id @default(cuid())
+  courseId            String
+  course              Course   @relation(fields: [courseId], references: [id])
+  title               String
+  description         String?
+  learningObjective   String?
+  orderIndex          Int      @default(0)
+  prerequisiteTopicId String?
+  prerequisiteTopic   Topic?   @relation("TopicPrerequisite", fields: [prerequisiteTopicId], references: [id])
+  prerequisites       Topic[]  @relation("TopicPrerequisite")
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  contentItems     ContentItem[]
+  questions        Question[]
+  learnerKnowledge LearnerKnowledge[]
+  retrievalRecords RetrievalRecord[]
+  interventions    Intervention[]
+
+  @@map("topics")
+}
+
+// ─── CONTENT ─────────────────────────────────────────────────
+
+model ContentItem {
+  id          String        @id @default(cuid())
+  topicId     String
+  topic       Topic         @relation(fields: [topicId], references: [id])
+  type        ContentType
+  title       String
+  body        String?       @db.Text
+  fileUrl     String?
+  externalUrl String?
+  status      ContentStatus @default(DRAFT)
+  orderIndex  Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  sources ContentSource[]
+
+  @@map("content_items")
+}
+
+model ContentSource {
+  id            String      @id @default(cuid())
+  contentItemId String
+  contentItem   ContentItem @relation(fields: [contentItemId], references: [id])
+  title         String
+  authors       String?
+  journal       String?
+  year          Int?
+  url           String?
+  doi           String?
+  createdAt     DateTime    @default(now())
+
+  @@map("content_sources")
+}
+
+// ─── ASSESSMENT ──────────────────────────────────────────────
+
+model Assessment {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  durationMin Int      @default(15)
+  isActive    Boolean  @default(true)
+  version     String   @default("1.0")
+  createdAt   DateTime @default(now())
+
+  items    AssessmentItem[]
+  sessions AssessmentSession[]
+
+  @@map("assessments")
+}
+
+model AssessmentItem {
+  id             String          @id @default(cuid())
+  assessmentId   String
+  assessment     Assessment      @relation(fields: [assessmentId], references: [id])
+  category       String
+  taskType       String
+  prompt         String          @db.Text
+  stimuluData    Json?
+  options        Json?
+  correctAnswer  Json?
+  timeoutSeconds Int?
+  orderIndex     Int             @default(0)
+
+  answers AssessmentAnswer[]
+
+  @@map("assessment_items")
+}
+
+model AssessmentSession {
+  id           String           @id @default(cuid())
+  studentId    String
+  student      Student          @relation(fields: [studentId], references: [id])
+  assessmentId String
+  assessment   Assessment       @relation(fields: [assessmentId], references: [id])
+  status       AssessmentStatus @default(NOT_STARTED)
+  startedAt    DateTime?
+  completedAt  DateTime?
+  createdAt    DateTime         @default(now())
+
+  answers          AssessmentAnswer[]
+  cognitiveProfile CognitiveProfile?
+
+  @@map("assessment_sessions")
+}
+
+model AssessmentAnswer {
+  id                  String            @id @default(cuid())
+  sessionId           String
+  session             AssessmentSession @relation(fields: [sessionId], references: [id])
+  itemId              String
+  item                AssessmentItem    @relation(fields: [itemId], references: [id])
+  givenAnswer         Json?
+  isCorrect           Boolean?
+  responseTimeMs      Int?
+  answeredAt          DateTime          @default(now())
+
+  @@map("assessment_answers")
+}
+
+// ─── COGNITIVE PROFILE ───────────────────────────────────────
+
+model CognitiveProfile {
+  id                      String            @id @default(cuid())
+  studentId               String            @unique
+  student                 Student           @relation(fields: [studentId], references: [id])
+  assessmentSessionId     String?           @unique
+  assessmentSession       AssessmentSession? @relation(fields: [assessmentSessionId], references: [id])
+
+  attentionScore          Float?
+  workingMemoryScore      Float?
+  processingSpeedScore    Float?
+  memoryScore             Float?
+
+  attentionRaw            Json?
+  workingMemoryRaw        Json?
+  processingSpeedRaw      Json?
+  memoryRaw               Json?
+
+  updatedAt               DateTime          @updatedAt
+  createdAt               DateTime          @default(now())
+
+  @@map("cognitive_profiles")
+}
+
+// ─── ENROLLMENT ──────────────────────────────────────────────
+
+model Enrollment {
+  id          String   @id @default(cuid())
+  studentId   String
+  student     Student  @relation(fields: [studentId], references: [id])
+  courseId    String
+  course      Course   @relation(fields: [courseId], references: [id])
+  enrolledAt  DateTime @default(now())
+
+  @@unique([studentId, courseId])
+  @@map("enrollments")
+}
+
+// ─── LEARNER KNOWLEDGE ───────────────────────────────────────
+
+model LearnerKnowledge {
+  id               String   @id @default(cuid())
+  studentId        String
+  student          Student  @relation(fields: [studentId], references: [id])
+  topicId          String
+  topic            Topic    @relation(fields: [topicId], references: [id])
+
+  masteryScore     Float    @default(0)
+  confidenceScore  Float    @default(0)
+  attempts         Int      @default(0)
+  correctAttempts  Int      @default(0)
+  recentAccuracy   Float    @default(0)
+  historicalAccuracy Float  @default(0)
+  retrievalScore   Float    @default(0)
+  consistencyScore Float    @default(0)
+
+  lastPracticedAt  DateTime?
+  lastRetrievedAt  DateTime?
+  nextReviewAt     DateTime?
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@unique([studentId, topicId])
+  @@map("learner_knowledge")
+}
+
+// ─── QUESTION BANK ───────────────────────────────────────────
+
+model Question {
+  id          String          @id @default(cuid())
+  topicId     String
+  topic       Topic           @relation(fields: [topicId], references: [id])
+  type        QuestionType
+  difficulty  DifficultyLevel @default(BASIC)
+  stem        String          @db.Text
+  options     Json?
+  answer      Json
+  explanation String?         @db.Text
+  tags        String[]
+  isActive    Boolean         @default(true)
+  createdAt   DateTime        @default(now())
+
+  attempts Attempt[]
+
+  @@map("questions")
+}
+
+// ─── ATTEMPTS ────────────────────────────────────────────────
+
+model Attempt {
+  id             String    @id @default(cuid())
+  studentId      String
+  student        Student   @relation(fields: [studentId], references: [id])
+  questionId     String
+  question       Question  @relation(fields: [questionId], references: [id])
+  givenAnswer    Json
+  isCorrect      Boolean
+  responseTimeMs Int?
+  createdAt      DateTime  @default(now())
+
+  @@map("attempts")
+}
+
+// ─── LEARNING EVENTS ─────────────────────────────────────────
+
+model LearningEvent {
+  id        String            @id @default(cuid())
+  studentId String
+  student   Student           @relation(fields: [studentId], references: [id])
+  eventType LearningEventType
+  topicId   String?
+  courseId  String?
+  payload   Json?
+  createdAt DateTime          @default(now())
+
+  @@map("learning_events")
+}
+
+// ─── INTERVENTIONS ───────────────────────────────────────────
+
+model Intervention {
+  id        String         @id @default(cuid())
+  studentId String
+  student   Student        @relation(fields: [studentId], references: [id])
+  topicId   String
+  topic     Topic          @relation(fields: [topicId], references: [id])
+  action    AdaptiveAction
+  reason    String?
+  result    String?
+  createdAt DateTime       @default(now())
+
+  @@map("interventions")
+}
+
+// ─── RETRIEVAL ───────────────────────────────────────────────
+
+model RetrievalRecord {
+  id              String          @id @default(cuid())
+  studentId       String
+  student         Student         @relation(fields: [studentId], references: [id])
+  topicId         String
+  topic           Topic           @relation(fields: [topicId], references: [id])
+  scheduledAt     DateTime
+  dueAt           DateTime
+  completedAt     DateTime?
+  status          RetrievalStatus @default(PENDING)
+  score           Float?
+  intervalDays    Int             @default(3)
+  nextIntervalDays Int            @default(7)
+  createdAt       DateTime        @default(now())
+
+  @@map("retrieval_records")
+}
+
+// ─── RECOMMENDATIONS ─────────────────────────────────────────
+
+model Recommendation {
+  id          String         @id @default(cuid())
+  studentId   String
+  student     Student        @relation(fields: [studentId], references: [id])
+  topicId     String?
+  action      AdaptiveAction
+  reason      String?
+  isActedOn   Boolean        @default(false)
+  createdAt   DateTime       @default(now())
+
+  @@map("recommendations")
+}

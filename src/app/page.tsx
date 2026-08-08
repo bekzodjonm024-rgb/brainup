@@ -1,69 +1,111 @@
-import Image from "next/image";
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import Link from "next/link";
+import { GraduationCap, Brain, TrendingUp, RefreshCw, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-export default function Home() {
+export default async function LandingPage() {
+  const session = await auth();
+
+  if (session) {
+    if (session.user.role === "PROFESSOR") redirect("/professor/dashboard");
+    redirect("/dashboard");
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen bg-white">
+      {/* Nav */}
+      <nav className="border-b border-slate-100 bg-white/80 backdrop-blur sticky top-0 z-10">
+        <div className="mx-auto max-w-5xl px-4 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <GraduationCap className="h-6 w-6 text-blue-600" />
+            <span className="font-bold text-slate-900 text-lg">BrainUP</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <Link href="/login">
+              <Button variant="ghost" size="sm">Kirish</Button>
+            </Link>
+            <Link href="/register">
+              <Button size="sm">Boshlash</Button>
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </nav>
+
+      {/* Hero */}
+      <section className="mx-auto max-w-5xl px-4 py-20 text-center">
+        <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-4 py-1.5 text-sm text-blue-700 mb-6">
+          <Brain className="h-4 w-4" />
+          Adaptiv ta&apos;lim texnologiyasi
         </div>
-      </main>
+        <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 leading-tight mb-6">
+          Ko&apos;proq emas,{" "}
+          <span className="text-blue-600">to&apos;g&apos;riroq o&apos;qing</span>
+        </h1>
+        <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-8">
+          BrainUP sizning bilim darajangiz, xatolaringiz va o&apos;rganish tempingizga asoslanib
+          shaxsiy ta&apos;lim yo&apos;nalishi yaratadi.
+        </p>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <Link href="/register">
+            <Button size="lg" className="gap-2">
+              Bepul boshlash <ArrowRight className="h-4 w-4" />
+            </Button>
+          </Link>
+          <Link href="/login">
+            <Button size="lg" variant="outline">Hisobga kirish</Button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="bg-slate-50 py-16">
+        <div className="mx-auto max-w-5xl px-4">
+          <h2 className="text-2xl font-bold text-slate-900 text-center mb-10">Qanday ishlaydi?</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {[
+              {
+                icon: <Brain className="h-6 w-6 text-blue-600" />,
+                title: "Boshlang'ich baholash",
+                desc: "10–15 daqiqa. Diqqat, xotira, qayta ishlash tezligi — shaxsiy profil yaratiladi.",
+              },
+              {
+                icon: <TrendingUp className="h-6 w-6 text-emerald-600" />,
+                title: "Adaptiv yo'nalish",
+                desc: "Har bir mashqdan keyin tizim keyingi eng foydali qadamni aniqlaydi.",
+              },
+              {
+                icon: <RefreshCw className="h-6 w-6 text-amber-600" />,
+                title: "Retention monitoring",
+                desc: "Bilimni eslab qolishni kuzatadi. Unutishdan oldin takrorlashni eslatadi.",
+              },
+            ].map((f) => (
+              <div key={f.title} className="bg-white rounded-xl border border-slate-200 p-6 space-y-3">
+                <div className="w-10 h-10 rounded-lg bg-slate-50 flex items-center justify-center">
+                  {f.icon}
+                </div>
+                <h3 className="font-semibold text-slate-900">{f.title}</h3>
+                <p className="text-sm text-slate-600">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="mx-auto max-w-5xl px-4 py-16 text-center">
+        <h2 className="text-2xl font-bold text-slate-900 mb-4">Namangan DPI bilan hamkorlikda</h2>
+        <p className="text-slate-600 mb-6 max-w-xl mx-auto">
+          Pedagogik mahorat, Neyropedagogika va Umumiy pedagogika fanlarida pilot dastur.
+        </p>
+        <Link href="/register">
+          <Button size="lg">Ro&apos;yxatdan o&apos;tish</Button>
+        </Link>
+      </section>
+
+      <footer className="border-t border-slate-100 py-6 text-center text-sm text-slate-400">
+        &copy; 2025 BrainUP — Barcha huquqlar himoyalangan
+      </footer>
     </div>
   );
 }
