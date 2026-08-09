@@ -14,6 +14,7 @@ import {
   Users,
   UserCog,
   TrendingUp,
+  UserCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { signOut } from "next-auth/react";
@@ -38,6 +39,7 @@ const professorNav: NavItem[] = [
   { href: "/professor/courses", label: "Kurslar", icon: BookOpen },
   { href: "/professor/analytics", label: "Tahlil", icon: BarChart3 },
   { href: "/professor/pilot", label: "Pilot", icon: FlaskConical },
+  { href: "/professor/profile", label: "Profilim", icon: UserCircle },
 ];
 
 const adminNav: NavItem[] = [

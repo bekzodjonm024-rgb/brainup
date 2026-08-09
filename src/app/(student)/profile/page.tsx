@@ -8,6 +8,7 @@ import { Progress } from "@/components/ui/progress";
 import { CognitiveProfileCard } from "@/components/shared/cognitive-profile-card";
 import { MasteryBadge } from "@/components/shared/mastery-badge";
 import { AvatarUpload } from "@/components/shared/avatar-upload";
+import { ProfileSettings } from "@/components/shared/profile-settings";
 import { formatDate } from "@/lib/utils";
 import { GraduationCap, BookOpen, TrendingUp, Calendar } from "lucide-react";
 
@@ -129,6 +130,18 @@ export default async function ProfilePage() {
             </CardContent>
           </Card>
         )}
+
+        {/* Profile settings */}
+        <div>
+          <h2 className="font-semibold text-slate-900 mb-3">Sozlamalar</h2>
+          <ProfileSettings
+            role="STUDENT"
+            firstName={student.firstName}
+            lastName={student.lastName}
+            yearLevel={student.yearLevel}
+            groupName={student.groupName}
+          />
+        </div>
 
         {/* Knowledge state per course */}
         {student.enrollments.map((enrollment) => {
