@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { UserPlus, Trash2 } from "lucide-react";
+import { UserPlus, Trash2, RotateCcw } from "lucide-react";
 
 export function AddStudentDialog({ courseId }: { courseId: string }) {
   const router = useRouter();
@@ -70,6 +70,40 @@ export function AddStudentDialog({ courseId }: { courseId: string }) {
         </div>
       </DialogContent>
     </Dialog>
+  );
+}
+
+export function ResetAssessmentButton({
+  courseId,
+  studentId,
+  name,
+}: {
+  courseId: string;
+  studentId: string;
+  name: string;
+}) {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  async function handleReset() {
+    if (!confirm(`${name}ning kognitiv profilini o'chirasizmi? Talaba assessment'ni qayta topshirishi kerak bo'ladi.`)) return;
+    setLoading(true);
+    await fetch(`/api/courses/${courseId}/students/${studentId}/reset-assessment`, { method: "DELETE" });
+    setLoading(false);
+    router.refresh();
+  }
+
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      className="text-slate-400 hover:text-amber-600"
+      onClick={handleReset}
+      disabled={loading}
+      title="Assessment natijasini o'chirish"
+    >
+      <RotateCcw className="h-4 w-4" />
+    </Button>
   );
 }
 

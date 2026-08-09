@@ -39,9 +39,10 @@ const professorNav: NavItem[] = [
 interface SidebarProps {
   role: "STUDENT" | "PROFESSOR" | "ADMIN";
   userName: string;
+  onClose?: () => void;
 }
 
-export function Sidebar({ role, userName }: SidebarProps) {
+export function Sidebar({ role, userName, onClose }: SidebarProps) {
   const pathname = usePathname();
   const navItems = role === "PROFESSOR" ? professorNav : studentNav;
 
@@ -62,6 +63,7 @@ export function Sidebar({ role, userName }: SidebarProps) {
             <Link
               key={item.href}
               href={item.href}
+              onClick={onClose}
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                 active

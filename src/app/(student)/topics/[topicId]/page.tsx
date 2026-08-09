@@ -64,6 +64,44 @@ export default async function TopicLearningPage({
 
   if (!topic) notFound();
 
+  // Enforce prerequisite: if prerequisite exists and mastery < 0.6, block access
+  if (topic.prerequisiteTopic) {
+    const prereqKnowledge = await db.learnerKnowledge.findFirst({
+      where: { studentId, topicId: topic.prerequisiteTopic.id },
+      select: { masteryScore: true },
+    });
+    const prereqMastery = prereqKnowledge?.masteryScore ?? 0;
+    if (prereqMastery < 0.6) {
+      return (
+        <div className="flex flex-col flex-1 overflow-auto">
+          <Header title={topic.title} description={topic.course.title} />
+          <main className="flex-1 p-6 max-w-3xl">
+            <Link href={`/courses/${topic.courseId}`}>
+              <Button variant="ghost" size="sm" className="mb-6">
+                <ArrowLeft className="h-4 w-4 mr-1" /> {topic.course.title}
+              </Button>
+            </Link>
+            <div className="rounded-xl border border-orange-200 bg-orange-50 p-6 flex items-start gap-4">
+              <Layers className="h-6 w-6 text-orange-500 mt-0.5 shrink-0" />
+              <div>
+                <h3 className="font-semibold text-orange-900">Bu mavzu qulflangan</h3>
+                <p className="text-sm text-orange-700 mt-1">
+                  Avval <strong>&quot;{topic.prerequisiteTopic.title}&quot;</strong> mavzusini{" "}
+                  kamida 60% o&apos;zlashtiring.
+                </p>
+                <Link href={`/topics/${topic.prerequisiteTopic.id}`} className="mt-3 inline-block">
+                  <Button size="sm" variant="outline">
+                    O&apos;sha mavzuga o&apos;tish <ChevronRight className="h-3 w-3 ml-1" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </main>
+        </div>
+      );
+    }
+  }
+
   const knowledge = topic.learnerKnowledge[0];
   const mastery = knowledge?.masteryScore ?? 0;
   const attempts = knowledge?.attempts ?? 0;

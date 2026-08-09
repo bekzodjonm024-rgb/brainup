@@ -50,6 +50,7 @@ export default async function StudentCourseDetailPage({
         include: {
           contentItems: { where: { status: "APPROVED" }, select: { id: true } },
           learnerKnowledge: { where: { studentId }, take: 1 },
+          prerequisiteTopic: { select: { id: true, title: true } },
           _count: { select: { questions: true } },
         },
       },
@@ -57,6 +58,11 @@ export default async function StudentCourseDetailPage({
   });
 
   if (!course) notFound();
+
+  // Build a mastery lookup for prerequisite checking
+  const masteryByTopicId = new Map<string, number>(
+    course.topics.map((t) => [t.id, t.learnerKnowledge[0]?.masteryScore ?? 0])
+  );
 
   const masteredTopics = course.topics.filter(
     (t) => (t.learnerKnowledge[0]?.masteryScore ?? 0) >= 0.85
@@ -99,7 +105,11 @@ export default async function StudentCourseDetailPage({
             const hasContent = topic.contentItems.length > 0;
             const isMastered = mastery >= 0.85;
             const isStarted = mastery > 0;
-            const isLocked = !hasContent;
+            const prereqMastery = topic.prerequisiteTopic
+              ? (masteryByTopicId.get(topic.prerequisiteTopic.id) ?? 0)
+              : 1;
+            const prereqLocked = topic.prerequisiteTopic && prereqMastery < 0.6;
+            const isLocked = !hasContent || !!prereqLocked;
 
             // Adaptive action chip
             let actionChip: { label: string; color: string; icon: React.ReactNode } | null = null;
@@ -153,6 +163,11 @@ export default async function StudentCourseDetailPage({
                     </div>
                     {topic.learningObjective && (
                       <p className="text-xs text-slate-500 mt-0.5 line-clamp-1">{topic.learningObjective}</p>
+                    )}
+                    {prereqLocked && topic.prerequisiteTopic && (
+                      <p className="text-xs text-orange-600 mt-0.5">
+                        Avval &quot;{topic.prerequisiteTopic.title}&quot; mavzusini bajaring (≥60%)
+                      </p>
                     )}
                     <div className="flex gap-3 text-xs text-slate-400 mt-1">
                       <span>{topic.contentItems.length} material</span>

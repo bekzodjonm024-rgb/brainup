@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { Sidebar } from "@/components/layout/sidebar";
+import { SidebarLayout } from "@/components/layout/sidebar-layout";
 
 export default async function ProfessorLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
@@ -13,11 +13,8 @@ export default async function ProfessorLayout({ children }: { children: React.Re
   const userName = session.user.name ?? session.user.email ?? "Professor";
 
   return (
-    <div className="flex h-screen bg-slate-50">
-      <Sidebar role="PROFESSOR" userName={userName} />
-      <div className="flex flex-1 flex-col overflow-hidden">
-        {children}
-      </div>
-    </div>
+    <SidebarLayout role="PROFESSOR" userName={userName}>
+      {children}
+    </SidebarLayout>
   );
 }

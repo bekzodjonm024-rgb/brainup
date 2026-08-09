@@ -57,6 +57,9 @@ export default async function AssessmentPage() {
                 </p>
               </div>
             </div>
+            <div className="pt-2">
+              <StartAssessmentButton retake />
+            </div>
           </>
         ) : (
           <>

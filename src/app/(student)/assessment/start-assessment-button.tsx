@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 
-export function StartAssessmentButton() {
+export function StartAssessmentButton({ retake = false }: { retake?: boolean }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -35,9 +35,15 @@ export function StartAssessmentButton() {
 
   return (
     <div className="space-y-2">
-      <Button onClick={handleStart} disabled={loading} className="w-full" size="lg">
+      <Button
+        onClick={handleStart}
+        disabled={loading}
+        className="w-full"
+        size="lg"
+        variant={retake ? "outline" : "default"}
+      >
         {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
-        Baholashni boshlash
+        {retake ? "Qayta topshirish" : "Baholashni boshlash"}
       </Button>
       {errorMsg && (
         <p className="text-sm text-red-600 text-center">{errorMsg}</p>

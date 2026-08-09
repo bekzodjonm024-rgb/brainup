@@ -8,7 +8,7 @@ import { MasteryBadge } from "@/components/shared/mastery-badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowLeft, Users, BookOpen } from "lucide-react";
-import { AddStudentDialog, RemoveStudentButton } from "./student-actions";
+import { AddStudentDialog, RemoveStudentButton, ResetAssessmentButton } from "./student-actions";
 import { formatDate } from "@/lib/utils";
 
 export default async function CourseStudentsPage({
@@ -133,6 +133,11 @@ export default async function CourseStudentsPage({
                           {student._count.attempts}
                         </td>
                         <td className="px-4 py-3">
+                            <ResetAssessmentButton
+                            courseId={courseId}
+                            studentId={student.id}
+                            name={`${student.firstName} ${student.lastName}`}
+                          />
                           <RemoveStudentButton
                             courseId={courseId}
                             studentId={student.id}

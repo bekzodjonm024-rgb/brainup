@@ -10,20 +10,12 @@ export async function POST() {
 
   const studentId = session.user.profileId;
 
-  // Check for existing incomplete session
+  // Return existing in-progress session so student can resume
   const existing = await db.assessmentSession.findFirst({
     where: { studentId, status: "IN_PROGRESS" },
     include: { assessment: { include: { items: { orderBy: { orderIndex: "asc" } } } } },
   });
   if (existing) return NextResponse.json(existing);
-
-  // Check if already completed
-  const completed = await db.assessmentSession.findFirst({
-    where: { studentId, status: "COMPLETED" },
-  });
-  if (completed) {
-    return NextResponse.json({ error: "Baholash allaqachon bajarilgan", completed: true }, { status: 409 });
-  }
 
   const assessment = await db.assessment.findFirst({
     where: { isActive: true },
