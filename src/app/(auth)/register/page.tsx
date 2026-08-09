@@ -31,7 +31,6 @@ export default function RegisterPage() {
     firstName: "",
     lastName: "",
     email: "",
-    phone: "",
     password: "",
     universityId: "",
     facultyId: "",

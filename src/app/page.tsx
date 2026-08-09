@@ -104,7 +104,7 @@ export default async function LandingPage() {
       </section>
 
       <footer className="border-t border-slate-100 py-6 text-center text-sm text-slate-400">
-        &copy; 2025 BrainUP — Barcha huquqlar himoyalangan
+        &copy; 2026 BrainUP — Barcha huquqlar himoyalangan
       </footer>
     </div>
   );
