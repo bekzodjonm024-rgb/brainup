@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { Header } from "@/components/layout/header";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { EnrollButton } from "./enroll-button";
 import { Progress } from "@/components/ui/progress";
 import { MasteryBadge } from "@/components/shared/mastery-badge";
 import Link from "next/link";
@@ -143,13 +143,3 @@ export default async function CoursesPage() {
   );
 }
 
-function EnrollButton({ courseId }: { courseId: string }) {
-  return (
-    <form action={`/api/student/enroll`} method="POST">
-      <input type="hidden" name="courseId" value={courseId} />
-      <Button size="sm" variant="outline" className="w-full" type="submit">
-        Kursga yozilish
-      </Button>
-    </form>
-  );
-}
