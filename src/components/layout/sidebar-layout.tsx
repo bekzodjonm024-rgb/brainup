@@ -9,11 +9,12 @@ import { BrainUPLogo } from "@/components/ui/brainup-logo";
 interface SidebarLayoutProps {
   role: "STUDENT" | "PROFESSOR" | "ADMIN";
   userName: string;
+  avatarUrl?: string | null;
   children: React.ReactNode;
   badges?: Record<string, number>;
 }
 
-export function SidebarLayout({ role, userName, children, badges }: SidebarLayoutProps) {
+export function SidebarLayout({ role, userName, avatarUrl, children, badges }: SidebarLayoutProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
@@ -36,6 +37,7 @@ export function SidebarLayout({ role, userName, children, badges }: SidebarLayou
         <Sidebar
           role={role}
           userName={userName}
+          avatarUrl={avatarUrl}
           onClose={() => setMobileOpen(false)}
           badges={badges}
         />

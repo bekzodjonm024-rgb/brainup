@@ -12,16 +12,21 @@ export default async function ProfessorLayout({ children }: { children: React.Re
   }
 
   let userName = session.user.email ?? "Professor";
+  let avatarUrl: string | null = null;
+
   if (session.user.profileId) {
     const professor = await db.professor.findUnique({
       where: { id: session.user.profileId },
-      select: { firstName: true, lastName: true },
+      select: { firstName: true, lastName: true, user: { select: { avatarUrl: true } } },
     });
-    if (professor) userName = `${professor.firstName} ${professor.lastName}`;
+    if (professor) {
+      userName = `${professor.firstName} ${professor.lastName}`;
+      avatarUrl = professor.user.avatarUrl ?? null;
+    }
   }
 
   return (
-    <SidebarLayout role="PROFESSOR" userName={userName}>
+    <SidebarLayout role="PROFESSOR" userName={userName} avatarUrl={avatarUrl}>
       {children}
     </SidebarLayout>
   );

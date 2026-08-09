@@ -10,13 +10,14 @@ export default async function StudentLayout({ children }: { children: React.Reac
   if (session.user.role === "PROFESSOR") redirect("/professor/dashboard");
 
   let userName = session.user.email ?? "Talaba";
+  let avatarUrl: string | null = null;
   let pendingRetrievals = 0;
 
   if (session.user.profileId) {
     const [student, retrievals] = await Promise.all([
       db.student.findUnique({
         where: { id: session.user.profileId },
-        select: { firstName: true, lastName: true },
+        select: { firstName: true, lastName: true, user: { select: { avatarUrl: true } } },
       }),
       db.retrievalRecord.count({
         where: {
@@ -26,12 +27,15 @@ export default async function StudentLayout({ children }: { children: React.Reac
         },
       }),
     ]);
-    if (student) userName = `${student.firstName} ${student.lastName}`;
+    if (student) {
+      userName = `${student.firstName} ${student.lastName}`;
+      avatarUrl = student.user.avatarUrl ?? null;
+    }
     pendingRetrievals = retrievals;
   }
 
   return (
-    <SidebarLayout role="STUDENT" userName={userName} badges={{ "/retrieval": pendingRetrievals }}>
+    <SidebarLayout role="STUDENT" userName={userName} avatarUrl={avatarUrl} badges={{ "/retrieval": pendingRetrievals }}>
       {children}
     </SidebarLayout>
   );

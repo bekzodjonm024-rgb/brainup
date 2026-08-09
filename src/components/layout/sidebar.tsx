@@ -51,11 +51,12 @@ const adminNav: NavItem[] = [
 interface SidebarProps {
   role: "STUDENT" | "PROFESSOR" | "ADMIN";
   userName: string;
+  avatarUrl?: string | null;
   onClose?: () => void;
   badges?: Record<string, number>;
 }
 
-export function Sidebar({ role, userName, onClose, badges }: SidebarProps) {
+export function Sidebar({ role, userName, avatarUrl, onClose, badges }: SidebarProps) {
   const pathname = usePathname();
   const navItems = role === "ADMIN" ? adminNav : role === "PROFESSOR" ? professorNav : studentNav;
   const initial = userName.charAt(0).toUpperCase();
@@ -101,8 +102,13 @@ export function Sidebar({ role, userName, onClose, badges }: SidebarProps) {
       {/* Footer */}
       <div className="border-t border-slate-800 p-3 space-y-0.5">
         <div className="flex items-center gap-2.5 rounded-lg px-3 py-2">
-          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-slate-700">
-            <span className="text-xs font-bold text-slate-200">{initial}</span>
+          <div className="relative flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-slate-700 overflow-hidden">
+            {avatarUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={avatarUrl} alt={userName} className="h-full w-full object-cover" />
+            ) : (
+              <span className="text-xs font-bold text-slate-200">{initial}</span>
+            )}
           </div>
           <div className="min-w-0">
             <p className="text-xs font-medium text-slate-200 truncate">{userName}</p>
