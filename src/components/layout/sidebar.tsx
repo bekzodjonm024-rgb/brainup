@@ -62,7 +62,7 @@ export function Sidebar({ role, userName, onClose, badges }: SidebarProps) {
     <aside className="flex h-screen w-64 flex-col bg-slate-950">
       {/* Logo */}
       <div className="flex h-16 items-center gap-2.5 border-b border-slate-800 px-5">
-        <Image src="/brainup-logo-transparent.png" alt="BrainUP" width={36} height={36} className="h-9 w-9 object-contain" unoptimized />
+        <Image src="/brainup-logo-transparent.png" alt="BrainUP" width={36} height={36} className="h-9 w-9 object-contain brightness-0 invert" unoptimized />
         <span className="text-lg font-bold text-white">BrainUP</span>
       </div>
 
