@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ContentStatusBadge } from "@/components/shared/content-status-badge";
 import Link from "next/link";
-import { ArrowLeft, Plus, FileText, Link as LinkIcon, Video } from "lucide-react";
+import { ArrowLeft, Plus, FileText, Link as LinkIcon, Video, HelpCircle } from "lucide-react";
 import { ContentType } from "@/generated/prisma";
 import { AddContentDialog } from "./add-content-dialog";
 import { ContentActions } from "./content-actions";
@@ -50,10 +50,15 @@ export default async function TopicDetailPage({
     <div className="flex flex-col flex-1 overflow-auto">
       <Header title={topic.title} description={topic.course.title} />
       <main className="flex-1 p-6 space-y-5">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between">
           <Link href={`/professor/courses/${courseId}`}>
             <Button variant="ghost" size="sm">
               <ArrowLeft className="h-4 w-4 mr-1" /> {topic.course.title}
+            </Button>
+          </Link>
+          <Link href={`/professor/courses/${courseId}/topics/${topicId}/questions`}>
+            <Button variant="outline" size="sm">
+              <HelpCircle className="h-4 w-4 mr-1" /> Savollar banki
             </Button>
           </Link>
         </div>

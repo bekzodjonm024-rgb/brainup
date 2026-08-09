@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import {
   Plus, ArrowLeft, BookOpen, Users, LayoutList,
-  GripVertical, ChevronRight, CheckCircle2, Circle, BarChart3
+  GripVertical, ChevronRight, CheckCircle2, Circle, BarChart3, UserCheck
 } from "lucide-react";
 
 export default async function CourseDetailPage({
@@ -54,11 +54,18 @@ export default async function CourseDetailPage({
               <ArrowLeft className="h-4 w-4 mr-1" /> Kurslar
             </Button>
           </Link>
-          <Link href={`/professor/courses/${courseId}/analytics`}>
-            <Button variant="outline" size="sm">
-              <BarChart3 className="h-4 w-4 mr-1" /> Analitika
-            </Button>
-          </Link>
+          <div className="flex gap-2">
+            <Link href={`/professor/courses/${courseId}/students`}>
+              <Button variant="outline" size="sm">
+                <UserCheck className="h-4 w-4 mr-1" /> Talabalar
+              </Button>
+            </Link>
+            <Link href={`/professor/courses/${courseId}/analytics`}>
+              <Button variant="outline" size="sm">
+                <BarChart3 className="h-4 w-4 mr-1" /> Analitika
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* Stats */}
