@@ -16,7 +16,7 @@ async function main() {
     create: {
       id: "ndpi-namangan",
       name: "Namangan davlat pedagogika instituti",
-      shortName: "NDPI",
+      shortName: "NamDPI",
       city: "Namangan",
     },
   });

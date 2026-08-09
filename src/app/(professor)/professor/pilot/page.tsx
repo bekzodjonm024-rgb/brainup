@@ -176,7 +176,7 @@ export default async function PilotPage() {
 
   return (
     <div className="flex flex-col flex-1 overflow-auto">
-      <Header title="Pilot Monitoring" description="NDPI tadqiqot va pilot nazorat paneli" />
+      <Header title="Pilot Monitoring" description="NamDPI tadqiqot va pilot nazorat paneli" />
 
       <main className="flex-1 p-6 space-y-6 max-w-5xl">
 

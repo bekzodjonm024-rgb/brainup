@@ -36,7 +36,7 @@ export function enrollmentWelcome({
         Kursni boshlash →
       </a>
       <p style="margin:32px 0 0;font-size:13px;color:#94a3b8">
-        BrainUP — NDPI Namangan
+        BrainUP — NamDPI
       </p>
     </div>
   </div>
@@ -87,7 +87,7 @@ export function retrievalReminder({
          style="display:inline-block;background:#7c3aed;color:#fff;text-decoration:none;padding:12px 24px;border-radius:8px;font-size:15px;font-weight:600">
         Takrorlashni boshlash →
       </a>
-      <p style="margin:32px 0 0;font-size:13px;color:#94a3b8">BrainUP — NDPI Namangan</p>
+      <p style="margin:32px 0 0;font-size:13px;color:#94a3b8">BrainUP — NamDPI</p>
     </div>
   </div>
 </body>

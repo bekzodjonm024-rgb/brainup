@@ -47,7 +47,7 @@ export default async function LandingPage() {
         <div className="relative mx-auto max-w-5xl px-4 py-24 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-sm text-blue-300 mb-8">
             <Brain className="h-3.5 w-3.5" />
-            NDPI Namangan bilan hamkorlikda
+            NamDPI bilan hamkorlikda
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
             Ko&apos;proq emas,{" "}
@@ -193,7 +193,7 @@ export default async function LandingPage() {
             Bugundan boshlang
           </h2>
           <p className="text-blue-100 mb-8">
-            Namangan DPI pilotiga qo&apos;shiling. Ro&apos;yxatdan o&apos;tish bepul.
+            NamDPI pilotiga qo&apos;shiling. Ro&apos;yxatdan o&apos;tish bepul.
           </p>
           <Link href="/register">
             <Button size="lg" className="bg-white text-blue-700 hover:bg-blue-50 h-12 px-10 text-base font-semibold shadow-lg">
