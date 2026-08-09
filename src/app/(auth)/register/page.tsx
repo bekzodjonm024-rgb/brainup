@@ -64,7 +64,11 @@ export default function RegisterPage() {
     setLoading(false);
 
     if (!res.ok) {
-      setErrors(data.error ?? {});
+      if (typeof data.error === "object" && data.error !== null) {
+        setErrors(data.error);
+      } else {
+        setErrors({ _form: [data.error ?? "Xatolik yuz berdi. Qayta urinib ko'ring."] });
+      }
       return;
     }
 
@@ -93,6 +97,11 @@ export default function RegisterPage() {
           </CardHeader>
           <form onSubmit={handleSubmit}>
             <CardContent className="space-y-4">
+              {errors._form?.[0] && (
+                <div className="rounded-md bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+                  {errors._form[0]}
+                </div>
+              )}
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="firstName">Ism</Label>
