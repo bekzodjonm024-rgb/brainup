@@ -23,7 +23,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           },
         });
 
-        if (!user) return null;
+        if (!user || !user.isActive) return null;
 
         const passwordMatch = await compare(password, user.passwordHash);
         if (!passwordMatch) return null;

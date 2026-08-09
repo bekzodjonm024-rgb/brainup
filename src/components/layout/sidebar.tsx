@@ -11,6 +11,8 @@ import {
   GraduationCap,
   LogOut,
   FlaskConical,
+  Users,
+  UserCog,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { signOut } from "next-auth/react";
@@ -36,6 +38,12 @@ const professorNav: NavItem[] = [
   { href: "/professor/pilot", label: "Pilot", icon: FlaskConical },
 ];
 
+const adminNav: NavItem[] = [
+  { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/admin/users", label: "Foydalanuvchilar", icon: Users },
+  { href: "/admin/professors", label: "Professorlar", icon: UserCog },
+];
+
 interface SidebarProps {
   role: "STUDENT" | "PROFESSOR" | "ADMIN";
   userName: string;
@@ -44,7 +52,7 @@ interface SidebarProps {
 
 export function Sidebar({ role, userName, onClose }: SidebarProps) {
   const pathname = usePathname();
-  const navItems = role === "PROFESSOR" ? professorNav : studentNav;
+  const navItems = role === "ADMIN" ? adminNav : role === "PROFESSOR" ? professorNav : studentNav;
 
   return (
     <aside className="flex h-screen w-64 flex-col border-r border-slate-200 bg-white">
