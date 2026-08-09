@@ -1,4 +1,5 @@
 import { auth } from "@/lib/auth";
+import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { SidebarLayout } from "@/components/layout/sidebar-layout";
 
@@ -10,7 +11,14 @@ export default async function ProfessorLayout({ children }: { children: React.Re
     redirect("/dashboard");
   }
 
-  const userName = session.user.name ?? session.user.email ?? "Professor";
+  let userName = session.user.email ?? "Professor";
+  if (session.user.profileId) {
+    const professor = await db.professor.findUnique({
+      where: { id: session.user.profileId },
+      select: { firstName: true, lastName: true },
+    });
+    if (professor) userName = `${professor.firstName} ${professor.lastName}`;
+  }
 
   return (
     <SidebarLayout role="PROFESSOR" userName={userName}>

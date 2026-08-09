@@ -9,17 +9,25 @@ export default async function StudentLayout({ children }: { children: React.Reac
   if (!session) redirect("/login");
   if (session.user.role === "PROFESSOR") redirect("/professor/dashboard");
 
-  const userName = session.user.name ?? session.user.email ?? "Talaba";
-
+  let userName = session.user.email ?? "Talaba";
   let pendingRetrievals = 0;
+
   if (session.user.profileId) {
-    pendingRetrievals = await db.retrievalRecord.count({
-      where: {
-        studentId: session.user.profileId,
-        status: "PENDING",
-        dueAt: { lte: new Date() },
-      },
-    });
+    const [student, retrievals] = await Promise.all([
+      db.student.findUnique({
+        where: { id: session.user.profileId },
+        select: { firstName: true, lastName: true },
+      }),
+      db.retrievalRecord.count({
+        where: {
+          studentId: session.user.profileId,
+          status: "PENDING",
+          dueAt: { lte: new Date() },
+        },
+      }),
+    ]);
+    if (student) userName = `${student.firstName} ${student.lastName}`;
+    pendingRetrievals = retrievals;
   }
 
   return (
