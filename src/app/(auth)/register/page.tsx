@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { GraduationCap, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -90,6 +91,10 @@ export default function RegisterPage() {
             <span className="text-2xl font-bold text-white">BrainUP</span>
           </div>
           <p className="text-sm text-blue-300">Adaptiv o&apos;qish platformasi</p>
+          <div className="flex items-center gap-2 mt-1 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5">
+            <Image src="/namdpi-logo.jpg" alt="NamDPI" width={20} height={20} className="rounded-full" />
+            <span className="text-xs text-slate-400">NamDPI hamkorligida</span>
+          </div>
         </div>
 
         <Card className="border-0 shadow-2xl ring-1 ring-white/10">

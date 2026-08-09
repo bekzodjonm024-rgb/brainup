@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { LoginForm } from "./login-form";
+import Image from "next/image";
 import { GraduationCap, Brain, TrendingUp, RefreshCw } from "lucide-react";
 
 export default function LoginPage() {
@@ -21,18 +22,19 @@ export default function LoginPage() {
           <LoginForm />
         </Suspense>
 
-        {/* Features */}
-        <div className="mt-8 grid grid-cols-3 gap-3 text-center">
-          {[
-            { icon: <Brain className="h-4 w-4" />, label: "Kognitiv profil" },
-            { icon: <TrendingUp className="h-4 w-4" />, label: "Adaptiv darslar" },
-            { icon: <RefreshCw className="h-4 w-4" />, label: "Spaced repetition" },
-          ].map((f) => (
-            <div key={f.label} className="flex flex-col items-center gap-1.5 text-slate-400">
-              {f.icon}
-              <span className="text-xs">{f.label}</span>
-            </div>
-          ))}
+        {/* Partner badge */}
+        <div className="mt-8 flex items-center justify-center gap-2.5 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+          <Image
+            src="/namdpi-logo.jpg"
+            alt="NamDPI"
+            width={32}
+            height={32}
+            className="rounded-full ring-1 ring-white/20"
+          />
+          <div>
+            <p className="text-xs font-medium text-slate-300">NamDPI hamkorligida</p>
+            <p className="text-[11px] text-slate-500">Namangan Davlat Pedagogika Instituti</p>
+          </div>
         </div>
       </div>
     </div>
