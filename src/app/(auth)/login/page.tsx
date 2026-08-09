@@ -1,3 +1,6 @@
+import type { Metadata } from "next";
+export const metadata: Metadata = { title: "Kirish" };
+
 import { Suspense } from "react";
 import { LoginForm } from "./login-form";
 import Image from "next/image";

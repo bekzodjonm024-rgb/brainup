@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { Sidebar } from "./sidebar";
-import { Menu, GraduationCap } from "lucide-react";
+import { Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { BrainUPLogo } from "@/components/ui/brainup-logo";
 
 interface SidebarLayoutProps {
   role: "STUDENT" | "PROFESSOR" | "ADMIN";
@@ -52,9 +53,7 @@ export function SidebarLayout({ role, userName, children, badges }: SidebarLayou
             <Menu className="h-5 w-5" />
           </button>
           <div className="flex items-center gap-2">
-            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-blue-500">
-              <GraduationCap className="h-4 w-4 text-white" />
-            </div>
+            <BrainUPLogo size="sm" href="/" />
             <span className="font-bold text-white">BrainUP</span>
           </div>
         </div>

@@ -8,8 +8,28 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "BrainUP — Adaptiv O'quv Platformasi",
-  description: "BrainUP — universitet talabalari uchun individual va adaptiv ta'lim platformasi.",
+  title: {
+    default: "BrainUP — Adaptiv o'qish platformasi",
+    template: "%s | BrainUP",
+  },
+  description:
+    "Kognitiv baholash va spaced repetition asosida shaxsiy ta'lim yo'nalishi. NamDPI hamkorligida.",
+  keywords: ["adaptiv o'qish", "edtech", "NamDPI", "talabalar", "kognitiv baholash"],
+  metadataBase: new URL("https://brainup-ndpi.vercel.app"),
+  openGraph: {
+    title: "BrainUP — Adaptiv o'qish platformasi",
+    description:
+      "Kognitiv baholash va spaced repetition asosida shaxsiy ta'lim yo'nalishi. NamDPI hamkorligida.",
+    url: "https://brainup-ndpi.vercel.app",
+    siteName: "BrainUP",
+    locale: "uz_UZ",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "BrainUP — Adaptiv o'qish platformasi",
+    description: "Kognitiv baholash va spaced repetition asosida shaxsiy ta'lim yo'nalishi.",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
