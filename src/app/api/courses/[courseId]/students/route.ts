@@ -114,14 +114,11 @@ export async function POST(
     return NextResponse.json({ error: "Talaba allaqachon yozilgan" }, { status: 409 });
   }
 
-  const [enrollment, course, professor] = await Promise.all([
+  const [enrollment, courseDetails, professor] = await Promise.all([
     db.enrollment.create({ data: { studentId: user.student.id, courseId } }),
     db.course.findUnique({
       where: { id: courseId },
-      select: {
-        title: true,
-        professor: { select: { firstName: true, lastName: true } },
-      },
+      select: { title: true },
     }),
     db.professor.findUnique({
       where: { id: session.user.profileId },
@@ -129,7 +126,7 @@ export async function POST(
     }),
   ]);
 
-  if (resend && course) {
+  if (resend && courseDetails) {
     const appUrl = process.env.NEXTAUTH_URL ?? "https://brainup-ndpi.vercel.app";
     const profName = professor
       ? `${professor.firstName} ${professor.lastName}`
@@ -140,7 +137,7 @@ export async function POST(
       to: user.email,
       ...enrollmentWelcome({
         studentName: String(studentName),
-        courseTitle: course.title,
+        courseTitle: courseDetails.title,
         professorName: profName,
         loginUrl: appUrl,
       }),
