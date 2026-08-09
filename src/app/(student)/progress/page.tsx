@@ -33,32 +33,16 @@ export default async function ProgressPage() {
 
   const student = await db.student.findUnique({
     where: { id: studentId },
-    select: {
-      firstName: true,
-      lastName: true,
-      groupName: true,
-      yearLevel: true,
+    include: {
       cognitiveProfile: true,
       enrollments: {
-        select: {
-          enrolledAt: true,
+        include: {
           course: {
-            select: {
-              id: true,
-              title: true,
+            include: {
               topics: {
-                select: {
-                  id: true,
-                  title: true,
-                  orderIndex: true,
+                include: {
                   learnerKnowledge: {
                     where: { studentId },
-                    select: {
-                      masteryScore: true,
-                      recentAccuracy: true,
-                      attempts: true,
-                      lastStudiedAt: true,
-                    },
                     take: 1,
                   },
                 },
@@ -68,10 +52,6 @@ export default async function ProgressPage() {
           },
         },
         orderBy: { enrolledAt: "asc" },
-      },
-      attempts: {
-        select: { isCorrect: true },
-        take: 1000,
       },
       retrievalRecords: {
         select: { status: true, dueAt: true },
@@ -89,8 +69,8 @@ export default async function ProgressPage() {
     : 0;
   const masteredTopics = allKnowledge.filter((k) => k.masteryScore >= 0.85).length;
 
-  const totalAttempts = student.attempts.length;
-  const correctAttempts = student.attempts.filter((a) => a.isCorrect).length;
+  const totalAttempts = await db.attempt.count({ where: { studentId } });
+  const correctAttempts = await db.attempt.count({ where: { studentId, isCorrect: true } });
   const accuracy = totalAttempts > 0 ? correctAttempts / totalAttempts : 0;
 
   const retrievalDone = student.retrievalRecords.filter((r) => r.status === "COMPLETED").length;
@@ -167,17 +147,20 @@ export default async function ProgressPage() {
                         <div>
                           <CardTitle className="text-base">{enrollment.course.title}</CardTitle>
                           <p className="text-xs text-slate-500 mt-0.5">
-                            {mastered}/{topics.length} mavzu · O'rtacha {Math.round(courseMastery * 100)}%
+                            {mastered}/{topics.length} mavzu · O&apos;rtacha {Math.round(courseMastery * 100)}%
                           </p>
                         </div>
                         <Badge
                           variant="secondary"
-                          className={`text-xs shrink-0 ${masteryColor(courseMastery)}`}
+                          className={`text-xs shrink-0 ${masteryColor(courseMastery > 0 ? courseMastery : null)}`}
                         >
-                          {masteryLabel(courseMastery)}
+                          {masteryLabel(started > 0 ? courseMastery : null)}
                         </Badge>
                       </div>
-                      <Progress value={topics.length > 0 ? (mastered / topics.length) * 100 : 0} className="h-1.5 mt-2" />
+                      <Progress
+                        value={topics.length > 0 ? (mastered / topics.length) * 100 : 0}
+                        className="h-1.5 mt-2"
+                      />
                     </CardHeader>
                     <CardContent className="pt-0">
                       <div className="space-y-1.5">
@@ -198,9 +181,9 @@ export default async function ProgressPage() {
                                   <span className="text-xs text-slate-400 shrink-0 hidden sm:block">
                                     {k.attempts} urinish
                                   </span>
-                                  {k.lastStudiedAt && (
+                                  {k.lastPracticedAt && (
                                     <span className="text-xs text-slate-400 shrink-0 hidden md:block">
-                                      {formatDate(k.lastStudiedAt)}
+                                      {formatDate(k.lastPracticedAt)}
                                     </span>
                                   )}
                                 </>
@@ -242,7 +225,7 @@ export default async function ProgressPage() {
                 {retrievalPending > 0 && (
                   <div className="flex items-center gap-1.5 text-xs text-orange-600 bg-orange-50 rounded-lg p-2">
                     <Clock className="h-3.5 w-3.5 shrink-0" />
-                    {retrievalPending} ta takrorlash muddati o'tgan
+                    {retrievalPending} ta takrorlash muddati o&apos;tgan
                   </div>
                 )}
               </CardContent>

@@ -31,53 +31,47 @@ export async function GET(
 
   const student = await db.student.findUnique({
     where: { id: studentId },
-    select: {
-      firstName: true,
-      lastName: true,
-      groupName: true,
-      yearLevel: true,
+    include: {
       cognitiveProfile: true,
+      user: { select: { email: true } },
     },
   });
   if (!student) return NextResponse.json({ error: "Student not found" }, { status: 404 });
 
   const topics = await db.topic.findMany({
     where: { courseId },
-    select: {
-      id: true,
-      title: true,
-      orderIndex: true,
+    include: {
       learnerKnowledge: {
         where: { studentId },
-        select: {
-          masteryScore: true,
-          recentAccuracy: true,
-          attempts: true,
-          lastStudiedAt: true,
-        },
         take: 1,
       },
     },
     orderBy: { orderIndex: "asc" },
   });
 
-  const attempts = await db.practiceAttempt.findMany({
+  const totalAttempts = await db.attempt.count({
     where: {
       studentId,
       question: { topic: { courseId } },
     },
-    select: { isCorrect: true, createdAt: true },
-    orderBy: { createdAt: "desc" },
-    take: 200,
   });
-
-  const totalAttempts = attempts.length;
-  const correctAttempts = attempts.filter((a) => a.isCorrect).length;
+  const correctAttempts = await db.attempt.count({
+    where: {
+      studentId,
+      isCorrect: true,
+      question: { topic: { courseId } },
+    },
+  });
 
   return NextResponse.json({
     student: {
-      ...student,
+      firstName: student.firstName,
+      lastName: student.lastName,
+      groupName: student.groupName,
+      yearLevel: student.yearLevel,
+      email: student.user.email,
       enrolledAt: enrollment.enrolledAt,
+      cognitiveProfile: student.cognitiveProfile,
     },
     course,
     topics: topics.map((t) => ({
@@ -87,7 +81,7 @@ export async function GET(
       mastery: t.learnerKnowledge[0]?.masteryScore ?? null,
       accuracy: t.learnerKnowledge[0]?.recentAccuracy ?? null,
       attempts: t.learnerKnowledge[0]?.attempts ?? 0,
-      lastStudiedAt: t.learnerKnowledge[0]?.lastStudiedAt ?? null,
+      lastPracticedAt: t.learnerKnowledge[0]?.lastPracticedAt ?? null,
     })),
     stats: {
       totalAttempts,

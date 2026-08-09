@@ -44,49 +44,30 @@ export default async function StudentReportPage({
 
   const student = await db.student.findUnique({
     where: { id: studentId },
-    select: {
-      firstName: true,
-      lastName: true,
-      groupName: true,
-      yearLevel: true,
-      user: { select: { email: true } },
+    include: {
       cognitiveProfile: true,
+      user: { select: { email: true } },
     },
   });
   if (!student) notFound();
 
   const topics = await db.topic.findMany({
     where: { courseId },
-    select: {
-      id: true,
-      title: true,
-      orderIndex: true,
+    include: {
       learnerKnowledge: {
         where: { studentId },
-        select: {
-          masteryScore: true,
-          recentAccuracy: true,
-          attempts: true,
-          lastStudiedAt: true,
-        },
         take: 1,
       },
     },
     orderBy: { orderIndex: "asc" },
   });
 
-  const attempts = await db.practiceAttempt.findMany({
-    where: {
-      studentId,
-      question: { topic: { courseId } },
-    },
-    select: { isCorrect: true, createdAt: true },
-    orderBy: { createdAt: "desc" },
-    take: 300,
+  const totalAttempts = await db.attempt.count({
+    where: { studentId, question: { topic: { courseId } } },
   });
-
-  const totalAttempts = attempts.length;
-  const correctAttempts = attempts.filter((a) => a.isCorrect).length;
+  const correctAttempts = await db.attempt.count({
+    where: { studentId, isCorrect: true, question: { topic: { courseId } } },
+  });
   const accuracy = totalAttempts > 0 ? correctAttempts / totalAttempts : 0;
   const topicsStarted = topics.filter((t) => t.learnerKnowledge.length > 0).length;
   const topicsMastered = topics.filter(
@@ -192,10 +173,10 @@ export default async function StudentReportPage({
                             <span className="text-xs text-slate-400 hidden sm:block shrink-0">
                               {k.attempts} urinish
                             </span>
-                            {k.lastStudiedAt && (
+                            {k.lastPracticedAt && (
                               <span className="text-xs text-slate-400 hidden md:block shrink-0">
                                 <Clock className="inline h-3 w-3 mr-0.5" />
-                                {formatDate(k.lastStudiedAt)}
+                                {formatDate(k.lastPracticedAt)}
                               </span>
                             )}
                           </>

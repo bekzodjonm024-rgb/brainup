@@ -10,32 +10,16 @@ export async function GET() {
 
   const student = await db.student.findUnique({
     where: { id: studentId },
-    select: {
-      firstName: true,
-      lastName: true,
-      groupName: true,
-      yearLevel: true,
+    include: {
       cognitiveProfile: true,
       enrollments: {
-        select: {
-          enrolledAt: true,
+        include: {
           course: {
-            select: {
-              id: true,
-              title: true,
+            include: {
               topics: {
-                select: {
-                  id: true,
-                  title: true,
-                  orderIndex: true,
+                include: {
                   learnerKnowledge: {
                     where: { studentId },
-                    select: {
-                      masteryScore: true,
-                      recentAccuracy: true,
-                      attempts: true,
-                      lastStudiedAt: true,
-                    },
                     take: 1,
                   },
                 },
@@ -46,21 +30,16 @@ export async function GET() {
         },
         orderBy: { enrolledAt: "asc" },
       },
-      attempts: {
-        select: { isCorrect: true, createdAt: true },
-        orderBy: { createdAt: "desc" },
-        take: 500,
-      },
       retrievalRecords: {
-        select: { status: true, dueAt: true, completedAt: true },
+        select: { status: true, dueAt: true },
       },
     },
   });
 
   if (!student) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
-  const totalAttempts = student.attempts.length;
-  const correctAttempts = student.attempts.filter((a) => a.isCorrect).length;
+  const totalAttempts = await db.attempt.count({ where: { studentId } });
+  const correctAttempts = await db.attempt.count({ where: { studentId, isCorrect: true } });
   const accuracy = totalAttempts > 0 ? correctAttempts / totalAttempts : 0;
 
   const retrievalDone = student.retrievalRecords.filter((r) => r.status === "COMPLETED").length;
@@ -109,7 +88,7 @@ export async function GET() {
         mastery: t.learnerKnowledge[0]?.masteryScore ?? null,
         accuracy: t.learnerKnowledge[0]?.recentAccuracy ?? null,
         attempts: t.learnerKnowledge[0]?.attempts ?? 0,
-        lastStudiedAt: t.learnerKnowledge[0]?.lastStudiedAt ?? null,
+        lastPracticedAt: t.learnerKnowledge[0]?.lastPracticedAt ?? null,
       })),
     })),
   });
