@@ -53,12 +53,17 @@ export function ReactionTimeTask({ item, onComplete, disabled }: Props) {
     }
   }
 
-  function handleSubmit() {
-    onComplete(
-      { taskType: "REACTION_TIME", category: "PROCESSING_SPEED", targetShown: true, responded: reactionTime !== null, reactionTimeMs: reactionTime },
-      reactionTime ?? undefined
-    );
-  }
+  // Auto-advance after showing result (1.2s)
+  useEffect(() => {
+    if (phase !== "done") return;
+    const t = setTimeout(() => {
+      onComplete(
+        { taskType: "REACTION_TIME", category: "PROCESSING_SPEED", targetShown: true, responded: reactionTime !== null, reactionTimeMs: reactionTime },
+        reactionTime ?? undefined
+      );
+    }, 1200);
+    return () => clearTimeout(t);
+  }, [phase, reactionTime, onComplete]);
 
   return (
     <Card>
@@ -82,10 +87,10 @@ export function ReactionTimeTask({ item, onComplete, disabled }: Props) {
 
         {phase === "stimulus" && (
           <div
-            className="mx-auto h-32 w-32 rounded-full bg-emerald-500 flex items-center justify-center cursor-pointer select-none animate-pulse"
+            className="mx-auto h-32 w-32 rounded-full bg-emerald-500 flex items-center justify-center cursor-pointer select-none"
             onClick={handleClick}
           >
-            <span className="text-white font-bold">BOSING!</span>
+            <span className="text-white font-bold text-lg">BOSING!</span>
           </div>
         )}
 
@@ -110,9 +115,6 @@ export function ReactionTimeTask({ item, onComplete, disabled }: Props) {
                 <span className="text-slate-400 text-sm">Vaqt o'tdi</span>
               )}
             </div>
-            <Button onClick={handleSubmit} disabled={disabled}>
-              Davom etish →
-            </Button>
           </div>
         )}
       </CardContent>

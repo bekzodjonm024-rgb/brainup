@@ -127,12 +127,7 @@ export function AttentionCPTTask({ item, onComplete, disabled }: Props) {
             onClick={handleResponse}
           >
             {showLetter && (
-              <span className={cn(
-                "text-6xl font-bold",
-                data.letters[currentLetterIdx] === data.targetLetter
-                  ? "text-emerald-400"
-                  : "text-white"
-              )}>
+              <span className="text-6xl font-bold text-white">
                 {data.letters[currentLetterIdx]}
               </span>
             )}
