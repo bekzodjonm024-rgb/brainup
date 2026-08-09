@@ -84,9 +84,7 @@ export default function RegisterPage() {
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 p-4">
       <div className="w-full max-w-lg space-y-6">
         <div className="flex flex-col items-center gap-2">
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-xl">
-            <Image src="/brainup-logo.png" alt="BrainUP" width={56} height={56} className="h-14 w-14 object-contain" unoptimized />
-          </div>
+          <Image src="/brainup-logo-transparent.png" alt="BrainUP" width={72} height={72} className="h-16 w-16 object-contain" unoptimized />
           <h1 className="text-2xl font-bold text-white">BrainUP</h1>
           <p className="text-sm text-blue-300">Adaptiv o&apos;qish platformasi</p>
           <div className="flex items-center gap-2 mt-1 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5">

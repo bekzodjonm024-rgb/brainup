@@ -20,7 +20,7 @@ export default async function LandingPage() {
       <nav className="sticky top-0 z-10 border-b border-slate-100 bg-white/90 backdrop-blur-sm">
         <div className="mx-auto max-w-5xl px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Image src="/brainup-logo.png" alt="BrainUP" width={36} height={36} className="h-9 w-9 object-contain" unoptimized />
+            <Image src="/brainup-logo-transparent.png" alt="BrainUP" width={36} height={36} className="h-9 w-9 object-contain" unoptimized />
             <span className="font-bold text-slate-900 text-lg tracking-tight">BrainUP</span>
           </div>
           <div className="flex items-center gap-2">
@@ -227,7 +227,7 @@ export default async function LandingPage() {
         <div className="mx-auto max-w-5xl px-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-2">
-              <Image src="/brainup-logo.png" alt="BrainUP" width={28} height={28} className="h-7 w-7 object-contain" unoptimized />
+              <Image src="/brainup-logo-transparent.png" alt="BrainUP" width={28} height={28} className="h-7 w-7 object-contain" unoptimized />
               <span className="font-semibold text-slate-600">BrainUP</span>
             </div>
 

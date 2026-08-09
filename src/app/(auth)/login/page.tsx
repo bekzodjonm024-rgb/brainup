@@ -10,9 +10,7 @@ export default function LoginPage() {
         {/* Brand */}
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-white shadow-xl">
-              <Image src="/brainup-logo.png" alt="BrainUP" width={68} height={68} className="h-16 w-16 object-contain" unoptimized />
-            </div>
+            <Image src="/brainup-logo-transparent.png" alt="BrainUP" width={80} height={80} className="h-20 w-20 object-contain" unoptimized />
           </div>
           <h1 className="text-2xl font-bold text-white mb-1">BrainUP</h1>
           <p className="text-blue-300 text-sm">Adaptiv o&apos;qish platformasi</p>
