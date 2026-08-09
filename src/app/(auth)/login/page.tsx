@@ -31,6 +31,7 @@ export default function LoginPage() {
               width={38}
               height={38}
               className="rounded-full"
+              unoptimized
             />
           </div>
           <div>

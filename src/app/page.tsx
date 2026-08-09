@@ -54,6 +54,7 @@ export default async function LandingPage() {
                 width={26}
                 height={26}
                 className="rounded-full"
+                unoptimized
               />
             </div>
             NamDPI bilan hamkorlikda
@@ -206,6 +207,7 @@ export default async function LandingPage() {
                 width={72}
                 height={72}
                 className="rounded-full"
+                unoptimized
               />
             </div>
           </div>
@@ -241,6 +243,7 @@ export default async function LandingPage() {
                 width={44}
                 height={44}
                 className="rounded-full object-cover"
+                unoptimized
               />
               <div>
                 <p className="text-xs font-semibold text-slate-700">NamDPI</p>
