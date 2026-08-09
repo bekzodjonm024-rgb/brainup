@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
@@ -8,7 +9,6 @@ import {
   Brain,
   BarChart3,
   RefreshCw,
-  GraduationCap,
   LogOut,
   FlaskConical,
   Users,
@@ -62,8 +62,8 @@ export function Sidebar({ role, userName, onClose, badges }: SidebarProps) {
     <aside className="flex h-screen w-64 flex-col bg-slate-950">
       {/* Logo */}
       <div className="flex h-16 items-center gap-2.5 border-b border-slate-800 px-5">
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-500">
-          <GraduationCap className="h-5 w-5 text-white" />
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white shadow-sm">
+          <Image src="/brainup-logo.png" alt="BrainUP" width={32} height={32} className="h-8 w-8 object-contain" unoptimized />
         </div>
         <span className="text-lg font-bold text-white">BrainUP</span>
       </div>

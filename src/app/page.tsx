@@ -2,7 +2,7 @@ import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { GraduationCap, Brain, TrendingUp, RefreshCw, ArrowRight, CheckCircle2, Users, BookOpen } from "lucide-react";
+import { Brain, TrendingUp, RefreshCw, ArrowRight, CheckCircle2, Users, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default async function LandingPage() {
@@ -19,10 +19,8 @@ export default async function LandingPage() {
       {/* Nav */}
       <nav className="sticky top-0 z-10 border-b border-slate-100 bg-white/90 backdrop-blur-sm">
         <div className="mx-auto max-w-5xl px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600">
-              <GraduationCap className="h-5 w-5 text-white" />
-            </div>
+          <div className="flex items-center gap-2">
+            <Image src="/brainup-logo.png" alt="BrainUP" width={36} height={36} className="h-9 w-9 object-contain" unoptimized />
             <span className="font-bold text-slate-900 text-lg tracking-tight">BrainUP</span>
           </div>
           <div className="flex items-center gap-2">
@@ -229,9 +227,7 @@ export default async function LandingPage() {
         <div className="mx-auto max-w-5xl px-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-2">
-              <div className="flex h-6 w-6 items-center justify-center rounded-md bg-blue-600">
-                <GraduationCap className="h-4 w-4 text-white" />
-              </div>
+              <Image src="/brainup-logo.png" alt="BrainUP" width={28} height={28} className="h-7 w-7 object-contain" unoptimized />
               <span className="font-semibold text-slate-600">BrainUP</span>
             </div>
 

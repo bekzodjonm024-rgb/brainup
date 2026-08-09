@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { LoginForm } from "./login-form";
 import Image from "next/image";
-import { GraduationCap, Brain, TrendingUp, RefreshCw } from "lucide-react";
+import { Brain, TrendingUp, RefreshCw } from "lucide-react";
 
 export default function LoginPage() {
   return (
@@ -9,12 +9,12 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         {/* Brand */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2.5 mb-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500 shadow-lg shadow-blue-500/30">
-              <GraduationCap className="h-6 w-6 text-white" />
+          <div className="flex justify-center mb-4">
+            <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-white shadow-xl">
+              <Image src="/brainup-logo.png" alt="BrainUP" width={68} height={68} className="h-16 w-16 object-contain" unoptimized />
             </div>
-            <span className="text-2xl font-bold text-white">BrainUP</span>
           </div>
+          <h1 className="text-2xl font-bold text-white mb-1">BrainUP</h1>
           <p className="text-blue-300 text-sm">Adaptiv o&apos;qish platformasi</p>
         </div>
 
