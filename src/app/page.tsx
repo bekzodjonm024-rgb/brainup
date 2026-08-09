@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Brain, TrendingUp, RefreshCw, ArrowRight, CheckCircle2, Users, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BrainUPLogo } from "@/components/ui/brainup-logo";
 
 export default async function LandingPage() {
   const session = await auth();
@@ -19,8 +20,8 @@ export default async function LandingPage() {
       {/* Nav */}
       <nav className="sticky top-0 z-10 border-b border-slate-100 bg-white/90 backdrop-blur-sm">
         <div className="mx-auto max-w-5xl px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Image src="/brainup-logo-transparent.png" alt="BrainUP" width={36} height={36} className="h-9 w-9 object-contain" unoptimized />
+          <div className="flex items-center gap-2.5">
+            <BrainUPLogo size="md" href="/" />
             <span className="font-bold text-slate-900 text-lg tracking-tight">BrainUP</span>
           </div>
           <div className="flex items-center gap-2">
@@ -227,7 +228,7 @@ export default async function LandingPage() {
         <div className="mx-auto max-w-5xl px-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-2">
-              <Image src="/brainup-logo-transparent.png" alt="BrainUP" width={28} height={28} className="h-7 w-7 object-contain" unoptimized />
+              <BrainUPLogo size="sm" href="/" />
               <span className="font-semibold text-slate-600">BrainUP</span>
             </div>
 

@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
+import { BrainUPLogo } from "@/components/ui/brainup-logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -84,7 +85,7 @@ export default function RegisterPage() {
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 p-4">
       <div className="w-full max-w-lg space-y-6">
         <div className="flex flex-col items-center gap-2">
-          <Image src="/brainup-logo-transparent.png" alt="BrainUP" width={72} height={72} className="h-16 w-16 object-contain brightness-0 invert" unoptimized />
+          <BrainUPLogo size="lg" />
           <h1 className="text-2xl font-bold text-white">BrainUP</h1>
           <p className="text-sm text-blue-300">Adaptiv o&apos;qish platformasi</p>
           <div className="flex items-center gap-2 mt-1 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5">
