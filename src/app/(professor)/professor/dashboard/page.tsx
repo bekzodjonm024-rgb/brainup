@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import Link from "next/link";
 import { BookOpen, Users, TrendingUp, AlertTriangle, ArrowRight, Plus, BarChart3 } from "lucide-react";
+import { AvatarUpload } from "@/components/shared/avatar-upload";
 
 export default async function ProfessorDashboard() {
   const session = await auth();
@@ -19,6 +20,7 @@ export default async function ProfessorDashboard() {
   const professor = await db.professor.findUnique({
     where: { id: session.user.profileId },
     include: {
+      user: { select: { avatarUrl: true } },
       courses: {
         where: { isActive: true },
         include: {
@@ -72,6 +74,19 @@ export default async function ProfessorDashboard() {
       />
 
       <main className="flex-1 p-6 space-y-6">
+        {/* Professor profile card */}
+        <div className="flex items-center gap-4">
+          <AvatarUpload
+            currentUrl={professor.user.avatarUrl}
+            initials={`${professor.firstName[0]}${professor.lastName[0]}`}
+            size="md"
+          />
+          <div>
+            <p className="font-semibold text-slate-900">{professor.firstName} {professor.lastName}</p>
+            {professor.title && <p className="text-sm text-slate-500">{professor.title}</p>}
+          </div>
+        </div>
+
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           <StatCard icon={<BookOpen className="h-5 w-5 text-blue-600" />} label="Kurslar" value={totalCourses} bg="bg-blue-50" />

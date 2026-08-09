@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { CognitiveProfileCard } from "@/components/shared/cognitive-profile-card";
 import { MasteryBadge } from "@/components/shared/mastery-badge";
+import { AvatarUpload } from "@/components/shared/avatar-upload";
 import { formatDate } from "@/lib/utils";
 import { GraduationCap, BookOpen, TrendingUp, Calendar } from "lucide-react";
 
@@ -17,7 +18,7 @@ export default async function ProfilePage() {
   const student = await db.student.findUnique({
     where: { id: session.user.profileId },
     include: {
-      user: { select: { email: true, createdAt: true } },
+      user: { select: { email: true, createdAt: true, avatarUrl: true } },
       university: { select: { name: true } },
       faculty: { select: { name: true } },
       cognitiveProfile: true,
@@ -48,6 +49,8 @@ export default async function ProfilePage() {
     ? allKnowledge.reduce((s, k) => s + k.masteryScore, 0) / allKnowledge.length
     : 0;
 
+  const initials = `${student.firstName[0]}${student.lastName[0]}`;
+
   return (
     <div className="flex flex-col flex-1 overflow-auto">
       <Header title="Mening profilim" description="Shaxsiy o'quv profili" />
@@ -57,11 +60,11 @@ export default async function ProfilePage() {
         <Card>
           <CardContent className="p-5">
             <div className="flex items-start gap-4">
-              <div className="h-14 w-14 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
-                <span className="text-xl font-bold text-blue-600">
-                  {student.firstName[0]}{student.lastName[0]}
-                </span>
-              </div>
+              <AvatarUpload
+                currentUrl={student.user.avatarUrl}
+                initials={initials}
+                size="lg"
+              />
               <div className="flex-1 min-w-0">
                 <h2 className="font-semibold text-slate-900 text-lg">
                   {student.firstName} {student.lastName}

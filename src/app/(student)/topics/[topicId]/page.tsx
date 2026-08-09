@@ -12,7 +12,7 @@ import Link from "next/link";
 import {
   ArrowLeft, BookOpen, FileText, Link as LinkIcon,
   Video, Target, ChevronRight, TrendingUp, Zap,
-  RotateCcw, Layers, ArrowRight, BookMarked
+  RotateCcw, Layers, ArrowRight, BookMarked, Download
 } from "lucide-react";
 import { ContentType } from "@/generated/prisma";
 import { cn } from "@/lib/utils";
@@ -221,6 +221,18 @@ export default async function TopicLearningPage({
                       <div className="prose prose-sm max-w-none text-slate-700 whitespace-pre-wrap">
                         {item.body}
                       </div>
+                    )}
+                    {item.fileUrl && (
+                      <a
+                        href={item.fileUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        download
+                        className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-blue-200 bg-blue-50 text-sm font-medium text-blue-700 hover:bg-blue-100 transition-colors"
+                      >
+                        <Download className="h-4 w-4" />
+                        Faylni yuklab olish
+                      </a>
                     )}
                     {isLink && (
                       <a
