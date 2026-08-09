@@ -23,14 +23,16 @@ export default function LoginPage() {
         </Suspense>
 
         {/* Partner badge */}
-        <div className="mt-8 flex items-center justify-center gap-2.5 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
-          <Image
-            src="/namdpi-logo.jpg"
-            alt="NamDPI"
-            width={32}
-            height={32}
-            className="rounded-full ring-1 ring-white/20"
-          />
+        <div className="mt-8 flex items-center justify-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white shadow-md">
+            <Image
+              src="/namdpi-logo.jpg"
+              alt="NamDPI"
+              width={38}
+              height={38}
+              className="rounded-full"
+            />
+          </div>
           <div>
             <p className="text-xs font-medium text-slate-300">NamDPI hamkorligida</p>
             <p className="text-[11px] text-slate-500">Namangan Davlat Pedagogika Instituti</p>
