@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import { Loader2, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,7 +13,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 export function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") ?? "/dashboard";
+  const callbackUrl = searchParams.get("callbackUrl");
   const registered = searchParams.get("registered");
 
   const [email, setEmail] = useState("");
@@ -40,7 +40,12 @@ export function LoginForm() {
       return;
     }
 
-    router.push(callbackUrl);
+    const session = await getSession();
+    const role = (session?.user as { role?: string } | undefined)?.role;
+    const defaultUrl =
+      role === "ADMIN" ? "/admin" : role === "PROFESSOR" ? "/professor/dashboard" : "/dashboard";
+
+    router.push(callbackUrl ?? defaultUrl);
     router.refresh();
   }
 

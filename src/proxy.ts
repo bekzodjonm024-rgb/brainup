@@ -27,9 +27,14 @@ export default auth((req) => {
 
   if (
     (pathname.startsWith("/dashboard") || pathname.startsWith("/courses") || pathname.startsWith("/assessment")) &&
-    session.user.role === "PROFESSOR"
+    (session.user.role === "PROFESSOR" || session.user.role === "ADMIN")
   ) {
-    return NextResponse.redirect(new URL("/professor/dashboard", req.url));
+    const dest = session.user.role === "ADMIN" ? "/admin" : "/professor/dashboard";
+    return NextResponse.redirect(new URL(dest, req.url));
+  }
+
+  if (pathname.startsWith("/admin") && session.user.role !== "ADMIN") {
+    return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
   return NextResponse.next();
