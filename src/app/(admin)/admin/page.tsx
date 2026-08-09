@@ -44,8 +44,8 @@ export default async function AdminDashboardPage() {
               <CardContent className="p-5 flex items-center gap-4">
                 <div className={`rounded-xl p-2.5 ${s.bg} shrink-0`}>{s.icon}</div>
                 <div>
-                  <p className="text-xs text-slate-500">{s.label}</p>
-                  <p className="text-2xl font-bold text-slate-900">{s.value}</p>
+                  <p className="text-xs text-slate-400 font-medium uppercase tracking-wide">{s.label}</p>
+                  <p className="text-2xl font-bold text-slate-900 leading-tight mt-0.5">{s.value}</p>
                 </div>
               </CardContent>
             </Card>

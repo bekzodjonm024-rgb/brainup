@@ -20,7 +20,7 @@ export function EnrollButton({ courseId }: { courseId: string }) {
   }
 
   return (
-    <Button size="sm" variant="outline" className="w-full" onClick={handleEnroll} disabled={loading}>
+    <Button size="sm" className="w-full bg-blue-600 hover:bg-blue-700" onClick={handleEnroll} disabled={loading}>
       {loading ? "Yozilmoqda..." : "Kursga yozilish"}
     </Button>
   );

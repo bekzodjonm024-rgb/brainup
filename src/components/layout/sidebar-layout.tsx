@@ -43,17 +43,19 @@ export function SidebarLayout({ role, userName, children, badges }: SidebarLayou
       {/* Main content */}
       <div className="flex flex-1 flex-col overflow-hidden min-w-0">
         {/* Mobile top bar */}
-        <div className="lg:hidden sticky top-0 z-10 bg-white border-b border-slate-200 px-4 h-14 flex items-center gap-3 shrink-0">
+        <div className="lg:hidden sticky top-0 z-10 bg-slate-950 border-b border-slate-800 px-4 h-14 flex items-center gap-3 shrink-0">
           <button
             onClick={() => setMobileOpen(true)}
-            className="p-1.5 rounded-md text-slate-600 hover:bg-slate-100"
+            className="p-1.5 rounded-md text-slate-400 hover:bg-slate-800"
             aria-label="Menyuni ochish"
           >
             <Menu className="h-5 w-5" />
           </button>
           <div className="flex items-center gap-2">
-            <GraduationCap className="h-5 w-5 text-blue-600" />
-            <span className="font-bold text-slate-900">BrainUP</span>
+            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-blue-500">
+              <GraduationCap className="h-4 w-4 text-white" />
+            </div>
+            <span className="font-bold text-white">BrainUP</span>
           </div>
         </div>
 

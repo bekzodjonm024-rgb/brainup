@@ -183,12 +183,12 @@ export default async function ProfessorDashboard() {
 
 function StatCard({ icon, label, value, bg }: { icon: React.ReactNode; label: string; value: string | number; bg: string }) {
   return (
-    <Card>
-      <CardContent className="p-4 flex items-center gap-3">
-        <div className={`rounded-lg p-2 ${bg}`}>{icon}</div>
+    <Card className="border-slate-200 hover:border-slate-300 transition-colors">
+      <CardContent className="p-5 flex items-center gap-4">
+        <div className={`rounded-xl p-2.5 ${bg} shrink-0`}>{icon}</div>
         <div>
-          <p className="text-xs text-slate-500">{label}</p>
-          <p className="text-lg font-bold text-slate-900">{value}</p>
+          <p className="text-xs text-slate-400 font-medium uppercase tracking-wide">{label}</p>
+          <p className="text-2xl font-bold text-slate-900 leading-tight mt-0.5">{value}</p>
         </div>
       </CardContent>
     </Card>

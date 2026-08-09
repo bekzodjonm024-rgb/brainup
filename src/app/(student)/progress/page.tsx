@@ -87,7 +87,7 @@ export default async function ProgressPage() {
 
       <main className="flex-1 p-6 space-y-6">
         {/* Summary stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <StatCard
             icon={<TrendingUp className="h-5 w-5 text-emerald-600" />}
             label="O'rtacha mastery"
@@ -96,13 +96,13 @@ export default async function ProgressPage() {
           />
           <StatCard
             icon={<CheckCircle2 className="h-5 w-5 text-blue-600" />}
-            label="O'zlashtirilgan mavzular"
+            label="O'zlashtirilgan"
             value={`${masteredTopics} / ${allKnowledge.length}`}
             bg="bg-blue-50"
           />
           <StatCard
             icon={<Zap className="h-5 w-5 text-amber-600" />}
-            label="Amaliyot aniqligi"
+            label="Aniqlik"
             value={totalAttempts > 0 ? `${Math.round(accuracy * 100)}%` : "—"}
             bg="bg-amber-50"
           />
@@ -260,13 +260,13 @@ function StatCard({
   icon: React.ReactNode; label: string; value: string | number; bg: string; sub?: string;
 }) {
   return (
-    <Card>
-      <CardContent className="p-4 flex items-center gap-3">
-        <div className={`rounded-lg p-2 ${bg} shrink-0`}>{icon}</div>
+    <Card className="border-slate-200 hover:border-slate-300 transition-colors">
+      <CardContent className="p-5 flex items-center gap-4">
+        <div className={`rounded-xl p-2.5 ${bg} shrink-0`}>{icon}</div>
         <div className="min-w-0">
-          <p className="text-xs text-slate-500 truncate">{label}</p>
-          <p className="text-lg font-bold text-slate-900">{value}</p>
-          {sub && <p className="text-xs text-orange-500">{sub}</p>}
+          <p className="text-xs text-slate-400 font-medium uppercase tracking-wide">{label}</p>
+          <p className="text-2xl font-bold text-slate-900 leading-tight mt-0.5">{value}</p>
+          {sub && <p className="text-xs text-orange-500 mt-0.5">{sub}</p>}
         </div>
       </CardContent>
     </Card>

@@ -80,20 +80,22 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-50 p-4">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 p-4">
       <div className="w-full max-w-lg space-y-6">
         <div className="flex flex-col items-center gap-2">
-          <div className="flex items-center gap-2">
-            <GraduationCap className="h-8 w-8 text-blue-600" />
-            <span className="text-2xl font-bold text-slate-900">BrainUP</span>
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500 shadow-lg shadow-blue-500/30">
+              <GraduationCap className="h-6 w-6 text-white" />
+            </div>
+            <span className="text-2xl font-bold text-white">BrainUP</span>
           </div>
-          <p className="text-sm text-slate-500">Adaptiv o'qish platformasi</p>
+          <p className="text-sm text-blue-300">Adaptiv o&apos;qish platformasi</p>
         </div>
 
-        <Card>
+        <Card className="border-0 shadow-2xl ring-1 ring-white/10">
           <CardHeader>
-            <CardTitle>Ro'yxatdan o'tish</CardTitle>
-            <CardDescription>Talaba sifatida hisob yarating</CardDescription>
+            <CardTitle className="text-slate-900">Ro&apos;yxatdan o&apos;tish</CardTitle>
+            <CardDescription className="text-slate-500">Talaba sifatida hisob yarating</CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit}>
             <CardContent className="space-y-4">

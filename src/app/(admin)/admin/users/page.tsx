@@ -54,7 +54,7 @@ export default async function AdminUsersPage() {
                 <thead>
                   <tr className="border-b border-slate-100">
                     <th className="text-left px-4 py-3 font-medium text-slate-500">Talaba</th>
-                    <th className="text-left px-4 py-3 font-medium text-slate-500 hidden sm:table-cell">Univeristet</th>
+                    <th className="text-left px-4 py-3 font-medium text-slate-500 hidden sm:table-cell">Universitet</th>
                     <th className="text-left px-4 py-3 font-medium text-slate-500 hidden md:table-cell">Yozilgan</th>
                     <th className="text-left px-4 py-3 font-medium text-slate-500 hidden md:table-cell">Urinishlar</th>
                     <th className="text-left px-4 py-3 font-medium text-slate-500">Holat</th>

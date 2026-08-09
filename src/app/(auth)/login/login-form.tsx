@@ -50,10 +50,10 @@ export function LoginForm() {
   }
 
   return (
-    <Card>
+    <Card className="border-0 shadow-2xl ring-1 ring-white/10 bg-white">
       <CardHeader>
-        <CardTitle>Kirish</CardTitle>
-        <CardDescription>Hisobingizga kiring</CardDescription>
+        <CardTitle className="text-slate-900">Kirish</CardTitle>
+        <CardDescription className="text-slate-500">Hisobingizga kiring</CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">

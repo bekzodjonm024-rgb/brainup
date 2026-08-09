@@ -126,7 +126,7 @@ export default async function ProfessorAnalyticsPage() {
               <CardContent className="p-4 flex items-center gap-3">
                 <div className={cn("rounded-lg p-1.5", s.bg)}>{s.icon}</div>
                 <div>
-                  <p className="text-xs text-slate-500">{s.label}</p>
+                  <p className="text-xs text-slate-400 font-medium uppercase tracking-wide">{s.label}</p>
                   <p className="text-lg font-bold text-slate-900">{s.value}</p>
                 </div>
               </CardContent>

@@ -56,17 +56,20 @@ interface SidebarProps {
 export function Sidebar({ role, userName, onClose, badges }: SidebarProps) {
   const pathname = usePathname();
   const navItems = role === "ADMIN" ? adminNav : role === "PROFESSOR" ? professorNav : studentNav;
+  const initial = userName.charAt(0).toUpperCase();
 
   return (
-    <aside className="flex h-screen w-64 flex-col border-r border-slate-200 bg-white">
+    <aside className="flex h-screen w-64 flex-col bg-slate-950">
       {/* Logo */}
-      <div className="flex h-16 items-center gap-2 border-b border-slate-200 px-6">
-        <GraduationCap className="h-7 w-7 text-blue-600" />
-        <span className="text-xl font-bold text-slate-900">BrainUP</span>
+      <div className="flex h-16 items-center gap-2.5 border-b border-slate-800 px-5">
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-500">
+          <GraduationCap className="h-5 w-5 text-white" />
+        </div>
+        <span className="text-lg font-bold text-white">BrainUP</span>
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 space-y-1 overflow-y-auto p-4">
+      <nav className="flex-1 space-y-0.5 overflow-y-auto px-3 py-4">
         {navItems.map((item) => {
           const Icon = item.icon;
           const active = pathname === item.href || pathname.startsWith(item.href + "/");
@@ -77,10 +80,10 @@ export function Sidebar({ role, userName, onClose, badges }: SidebarProps) {
               href={item.href}
               onClick={onClose}
               className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all",
                 active
-                  ? "bg-blue-50 text-blue-700"
-                  : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                  ? "bg-blue-600 text-white shadow-sm"
+                  : "text-slate-400 hover:bg-slate-800 hover:text-slate-100"
               )}
             >
               <Icon className="h-4 w-4 shrink-0" />
@@ -96,14 +99,19 @@ export function Sidebar({ role, userName, onClose, badges }: SidebarProps) {
       </nav>
 
       {/* Footer */}
-      <div className="border-t border-slate-200 p-4 space-y-1">
-        <div className="px-3 py-2">
-          <p className="text-xs text-slate-500">Foydalanuvchi</p>
-          <p className="text-sm font-medium text-slate-900 truncate">{userName}</p>
+      <div className="border-t border-slate-800 p-3 space-y-0.5">
+        <div className="flex items-center gap-2.5 rounded-lg px-3 py-2">
+          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-slate-700">
+            <span className="text-xs font-bold text-slate-200">{initial}</span>
+          </div>
+          <div className="min-w-0">
+            <p className="text-xs font-medium text-slate-200 truncate">{userName}</p>
+            <p className="text-[11px] text-slate-500 capitalize">{role.toLowerCase()}</p>
+          </div>
         </div>
         <button
           onClick={() => signOut({ callbackUrl: "/login" })}
-          className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 hover:text-slate-900"
+          className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-400 transition-colors hover:bg-slate-800 hover:text-slate-100"
         >
           <LogOut className="h-4 w-4" />
           Chiqish
