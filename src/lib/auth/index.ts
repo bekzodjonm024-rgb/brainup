@@ -3,13 +3,10 @@ import Credentials from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
 import { db } from "@/lib/db";
 import { loginSchema } from "@/lib/auth/validation";
+import { authConfig } from "./config";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  session: { strategy: "jwt" },
-  pages: {
-    signIn: "/login",
-    error: "/login",
-  },
+  ...authConfig,
   providers: [
     Credentials({
       async authorize(credentials) {
@@ -45,21 +42,4 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
-  callbacks: {
-    jwt({ token, user }) {
-      if (user) {
-        token.role = (user as { role: string }).role;
-        token.profileId = (user as { profileId: string | null }).profileId;
-      }
-      return token;
-    },
-    session({ session, token }) {
-      if (token) {
-        session.user.role = token.role as string;
-        session.user.profileId = token.profileId as string | null;
-        session.user.id = token.sub as string;
-      }
-      return session;
-    },
-  },
 });
