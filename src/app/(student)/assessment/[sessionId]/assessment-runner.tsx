@@ -148,9 +148,10 @@ export function AssessmentRunner({ sessionId, items, initialItemIndex, totalItem
             </span>
           </div>
 
-          {/* Task renderer */}
+          {/* Task renderer — key={id} forces remount on each new item */}
           {currentItem.taskType === "REACTION_TIME" && (
             <ReactionTimeTask
+              key={currentItem.id}
               item={currentItem}
               onComplete={handleAnswer}
               disabled={submitting}
@@ -158,6 +159,7 @@ export function AssessmentRunner({ sessionId, items, initialItemIndex, totalItem
           )}
           {currentItem.taskType === "DIGIT_SPAN" && (
             <DigitSpanTask
+              key={currentItem.id}
               item={currentItem}
               onComplete={handleAnswer}
               disabled={submitting}
@@ -165,6 +167,7 @@ export function AssessmentRunner({ sessionId, items, initialItemIndex, totalItem
           )}
           {currentItem.taskType === "ATTENTION_CPT" && (
             <AttentionCPTTask
+              key={currentItem.id}
               item={currentItem}
               onComplete={handleAnswer}
               disabled={submitting}
@@ -172,6 +175,7 @@ export function AssessmentRunner({ sessionId, items, initialItemIndex, totalItem
           )}
           {currentItem.taskType === "WORD_RECOGNITION" && (
             <WordRecognitionTask
+              key={currentItem.id}
               item={currentItem}
               onComplete={handleAnswer}
               disabled={submitting}
