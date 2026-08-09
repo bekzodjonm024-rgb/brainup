@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { MasteryBadge } from "@/components/shared/mastery-badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowLeft, Users, BookOpen } from "lucide-react";
+import { ArrowLeft, Users, BookOpen, FileText } from "lucide-react";
 import { AddStudentDialog, RemoveStudentButton, ResetAssessmentButton } from "./student-actions";
 import { formatDate } from "@/lib/utils";
 
@@ -133,16 +133,23 @@ export default async function CourseStudentsPage({
                           {student._count.attempts}
                         </td>
                         <td className="px-4 py-3">
+                          <div className="flex items-center gap-1">
+                            <Link href={`/professor/courses/${courseId}/students/${student.id}/report`}>
+                              <Button variant="ghost" size="sm" title="Hisobot">
+                                <FileText className="h-4 w-4" />
+                              </Button>
+                            </Link>
                             <ResetAssessmentButton
-                            courseId={courseId}
-                            studentId={student.id}
-                            name={`${student.firstName} ${student.lastName}`}
-                          />
-                          <RemoveStudentButton
-                            courseId={courseId}
-                            studentId={student.id}
-                            name={`${student.firstName} ${student.lastName}`}
-                          />
+                              courseId={courseId}
+                              studentId={student.id}
+                              name={`${student.firstName} ${student.lastName}`}
+                            />
+                            <RemoveStudentButton
+                              courseId={courseId}
+                              studentId={student.id}
+                              name={`${student.firstName} ${student.lastName}`}
+                            />
+                          </div>
                         </td>
                       </tr>
                     );

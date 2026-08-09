@@ -13,6 +13,7 @@ import {
   FlaskConical,
   Users,
   UserCog,
+  TrendingUp,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { signOut } from "next-auth/react";
@@ -27,8 +28,9 @@ const studentNav: NavItem[] = [
   { href: "/dashboard", label: "Bosh sahifa", icon: LayoutDashboard },
   { href: "/courses", label: "Kurslarim", icon: BookOpen },
   { href: "/assessment", label: "Baholash", icon: Brain },
-  { href: "/profile", label: "Profilim", icon: BarChart3 },
   { href: "/retrieval", label: "Takrorlash", icon: RefreshCw },
+  { href: "/progress", label: "Progressim", icon: TrendingUp },
+  { href: "/profile", label: "Profilim", icon: BarChart3 },
 ];
 
 const professorNav: NavItem[] = [
