@@ -50,9 +50,10 @@ interface SidebarProps {
   role: "STUDENT" | "PROFESSOR" | "ADMIN";
   userName: string;
   onClose?: () => void;
+  badges?: Record<string, number>;
 }
 
-export function Sidebar({ role, userName, onClose }: SidebarProps) {
+export function Sidebar({ role, userName, onClose, badges }: SidebarProps) {
   const pathname = usePathname();
   const navItems = role === "ADMIN" ? adminNav : role === "PROFESSOR" ? professorNav : studentNav;
 
@@ -69,6 +70,7 @@ export function Sidebar({ role, userName, onClose }: SidebarProps) {
         {navItems.map((item) => {
           const Icon = item.icon;
           const active = pathname === item.href || pathname.startsWith(item.href + "/");
+          const badge = badges?.[item.href] ?? 0;
           return (
             <Link
               key={item.href}
@@ -81,8 +83,13 @@ export function Sidebar({ role, userName, onClose }: SidebarProps) {
                   : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
               )}
             >
-              <Icon className="h-4 w-4" />
-              {item.label}
+              <Icon className="h-4 w-4 shrink-0" />
+              <span className="flex-1">{item.label}</span>
+              {badge > 0 && (
+                <span className="ml-auto inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-amber-500 px-1.5 text-[11px] font-bold text-white leading-none">
+                  {badge > 99 ? "99+" : badge}
+                </span>
+              )}
             </Link>
           );
         })}

@@ -9,9 +9,10 @@ interface SidebarLayoutProps {
   role: "STUDENT" | "PROFESSOR" | "ADMIN";
   userName: string;
   children: React.ReactNode;
+  badges?: Record<string, number>;
 }
 
-export function SidebarLayout({ role, userName, children }: SidebarLayoutProps) {
+export function SidebarLayout({ role, userName, children, badges }: SidebarLayoutProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
@@ -35,6 +36,7 @@ export function SidebarLayout({ role, userName, children }: SidebarLayoutProps) 
           role={role}
           userName={userName}
           onClose={() => setMobileOpen(false)}
+          badges={badges}
         />
       </div>
 

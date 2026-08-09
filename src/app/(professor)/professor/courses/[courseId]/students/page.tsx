@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowLeft, Users, BookOpen, FileText } from "lucide-react";
 import { AddStudentDialog, RemoveStudentButton, ResetAssessmentButton } from "./student-actions";
+import { SendReminderButton } from "./send-reminder-button";
 import { formatDate } from "@/lib/utils";
 
 export default async function CourseStudentsPage({
@@ -62,13 +63,16 @@ export default async function CourseStudentsPage({
         description={course.title}
       />
       <main className="flex-1 p-6 space-y-5">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between flex-wrap gap-3">
           <Link href={`/professor/courses/${courseId}`}>
             <Button variant="ghost" size="sm">
               <ArrowLeft className="h-4 w-4 mr-1" /> {course.title}
             </Button>
           </Link>
-          <AddStudentDialog courseId={courseId} />
+          <div className="flex items-center gap-2">
+            <SendReminderButton courseId={courseId} />
+            <AddStudentDialog courseId={courseId} />
+          </div>
         </div>
 
         {/* Summary */}

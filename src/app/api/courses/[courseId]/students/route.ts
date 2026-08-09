@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { resend } from "@/lib/email/client";
+import { enrollmentWelcome } from "@/lib/email/templates";
 
 // GET /api/courses/[courseId]/students — enrolled students with mastery stats
 export async function GET(
@@ -98,7 +100,7 @@ export async function POST(
 
   const user = await db.user.findUnique({
     where: { email },
-    include: { student: { select: { id: true } } },
+    include: { student: { select: { id: true, firstName: true, lastName: true } } },
   });
 
   if (!user?.student) {
@@ -112,9 +114,38 @@ export async function POST(
     return NextResponse.json({ error: "Talaba allaqachon yozilgan" }, { status: 409 });
   }
 
-  const enrollment = await db.enrollment.create({
-    data: { studentId: user.student.id, courseId },
-  });
+  const [enrollment, course, professor] = await Promise.all([
+    db.enrollment.create({ data: { studentId: user.student.id, courseId } }),
+    db.course.findUnique({
+      where: { id: courseId },
+      select: {
+        title: true,
+        professor: { select: { firstName: true, lastName: true } },
+      },
+    }),
+    db.professor.findUnique({
+      where: { id: session.user.profileId },
+      select: { firstName: true, lastName: true },
+    }),
+  ]);
+
+  if (resend && course) {
+    const appUrl = process.env.NEXTAUTH_URL ?? "https://brainup-ndpi.vercel.app";
+    const profName = professor
+      ? `${professor.firstName} ${professor.lastName}`
+      : "Professor";
+    const studentName = user.student?.firstName ?? user.email;
+
+    resend.emails.send({
+      to: user.email,
+      ...enrollmentWelcome({
+        studentName: String(studentName),
+        courseTitle: course.title,
+        professorName: profName,
+        loginUrl: appUrl,
+      }),
+    }).catch(() => {/* fire-and-forget */});
+  }
 
   return NextResponse.json(enrollment, { status: 201 });
 }
