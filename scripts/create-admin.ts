@@ -1,4 +1,3 @@
-import "dotenv/config";
 import { db } from "../src/lib/db/index";
 import bcrypt from "bcryptjs";
 
