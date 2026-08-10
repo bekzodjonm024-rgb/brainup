@@ -6,13 +6,13 @@ import { hash } from "bcryptjs";
 // Requires ADMIN_SETUP_SECRET env var to be set on Vercel.
 // DELETE this file or remove the env var after first use.
 export async function POST(req: NextRequest) {
-  const secret = process.env.ADMIN_SETUP_SECRET;
+  const secret = (process.env.ADMIN_SETUP_SECRET ?? "").trim();
   if (!secret) {
     return NextResponse.json({ error: "Setup disabled" }, { status: 403 });
   }
 
   const { setupSecret, email, password } = await req.json();
-  if (setupSecret !== secret) {
+  if (setupSecret.trim() !== secret) {
     return NextResponse.json({ error: "Invalid secret" }, { status: 403 });
   }
 
