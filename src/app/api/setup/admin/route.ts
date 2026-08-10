@@ -20,20 +20,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "email va kamida 8 belgili parol kerak" }, { status: 400 });
   }
 
+  const passwordHash = await hash(password, 12);
   const existing = await db.user.findUnique({ where: { email } });
+
   if (existing) {
-    if (existing.role === "ADMIN") {
-      return NextResponse.json({ message: "Admin allaqachon mavjud" });
-    }
     const updated = await db.user.update({
       where: { email },
-      data: { role: "ADMIN" },
-      select: { id: true, email: true, role: true },
+      data: { role: "ADMIN", passwordHash, isActive: true },
+      select: { id: true, email: true, role: true, isActive: true },
     });
-    return NextResponse.json({ message: "ADMIN roliga o'tkazildi", user: updated });
+    return NextResponse.json({ message: "Admin yangilandi", user: updated });
   }
 
-  const passwordHash = await hash(password, 12);
   const user = await db.user.create({
     data: { email, passwordHash, role: "ADMIN" },
     select: { id: true, email: true, role: true },
