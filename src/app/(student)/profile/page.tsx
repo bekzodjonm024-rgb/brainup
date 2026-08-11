@@ -92,14 +92,14 @@ export default async function ProfilePage() {
         {/* Learning stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { icon: <BookOpen className="h-4 w-4 text-blue-600" />, label: "Kurslar", value: student.enrollments.length },
-            { icon: <TrendingUp className="h-4 w-4 text-emerald-600" />, label: "O'zlashtirildi", value: masteredTopics },
-            { icon: <GraduationCap className="h-4 w-4 text-violet-600" />, label: "Urinishlar", value: student._count.attempts },
-            { icon: <TrendingUp className="h-4 w-4 text-amber-600" />, label: "O'rtacha mastery", value: `${Math.round(avgMastery * 100)}%` },
+            { icon: <BookOpen className="h-4 w-4 text-blue-600" />, label: "Kurslar", value: student.enrollments.length, bg: "bg-blue-50" },
+            { icon: <TrendingUp className="h-4 w-4 text-emerald-600" />, label: "O'zlashtirildi", value: masteredTopics, bg: "bg-emerald-50" },
+            { icon: <GraduationCap className="h-4 w-4 text-violet-600" />, label: "Urinishlar", value: student._count.attempts, bg: "bg-violet-50" },
+            { icon: <TrendingUp className="h-4 w-4 text-amber-600" />, label: "O'rtacha mastery", value: `${Math.round(avgMastery * 100)}%`, bg: "bg-amber-50" },
           ].map((s) => (
             <Card key={s.label}>
               <CardContent className="p-4 flex items-center gap-3">
-                <div>{s.icon}</div>
+                <div className={`rounded-lg p-1.5 ${s.bg} shrink-0`}>{s.icon}</div>
                 <div>
                   <p className="text-xs text-slate-500">{s.label}</p>
                   <p className="text-lg font-bold text-slate-900">{s.value}</p>

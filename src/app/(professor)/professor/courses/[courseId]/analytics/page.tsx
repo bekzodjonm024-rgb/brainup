@@ -217,27 +217,27 @@ export default async function CourseAnalyticsPage({
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-slate-100">
-                    <th className="text-left py-2 pr-4 text-xs font-medium text-slate-500 w-8">#</th>
-                    <th className="text-left py-2 pr-4 text-xs font-medium text-slate-500">Mavzu</th>
-                    <th className="text-center py-2 px-2 text-xs font-medium text-slate-500">Uringanlar</th>
-                    <th className="text-center py-2 px-2 text-xs font-medium text-slate-500">O'rtacha mastery</th>
-                    <th className="text-center py-2 px-2 text-xs font-medium text-slate-500">O'zlashtirildi</th>
-                    <th className="text-center py-2 px-2 text-xs font-medium text-slate-500">O'rt. urinish</th>
-                    <th className="text-center py-2 px-2 text-xs font-medium text-slate-500">Savollar</th>
+                  <tr className="bg-slate-50 border-b border-slate-200">
+                    <th className="text-left px-4 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide w-8">#</th>
+                    <th className="text-left px-4 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide">Mavzu</th>
+                    <th className="text-center px-3 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide hidden sm:table-cell">Uringanlar</th>
+                    <th className="text-center px-3 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide">Mastery</th>
+                    <th className="text-center px-3 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide hidden md:table-cell">O'zlashtirildi</th>
+                    <th className="text-center px-3 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide hidden md:table-cell">O'rt. urinish</th>
+                    <th className="text-center px-3 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide hidden lg:table-cell">Savollar</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-50">
+                <tbody className="divide-y divide-slate-100">
                   {topicStats.map((t, idx) => (
-                    <tr key={t.id} className="hover:bg-slate-50 transition-colors">
-                      <td className="py-2.5 pr-4 text-slate-400 text-xs">{idx + 1}</td>
-                      <td className="py-2.5 pr-4">
+                    <tr key={t.id} className="hover:bg-slate-50/80 transition-colors">
+                      <td className="px-4 py-3 text-slate-400 text-xs">{idx + 1}</td>
+                      <td className="px-4 py-3">
                         <span className="text-slate-800 font-medium line-clamp-1">{t.title}</span>
                       </td>
-                      <td className="py-2.5 px-2 text-center">
-                        <span className="text-slate-600">{t.tried}/{t.total}</span>
+                      <td className="px-3 py-3 text-center text-slate-600 hidden sm:table-cell">
+                        {t.tried}/{t.total}
                       </td>
-                      <td className="py-2.5 px-2">
+                      <td className="px-3 py-3">
                         <div className="flex flex-col items-center gap-1">
                           <span className={cn(
                             "text-xs font-semibold rounded-full px-2 py-0.5",
@@ -248,11 +248,11 @@ export default async function CourseAnalyticsPage({
                           {t.tried > 0 && <Progress value={t.avg * 100} className="h-1 w-16" />}
                         </div>
                       </td>
-                      <td className="py-2.5 px-2 text-center text-slate-600">{t.masteredCount}</td>
-                      <td className="py-2.5 px-2 text-center text-slate-500">
+                      <td className="px-3 py-3 text-center text-slate-600 hidden md:table-cell">{t.masteredCount}</td>
+                      <td className="px-3 py-3 text-center text-slate-500 hidden md:table-cell">
                         {t.avgAttempts > 0 ? t.avgAttempts.toFixed(1) : "—"}
                       </td>
-                      <td className="py-2.5 px-2 text-center">
+                      <td className="px-3 py-3 text-center hidden lg:table-cell">
                         <Badge variant={t.questions > 0 ? "secondary" : "outline"} className="text-xs">
                           {t.questions}
                         </Badge>
@@ -280,45 +280,52 @@ export default async function CourseAnalyticsPage({
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-slate-100">
-                      <th className="text-left py-2 pr-4 text-xs font-medium text-slate-500">Talaba</th>
-                      <th className="text-center py-2 px-2 text-xs font-medium text-slate-500">O'rtacha mastery</th>
-                      <th className="text-center py-2 px-2 text-xs font-medium text-slate-500">Boshladi</th>
-                      <th className="text-center py-2 px-2 text-xs font-medium text-slate-500">O'zlashtirildi</th>
-                      <th className="text-center py-2 px-2 text-xs font-medium text-slate-500">Urinishlar</th>
-                      <th className="text-right py-2 pl-2 text-xs font-medium text-slate-500">Oxirgi faollik</th>
+                    <tr className="bg-slate-50 border-b border-slate-200">
+                      <th className="text-left px-4 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide">Talaba</th>
+                      <th className="text-center px-3 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide">Mastery</th>
+                      <th className="text-center px-3 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide hidden sm:table-cell">Boshladi</th>
+                      <th className="text-center px-3 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide">O'zlashtirildi</th>
+                      <th className="text-center px-3 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide hidden md:table-cell">Urinishlar</th>
+                      <th className="text-right px-4 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide hidden md:table-cell">Oxirgi faollik</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-50">
-                    {studentStats.map((s) => (
-                      <tr key={s.id} className="hover:bg-slate-50 transition-colors">
-                        <td className="py-2.5 pr-4">
-                          <span className="font-medium text-slate-800">
-                            {s.firstName} {s.lastName}
-                          </span>
-                        </td>
-                        <td className="py-2.5 px-2">
-                          <div className="flex flex-col items-center gap-1">
-                            <span className={cn(
-                              "text-xs font-semibold rounded-full px-2 py-0.5",
-                              masteryBg(s.avgMastery)
-                            )}>
-                              {s.topicsStarted > 0 ? `${Math.round(s.avgMastery * 100)}%` : "—"}
+                  <tbody className="divide-y divide-slate-100">
+                    {studentStats.map((s) => {
+                      const name = `${s.firstName} ${s.lastName}`;
+                      const parts = name.trim().split(" ");
+                      const initials = parts.length >= 2 ? parts[0][0] + parts[1][0] : name.slice(0, 2);
+                      return (
+                      <tr key={s.id} className="hover:bg-slate-50/80 transition-colors">
+                        <td className="px-4 py-3">
+                          <div className="flex items-center gap-3">
+                            <div className="h-8 w-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold shrink-0 uppercase select-none">
+                              {initials}
+                            </div>
+                            <span className="font-medium text-slate-800 truncate max-w-[160px]">
+                              {name}
                             </span>
                           </div>
                         </td>
-                        <td className="py-2.5 px-2 text-center text-slate-600">
+                        <td className="px-3 py-3 text-center">
+                          <span className={cn(
+                            "text-xs font-semibold rounded-full px-2 py-0.5",
+                            masteryBg(s.avgMastery)
+                          )}>
+                            {s.topicsStarted > 0 ? `${Math.round(s.avgMastery * 100)}%` : "—"}
+                          </span>
+                        </td>
+                        <td className="px-3 py-3 text-center text-slate-600 hidden sm:table-cell">
                           {s.topicsStarted}/{course.topics.length}
                         </td>
-                        <td className="py-2.5 px-2 text-center">
+                        <td className="px-3 py-3 text-center">
                           {s.topicsMastered > 0 ? (
                             <span className="text-emerald-600 font-medium">{s.topicsMastered}</span>
                           ) : (
                             <span className="text-slate-400">0</span>
                           )}
                         </td>
-                        <td className="py-2.5 px-2 text-center text-slate-500">{s.attempts}</td>
-                        <td className="py-2.5 pl-2 text-right text-xs text-slate-400">
+                        <td className="px-3 py-3 text-center text-slate-500 hidden md:table-cell">{s.attempts}</td>
+                        <td className="px-4 py-3 text-right text-xs hidden md:table-cell">
                           <span className={cn(
                             s.lastActive && (Date.now() - s.lastActive.getTime()) > 7 * 24 * 60 * 60 * 1000
                               ? "text-amber-500"
@@ -328,7 +335,8 @@ export default async function CourseAnalyticsPage({
                           </span>
                         </td>
                       </tr>
-                    ))}
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
