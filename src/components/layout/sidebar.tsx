@@ -26,15 +26,16 @@ interface NavItem {
   href: string;
   label: string;
   icon: React.ElementType;
+  exact?: boolean;
 }
 
 const studentNav: NavItem[] = [
-  { href: "/dashboard", label: "Bosh sahifa", icon: LayoutDashboard },
+  { href: "/dashboard", label: "Bosh sahifa", icon: LayoutDashboard, exact: true },
   { href: "/courses", label: "Kurslarim", icon: BookOpen },
   { href: "/assessment", label: "Baholash", icon: Brain },
   { href: "/retrieval", label: "Takrorlash", icon: RefreshCw },
   { href: "/progress", label: "Progressim", icon: TrendingUp },
-  { href: "/profile", label: "Profilim", icon: BarChart3 },
+  { href: "/profile", label: "Profilim", icon: UserCircle },
 ];
 
 const professorNav: NavItem[] = [
@@ -46,7 +47,7 @@ const professorNav: NavItem[] = [
 ];
 
 const adminNav: NavItem[] = [
-  { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { href: "/admin/users", label: "Talabalar", icon: Users },
   { href: "/admin/professors", label: "Professorlar", icon: UserCog },
   { href: "/admin/courses", label: "Kurslar", icon: GraduationCap },
@@ -81,7 +82,9 @@ export function Sidebar({ role, userName, avatarUrl, onClose, badges }: SidebarP
       <nav className="flex-1 space-y-0.5 overflow-y-auto px-3 py-4">
         {navItems.map((item) => {
           const Icon = item.icon;
-          const active = pathname === item.href || pathname.startsWith(item.href + "/");
+          const active = item.exact
+            ? pathname === item.href
+            : pathname === item.href || pathname.startsWith(item.href + "/");
           const badge = badges?.[item.href] ?? 0;
           return (
             <Link
