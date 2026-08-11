@@ -10,6 +10,7 @@ import {
   Plus, ArrowLeft, BookOpen, Users, LayoutList,
   GripVertical, ChevronRight, CheckCircle2, Circle, BarChart3, UserCheck
 } from "lucide-react";
+import { EditCourseDialog } from "./edit-course-dialog";
 
 export default async function CourseDetailPage({
   params,
@@ -55,6 +56,12 @@ export default async function CourseDetailPage({
             </Button>
           </Link>
           <div className="flex gap-2">
+            <EditCourseDialog
+              courseId={courseId}
+              currentTitle={course.title}
+              currentDescription={course.description}
+              currentSemester={course.semester}
+            />
             <Link href={`/professor/courses/${courseId}/students`}>
               <Button variant="outline" size="sm">
                 <UserCheck className="h-4 w-4 mr-1" /> Talabalar
@@ -71,14 +78,14 @@ export default async function CourseDetailPage({
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { icon: <LayoutList className="h-4 w-4 text-blue-600" />, label: "Mavzular", value: course.topics.length },
-            { icon: <Users className="h-4 w-4 text-emerald-600" />, label: "Talabalar", value: course._count.enrollments },
-            { icon: <BookOpen className="h-4 w-4 text-violet-600" />, label: "Materiallar", value: totalContent },
-            { icon: <CheckCircle2 className="h-4 w-4 text-amber-600" />, label: "Tasdiqlangan", value: approvedContent },
+            { icon: <LayoutList className="h-4 w-4 text-blue-600" />, label: "Mavzular", value: course.topics.length, bg: "bg-blue-50" },
+            { icon: <Users className="h-4 w-4 text-emerald-600" />, label: "Talabalar", value: course._count.enrollments, bg: "bg-emerald-50" },
+            { icon: <BookOpen className="h-4 w-4 text-violet-600" />, label: "Materiallar", value: totalContent, bg: "bg-violet-50" },
+            { icon: <CheckCircle2 className="h-4 w-4 text-amber-600" />, label: "Tasdiqlangan", value: approvedContent, bg: "bg-amber-50" },
           ].map((s) => (
             <Card key={s.label}>
               <CardContent className="p-4 flex items-center gap-3">
-                <div className="shrink-0">{s.icon}</div>
+                <div className={`rounded-lg p-1.5 ${s.bg} shrink-0`}>{s.icon}</div>
                 <div>
                   <p className="text-xs text-slate-500">{s.label}</p>
                   <p className="text-lg font-bold text-slate-900">{s.value}</p>
