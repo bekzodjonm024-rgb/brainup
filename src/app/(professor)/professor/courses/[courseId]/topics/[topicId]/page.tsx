@@ -141,6 +141,7 @@ export default async function TopicDetailPage({
                         <ContentActions
                           contentId={item.id}
                           status={item.status}
+                          title={item.title}
                           courseId={courseId}
                           topicId={topicId}
                         />
