@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { Check } from "lucide-react";
 
 interface Props {
   item: { id: string; prompt: string; stimuluData: Record<string, unknown> };
@@ -106,13 +107,14 @@ export function WordRecognitionTask({ item, onComplete, disabled }: Props) {
                   onClick={() => toggleWord(word)}
                   disabled={disabled}
                   className={cn(
-                    "rounded-lg border px-3 py-2.5 text-sm font-medium transition-colors text-left",
+                    "rounded-lg border px-3 py-2.5 text-sm font-medium transition-colors text-left flex items-center gap-1.5",
                     selected.has(word)
                       ? "border-blue-400 bg-blue-50 text-blue-800"
                       : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
                   )}
                 >
-                  {selected.has(word) && "✓ "}{word}
+                  {selected.has(word) && <Check className="h-3.5 w-3.5 shrink-0" />}
+                  {word}
                 </button>
               ))}
             </div>

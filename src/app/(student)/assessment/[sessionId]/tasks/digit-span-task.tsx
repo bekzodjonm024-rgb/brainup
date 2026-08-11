@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -18,7 +18,6 @@ export function DigitSpanTask({ item, onComplete, disabled }: Props) {
   const [phase, setPhase] = useState<Phase>("intro");
   const [currentDigitIdx, setCurrentDigitIdx] = useState(-1);
   const [input, setInput] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
 
   function startTask() {
     setPhase("showing");
@@ -37,10 +36,7 @@ export function DigitSpanTask({ item, onComplete, disabled }: Props) {
         }, data.gapMs);
       } else {
         setPhase("blank");
-        setTimeout(() => {
-          setPhase("recall");
-          setTimeout(() => inputRef.current?.focus(), 100);
-        }, 500);
+        setTimeout(() => setPhase("recall"), 500);
       }
     }, data.displayMs);
 

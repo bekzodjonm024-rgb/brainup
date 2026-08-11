@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, KeyboardEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -37,6 +37,17 @@ export function ReactionTimeTask({ item, onComplete, disabled }: Props) {
   }, [stimuluData]);
 
   useEffect(() => () => clearTimer(), []);
+
+  // Spacebar / Enter support for desktop
+  useEffect(() => {
+    if (phase !== "waiting" && phase !== "stimulus") return;
+    function onKey(e: KeyboardEvent) {
+      if (e.code === "Space" || e.code === "Enter") { e.preventDefault(); handleClick(); }
+    }
+    window.addEventListener("keydown", onKey as unknown as EventListener);
+    return () => window.removeEventListener("keydown", onKey as unknown as EventListener);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase]);
 
   function handleClick() {
     if (disabled) return;

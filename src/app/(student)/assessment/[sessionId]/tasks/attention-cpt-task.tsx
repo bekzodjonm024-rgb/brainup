@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, KeyboardEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -83,6 +83,17 @@ export function AttentionCPTTask({ item, onComplete, disabled }: Props) {
     }
   }, [showLetter, phase, responded, currentLetterIdx, data.letters, data.targetLetter]);
 
+  // Spacebar support for desktop users
+  useEffect(() => {
+    if (phase !== "running") return;
+    function onKey(e: KeyboardEvent) {
+      if (e.code === "Space") { e.preventDefault(); handleResponse(); }
+    }
+    window.addEventListener("keydown", onKey as unknown as EventListener);
+    return () => window.removeEventListener("keydown", onKey as unknown as EventListener);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase, responded, disabled, currentLetterIdx, showLetter]);
+
   function handleSubmit() {
     onComplete({
       taskType: "ATTENTION_CPT",
@@ -105,7 +116,7 @@ export function AttentionCPTTask({ item, onComplete, disabled }: Props) {
               <p className="text-sm text-blue-700">
                 Har bir harf alohida ko'rinadi. Faqat{" "}
                 <span className="font-bold text-xl text-blue-900">{data.targetLetter}</span>{" "}
-                ko'rganda ekranni bosing. Boshqalarda bosmang.
+                ko'rganda ekranni bosing yoki <kbd className="rounded bg-blue-100 px-1.5 py-0.5 font-mono text-xs">Space</kbd> tugmasini bosing.
               </p>
             </div>
             <Button
