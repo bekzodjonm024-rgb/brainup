@@ -157,6 +157,37 @@ export function PracticeSession({
     router.push(`/topics/${topicId}/result?topicId=${topicId}`);
   }
 
+  // Keyboard shortcuts: 1-4 select option, Enter/Space submit or next
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (phase === "question" && currentQuestion) {
+        if (currentQuestion.type === "MULTIPLE_CHOICE" && currentQuestion.options) {
+          const idx = parseInt(e.key, 10) - 1;
+          if (idx >= 0 && idx < currentQuestion.options.length) {
+            setSelectedAnswer(currentQuestion.options[idx]);
+            return;
+          }
+        }
+        if (currentQuestion.type === "TRUE_FALSE") {
+          if (e.key === "1") { setSelectedAnswer("true"); return; }
+          if (e.key === "2") { setSelectedAnswer("false"); return; }
+        }
+        if ((e.code === "Enter" || e.code === "Space") && selectedAnswer && !submitting) {
+          e.preventDefault();
+          handleSubmit();
+        }
+      } else if (phase === "feedback") {
+        if (e.code === "Enter" || e.code === "Space") {
+          e.preventDefault();
+          handleNext();
+        }
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase, currentQuestion, selectedAnswer, submitting]);
+
   const progress = (stats.total / sessionTarget) * 100;
 
   return (
@@ -352,14 +383,19 @@ export function PracticeSession({
 
                 {/* Actions */}
                 {phase === "question" && (
-                  <Button
-                    onClick={handleSubmit}
-                    disabled={!selectedAnswer || submitting}
-                    className="w-full"
-                  >
-                    {submitting ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
-                    Tasdiqlash
-                  </Button>
+                  <div className="space-y-2">
+                    <Button
+                      onClick={handleSubmit}
+                      disabled={!selectedAnswer || submitting}
+                      className="w-full"
+                    >
+                      {submitting ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+                      Tasdiqlash
+                    </Button>
+                    <p className="text-center text-xs text-slate-400">
+                      Raqam tugmalari variantni tanlaydi · Enter tasdiqlaydi
+                    </p>
+                  </div>
                 )}
 
                 {phase === "feedback" && (
