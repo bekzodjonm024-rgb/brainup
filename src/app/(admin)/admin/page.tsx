@@ -56,11 +56,15 @@ export default async function AdminDashboardPage() {
         </div>
 
         <div className="rounded-lg border border-blue-100 bg-blue-50 p-4 text-sm text-blue-800">
-          <p className="font-medium mb-1">Tezkor havolalar</p>
-          <ul className="space-y-1 text-blue-700">
-            <li>→ <a href="/admin/users" className="underline hover:text-blue-900">Foydalanuvchilarni boshqarish</a></li>
-            <li>→ <a href="/admin/professors" className="underline hover:text-blue-900">Yangi professor qo'shish</a></li>
-          </ul>
+          <p className="font-medium mb-2">Tezkor havolalar</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-1 text-blue-700">
+            <a href="/admin/users" className="underline hover:text-blue-900">→ Talabalar</a>
+            <a href="/admin/professors" className="underline hover:text-blue-900">→ Professorlar</a>
+            <a href="/admin/courses" className="underline hover:text-blue-900">→ Kurslar</a>
+            <a href="/admin/content" className="underline hover:text-blue-900">→ Kontent</a>
+            <a href="/admin/analytics" className="underline hover:text-blue-900">→ Statistika</a>
+            <a href="/admin/universities" className="underline hover:text-blue-900">→ Universitetlar</a>
+          </div>
         </div>
       </main>
     </div>

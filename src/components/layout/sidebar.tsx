@@ -15,6 +15,9 @@ import {
   UserCog,
   TrendingUp,
   UserCircle,
+  GraduationCap,
+  FileText,
+  University,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { signOut } from "next-auth/react";
@@ -44,8 +47,13 @@ const professorNav: NavItem[] = [
 
 const adminNav: NavItem[] = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/admin/users", label: "Foydalanuvchilar", icon: Users },
+  { href: "/admin/users", label: "Talabalar", icon: Users },
   { href: "/admin/professors", label: "Professorlar", icon: UserCog },
+  { href: "/admin/courses", label: "Kurslar", icon: GraduationCap },
+  { href: "/admin/content", label: "Kontent", icon: FileText },
+  { href: "/admin/analytics", label: "Statistika", icon: BarChart3 },
+  { href: "/admin/universities", label: "Universitetlar", icon: University },
+  { href: "/admin/profile", label: "Profilim", icon: UserCircle },
 ];
 
 interface SidebarProps {

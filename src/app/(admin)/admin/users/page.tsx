@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/utils";
 import { UserToggle } from "./user-toggle";
+import { PasswordReset } from "./password-reset";
 import { Brain } from "lucide-react";
 
 export default async function AdminUsersPage() {
@@ -58,6 +59,7 @@ export default async function AdminUsersPage() {
                     <th className="text-left px-4 py-3 font-medium text-slate-500 hidden md:table-cell">Yozilgan</th>
                     <th className="text-left px-4 py-3 font-medium text-slate-500 hidden md:table-cell">Urinishlar</th>
                     <th className="text-left px-4 py-3 font-medium text-slate-500">Holat</th>
+                    <th className="px-4 py-3 text-left font-medium text-slate-500 hidden lg:table-cell">Parol</th>
                     <th className="px-4 py-3" />
                   </tr>
                 </thead>
@@ -103,6 +105,9 @@ export default async function AdminUsersPage() {
                           <Badge variant={user.isActive ? "default" : "destructive"} className="text-xs">
                             {user.isActive ? "Faol" : "Bloklangan"}
                           </Badge>
+                        </td>
+                        <td className="px-4 py-3 hidden lg:table-cell">
+                          <PasswordReset userId={user.id} name={name} />
                         </td>
                         <td className="px-4 py-3">
                           <UserToggle userId={user.id} isActive={user.isActive} name={name} />
