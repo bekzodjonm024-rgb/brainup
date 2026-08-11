@@ -294,15 +294,16 @@ model AssessmentItem {
 }
 
 model AssessmentSession {
-  id           String           @id @default(cuid())
-  studentId    String
-  student      Student          @relation(fields: [studentId], references: [id])
-  assessmentId String
-  assessment   Assessment       @relation(fields: [assessmentId], references: [id])
-  status       AssessmentStatus @default(NOT_STARTED)
-  startedAt    DateTime?
-  completedAt  DateTime?
-  createdAt    DateTime         @default(now())
+  id            String           @id @default(cuid())
+  studentId     String
+  student       Student          @relation(fields: [studentId], references: [id])
+  assessmentId  String
+  assessment    Assessment       @relation(fields: [assessmentId], references: [id])
+  status        AssessmentStatus @default(NOT_STARTED)
+  startedAt     DateTime?
+  completedAt   DateTime?
+  createdAt     DateTime         @default(now())
+  itemOverrides Json?
 
   answers          AssessmentAnswer[]
   cognitiveProfile CognitiveProfile?

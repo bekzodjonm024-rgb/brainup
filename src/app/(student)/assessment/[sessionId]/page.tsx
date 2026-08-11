@@ -36,6 +36,9 @@ export default async function AssessmentSessionPage({
   const items = assessmentSession.assessment.items;
   const nextItemIndex = items.findIndex((item) => !answeredItemIds.has(item.id));
 
+  // Use per-session random overrides when available (generated at session creation)
+  const overrides = (assessmentSession.itemOverrides ?? {}) as Record<string, unknown>;
+
   return (
     <div className="flex flex-col h-full overflow-y-auto bg-slate-50">
       <AssessmentRunner
@@ -45,7 +48,7 @@ export default async function AssessmentSessionPage({
           category: item.category,
           taskType: item.taskType,
           prompt: item.prompt,
-          stimuluData: item.stimuluData as Record<string, unknown>,
+          stimuluData: (overrides[item.id] ?? item.stimuluData) as Record<string, unknown>,
         }))}
         initialItemIndex={nextItemIndex >= 0 ? nextItemIndex : items.length}
         totalItems={items.length}
