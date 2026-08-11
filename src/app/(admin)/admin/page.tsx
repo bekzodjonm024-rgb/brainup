@@ -6,7 +6,11 @@ import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { Header } from "@/components/layout/header";
 import { Card, CardContent } from "@/components/ui/card";
-import { Users, BookOpen, TrendingUp, Brain, UserCheck, GraduationCap } from "lucide-react";
+import Link from "next/link";
+import {
+  Users, BookOpen, TrendingUp, Brain, UserCheck, GraduationCap,
+  UserCog, FileText, BarChart3, University, UserCircle, ChevronRight,
+} from "lucide-react";
 
 export default async function AdminDashboardPage() {
   const session = await auth();
@@ -19,6 +23,7 @@ export default async function AdminDashboardPage() {
     totalEnrollments,
     assessmentsCompleted,
     activeStudents,
+    pendingContent,
   ] = await Promise.all([
     db.student.count(),
     db.professor.count(),
@@ -26,6 +31,7 @@ export default async function AdminDashboardPage() {
     db.enrollment.count(),
     db.assessmentSession.count({ where: { status: "COMPLETED" } }),
     db.user.count({ where: { role: "STUDENT", isActive: true } }),
+    db.contentItem.count({ where: { status: "PENDING_REVIEW" } }),
   ]);
 
   const stats = [
@@ -37,11 +43,25 @@ export default async function AdminDashboardPage() {
     { icon: <Brain className="h-5 w-5 text-cyan-600" />, label: "Baholash yakunlangan", value: assessmentsCompleted, bg: "bg-cyan-50" },
   ];
 
+  const quickLinks = [
+    { href: "/admin/users", label: "Talabalar", icon: Users, description: "Bloklash, parol reset" },
+    { href: "/admin/professors", label: "Professorlar", icon: UserCog, description: "Hisob qo'shish va boshqarish" },
+    { href: "/admin/courses", label: "Kurslar", icon: BookOpen, description: "Faollik holati" },
+    {
+      href: "/admin/content", label: "Kontent", icon: FileText,
+      description: pendingContent > 0 ? `${pendingContent} ta kutmoqda` : "Tasdiqlash / rad etish",
+      badge: pendingContent > 0 ? pendingContent : undefined,
+    },
+    { href: "/admin/analytics", label: "Statistika", icon: BarChart3, description: "Platform tahlili" },
+    { href: "/admin/universities", label: "Universitetlar", icon: University, description: "Fakultetlar boshqaruvi" },
+    { href: "/admin/profile", label: "Profilim", icon: UserCircle, description: "Avatar, parol" },
+  ];
+
   return (
     <div className="flex flex-col flex-1 overflow-auto">
       <Header title="Admin panel" description="BrainUP tizimini boshqarish" />
       <main className="flex-1 p-6 space-y-6">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {stats.map((s) => (
             <Card key={s.label}>
               <CardContent className="p-5 flex items-center gap-4">
@@ -55,15 +75,35 @@ export default async function AdminDashboardPage() {
           ))}
         </div>
 
-        <div className="rounded-lg border border-blue-100 bg-blue-50 p-4 text-sm text-blue-800">
-          <p className="font-medium mb-2">Tezkor havolalar</p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-1 text-blue-700">
-            <a href="/admin/users" className="underline hover:text-blue-900">→ Talabalar</a>
-            <a href="/admin/professors" className="underline hover:text-blue-900">→ Professorlar</a>
-            <a href="/admin/courses" className="underline hover:text-blue-900">→ Kurslar</a>
-            <a href="/admin/content" className="underline hover:text-blue-900">→ Kontent</a>
-            <a href="/admin/analytics" className="underline hover:text-blue-900">→ Statistika</a>
-            <a href="/admin/universities" className="underline hover:text-blue-900">→ Universitetlar</a>
+        <div>
+          <h2 className="text-sm font-semibold text-slate-700 mb-3">Bo'limlar</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {quickLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="flex items-center gap-3 rounded-lg border border-slate-200 bg-white p-4 hover:border-blue-300 hover:shadow-sm transition-all group"
+                >
+                  <div className="rounded-lg bg-slate-100 p-2 group-hover:bg-blue-50 transition-colors shrink-0">
+                    <Icon className="h-4 w-4 text-slate-600 group-hover:text-blue-600 transition-colors" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <p className="text-sm font-medium text-slate-900">{link.label}</p>
+                      {"badge" in link && link.badge !== undefined && (
+                        <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-amber-500 px-1.5 text-[11px] font-bold text-white leading-none">
+                          {link.badge}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs text-slate-400 truncate">{link.description}</p>
+                  </div>
+                  <ChevronRight className="h-4 w-4 text-slate-300 group-hover:text-blue-400 shrink-0 transition-colors" />
+                </Link>
+              );
+            })}
           </div>
         </div>
       </main>

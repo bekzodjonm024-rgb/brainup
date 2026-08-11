@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/utils";
 import { AddProfessorForm } from "./add-professor-form";
 import { UserToggle } from "../users/user-toggle";
+import { PasswordReset } from "../users/password-reset";
 
 export default async function AdminProfessorsPage() {
   const session = await auth();
@@ -52,6 +53,7 @@ export default async function AdminProfessorsPage() {
                       <th className="text-left px-4 py-3 font-medium text-slate-500 hidden md:table-cell">Kurslar</th>
                       <th className="text-left px-4 py-3 font-medium text-slate-500 hidden md:table-cell">Qo'shilgan</th>
                       <th className="text-left px-4 py-3 font-medium text-slate-500">Holat</th>
+                      <th className="px-4 py-3 text-left font-medium text-slate-500 hidden lg:table-cell">Parol</th>
                       <th className="px-4 py-3" />
                     </tr>
                   </thead>
@@ -78,6 +80,9 @@ export default async function AdminProfessorsPage() {
                             <Badge variant={user.isActive ? "default" : "destructive"} className="text-xs">
                               {user.isActive ? "Faol" : "Bloklangan"}
                             </Badge>
+                          </td>
+                          <td className="px-4 py-3 hidden lg:table-cell">
+                            <PasswordReset userId={user.id} name={name} />
                           </td>
                           <td className="px-4 py-3">
                             <UserToggle userId={user.id} isActive={user.isActive} name={name} />

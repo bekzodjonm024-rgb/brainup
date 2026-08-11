@@ -58,6 +58,7 @@ export default async function AdminAnalyticsPage() {
     db.course.findMany({
       where: { isActive: true },
       select: {
+        id: true,
         title: true,
         _count: { select: { enrollments: true } },
         professor: { select: { firstName: true, lastName: true } },
@@ -68,7 +69,7 @@ export default async function AdminAnalyticsPage() {
     db.learningEvent.groupBy({ by: ["eventType"], _count: { id: true }, orderBy: { _count: { id: "desc" } }, take: 6 }),
   ]);
 
-  // Group mastery into buckets
+  // Bucket masteryScore values — groupBy returns one row per unique Float value
   const buckets = { "0–25%": 0, "26–50%": 0, "51–75%": 0, "76–100%": 0 };
   for (const row of masteryBuckets) {
     const v = row.masteryScore;
@@ -180,7 +181,7 @@ export default async function AdminAnalyticsPage() {
             </CardHeader>
             <CardContent className="space-y-3">
               {topCourses.map((course) => (
-                <div key={course.title}>
+                <div key={course.id}>
                   <div className="flex items-center justify-between mb-1">
                     <div className="min-w-0">
                       <p className="text-xs text-slate-700 truncate max-w-[180px]">{course.title}</p>
@@ -216,6 +217,7 @@ export default async function AdminAnalyticsPage() {
                     <span className="text-xs text-slate-600 truncate max-w-[180px]">
                       {EVENT_LABELS[e.eventType] ?? e.eventType}
                     </span>
+                    <span className="text-xs text-slate-400 shrink-0 ml-2">{e._count.id}</span>
                   </div>
                   <MiniBar value={e._count.id} max={maxEventCount} color="bg-cyan-500" />
                 </div>

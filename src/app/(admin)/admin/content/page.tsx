@@ -9,56 +9,65 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/utils";
 import { ContentActions } from "./content-actions";
+import { ContentFilter } from "./content-filter";
+import { Suspense } from "react";
 
 const TYPE_LABELS: Record<string, string> = {
   PDF: "PDF", WORD: "Word", PPT: "PPT", TEXT: "Matn",
   VIDEO: "Video", ARTICLE: "Maqola", BOOK: "Kitob", LINK: "Havola",
 };
 
-export default async function AdminContentPage() {
+const VALID_STATUSES = ["PENDING_REVIEW", "APPROVED", "REJECTED", "DRAFT"] as const;
+type Status = typeof VALID_STATUSES[number];
+
+export default async function AdminContentPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ status?: string }>;
+}) {
   const session = await auth();
   if (session?.user?.role !== "ADMIN") redirect("/login");
 
-  const [pending, approved, rejected] = await Promise.all([
-    db.contentItem.count({ where: { status: "PENDING_REVIEW" } }),
-    db.contentItem.count({ where: { status: "APPROVED" } }),
-    db.contentItem.count({ where: { status: "REJECTED" } }),
-  ]);
+  const { status: rawStatus } = await searchParams;
+  const activeStatus: Status = VALID_STATUSES.includes(rawStatus as Status)
+    ? (rawStatus as Status)
+    : "PENDING_REVIEW";
 
-  const items = await db.contentItem.findMany({
-    where: { status: "PENDING_REVIEW" },
-    select: {
-      id: true,
-      title: true,
-      type: true,
-      status: true,
-      createdAt: true,
-      topic: {
-        select: {
-          title: true,
-          course: {
-            select: {
-              title: true,
-              professor: { select: { firstName: true, lastName: true } },
+  const [byStatus, items] = await Promise.all([
+    db.contentItem.groupBy({ by: ["status"], _count: { id: true } }),
+    db.contentItem.findMany({
+      where: { status: activeStatus },
+      select: {
+        id: true,
+        title: true,
+        type: true,
+        status: true,
+        createdAt: true,
+        topic: {
+          select: {
+            title: true,
+            course: {
+              select: {
+                title: true,
+                professor: { select: { firstName: true, lastName: true } },
+              },
             },
           },
         },
       },
-    },
-    orderBy: { createdAt: "desc" },
-  });
+      orderBy: { createdAt: "desc" },
+    }),
+  ]);
+
+  const counts = Object.fromEntries(byStatus.map((r) => [r.status, r._count.id]));
 
   return (
     <div className="flex flex-col flex-1 overflow-auto">
-      <Header title="Kontent" description="Tasdiqlash kutayotgan materiallar" />
+      <Header title="Kontent" description="Materiallar boshqaruvi" />
       <main className="flex-1 p-6 space-y-4">
-        <div className="flex items-center gap-4 text-sm">
-          <span className="text-amber-600 font-medium">{pending} kutmoqda</span>
-          <span className="text-slate-300">|</span>
-          <span className="text-emerald-600">{approved} tasdiqlangan</span>
-          <span className="text-slate-300">|</span>
-          <span className="text-red-500">{rejected} rad etilgan</span>
-        </div>
+        <Suspense>
+          <ContentFilter counts={counts} active={activeStatus} />
+        </Suspense>
 
         <Card>
           <CardContent className="p-0">
@@ -70,7 +79,7 @@ export default async function AdminContentPage() {
                     <th className="text-left px-4 py-3 font-medium text-slate-500 hidden sm:table-cell">Mavzu / Kurs</th>
                     <th className="text-left px-4 py-3 font-medium text-slate-500 hidden md:table-cell">Professor</th>
                     <th className="text-left px-4 py-3 font-medium text-slate-500 hidden md:table-cell">Sana</th>
-                    <th className="px-4 py-3" />
+                    {activeStatus === "PENDING_REVIEW" && <th className="px-4 py-3" />}
                   </tr>
                 </thead>
                 <tbody>
@@ -96,15 +105,17 @@ export default async function AdminContentPage() {
                       <td className="px-4 py-3 text-slate-400 hidden md:table-cell text-xs">
                         {formatDate(item.createdAt)}
                       </td>
-                      <td className="px-4 py-3">
-                        <ContentActions contentId={item.id} status={item.status} title={item.title} />
-                      </td>
+                      {activeStatus === "PENDING_REVIEW" && (
+                        <td className="px-4 py-3">
+                          <ContentActions contentId={item.id} status={item.status} title={item.title} />
+                        </td>
+                      )}
                     </tr>
                   ))}
                   {items.length === 0 && (
                     <tr>
-                      <td colSpan={5} className="px-4 py-8 text-center text-slate-400">
-                        Tasdiqlash kutayotgan kontent yo'q
+                      <td colSpan={5} className="px-4 py-10 text-center text-slate-400">
+                        Bu bo'limda kontent yo'q
                       </td>
                     </tr>
                   )}
