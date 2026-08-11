@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, XCircle } from "lucide-react";
+import { ConfirmDialog } from "@/components/admin/confirm-dialog";
+import { ActionToast, useToast } from "@/components/admin/action-toast";
 
 export function ContentActions({
   contentId,
@@ -15,41 +17,73 @@ export function ContentActions({
   title: string;
 }) {
   const router = useRouter();
+  const [dialog, setDialog] = useState<"approve" | "reject" | null>(null);
   const [loading, setLoading] = useState(false);
+  const { toast, show, dismiss } = useToast();
 
-  async function handleAction(action: "approve" | "reject") {
-    const label = action === "approve" ? "tasdiqlash" : "rad etish";
-    if (!confirm(`"${title}" kontentini ${label}ni tasdiqlaysizmi?`)) return;
+  async function handleConfirm() {
+    if (!dialog) return;
     setLoading(true);
-    await fetch(`/api/content/${contentId}/${action}`, { method: "POST" });
+    const res = await fetch(`/api/content/${contentId}/${dialog}`, { method: "POST" });
     setLoading(false);
-    router.refresh();
+    setDialog(null);
+    if (res.ok) {
+      show(dialog === "approve" ? "Kontent tasdiqlandi" : "Kontent rad etildi",
+        dialog === "approve" ? "success" : "error");
+      router.refresh();
+    } else {
+      show("Xatolik yuz berdi", "error");
+    }
   }
 
   if (status !== "PENDING_REVIEW") return null;
 
   return (
-    <div className="flex items-center gap-1">
-      <Button
-        variant="ghost"
-        size="icon"
-        className="text-slate-400 hover:text-emerald-600"
-        onClick={() => handleAction("approve")}
-        disabled={loading}
-        title="Tasdiqlash"
-      >
-        <CheckCircle className="h-4 w-4" />
-      </Button>
-      <Button
-        variant="ghost"
-        size="icon"
-        className="text-slate-400 hover:text-red-600"
-        onClick={() => handleAction("reject")}
-        disabled={loading}
-        title="Rad etish"
-      >
-        <XCircle className="h-4 w-4" />
-      </Button>
-    </div>
+    <>
+      <div className="flex items-center gap-1">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="text-slate-400 hover:text-emerald-600 hover:bg-emerald-50"
+          onClick={() => setDialog("approve")}
+          title="Tasdiqlash"
+        >
+          <CheckCircle className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="text-slate-400 hover:text-red-600 hover:bg-red-50"
+          onClick={() => setDialog("reject")}
+          title="Rad etish"
+        >
+          <XCircle className="h-4 w-4" />
+        </Button>
+      </div>
+
+      <ConfirmDialog
+        open={dialog === "approve"}
+        onOpenChange={(o) => !o && setDialog(null)}
+        title="Kontentni tasdiqlash"
+        description={`"${title}" materialini tasdiqlaysiz. Talabalar ko'ra oladi.`}
+        confirmLabel="Tasdiqlash"
+        variant="default"
+        loading={loading}
+        onConfirm={handleConfirm}
+      />
+
+      <ConfirmDialog
+        open={dialog === "reject"}
+        onOpenChange={(o) => !o && setDialog(null)}
+        title="Kontentni rad etish"
+        description={`"${title}" materialini rad etasiz. Professor qayta tahrirlashi kerak bo'ladi.`}
+        confirmLabel="Rad etish"
+        variant="destructive"
+        loading={loading}
+        onConfirm={handleConfirm}
+      />
+
+      {toast && <ActionToast message={toast.message} type={toast.type} onDismiss={dismiss} />}
+    </>
   );
 }

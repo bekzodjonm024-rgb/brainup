@@ -5,16 +5,22 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { Header } from "@/components/layout/header";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import { formatDate } from "@/lib/utils";
 import {
   Users, BookOpen, TrendingUp, Brain, UserCheck, GraduationCap,
   UserCog, FileText, BarChart3, University, UserCircle, ChevronRight,
+  AlertCircle, Clock,
 } from "lucide-react";
 
 export default async function AdminDashboardPage() {
   const session = await auth();
   if (session?.user?.role !== "ADMIN") redirect("/login");
+
+  const sevenDaysAgo = new Date();
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
 
   const [
     totalStudents,
@@ -24,6 +30,9 @@ export default async function AdminDashboardPage() {
     assessmentsCompleted,
     activeStudents,
     pendingContent,
+    blockedUsers,
+    recentUsers,
+    recentContent,
   ] = await Promise.all([
     db.student.count(),
     db.professor.count(),
@@ -32,6 +41,25 @@ export default async function AdminDashboardPage() {
     db.assessmentSession.count({ where: { status: "COMPLETED" } }),
     db.user.count({ where: { role: "STUDENT", isActive: true } }),
     db.contentItem.count({ where: { status: "PENDING_REVIEW" } }),
+    db.user.count({ where: { isActive: false } }),
+    db.user.findMany({
+      where: { role: "STUDENT", createdAt: { gte: sevenDaysAgo } },
+      select: {
+        id: true, email: true, createdAt: true,
+        student: { select: { firstName: true, lastName: true, university: { select: { shortName: true } } } },
+      },
+      orderBy: { createdAt: "desc" },
+      take: 5,
+    }),
+    db.contentItem.findMany({
+      where: { status: "PENDING_REVIEW" },
+      select: {
+        id: true, title: true, type: true, createdAt: true,
+        topic: { select: { course: { select: { professor: { select: { firstName: true, lastName: true } } } } } },
+      },
+      orderBy: { createdAt: "desc" },
+      take: 5,
+    }),
   ]);
 
   const stats = [
@@ -57,10 +85,40 @@ export default async function AdminDashboardPage() {
     { href: "/admin/profile", label: "Profilim", icon: UserCircle, description: "Avatar, parol" },
   ];
 
+  const hasAlerts = pendingContent > 0 || blockedUsers > 0;
+
   return (
     <div className="flex flex-col flex-1 overflow-auto">
       <Header title="Admin panel" description="BrainUP tizimini boshqarish" />
       <main className="flex-1 p-6 space-y-6">
+
+        {/* Alerts */}
+        {hasAlerts && (
+          <div className="flex flex-wrap gap-3">
+            {pendingContent > 0 && (
+              <Link
+                href="/admin/content"
+                className="flex items-center gap-2.5 rounded-lg border border-amber-200 bg-amber-50 px-4 py-2.5 text-sm text-amber-800 hover:bg-amber-100 transition-colors"
+              >
+                <AlertCircle className="h-4 w-4 text-amber-500 shrink-0" />
+                <span><strong>{pendingContent}</strong> ta kontent tasdiqlash kutmoqda</span>
+                <ChevronRight className="h-4 w-4 text-amber-400" />
+              </Link>
+            )}
+            {blockedUsers > 0 && (
+              <Link
+                href="/admin/users?filter=blocked"
+                className="flex items-center gap-2.5 rounded-lg border border-red-200 bg-red-50 px-4 py-2.5 text-sm text-red-700 hover:bg-red-100 transition-colors"
+              >
+                <AlertCircle className="h-4 w-4 text-red-400 shrink-0" />
+                <span><strong>{blockedUsers}</strong> ta bloklangan hisob</span>
+                <ChevronRight className="h-4 w-4 text-red-300" />
+              </Link>
+            )}
+          </div>
+        )}
+
+        {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {stats.map((s) => (
             <Card key={s.label}>
@@ -75,6 +133,7 @@ export default async function AdminDashboardPage() {
           ))}
         </div>
 
+        {/* Quick links */}
         <div>
           <h2 className="text-sm font-semibold text-slate-700 mb-3">Bo'limlar</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -84,7 +143,7 @@ export default async function AdminDashboardPage() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="flex items-center gap-3 rounded-lg border border-slate-200 bg-white p-4 hover:border-blue-300 hover:shadow-sm transition-all group"
+                  className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 hover:border-blue-300 hover:shadow-sm transition-all group"
                 >
                   <div className="rounded-lg bg-slate-100 p-2 group-hover:bg-blue-50 transition-colors shrink-0">
                     <Icon className="h-4 w-4 text-slate-600 group-hover:text-blue-600 transition-colors" />
@@ -105,6 +164,81 @@ export default async function AdminDashboardPage() {
               );
             })}
           </div>
+        </div>
+
+        {/* Recent activity */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-semibold flex items-center gap-2 text-slate-700">
+                <Clock className="h-4 w-4 text-slate-400" />
+                So'nggi ro'yxatdan o'tganlar (7 kun)
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              {recentUsers.length === 0 ? (
+                <p className="text-xs text-slate-400 px-4 pb-4">So'nggi 7 kunda ro'yxatdan o'tgan yo'q</p>
+              ) : (
+                <div className="divide-y divide-slate-50">
+                  {recentUsers.map((u) => {
+                    const s = u.student;
+                    const name = s ? `${s.firstName} ${s.lastName}` : u.email;
+                    return (
+                      <div key={u.id} className="flex items-center gap-3 px-4 py-2.5">
+                        <div className="h-7 w-7 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-bold shrink-0 uppercase">
+                          {name.slice(0, 2)}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-slate-800 truncate">{name}</p>
+                          <p className="text-xs text-slate-400">
+                            {s?.university?.shortName ?? u.email}
+                          </p>
+                        </div>
+                        <span className="text-xs text-slate-400 shrink-0">{formatDate(u.createdAt)}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-semibold flex items-center gap-2 text-slate-700">
+                <FileText className="h-4 w-4 text-slate-400" />
+                Tasdiqlash kutayotgan kontent
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              {recentContent.length === 0 ? (
+                <p className="text-xs text-slate-400 px-4 pb-4">Tasdiqlash kutayotgan kontent yo'q</p>
+              ) : (
+                <div className="divide-y divide-slate-50">
+                  {recentContent.map((item) => {
+                    const prof = item.topic.course.professor;
+                    return (
+                      <div key={item.id} className="flex items-center gap-3 px-4 py-2.5">
+                        <Badge variant="secondary" className="text-xs shrink-0">{item.type}</Badge>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm text-slate-800 truncate">{item.title}</p>
+                          <p className="text-xs text-slate-400">{prof.firstName} {prof.lastName}</p>
+                        </div>
+                        <span className="text-xs text-slate-400 shrink-0">{formatDate(item.createdAt)}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+              {recentContent.length > 0 && (
+                <div className="px-4 pb-3 pt-2">
+                  <Link href="/admin/content" className="text-xs text-blue-600 hover:underline">
+                    Hammasini ko'rish →
+                  </Link>
+                </div>
+              )}
+            </CardContent>
+          </Card>
         </div>
       </main>
     </div>
