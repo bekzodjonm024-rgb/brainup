@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Syne } from "next/font/google";
 import "./globals.css";
+import { Providers } from "./providers";
 
 const geist = Geist({
   variable: "--font-geist-sans",
@@ -40,8 +41,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="uz" className={`${geist.variable} ${syne.variable} h-full antialiased`}>
-      <body className="min-h-full bg-slate-50">{children}</body>
+    <html
+      lang="uz"
+      suppressHydrationWarning
+      className={`${geist.variable} ${syne.variable} h-full antialiased`}
+    >
+      <body className="min-h-full bg-[var(--background)] text-[var(--foreground)]">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

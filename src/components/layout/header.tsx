@@ -2,6 +2,7 @@
 
 import { Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ThemeSwitcher } from "@/components/ui/theme-switcher";
 
 interface HeaderProps {
   title: string;
@@ -20,13 +21,16 @@ export function Header({ title, description }: HeaderProps) {
           )}
         </div>
       </div>
-      <Button
-        variant="ghost"
-        size="icon"
-        className="text-slate-600 hover:text-slate-400 hover:bg-slate-800 rounded-full"
-      >
-        <Bell className="h-4 w-4" />
-      </Button>
+      <div className="flex items-center gap-2">
+        <ThemeSwitcher />
+        <Button
+          variant="ghost"
+          size="icon"
+          className="text-slate-600 hover:text-slate-400 hover:bg-slate-800 rounded-full"
+        >
+          <Bell className="h-4 w-4" />
+        </Button>
+      </div>
     </header>
   );
 }
