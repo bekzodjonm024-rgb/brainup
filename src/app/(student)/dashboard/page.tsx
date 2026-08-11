@@ -36,7 +36,7 @@ const ACTION_CONFIG: Record<string, { label: string; color: string; icon: React.
 function getActionHref(topicId: string, action: string) {
   if (action === "PRACTICE" || action === "ADVANCED_PRACTICE") return `/topics/${topicId}/practice`;
   if (action === "EXPLAIN_AGAIN" || action === "START") return `/topics/${topicId}`;
-  if (action === "RETRIEVE") return `/topics/${topicId}/practice`;
+  if (action === "RETRIEVE") return `/retrieval`;
   return `/topics/${topicId}`;
 }
 
@@ -234,7 +234,7 @@ export default async function DashboardPage() {
                 </CardHeader>
                 <CardContent className="space-y-2">
                   {student.retrievalRecords.slice(0, 3).map((r) => (
-                    <Link key={r.id} href={`/topics/${r.topic.id}/practice`}>
+                    <Link key={r.id} href={`/retrieval/${r.topic.id}?recordId=${r.id}`}>
                       <div className="flex items-center justify-between text-sm py-1 hover:text-blue-600 transition-colors">
                         <span className="text-slate-700 truncate">{r.topic.title}</span>
                         <Badge variant="warning" className="text-xs ml-2 shrink-0">Muhim</Badge>
