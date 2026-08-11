@@ -2,9 +2,6 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect, notFound } from "next/navigation";
 import { Header } from "@/components/layout/header";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import {
   Plus, ArrowLeft, BookOpen, Users, LayoutList,
@@ -46,14 +43,14 @@ export default async function CourseDetailPage({
   );
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto">
+    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
       <Header title={course.title} description={course.faculty?.name ?? ""} />
       <main className="flex-1 p-6 space-y-6">
         <div className="flex items-center justify-between">
           <Link href="/professor/courses">
-            <Button variant="ghost" size="sm">
-              <ArrowLeft className="h-4 w-4 mr-1" /> Kurslar
-            </Button>
+            <button className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-200 hover:bg-slate-800 px-3 py-1.5 rounded-lg transition-colors">
+              <ArrowLeft className="h-4 w-4" /> Kurslar
+            </button>
           </Link>
           <div className="flex gap-2">
             <EditCourseDialog
@@ -63,14 +60,14 @@ export default async function CourseDetailPage({
               currentSemester={course.semester}
             />
             <Link href={`/professor/courses/${courseId}/students`}>
-              <Button variant="outline" size="sm">
-                <UserCheck className="h-4 w-4 mr-1" /> Talabalar
-              </Button>
+              <button className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-200 hover:bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-lg transition-colors">
+                <UserCheck className="h-4 w-4" /> Talabalar
+              </button>
             </Link>
             <Link href={`/professor/courses/${courseId}/analytics`}>
-              <Button variant="outline" size="sm">
-                <BarChart3 className="h-4 w-4 mr-1" /> Analitika
-              </Button>
+              <button className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-200 hover:bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-lg transition-colors">
+                <BarChart3 className="h-4 w-4" /> Analitika
+              </button>
             </Link>
           </div>
         </div>
@@ -78,41 +75,41 @@ export default async function CourseDetailPage({
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { icon: <LayoutList className="h-4 w-4 text-blue-600" />, label: "Mavzular", value: course.topics.length, bg: "bg-blue-50" },
-            { icon: <Users className="h-4 w-4 text-emerald-600" />, label: "Talabalar", value: course._count.enrollments, bg: "bg-emerald-50" },
-            { icon: <BookOpen className="h-4 w-4 text-violet-600" />, label: "Materiallar", value: totalContent, bg: "bg-violet-50" },
-            { icon: <CheckCircle2 className="h-4 w-4 text-amber-600" />, label: "Tasdiqlangan", value: approvedContent, bg: "bg-amber-50" },
+            { icon: <LayoutList className="h-5 w-5 text-blue-400" />, label: "Mavzular", value: course.topics.length, border: "border-blue-500/20", glow: "bg-blue-500/5", iconBg: "bg-blue-500/10" },
+            { icon: <Users className="h-5 w-5 text-emerald-400" />, label: "Talabalar", value: course._count.enrollments, border: "border-emerald-500/20", glow: "bg-emerald-500/5", iconBg: "bg-emerald-500/10" },
+            { icon: <BookOpen className="h-5 w-5 text-violet-400" />, label: "Materiallar", value: totalContent, border: "border-violet-500/20", glow: "bg-violet-500/5", iconBg: "bg-violet-500/10" },
+            { icon: <CheckCircle2 className="h-5 w-5 text-amber-400" />, label: "Tasdiqlangan", value: approvedContent, border: "border-amber-500/20", glow: "bg-amber-500/5", iconBg: "bg-amber-500/10" },
           ].map((s) => (
-            <Card key={s.label}>
-              <CardContent className="p-4 flex items-center gap-3">
-                <div className={`rounded-lg p-1.5 ${s.bg} shrink-0`}>{s.icon}</div>
-                <div>
-                  <p className="text-xs text-slate-500">{s.label}</p>
-                  <p className="text-lg font-bold text-slate-900">{s.value}</p>
-                </div>
-              </CardContent>
-            </Card>
+            <div key={s.label} className={`rounded-2xl border ${s.border} ${s.glow} p-5`}>
+              <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
+              <p className="f-syne text-2xl font-bold text-white leading-none">{s.value}</p>
+              <p className="text-xs text-slate-500 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
+            </div>
           ))}
         </div>
 
         {/* Topics */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <h2 className="font-semibold text-slate-900">Mavzular ketma-ketligi</h2>
+            <h2 className="font-semibold text-slate-200">Mavzular ketma-ketligi</h2>
             <Link href={`/professor/courses/${courseId}/topics/new`}>
-              <Button size="sm">
-                <Plus className="h-4 w-4 mr-1" /> Mavzu qo'shish
-              </Button>
+              <button className="flex items-center gap-1.5 text-sm bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg transition-colors">
+                <Plus className="h-4 w-4" /> Mavzu qo&apos;shish
+              </button>
             </Link>
           </div>
 
           {course.topics.length === 0 ? (
-            <div className="rounded-xl border border-dashed border-slate-200 bg-white p-12 text-center">
-              <BookOpen className="mx-auto h-10 w-10 text-slate-200 mb-3" />
-              <p className="font-medium text-slate-600 mb-1">Mavzular hali qo'shilmagan</p>
-              <p className="text-sm text-slate-400 mb-4">Birinchi mavzuni qo'shing</p>
+            <div className="rounded-xl border border-dashed border-slate-800 p-12 text-center">
+              <div className="w-14 h-14 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center mx-auto mb-3">
+                <BookOpen className="h-6 w-6 text-slate-600" />
+              </div>
+              <p className="font-medium text-slate-400 mb-1">Mavzular hali qo&apos;shilmagan</p>
+              <p className="text-sm text-slate-600 mb-4">Birinchi mavzuni qo&apos;shing</p>
               <Link href={`/professor/courses/${courseId}/topics/new`}>
-                <Button size="sm">Mavzu qo'shish</Button>
+                <button className="text-sm bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg transition-colors">
+                  Mavzu qo&apos;shish
+                </button>
               </Link>
             </div>
           ) : (
@@ -123,38 +120,36 @@ export default async function CourseDetailPage({
                 const isReady = total > 0 && approved === total;
 
                 return (
-                  <Card key={topic.id} className="hover:border-blue-200 transition-colors">
-                    <CardContent className="p-4 flex items-center gap-3">
-                      <div className="flex items-center gap-2 shrink-0">
-                        <GripVertical className="h-4 w-4 text-slate-300" />
-                        <span className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-xs font-medium text-slate-500">
-                          {idx + 1}
-                        </span>
-                      </div>
+                  <div key={topic.id} className="rounded-xl border border-slate-800 bg-slate-900 hover:border-slate-700 transition-colors p-4 flex items-center gap-3">
+                    <div className="flex items-center gap-2 shrink-0">
+                      <GripVertical className="h-4 w-4 text-slate-700" />
+                      <span className="w-6 h-6 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-medium text-slate-500">
+                        {idx + 1}
+                      </span>
+                    </div>
 
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2">
-                          <h3 className="font-medium text-slate-900 truncate">{topic.title}</h3>
-                          {isReady
-                            ? <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
-                            : <Circle className="h-4 w-4 text-slate-300 shrink-0" />}
-                        </div>
-                        {topic.learningObjective && (
-                          <p className="text-xs text-slate-500 mt-0.5 line-clamp-1">{topic.learningObjective}</p>
-                        )}
-                        <div className="flex gap-3 mt-1 text-xs text-slate-400">
-                          <span>{total} material ({approved} tasdiqlangan)</span>
-                          <span>{topic._count.questions} savol</span>
-                        </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-medium text-slate-200 truncate">{topic.title}</h3>
+                        {isReady
+                          ? <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                          : <Circle className="h-4 w-4 text-slate-700 shrink-0" />}
                       </div>
+                      {topic.learningObjective && (
+                        <p className="text-xs text-slate-600 mt-0.5 line-clamp-1">{topic.learningObjective}</p>
+                      )}
+                      <div className="flex gap-3 mt-1 text-xs text-slate-600">
+                        <span>{total} material ({approved} tasdiqlangan)</span>
+                        <span>{topic._count.questions} savol</span>
+                      </div>
+                    </div>
 
-                      <Link href={`/professor/courses/${courseId}/topics/${topic.id}`}>
-                        <Button variant="ghost" size="icon">
-                          <ChevronRight className="h-4 w-4" />
-                        </Button>
-                      </Link>
-                    </CardContent>
-                  </Card>
+                    <Link href={`/professor/courses/${courseId}/topics/${topic.id}`}>
+                      <button className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-500 hover:text-slate-200 hover:bg-slate-800 transition-colors">
+                        <ChevronRight className="h-4 w-4" />
+                      </button>
+                    </Link>
+                  </div>
                 );
               })}
             </div>

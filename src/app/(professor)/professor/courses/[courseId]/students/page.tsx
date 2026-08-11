@@ -50,14 +50,14 @@ export default async function CourseStudentsPage({
   });
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto">
+    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
       <Header title="Talabalar" description={course.title} />
       <main className="flex-1 p-6 space-y-5">
         <div className="flex items-center justify-between flex-wrap gap-3">
           <Link href={`/professor/courses/${courseId}`}>
-            <Button variant="ghost" size="sm">
-              <ArrowLeft className="h-4 w-4 mr-1" /> {course.title}
-            </Button>
+            <button className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-200 hover:bg-slate-800 px-3 py-1.5 rounded-lg transition-colors">
+              <ArrowLeft className="h-4 w-4" /> {course.title}
+            </button>
           </Link>
           <div className="flex items-center gap-2">
             <SendReminderButton courseId={courseId} />

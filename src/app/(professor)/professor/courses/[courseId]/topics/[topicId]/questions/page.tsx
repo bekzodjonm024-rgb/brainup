@@ -33,22 +33,22 @@ export default async function QuestionsPage({
   const totalCount = topic.questions.length;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto">
+    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
       <Header title="Savollar banki" description={`${topic.course.title} — ${topic.title}`} />
       <main className="flex-1 p-6 space-y-5">
         <div className="flex items-center justify-between">
           <Link href={`/professor/courses/${courseId}/topics/${topicId}`}>
-            <Button variant="ghost" size="sm">
-              <ArrowLeft className="h-4 w-4 mr-1" /> {topic.title}
-            </Button>
+            <button className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-200 hover:bg-slate-800 px-3 py-1.5 rounded-lg transition-colors">
+              <ArrowLeft className="h-4 w-4" /> {topic.title}
+            </button>
           </Link>
           <AddQuestionDialog topicId={topicId} />
         </div>
 
-        <div className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
-          Jami <strong className="text-slate-900">{totalCount} ta savol</strong>
+        <div className="rounded-xl border border-slate-800 bg-slate-900 px-4 py-3 text-sm text-slate-400">
+          Jami <strong className="text-slate-200">{totalCount} ta savol</strong>
           {totalCount > 0 && (
-            <span className="ml-2 text-slate-400">({activeCount} ta faol)</span>
+            <span className="ml-2 text-slate-600">({activeCount} ta faol)</span>
           )}
         </div>
 

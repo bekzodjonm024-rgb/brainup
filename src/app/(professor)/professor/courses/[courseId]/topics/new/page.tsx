@@ -3,11 +3,6 @@
 import { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { Header } from "@/components/layout/header";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Loader2, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
@@ -51,68 +46,80 @@ export default function NewTopicPage() {
   }
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto">
+    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
       <Header title="Yangi mavzu qo'shish" />
       <main className="flex-1 p-6 max-w-2xl">
-        <Link href={`/professor/courses/${courseId}`} className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 mb-6">
+        <Link href={`/professor/courses/${courseId}`} className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-300 mb-6 transition-colors">
           <ArrowLeft className="h-4 w-4" /> Kursga qaytish
         </Link>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Mavzu ma'lumotlari</CardTitle>
-            <CardDescription>
-              Mavzu yaratilgach material va savollar qo'shishingiz mumkin
-            </CardDescription>
-          </CardHeader>
-          <form onSubmit={handleSubmit}>
-            <CardContent className="space-y-5">
-              <div className="space-y-2">
-                <Label htmlFor="title">Mavzu nomi <span className="text-red-500">*</span></Label>
-                <Input
-                  id="title"
-                  value={form.title}
-                  onChange={(e) => update("title", e.target.value)}
-                  placeholder="Pedagogik mahorat tushunchasi"
-                  required
-                />
-                {errors.title && <p className="text-xs text-red-600">{errors.title[0]}</p>}
-              </div>
+        <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
+          <div className="mb-6">
+            <h2 className="font-semibold text-slate-200 text-lg">Mavzu ma&apos;lumotlari</h2>
+            <p className="text-sm text-slate-500 mt-1">
+              Mavzu yaratilgach material va savollar qo&apos;shishingiz mumkin
+            </p>
+          </div>
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="space-y-1.5">
+              <label htmlFor="title" className="text-sm font-medium text-slate-300">
+                Mavzu nomi <span className="text-red-400">*</span>
+              </label>
+              <input
+                id="title"
+                value={form.title}
+                onChange={(e) => update("title", e.target.value)}
+                placeholder="Pedagogik mahorat tushunchasi"
+                required
+                className="w-full h-10 px-3 rounded-lg border border-slate-700 bg-slate-800 text-slate-200 text-sm placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+              />
+              {errors.title && <p className="text-xs text-red-400">{errors.title[0]}</p>}
+            </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="learningObjective">O'quv maqsadi</Label>
-                <Input
-                  id="learningObjective"
-                  value={form.learningObjective}
-                  onChange={(e) => update("learningObjective", e.target.value)}
-                  placeholder="Dars oxirida talaba... qila oladi"
-                />
-                <p className="text-xs text-slate-500">Misol: "Pedagogik mahorat tushunchasini ta'riflay oladi"</p>
-              </div>
+            <div className="space-y-1.5">
+              <label htmlFor="learningObjective" className="text-sm font-medium text-slate-300">O&apos;quv maqsadi</label>
+              <input
+                id="learningObjective"
+                value={form.learningObjective}
+                onChange={(e) => update("learningObjective", e.target.value)}
+                placeholder="Dars oxirida talaba... qila oladi"
+                className="w-full h-10 px-3 rounded-lg border border-slate-700 bg-slate-800 text-slate-200 text-sm placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+              />
+              <p className="text-xs text-slate-600">Misol: &quot;Pedagogik mahorat tushunchasini ta&apos;riflay oladi&quot;</p>
+            </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="description">Tavsif</Label>
-                <Textarea
-                  id="description"
-                  value={form.description}
-                  onChange={(e) => update("description", e.target.value)}
-                  placeholder="Mavzu haqida qo'shimcha ma'lumot..."
-                  rows={3}
-                />
-              </div>
+            <div className="space-y-1.5">
+              <label htmlFor="description" className="text-sm font-medium text-slate-300">Tavsif</label>
+              <textarea
+                id="description"
+                value={form.description}
+                onChange={(e) => update("description", e.target.value)}
+                placeholder="Mavzu haqida qo'shimcha ma'lumot..."
+                rows={3}
+                className="w-full px-3 py-2.5 rounded-lg border border-slate-700 bg-slate-800 text-slate-200 text-sm placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors resize-none"
+              />
+            </div>
 
-              <div className="flex gap-3 pt-2">
-                <Button type="submit" disabled={loading}>
-                  {loading && <Loader2 className="h-4 w-4 animate-spin" />}
-                  Mavzu yaratish
-                </Button>
-                <Link href={`/professor/courses/${courseId}`}>
-                  <Button type="button" variant="outline">Bekor qilish</Button>
-                </Link>
-              </div>
-            </CardContent>
+            <div className="flex gap-3 pt-2">
+              <button
+                type="submit"
+                disabled={loading}
+                className="flex items-center gap-2 px-5 py-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white text-sm font-medium rounded-lg transition-colors"
+              >
+                {loading && <Loader2 className="h-4 w-4 animate-spin" />}
+                Mavzu yaratish
+              </button>
+              <Link href={`/professor/courses/${courseId}`}>
+                <button
+                  type="button"
+                  className="px-5 py-2 text-sm text-slate-400 hover:text-slate-200 hover:bg-slate-800 border border-slate-700 rounded-lg transition-colors"
+                >
+                  Bekor qilish
+                </button>
+              </Link>
+            </div>
           </form>
-        </Card>
+        </div>
       </main>
     </div>
   );

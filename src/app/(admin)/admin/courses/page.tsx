@@ -30,7 +30,7 @@ export default async function AdminCoursesPage() {
   });
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto">
+    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
       <Header title="Kurslar" description="Barcha kurslarni boshqarish" />
       <main className="flex-1 p-6">
         <CoursesTable courses={courses} />
