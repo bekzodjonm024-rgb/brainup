@@ -73,18 +73,18 @@ export default async function AdminContentPage({
           <CardContent className="p-0">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-slate-100">
-                    <th className="text-left px-4 py-3 font-medium text-slate-500">Kontent</th>
-                    <th className="text-left px-4 py-3 font-medium text-slate-500 hidden sm:table-cell">Mavzu / Kurs</th>
-                    <th className="text-left px-4 py-3 font-medium text-slate-500 hidden md:table-cell">Professor</th>
-                    <th className="text-left px-4 py-3 font-medium text-slate-500 hidden md:table-cell">Sana</th>
+                <thead className="bg-slate-50 border-b border-slate-200">
+                  <tr>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Kontent</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide hidden sm:table-cell">Mavzu / Kurs</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide hidden md:table-cell">Professor</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide hidden md:table-cell">Sana</th>
                     {activeStatus === "PENDING_REVIEW" && <th className="px-4 py-3" />}
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="divide-y divide-slate-100">
                   {items.map((item) => (
-                    <tr key={item.id} className="border-b border-slate-50 hover:bg-slate-50 transition-colors">
+                    <tr key={item.id} className="hover:bg-slate-50 transition-colors">
                       <td className="px-4 py-3">
                         <div>
                           <p className="font-medium text-slate-900">{item.title}</p>

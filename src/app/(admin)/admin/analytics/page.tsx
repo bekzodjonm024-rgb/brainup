@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { Header } from "@/components/layout/header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Users, TrendingUp, Zap } from "lucide-react";
 
 function MiniBar({ value, max, color }: { value: number; max: number; color: string }) {
   const pct = max === 0 ? 0 : Math.round((value / max) * 100);
@@ -105,26 +106,22 @@ export default async function AdminAnalyticsPage() {
 
         {/* Registration trend */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <Card>
-            <CardContent className="p-5">
-              <p className="text-xs text-slate-400 uppercase tracking-wide font-medium">Jami talabalar</p>
-              <p className="text-3xl font-bold text-slate-900 mt-1">{totalStudents}</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-5">
-              <p className="text-xs text-slate-400 uppercase tracking-wide font-medium">So'nggi 30 kun</p>
-              <p className="text-3xl font-bold text-blue-600 mt-1">+{newStudents30d}</p>
-              <p className="text-xs text-slate-400 mt-0.5">yangi talaba</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-5">
-              <p className="text-xs text-slate-400 uppercase tracking-wide font-medium">So'nggi 7 kun</p>
-              <p className="text-3xl font-bold text-emerald-600 mt-1">+{newStudents7d}</p>
-              <p className="text-xs text-slate-400 mt-0.5">yangi talaba</p>
-            </CardContent>
-          </Card>
+          {[
+            { icon: <Users className="h-5 w-5 text-blue-600" />, label: "Jami talabalar", value: totalStudents, sub: undefined as string | undefined, bg: "bg-blue-50" },
+            { icon: <TrendingUp className="h-5 w-5 text-emerald-600" />, label: "So'nggi 30 kun", value: `+${newStudents30d}`, sub: "yangi talaba", bg: "bg-emerald-50" },
+            { icon: <Zap className="h-5 w-5 text-violet-600" />, label: "So'nggi 7 kun", value: `+${newStudents7d}`, sub: "yangi talaba", bg: "bg-violet-50" },
+          ].map((s) => (
+            <Card key={s.label}>
+              <CardContent className="p-5 flex items-center gap-4">
+                <div className={`rounded-xl p-2.5 ${s.bg} shrink-0`}>{s.icon}</div>
+                <div>
+                  <p className="text-xs text-slate-400 uppercase tracking-wide font-medium">{s.label}</p>
+                  <p className="text-2xl font-bold text-slate-900 leading-tight mt-0.5">{s.value}</p>
+                  {s.sub && <p className="text-xs text-slate-400 mt-0.5">{s.sub}</p>}
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

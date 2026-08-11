@@ -364,17 +364,17 @@ export default async function PilotPage() {
           <CardContent>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-slate-100">
-                    <th className="text-left py-2 pr-4 text-xs font-medium text-slate-500">Kurs</th>
-                    <th className="text-center py-2 px-2 text-xs font-medium text-slate-500">Yozilgan</th>
-                    <th className="text-center py-2 px-2 text-xs font-medium text-slate-500">Eksport</th>
+                <thead className="bg-slate-50 border-b border-slate-200">
+                  <tr>
+                    <th className="text-left py-2.5 pr-4 px-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Kurs</th>
+                    <th className="text-center py-2.5 px-2 text-xs font-semibold text-slate-500 uppercase tracking-wide">Yozilgan</th>
+                    <th className="text-center py-2.5 px-2 text-xs font-semibold text-slate-500 uppercase tracking-wide">Eksport</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-50">
+                <tbody className="divide-y divide-slate-100">
                   {courses.map((c) => (
                     <tr key={c.id} className="hover:bg-slate-50">
-                      <td className="py-2.5 pr-4 font-medium text-slate-800">{c.title}</td>
+                      <td className="py-2.5 px-3 font-medium text-slate-800">{c.title}</td>
                       <td className="py-2.5 px-2 text-center text-slate-600">{c._count.enrollments}</td>
                       <td className="py-2.5 px-2 text-center">
                         <ExportButton
