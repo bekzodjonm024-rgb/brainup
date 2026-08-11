@@ -16,15 +16,8 @@ export function StartAssessmentButton({ retake = false }: { retake?: boolean }) 
     try {
       const res = await fetch("/api/assessment/start", { method: "POST" });
       const data = await res.json();
-      if (res.ok) {
-        router.push(`/assessment/${data.id}`);
-        return;
-      }
-      if (res.status === 409 && data.completed) {
-        // Profile should be visible — just refresh the page
-        router.refresh();
-        return;
-      }
+      if (res.ok) { router.push(`/assessment/${data.id}`); return; }
+      if (res.status === 409 && data.completed) { router.refresh(); return; }
       setErrorMsg(data.error ?? "Baholashni boshlashda xatolik yuz berdi.");
     } catch {
       setErrorMsg("Tarmoq xatosi. Internet aloqangizni tekshiring.");
@@ -38,15 +31,19 @@ export function StartAssessmentButton({ retake = false }: { retake?: boolean }) 
       <Button
         onClick={handleStart}
         disabled={loading}
-        className="w-full"
         size="lg"
+        className={
+          retake
+            ? "w-full h-11 border-slate-700 text-slate-300 hover:bg-slate-800 bg-transparent"
+            : "w-full h-11 bg-blue-600 hover:bg-blue-500 text-white border-0 shadow-lg shadow-blue-600/20"
+        }
         variant={retake ? "outline" : "default"}
       >
-        {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+        {loading && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
         {retake ? "Qayta topshirish" : "Baholashni boshlash"}
       </Button>
       {errorMsg && (
-        <p className="text-sm text-red-600 text-center">{errorMsg}</p>
+        <p className="text-sm text-red-400 text-center">{errorMsg}</p>
       )}
     </div>
   );

@@ -5,21 +5,17 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { Header } from "@/components/layout/header";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import {
   Users, TrendingUp, AlertTriangle, ArrowRight,
   BarChart3, BookOpen, Zap, CheckCircle2
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 function masteryLevel(score: number) {
-  if (score >= 0.85) return { label: "O'zlashtirildi", color: "text-emerald-700 bg-emerald-100" };
-  if (score >= 0.50) return { label: "Jarayonda", color: "text-blue-700 bg-blue-100" };
-  return { label: "Qiyin", color: "text-red-700 bg-red-100" };
+  if (score >= 0.85) return { color: "text-emerald-400 bg-emerald-500/10 border border-emerald-500/20" };
+  if (score >= 0.50) return { color: "text-blue-400 bg-blue-500/10 border border-blue-500/20" };
+  return { color: "text-red-400 bg-red-500/10 border border-red-500/20" };
 }
 
 export default async function ProfessorAnalyticsPage() {
@@ -41,7 +37,6 @@ export default async function ProfessorAnalyticsPage() {
     },
   });
 
-  // Aggregate all knowledge records
   const allKnowledge = courses.flatMap((c) =>
     c.topics.flatMap((t) => t.learnerKnowledge)
   );
@@ -49,7 +44,6 @@ export default async function ProfessorAnalyticsPage() {
   const mastered = allKnowledge.filter((k) => k.masteryScore >= 0.85).length;
   const onTrack = allKnowledge.filter((k) => k.masteryScore >= 0.5 && k.masteryScore < 0.85).length;
   const struggling = allKnowledge.filter((k) => k.masteryScore < 0.5 && k.attempts > 0).length;
-  const notStarted = allKnowledge.filter((k) => k.attempts === 0).length;
 
   const totalStudents = new Set(
     await db.enrollment.findMany({
@@ -60,7 +54,6 @@ export default async function ProfessorAnalyticsPage() {
 
   const totalAttempts = allKnowledge.reduce((s, k) => s + k.attempts, 0);
 
-  // Difficult topics across all courses
   const difficultTopics = courses
     .flatMap((c) =>
       c.topics.map((t) => {
@@ -76,7 +69,6 @@ export default async function ProfessorAnalyticsPage() {
     .sort((a, b) => (a.avg ?? 1) - (b.avg ?? 1))
     .slice(0, 8);
 
-  // Intervention stats
   const interventionCounts = await db.intervention.groupBy({
     by: ["action"],
     where: { topic: { course: { professorId } } },
@@ -84,7 +76,6 @@ export default async function ProfessorAnalyticsPage() {
     orderBy: { _count: { action: "desc" } },
   });
 
-  // Course-level summary
   const courseSummaries = courses.map((c) => {
     const k = c.topics.flatMap((t) => t.learnerKnowledge);
     const tried = k.filter((x) => x.attempts > 0);
@@ -112,7 +103,7 @@ export default async function ProfessorAnalyticsPage() {
   const total = mastered + onTrack + struggling;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto">
+    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
       <Header title="Analitika" description="Barcha kurslar bo'yicha o'quv tahlili" />
 
       <main className="flex-1 p-6 space-y-6 max-w-5xl">
@@ -120,20 +111,16 @@ export default async function ProfessorAnalyticsPage() {
         {/* Top stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { icon: <Users className="h-4 w-4 text-blue-600" />, label: "Jami talabalar", value: totalStudents, bg: "bg-blue-50" },
-            { icon: <TrendingUp className="h-4 w-4 text-emerald-600" />, label: "Jami urinishlar", value: totalAttempts.toLocaleString(), bg: "bg-emerald-50" },
-            { icon: <CheckCircle2 className="h-4 w-4 text-violet-600" />, label: "O'zlashtirildi", value: mastered, bg: "bg-violet-50" },
-            { icon: <AlertTriangle className="h-4 w-4 text-amber-600" />, label: "Qiynalyapti", value: struggling, bg: "bg-amber-50" },
+            { icon: <Users className="h-5 w-5 text-blue-400" />, label: "Jami talabalar", value: totalStudents, border: "border-blue-500/20", glow: "bg-blue-500/5", iconBg: "bg-blue-500/10" },
+            { icon: <TrendingUp className="h-5 w-5 text-emerald-400" />, label: "Jami urinishlar", value: totalAttempts.toLocaleString(), border: "border-emerald-500/20", glow: "bg-emerald-500/5", iconBg: "bg-emerald-500/10" },
+            { icon: <CheckCircle2 className="h-5 w-5 text-violet-400" />, label: "O'zlashtirildi", value: mastered, border: "border-violet-500/20", glow: "bg-violet-500/5", iconBg: "bg-violet-500/10" },
+            { icon: <AlertTriangle className="h-5 w-5 text-amber-400" />, label: "Qiynalyapti", value: struggling, border: "border-amber-500/20", glow: "bg-amber-500/5", iconBg: "bg-amber-500/10" },
           ].map((s) => (
-            <Card key={s.label}>
-              <CardContent className="p-4 flex items-center gap-3">
-                <div className={cn("rounded-lg p-1.5", s.bg)}>{s.icon}</div>
-                <div>
-                  <p className="text-xs text-slate-400 font-medium uppercase tracking-wide">{s.label}</p>
-                  <p className="text-lg font-bold text-slate-900">{s.value}</p>
-                </div>
-              </CardContent>
-            </Card>
+            <div key={s.label} className={`rounded-2xl border ${s.border} ${s.glow} p-5`}>
+              <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
+              <p className="f-syne text-2xl font-bold text-white leading-none">{s.value}</p>
+              <p className="text-xs text-slate-500 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
+            </div>
           ))}
         </div>
 
@@ -142,128 +129,123 @@ export default async function ProfessorAnalyticsPage() {
 
             {/* Mastery distribution */}
             {total > 0 && (
-              <Card>
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <BarChart3 className="h-4 w-4 text-slate-500" />
-                    O'zlashtirish taqsimoti
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
+              <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+                <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2 mb-4">
+                  <BarChart3 className="h-4 w-4 text-slate-500" />
+                  O'zlashtirish taqsimoti
+                </h3>
+                <div className="space-y-4">
                   {[
                     { label: "O'zlashtirildi (≥85%)", count: mastered, color: "bg-emerald-500", pct: Math.round((mastered / total) * 100) },
                     { label: "Jarayonda (50–84%)", count: onTrack, color: "bg-blue-500", pct: Math.round((onTrack / total) * 100) },
-                    { label: "Qiyin (<50%)", count: struggling, color: "bg-red-400", pct: Math.round((struggling / total) * 100) },
+                    { label: "Qiyin (<50%)", count: struggling, color: "bg-red-500", pct: Math.round((struggling / total) * 100) },
                   ].map((row) => (
-                    <div key={row.label} className="space-y-1">
+                    <div key={row.label} className="space-y-1.5">
                       <div className="flex justify-between text-sm">
-                        <span className="text-slate-600">{row.label}</span>
-                        <span className="font-semibold text-slate-800">
+                        <span className="text-slate-400">{row.label}</span>
+                        <span className="font-semibold text-white">
                           {row.count} ta ({row.pct}%)
                         </span>
                       </div>
-                      <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div className={cn("h-full rounded-full", row.color)} style={{ width: `${row.pct}%` }} />
+                      <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                        <div className={`h-full rounded-full ${row.color}`} style={{ width: `${row.pct}%` }} />
                       </div>
                     </div>
                   ))}
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             )}
 
             {/* Course summaries */}
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-base flex items-center gap-2">
-                  <BookOpen className="h-4 w-4 text-slate-500" />
-                  Kurslar bo'yicha natijalar
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
+            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+              <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2 mb-4">
+                <BookOpen className="h-4 w-4 text-slate-500" />
+                Kurslar bo'yicha natijalar
+              </h3>
+              <div className="space-y-4">
                 {courseSummaries.length === 0 ? (
-                  <p className="text-sm text-slate-400 text-center py-4">Kurslar yo'q</p>
+                  <p className="text-sm text-slate-600 text-center py-4">Kurslar yo'q</p>
                 ) : (
                   courseSummaries.map((c) => (
-                    <div key={c.id} className="space-y-1.5">
-                      <div className="flex items-center justify-between">
-                        <div className="flex-1 min-w-0 mr-3">
+                    <div key={c.id} className="space-y-2">
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2">
-                            <span className="text-sm font-medium text-slate-800 truncate">{c.title}</span>
-                            <Badge variant="secondary" className="text-xs shrink-0">{c.students} talaba</Badge>
+                            <span className="text-sm font-medium text-slate-200 truncate">{c.title}</span>
+                            <span className="text-xs text-slate-600 shrink-0">{c.students} talaba</span>
                           </div>
-                          <div className="flex gap-3 text-xs text-slate-400 mt-0.5">
+                          <div className="flex gap-3 text-xs text-slate-600 mt-0.5">
                             <span>{c.topics} mavzu</span>
                             <span>O'rtacha: {Math.round(c.avgMastery * 100)}%</span>
                             <span>{c.masteredCount} ta o'zlashtirildi</span>
                           </div>
                         </div>
                         <Link href={`/professor/courses/${c.id}/analytics`}>
-                          <Button variant="outline" size="sm">
+                          <Button variant="outline" size="sm" className="border-slate-700 text-slate-400 hover:bg-slate-800 bg-transparent text-xs shrink-0">
                             Batafsil <ArrowRight className="h-3 w-3 ml-1" />
                           </Button>
                         </Link>
                       </div>
-                      <Progress value={c.avgMastery * 100} className="h-1.5" />
+                      <div className="h-1 bg-slate-800 rounded-full overflow-hidden">
+                        <div className="h-full bg-blue-500 rounded-full" style={{ width: `${c.avgMastery * 100}%` }} />
+                      </div>
                     </div>
                   ))
                 )}
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
 
           <div className="space-y-4">
             {/* Difficult topics */}
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-base flex items-center gap-2">
-                  <AlertTriangle className="h-4 w-4 text-amber-500" />
-                  Qiyin mavzular
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {difficultTopics.length === 0 ? (
-                  <div className="text-center py-4">
-                    <CheckCircle2 className="mx-auto h-8 w-8 text-emerald-300 mb-1" />
-                    <p className="text-xs text-slate-400">Barcha mavzular yaxshi</p>
+            <div className="rounded-2xl border border-amber-500/20 bg-slate-900 p-5">
+              <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2 mb-4">
+                <AlertTriangle className="h-4 w-4 text-amber-400" />
+                Qiyin mavzular
+              </h3>
+              {difficultTopics.length === 0 ? (
+                <div className="text-center py-4">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mx-auto mb-3">
+                    <CheckCircle2 className="h-5 w-5 text-emerald-400" />
                   </div>
-                ) : (
-                  difficultTopics.map((t) => (
-                    <div key={t.id} className="space-y-1">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-medium text-slate-700 truncate flex-1 mr-2 line-clamp-1">{t.title}</span>
-                        <span className={cn(
-                          "text-xs font-semibold rounded-full px-2 py-0.5 shrink-0",
-                          masteryLevel(t.avg ?? 0).color
-                        )}>
+                  <p className="text-xs text-slate-500">Barcha mavzular yaxshi</p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {difficultTopics.map((t) => (
+                    <div key={t.id} className="space-y-1.5">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-xs font-medium text-slate-300 truncate flex-1 line-clamp-1">{t.title}</span>
+                        <span className={`text-xs font-semibold rounded-full px-2 py-0.5 shrink-0 ${masteryLevel(t.avg ?? 0).color}`}>
                           {Math.round((t.avg ?? 0) * 100)}%
                         </span>
                       </div>
-                      <p className="text-xs text-slate-400">{t.courseName} • {t.tried} talaba</p>
-                      <Progress value={(t.avg ?? 0) * 100} className="h-1" />
+                      <p className="text-xs text-slate-600">{t.courseName} • {t.tried} talaba</p>
+                      <div className="h-1 bg-slate-800 rounded-full overflow-hidden">
+                        <div className="h-full bg-amber-500 rounded-full" style={{ width: `${(t.avg ?? 0) * 100}%` }} />
+                      </div>
                     </div>
-                  ))
-                )}
-              </CardContent>
-            </Card>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* Adaptive interventions */}
             {interventionCounts.length > 0 && (
-              <Card>
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Zap className="h-4 w-4 text-blue-500" />
-                    Adaptiv tavsiyalar
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-2">
+              <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+                <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2 mb-4">
+                  <Zap className="h-4 w-4 text-blue-400" />
+                  Adaptiv tavsiyalar
+                </h3>
+                <div className="space-y-2">
                   {interventionCounts.map((iv) => (
                     <div key={iv.action} className="flex items-center justify-between text-sm">
-                      <span className="text-slate-600">{ACTION_LABELS[iv.action] ?? iv.action}</span>
-                      <span className="font-semibold text-slate-800">{iv._count.action}</span>
+                      <span className="text-slate-400">{ACTION_LABELS[iv.action] ?? iv.action}</span>
+                      <span className="font-semibold text-white">{iv._count.action}</span>
                     </div>
                   ))}
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             )}
           </div>
         </div>

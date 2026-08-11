@@ -5,13 +5,10 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { Header } from "@/components/layout/header";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { MasteryBadge } from "@/components/shared/mastery-badge";
 import Link from "next/link";
 import { RotateCcw, CheckCircle2, Clock, BookOpen, ArrowRight } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 function formatDueDate(dueAt: Date): { label: string; urgent: boolean } {
   const now = new Date();
@@ -31,7 +28,6 @@ export default async function RetrievalPage() {
   const studentId = session.user.profileId;
 
   const [dueRecords, upcomingRecords, completedCount] = await Promise.all([
-    // Due now
     db.retrievalRecord.findMany({
       where: { studentId, status: "PENDING", dueAt: { lte: new Date() } },
       orderBy: { dueAt: "asc" },
@@ -45,7 +41,6 @@ export default async function RetrievalPage() {
         },
       },
     }),
-    // Coming up (next 14 days)
     db.retrievalRecord.findMany({
       where: {
         studentId, status: "PENDING",
@@ -57,7 +52,6 @@ export default async function RetrievalPage() {
         topic: { select: { id: true, title: true, course: { select: { title: true } } } },
       },
     }),
-    // Completed this month
     db.retrievalRecord.count({
       where: {
         studentId, status: "COMPLETED",
@@ -67,7 +61,7 @@ export default async function RetrievalPage() {
   ]);
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto">
+    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
       <Header
         title="Takrorlash"
         description="Spaced repetition — bilimlarni uzoq muddatga saqlash"
@@ -78,42 +72,40 @@ export default async function RetrievalPage() {
         {/* Stats row */}
         <div className="grid grid-cols-3 gap-3">
           {[
-            { icon: <RotateCcw className="h-4 w-4 text-amber-600" />, label: "Bugun muddati o'tgan", value: dueRecords.length, bg: "bg-amber-50" },
-            { icon: <Clock className="h-4 w-4 text-blue-600" />, label: "Kelayotgan (14 kun)", value: upcomingRecords.length, bg: "bg-blue-50" },
-            { icon: <CheckCircle2 className="h-4 w-4 text-emerald-600" />, label: "Bu oy bajarildi", value: completedCount, bg: "bg-emerald-50" },
+            { icon: <RotateCcw className="h-5 w-5 text-amber-400" />, label: "Bugun muddati o'tgan", value: dueRecords.length, border: "border-amber-500/20", glow: "bg-amber-500/5", iconBg: "bg-amber-500/10" },
+            { icon: <Clock className="h-5 w-5 text-blue-400" />, label: "Kelayotgan (14 kun)", value: upcomingRecords.length, border: "border-blue-500/20", glow: "bg-blue-500/5", iconBg: "bg-blue-500/10" },
+            { icon: <CheckCircle2 className="h-5 w-5 text-emerald-400" />, label: "Bu oy bajarildi", value: completedCount, border: "border-emerald-500/20", glow: "bg-emerald-500/5", iconBg: "bg-emerald-500/10" },
           ].map((s) => (
-            <Card key={s.label}>
-              <CardContent className="p-3 flex items-center gap-2">
-                <div className={cn("rounded-lg p-1.5", s.bg)}>{s.icon}</div>
-                <div>
-                  <p className="text-xs text-slate-500 leading-tight">{s.label}</p>
-                  <p className="text-lg font-bold text-slate-900">{s.value}</p>
-                </div>
-              </CardContent>
-            </Card>
+            <div key={s.label} className={`rounded-2xl border ${s.border} ${s.glow} p-4`}>
+              <div className={`w-9 h-9 rounded-xl ${s.iconBg} flex items-center justify-center mb-3`}>{s.icon}</div>
+              <p className="f-syne text-xl font-bold text-white leading-none">{s.value}</p>
+              <p className="text-xs text-slate-600 mt-1.5 leading-tight">{s.label}</p>
+            </div>
           ))}
         </div>
 
         {/* Due records */}
         <section className="space-y-3">
-          <h2 className="font-semibold text-slate-900 flex items-center gap-2">
-            <RotateCcw className="h-4 w-4 text-amber-500" />
+          <h2 className="f-syne font-bold text-slate-300 flex items-center gap-2">
+            <RotateCcw className="h-4 w-4 text-amber-400" />
             Takrorlash kerak
             {dueRecords.length > 0 && (
-              <Badge variant="warning" className="ml-1">{dueRecords.length}</Badge>
+              <span className="text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 rounded-full px-2 py-0.5 ml-1">
+                {dueRecords.length}
+              </span>
             )}
           </h2>
 
           {dueRecords.length === 0 ? (
-            <Card>
-              <CardContent className="py-10 flex flex-col items-center gap-3 text-center">
-                <CheckCircle2 className="h-10 w-10 text-emerald-300" />
-                <p className="text-slate-600 font-medium">Hozircha takrorlash kerak emas</p>
-                <p className="text-sm text-slate-400">
-                  Mavzularni o'zlashtirsangiz, takrorlash jadvali avtomatik tuziladi.
-                </p>
-              </CardContent>
-            </Card>
+            <div className="rounded-2xl border border-slate-800 bg-slate-900 py-10 flex flex-col items-center gap-3 text-center">
+              <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+                <CheckCircle2 className="h-7 w-7 text-emerald-400" />
+              </div>
+              <p className="text-slate-300 font-medium">Hozircha takrorlash kerak emas</p>
+              <p className="text-sm text-slate-600 max-w-xs">
+                Mavzularni o'zlashtirsangiz, takrorlash jadvali avtomatik tuziladi.
+              </p>
+            </div>
           ) : (
             <div className="space-y-2">
               {dueRecords.map((rec) => {
@@ -122,34 +114,29 @@ export default async function RetrievalPage() {
                 const { label, urgent } = formatDueDate(rec.dueAt);
 
                 return (
-                  <Card key={rec.id} className={cn(urgent && "border-amber-200")}>
-                    <CardContent className="p-4 flex items-center gap-3">
-                      <RotateCcw className={cn("h-5 w-5 shrink-0", urgent ? "text-amber-500" : "text-slate-400")} />
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <h3 className="font-medium text-slate-900 text-sm">{rec.topic.title}</h3>
-                          <MasteryBadge score={mastery} />
-                        </div>
-                        <p className="text-xs text-slate-500 mt-0.5">{rec.topic.course.title}</p>
-                        <div className="flex items-center gap-3 mt-1">
-                          <span className={cn(
-                            "text-xs font-medium",
-                            urgent ? "text-amber-600" : "text-slate-400"
-                          )}>
-                            {label}
-                          </span>
-                          <span className="text-xs text-slate-400">
-                            Interval: {rec.intervalDays} kun
-                          </span>
-                        </div>
+                  <div key={rec.id} className={`rounded-xl border bg-slate-900 p-4 flex items-center gap-3 ${urgent ? "border-amber-500/20" : "border-slate-800"}`}>
+                    <RotateCcw className={`h-5 w-5 shrink-0 ${urgent ? "text-amber-400" : "text-slate-600"}`} />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h3 className="font-medium text-slate-200 text-sm">{rec.topic.title}</h3>
+                        <MasteryBadge score={mastery} />
                       </div>
-                      <Link href={`/retrieval/${rec.topic.id}?recordId=${rec.id}`}>
-                        <Button size="sm">
-                          Boshlash <ArrowRight className="h-3 w-3 ml-1" />
-                        </Button>
-                      </Link>
-                    </CardContent>
-                  </Card>
+                      <p className="text-xs text-slate-600 mt-0.5">{rec.topic.course.title}</p>
+                      <div className="flex items-center gap-3 mt-1">
+                        <span className={`text-xs font-medium ${urgent ? "text-amber-400" : "text-slate-500"}`}>
+                          {label}
+                        </span>
+                        <span className="text-xs text-slate-700">
+                          Interval: {rec.intervalDays} kun
+                        </span>
+                      </div>
+                    </div>
+                    <Link href={`/retrieval/${rec.topic.id}?recordId=${rec.id}`}>
+                      <Button size="sm" className="bg-violet-600 hover:bg-violet-500 text-white border-0">
+                        Boshlash <ArrowRight className="h-3 w-3 ml-1" />
+                      </Button>
+                    </Link>
+                  </div>
                 );
               })}
             </div>
@@ -159,7 +146,7 @@ export default async function RetrievalPage() {
         {/* Upcoming */}
         {upcomingRecords.length > 0 && (
           <section className="space-y-3">
-            <h2 className="font-semibold text-slate-900 flex items-center gap-2">
+            <h2 className="f-syne font-bold text-slate-300 flex items-center gap-2">
               <Clock className="h-4 w-4 text-blue-400" />
               Kelayotgan takrorlashlar
             </h2>
@@ -169,11 +156,11 @@ export default async function RetrievalPage() {
                 return (
                   <div
                     key={rec.id}
-                    className="flex items-center justify-between px-4 py-2.5 rounded-lg border border-slate-100 bg-slate-50"
+                    className="flex items-center justify-between px-4 py-2.5 rounded-xl border border-slate-800 bg-slate-900"
                   >
                     <div className="min-w-0">
-                      <p className="text-sm font-medium text-slate-700 truncate">{rec.topic.title}</p>
-                      <p className="text-xs text-slate-400 truncate">{rec.topic.course.title}</p>
+                      <p className="text-sm font-medium text-slate-300 truncate">{rec.topic.title}</p>
+                      <p className="text-xs text-slate-600 truncate">{rec.topic.course.title}</p>
                     </div>
                     <span className="text-xs text-slate-500 shrink-0 ml-3">{label}</span>
                   </div>
@@ -184,18 +171,18 @@ export default async function RetrievalPage() {
         )}
 
         {/* Explanation */}
-        <Card className="border-blue-100 bg-blue-50/50">
-          <CardContent className="p-4 flex gap-3">
-            <BookOpen className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
-            <div className="text-sm text-blue-800 space-y-1">
-              <p className="font-medium">Spaced Repetition nima?</p>
-              <p className="text-blue-700">
-                Mavzuni o'zlashtirganingizdan so'ng, uni to'g'ri vaqtda takrorlash
-                uzoq muddatli xotirani mustahkamlaydi. Intervalar: 3 → 7 → 14 → 30 kun.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+        <div className="rounded-2xl border border-blue-500/15 bg-blue-500/5 p-4 flex gap-3">
+          <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center shrink-0">
+            <BookOpen className="h-4 w-4 text-blue-400" />
+          </div>
+          <div className="text-sm space-y-1">
+            <p className="font-medium text-blue-400">Spaced Repetition nima?</p>
+            <p className="text-slate-500 text-xs leading-relaxed">
+              Mavzuni o'zlashtirganingizdan so'ng, uni to'g'ri vaqtda takrorlash
+              uzoq muddatli xotirani mustahkamlaydi. Intervalar: 3 → 7 → 14 → 30 kun.
+            </p>
+          </div>
+        </div>
       </main>
     </div>
   );

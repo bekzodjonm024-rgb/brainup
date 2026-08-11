@@ -24,25 +24,27 @@ export default async function ProfessorCoursesPage() {
   });
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto">
+    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
       <Header title="Kurslarim" description="Kurslarni boshqarish va tahlil" />
       <main className="flex-1 p-6 space-y-4">
         <div className="flex items-center justify-between">
-          <p className="text-sm text-slate-500">{courses.length} ta kurs</p>
+          <p className="text-sm text-slate-600">{courses.length} ta kurs</p>
           <Link href="/professor/courses/new">
-            <Button size="sm">
+            <Button size="sm" className="bg-blue-600 hover:bg-blue-500 text-white border-0">
               <Plus className="h-4 w-4 mr-1" /> Yangi kurs
             </Button>
           </Link>
         </div>
 
         {courses.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-slate-200 bg-white p-14 text-center">
-            <BookOpen className="mx-auto h-12 w-12 text-slate-200 mb-4" />
-            <p className="font-medium text-slate-600 mb-1">Hali kurs yaratilmagan</p>
-            <p className="text-sm text-slate-400 mb-4">Birinchi kursni yarating va mavzularni qo&apos;shing</p>
+          <div className="rounded-2xl border border-dashed border-slate-800 p-14 text-center">
+            <div className="w-16 h-16 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center mx-auto mb-4">
+              <BookOpen className="h-7 w-7 text-slate-600" />
+            </div>
+            <p className="font-medium text-slate-400 mb-1">Hali kurs yaratilmagan</p>
+            <p className="text-sm text-slate-600 mb-4">Birinchi kursni yarating va mavzularni qo&apos;shing</p>
             <Link href="/professor/courses/new">
-              <Button size="sm">Kurs yaratish</Button>
+              <Button size="sm" className="bg-blue-600 hover:bg-blue-500 text-white border-0">Kurs yaratish</Button>
             </Link>
           </div>
         ) : (

@@ -1,10 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { BookOpen, Users, LayoutList, ArrowRight, Search } from "lucide-react";
 
@@ -62,19 +59,19 @@ export function CoursesGrid({ courses }: { courses: Course[] }) {
       {/* Controls */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
         {/* Tabs */}
-        <div className="flex items-center gap-1 p-1 bg-slate-100 rounded-lg">
+        <div className="flex items-center gap-1 p-1 bg-slate-800 rounded-lg">
           {TABS.map((t) => (
             <button
               key={t.value}
               onClick={() => setTab(t.value)}
               className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
                 tab === t.value
-                  ? "bg-white text-slate-900 shadow-sm"
-                  : "text-slate-500 hover:text-slate-700"
+                  ? "bg-slate-700 text-white shadow-sm"
+                  : "text-slate-500 hover:text-slate-300"
               }`}
             >
               {t.label}
-              <span className={`ml-1.5 text-xs ${tab === t.value ? "text-slate-500" : "text-slate-400"}`}>
+              <span className={`ml-1.5 text-xs ${tab === t.value ? "text-slate-400" : "text-slate-600"}`}>
                 {counts[t.value]}
               </span>
             </button>
@@ -83,72 +80,72 @@ export function CoursesGrid({ courses }: { courses: Course[] }) {
 
         {/* Search */}
         <div className="relative flex-1 max-w-xs">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-          <Input
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+          <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Kurs nomi, semester..."
-            className="pl-9 h-9"
+            className="w-full pl-9 pr-3 h-9 rounded-lg border border-slate-700 bg-slate-800 text-slate-200 text-sm placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
           />
         </div>
       </div>
 
       {/* Grid */}
       {filtered.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-slate-200 bg-white p-14 text-center">
-          <BookOpen className="mx-auto h-10 w-10 text-slate-200 mb-3" />
+        <div className="rounded-2xl border border-dashed border-slate-800 p-14 text-center">
+          <div className="w-14 h-14 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center mx-auto mb-3">
+            <BookOpen className="h-6 w-6 text-slate-600" />
+          </div>
           {search ? (
             <p className="text-slate-500 text-sm">
               &ldquo;{search}&rdquo; bo&apos;yicha kurs topilmadi
             </p>
           ) : (
             <>
-              <p className="font-medium text-slate-600 mb-1">Kurs topilmadi</p>
-              <p className="text-sm text-slate-400">Filtrni o&apos;zgartiring</p>
+              <p className="font-medium text-slate-400 mb-1">Kurs topilmadi</p>
+              <p className="text-sm text-slate-600">Filtrni o&apos;zgartiring</p>
             </>
           )}
         </div>
       ) : (
         <div className="grid gap-3">
           {filtered.map((course) => (
-            <Card key={course.id} className="hover:border-blue-200 transition-colors">
-              <CardContent className="p-5 flex items-center justify-between gap-4">
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <h3 className="font-semibold text-slate-900">{course.title}</h3>
-                    {!course.isActive && (
-                      <Badge variant="secondary" className="text-xs">Nofaol</Badge>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-4 text-xs text-slate-500">
-                    <span className="flex items-center gap-1">
-                      <LayoutList className="h-3 w-3" />
-                      {course._count.topics} mavzu
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Users className="h-3 w-3" />
-                      {course._count.enrollments} talaba
-                    </span>
-                    {course.semester && <span>{course.semester}</span>}
-                    {course.faculty && <span>{course.faculty.name}</span>}
-                  </div>
-                  {course.description && (
-                    <p className="text-sm text-slate-500 mt-1 line-clamp-1">{course.description}</p>
+            <div key={course.id} className="rounded-xl border border-slate-800 bg-slate-900 hover:border-slate-700 transition-colors p-5 flex items-center justify-between gap-4">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1">
+                  <h3 className="font-semibold text-slate-200">{course.title}</h3>
+                  {!course.isActive && (
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-500">Nofaol</span>
                   )}
                 </div>
-                <Link href={`/professor/courses/${course.id}`}>
-                  <Button variant="outline" size="sm">
-                    Boshqarish <ArrowRight className="h-3 w-3 ml-1" />
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
+                <div className="flex items-center gap-4 text-xs text-slate-600">
+                  <span className="flex items-center gap-1">
+                    <LayoutList className="h-3 w-3" />
+                    {course._count.topics} mavzu
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Users className="h-3 w-3" />
+                    {course._count.enrollments} talaba
+                  </span>
+                  {course.semester && <span>{course.semester}</span>}
+                  {course.faculty && <span>{course.faculty.name}</span>}
+                </div>
+                {course.description && (
+                  <p className="text-sm text-slate-600 mt-1 line-clamp-1">{course.description}</p>
+                )}
+              </div>
+              <Link href={`/professor/courses/${course.id}`}>
+                <Button variant="outline" size="sm" className="border-slate-700 text-slate-400 hover:bg-slate-800 bg-transparent">
+                  Boshqarish <ArrowRight className="h-3 w-3 ml-1" />
+                </Button>
+              </Link>
+            </div>
           ))}
         </div>
       )}
 
       {filtered.length > 0 && (
-        <p className="text-xs text-slate-400 text-right">
+        <p className="text-xs text-slate-600 text-right">
           {filtered.length} ta {search || tab !== "all" ? `(jami ${courses.length} dan)` : "kurs"}
         </p>
       )}

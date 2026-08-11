@@ -5,19 +5,16 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { Header } from "@/components/layout/header";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
 import { CognitiveProfileCard } from "@/components/shared/cognitive-profile-card";
 import { formatDate } from "@/lib/utils";
 import { TrendingUp, BookOpen, Zap, RefreshCw, Brain, CheckCircle2, Clock } from "lucide-react";
 
-function masteryColor(score: number | null) {
-  if (score === null) return "bg-slate-100 text-slate-400";
-  if (score >= 0.85) return "bg-emerald-100 text-emerald-700";
-  if (score >= 0.6) return "bg-blue-100 text-blue-700";
-  if (score >= 0.3) return "bg-amber-100 text-amber-700";
-  return "bg-red-100 text-red-600";
+function masteryBadge(score: number | null) {
+  if (score === null) return "text-slate-500 bg-slate-800 border border-slate-700";
+  if (score >= 0.85) return "text-emerald-400 bg-emerald-500/10 border border-emerald-500/20";
+  if (score >= 0.6) return "text-blue-400 bg-blue-500/10 border border-blue-500/20";
+  if (score >= 0.3) return "text-amber-400 bg-amber-500/10 border border-amber-500/20";
+  return "text-red-400 bg-red-500/10 border border-red-500/20";
 }
 
 function masteryLabel(score: number | null) {
@@ -82,7 +79,7 @@ export default async function ProgressPage() {
   ).length;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto">
+    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
       <Header
         title="Progressim"
         description={`${student.firstName} ${student.lastName} — o'quv ko'rsatkichlari`}
@@ -91,43 +88,30 @@ export default async function ProgressPage() {
       <main className="flex-1 p-6 space-y-6">
         {/* Summary stats */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <StatCard
-            icon={<TrendingUp className="h-5 w-5 text-emerald-600" />}
-            label="O'rtacha mastery"
-            value={`${Math.round(avgMastery * 100)}%`}
-            bg="bg-emerald-50"
-          />
-          <StatCard
-            icon={<CheckCircle2 className="h-5 w-5 text-blue-600" />}
-            label="O'zlashtirilgan"
-            value={`${masteredTopics} / ${allKnowledge.length}`}
-            bg="bg-blue-50"
-          />
-          <StatCard
-            icon={<Zap className="h-5 w-5 text-amber-600" />}
-            label="Aniqlik"
-            value={totalAttempts > 0 ? `${Math.round(accuracy * 100)}%` : "—"}
-            bg="bg-amber-50"
-          />
-          <StatCard
-            icon={<RefreshCw className="h-5 w-5 text-violet-600" />}
-            label="Takrorlash"
-            value={`${retrievalDone} bajarildi`}
-            bg="bg-violet-50"
-            sub={retrievalPending > 0 ? `${retrievalPending} muddati o'tgan` : undefined}
-          />
+          {[
+            { icon: <TrendingUp className="h-5 w-5 text-emerald-400" />, label: "O'rtacha mastery", value: `${Math.round(avgMastery * 100)}%`, border: "border-emerald-500/20", glow: "bg-emerald-500/5", iconBg: "bg-emerald-500/10" },
+            { icon: <CheckCircle2 className="h-5 w-5 text-blue-400" />, label: "O'zlashtirilgan", value: `${masteredTopics} / ${allKnowledge.length}`, border: "border-blue-500/20", glow: "bg-blue-500/5", iconBg: "bg-blue-500/10" },
+            { icon: <Zap className="h-5 w-5 text-amber-400" />, label: "Aniqlik", value: totalAttempts > 0 ? `${Math.round(accuracy * 100)}%` : "—", border: "border-amber-500/20", glow: "bg-amber-500/5", iconBg: "bg-amber-500/10" },
+            { icon: <RefreshCw className="h-5 w-5 text-violet-400" />, label: "Takrorlash", value: `${retrievalDone} bajarildi`, border: "border-violet-500/20", glow: "bg-violet-500/5", iconBg: "bg-violet-500/10", sub: retrievalPending > 0 ? `${retrievalPending} muddati o'tgan` : undefined },
+          ].map((s) => (
+            <div key={s.label} className={`rounded-2xl border ${s.border} ${s.glow} p-5`}>
+              <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
+              <p className="f-syne text-2xl font-bold text-white leading-none">{s.value}</p>
+              <p className="text-xs text-slate-500 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
+              {"sub" in s && s.sub && <p className="text-xs text-amber-400 mt-1">{s.sub}</p>}
+            </div>
+          ))}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-5">
-            {/* Per-course progress */}
             {student.enrollments.length === 0 ? (
-              <Card>
-                <CardContent className="flex flex-col items-center gap-3 py-12 text-center">
-                  <BookOpen className="h-10 w-10 text-slate-300" />
-                  <p className="text-sm text-slate-500">Hali kurslarga yozilmadingiz</p>
-                </CardContent>
-              </Card>
+              <div className="rounded-2xl border border-slate-800 bg-slate-900 py-12 flex flex-col items-center gap-3 text-center">
+                <div className="w-14 h-14 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center">
+                  <BookOpen className="h-6 w-6 text-slate-600" />
+                </div>
+                <p className="text-sm text-slate-500">Hali kurslarga yozilmadingiz</p>
+              </div>
             ) : (
               student.enrollments.map((enrollment) => {
                 const topics = enrollment.course.topics;
@@ -144,64 +128,56 @@ export default async function ProgressPage() {
                     : 0;
 
                 return (
-                  <Card key={enrollment.course.id}>
-                    <CardHeader className="pb-3">
-                      <div className="flex items-start justify-between gap-4">
+                  <div key={enrollment.course.id} className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
+                    <div className="p-5 border-b border-slate-800">
+                      <div className="flex items-start justify-between gap-4 mb-3">
                         <div>
-                          <CardTitle className="text-base">{enrollment.course.title}</CardTitle>
-                          <p className="text-xs text-slate-500 mt-0.5">
+                          <h3 className="font-semibold text-slate-200">{enrollment.course.title}</h3>
+                          <p className="text-xs text-slate-600 mt-0.5">
                             {mastered}/{topics.length} mavzu · O&apos;rtacha {Math.round(courseMastery * 100)}%
                           </p>
                         </div>
-                        <Badge
-                          variant="secondary"
-                          className={`text-xs shrink-0 ${masteryColor(courseMastery > 0 ? courseMastery : null)}`}
-                        >
+                        <span className={`text-xs font-semibold px-2 py-0.5 rounded-full shrink-0 ${masteryBadge(started > 0 ? courseMastery : null)}`}>
                           {masteryLabel(started > 0 ? courseMastery : null)}
-                        </Badge>
+                        </span>
                       </div>
-                      <Progress
-                        value={topics.length > 0 ? (mastered / topics.length) * 100 : 0}
-                        className="h-1.5 mt-2"
-                      />
-                    </CardHeader>
-                    <CardContent className="pt-0">
-                      <div className="space-y-1.5">
-                        {topics.map((topic) => {
-                          const k = topic.learnerKnowledge[0];
-                          const mastery = k?.masteryScore ?? null;
-                          return (
-                            <div
-                              key={topic.id}
-                              className="flex items-center gap-3 text-sm py-1.5 border-b border-slate-50 last:border-0"
-                            >
-                              <span className="text-slate-400 text-xs w-5 text-right shrink-0">
-                                {topic.orderIndex + 1}
-                              </span>
-                              <span className="flex-1 text-slate-700 truncate">{topic.title}</span>
-                              {k && (
-                                <>
-                                  <span className="text-xs text-slate-400 shrink-0 hidden sm:block">
-                                    {k.attempts} urinish
+                      <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                        <div className="h-full bg-blue-500 rounded-full" style={{ width: `${topics.length > 0 ? (mastered / topics.length) * 100 : 0}%` }} />
+                      </div>
+                    </div>
+                    <div className="divide-y divide-slate-800/60">
+                      {topics.map((topic) => {
+                        const k = topic.learnerKnowledge[0];
+                        const score = k?.masteryScore ?? null;
+                        return (
+                          <div
+                            key={topic.id}
+                            className="flex items-center gap-3 px-5 py-2.5 text-sm hover:bg-slate-800/30 transition-colors"
+                          >
+                            <span className="text-slate-700 text-xs w-5 text-right shrink-0">
+                              {topic.orderIndex + 1}
+                            </span>
+                            <span className="flex-1 text-slate-400 truncate">{topic.title}</span>
+                            {k && (
+                              <>
+                                <span className="text-xs text-slate-600 shrink-0 hidden sm:block">
+                                  {k.attempts} urinish
+                                </span>
+                                {k.lastPracticedAt && (
+                                  <span className="text-xs text-slate-600 shrink-0 hidden md:block">
+                                    {formatDate(k.lastPracticedAt)}
                                   </span>
-                                  {k.lastPracticedAt && (
-                                    <span className="text-xs text-slate-400 shrink-0 hidden md:block">
-                                      {formatDate(k.lastPracticedAt)}
-                                    </span>
-                                  )}
-                                </>
-                              )}
-                              <span
-                                className={`text-xs font-medium px-2 py-0.5 rounded-full shrink-0 ${masteryColor(mastery)}`}
-                              >
-                                {mastery !== null ? `${Math.round(mastery * 100)}%` : "—"}
-                              </span>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </CardContent>
-                  </Card>
+                                )}
+                              </>
+                            )}
+                            <span className={`text-xs font-medium px-2 py-0.5 rounded-full shrink-0 ${masteryBadge(score)}`}>
+                              {score !== null ? `${Math.round(score * 100)}%` : "—"}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
                 );
               })
             )}
@@ -210,29 +186,31 @@ export default async function ProgressPage() {
           {/* Right panel */}
           <div className="space-y-4">
             {/* Practice stats */}
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-sm flex items-center gap-2">
-                  <Zap className="h-4 w-4 text-amber-500" />
-                  Amaliyot statistikasi
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <StatRow label="Jami savollar" value={totalAttempts} />
-                <StatRow label="To'g'ri javoblar" value={correctAttempts} />
-                <StatRow
-                  label="Aniqlik"
-                  value={totalAttempts > 0 ? `${Math.round(accuracy * 100)}%` : "—"}
-                />
-                <StatRow label="Takrorlash bajarildi" value={retrievalDone} />
+            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+              <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2 mb-4">
+                <Zap className="h-4 w-4 text-amber-400" />
+                Amaliyot statistikasi
+              </h3>
+              <div className="space-y-3">
+                {[
+                  { label: "Jami savollar", value: totalAttempts },
+                  { label: "To'g'ri javoblar", value: correctAttempts },
+                  { label: "Aniqlik", value: totalAttempts > 0 ? `${Math.round(accuracy * 100)}%` : "—" },
+                  { label: "Takrorlash bajarildi", value: retrievalDone },
+                ].map((row) => (
+                  <div key={row.label} className="flex items-center justify-between text-sm">
+                    <span className="text-slate-500">{row.label}</span>
+                    <span className="font-medium text-slate-200">{row.value}</span>
+                  </div>
+                ))}
                 {retrievalPending > 0 && (
-                  <div className="flex items-center gap-1.5 text-xs text-orange-600 bg-orange-50 rounded-lg p-2">
+                  <div className="flex items-center gap-1.5 text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 rounded-lg p-2.5">
                     <Clock className="h-3.5 w-3.5 shrink-0" />
                     {retrievalPending} ta takrorlash muddati o&apos;tgan
                   </div>
                 )}
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
             {/* Cognitive profile */}
             {student.cognitiveProfile ? (
@@ -243,44 +221,16 @@ export default async function ProgressPage() {
                 memoryScore={student.cognitiveProfile.memoryScore}
               />
             ) : (
-              <Card>
-                <CardContent className="flex flex-col items-center gap-3 py-8 text-center">
-                  <Brain className="h-8 w-8 text-slate-300" />
-                  <p className="text-sm text-slate-500">Kognitiv baholash bajarilmagan</p>
-                </CardContent>
-              </Card>
+              <div className="rounded-2xl border border-slate-800 bg-slate-900 py-8 flex flex-col items-center gap-3 text-center">
+                <div className="w-12 h-12 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center">
+                  <Brain className="h-6 w-6 text-slate-600" />
+                </div>
+                <p className="text-sm text-slate-500">Kognitiv baholash bajarilmagan</p>
+              </div>
             )}
           </div>
         </div>
       </main>
-    </div>
-  );
-}
-
-function StatCard({
-  icon, label, value, bg, sub,
-}: {
-  icon: React.ReactNode; label: string; value: string | number; bg: string; sub?: string;
-}) {
-  return (
-    <Card className="border-slate-200 hover:border-slate-300 transition-colors">
-      <CardContent className="p-5 flex items-center gap-4">
-        <div className={`rounded-xl p-2.5 ${bg} shrink-0`}>{icon}</div>
-        <div className="min-w-0">
-          <p className="text-xs text-slate-400 font-medium uppercase tracking-wide">{label}</p>
-          <p className="text-2xl font-bold text-slate-900 leading-tight mt-0.5">{value}</p>
-          {sub && <p className="text-xs text-orange-500 mt-0.5">{sub}</p>}
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
-function StatRow({ label, value }: { label: string; value: string | number }) {
-  return (
-    <div className="flex items-center justify-between text-sm">
-      <span className="text-slate-500">{label}</span>
-      <span className="font-medium text-slate-900">{value}</span>
     </div>
   );
 }

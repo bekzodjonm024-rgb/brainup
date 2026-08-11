@@ -5,8 +5,6 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { Header } from "@/components/layout/header";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { AvatarUpload } from "@/components/shared/avatar-upload";
 import { ProfileSettings } from "@/components/shared/profile-settings";
 import { Calendar } from "lucide-react";
@@ -28,38 +26,38 @@ export default async function ProfessorProfilePage() {
   const initials = `${professor.firstName[0]}${professor.lastName[0]}`;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto">
+    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
       <Header title="Profil sozlamalari" description="Shaxsiy ma'lumotlar va xavfsizlik" />
       <main className="flex-1 p-6 space-y-6 max-w-2xl">
 
         {/* Info card */}
-        <Card>
-          <CardContent className="p-5">
-            <div className="flex items-start gap-4">
-              <AvatarUpload
-                currentUrl={professor.user.avatarUrl}
-                initials={initials}
-                size="lg"
-              />
-              <div className="flex-1 min-w-0">
-                <h2 className="font-semibold text-slate-900 text-lg">
-                  {professor.firstName} {professor.lastName}
-                </h2>
-                {professor.title && (
-                  <Badge variant="secondary" className="mt-1">{professor.title}</Badge>
-                )}
-                <p className="text-sm text-slate-500 mt-1">{professor.user.email}</p>
-              </div>
-              <div className="text-right text-xs text-slate-400 shrink-0">
-                <p className="flex items-center gap-1 justify-end">
-                  <Calendar className="h-3 w-3" />
-                  {formatDate(professor.user.createdAt)}
-                </p>
-                <p>Ro'yxatdan o'tgan</p>
-              </div>
+        <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+          <div className="flex items-start gap-4">
+            <AvatarUpload
+              currentUrl={professor.user.avatarUrl}
+              initials={initials}
+              size="lg"
+            />
+            <div className="flex-1 min-w-0">
+              <h2 className="font-semibold text-white text-lg">
+                {professor.firstName} {professor.lastName}
+              </h2>
+              {professor.title && (
+                <span className="inline-block text-xs px-2 py-0.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 mt-1">
+                  {professor.title}
+                </span>
+              )}
+              <p className="text-sm text-slate-500 mt-1">{professor.user.email}</p>
             </div>
-          </CardContent>
-        </Card>
+            <div className="text-right text-xs text-slate-600 shrink-0">
+              <p className="flex items-center gap-1 justify-end">
+                <Calendar className="h-3 w-3" />
+                {formatDate(professor.user.createdAt)}
+              </p>
+              <p>Ro'yxatdan o'tgan</p>
+            </div>
+          </div>
+        </div>
 
         {/* Settings */}
         <ProfileSettings

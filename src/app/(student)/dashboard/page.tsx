@@ -4,39 +4,41 @@ export const metadata: Metadata = { title: "Dashboard" };
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
-import { Header } from "@/components/layout/header";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
-import { CognitiveProfileCard } from "@/components/shared/cognitive-profile-card";
-import { MasteryBadge } from "@/components/shared/mastery-badge";
 import { decideNextAction } from "@/lib/modules/adaptive/engine";
+import { CognitiveProfileCard } from "@/components/shared/cognitive-profile-card";
 import Link from "next/link";
 import {
   BookOpen, Brain, RefreshCw, TrendingUp, ArrowRight,
-  Zap, RotateCcw, Layers, AlertCircle, PlayCircle
+  Zap, RotateCcw, Layers, PlayCircle, AlertCircle,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Header } from "@/components/layout/header";
 
 const ACTION_PRIORITY: Record<string, number> = {
-  PREREQUISITE: 5, RETRIEVE: 4, EXPLAIN_AGAIN: 3, PRACTICE: 2, ADVANCED_PRACTICE: 2, CONTINUE: 1,
+  PREREQUISITE: 5, RETRIEVE: 4, EXPLAIN_AGAIN: 3,
+  PRACTICE: 2, ADVANCED_PRACTICE: 2, CONTINUE: 1,
 };
 
-const ACTION_CONFIG: Record<string, { label: string; color: string; icon: React.ReactNode }> = {
-  PREREQUISITE: { label: "Oldingi mavzu", color: "text-orange-600 bg-orange-50 border-orange-200", icon: <Layers className="h-3.5 w-3.5" /> },
-  RETRIEVE:     { label: "Takrorlash", color: "text-purple-600 bg-purple-50 border-purple-200", icon: <RotateCcw className="h-3.5 w-3.5" /> },
-  EXPLAIN_AGAIN:{ label: "Qayta o'qish", color: "text-amber-600 bg-amber-50 border-amber-200", icon: <BookOpen className="h-3.5 w-3.5" /> },
-  PRACTICE:     { label: "Mashq", color: "text-blue-600 bg-blue-50 border-blue-200", icon: <Zap className="h-3.5 w-3.5" /> },
-  ADVANCED_PRACTICE: { label: "Murakkab", color: "text-pink-600 bg-pink-50 border-pink-200", icon: <Zap className="h-3.5 w-3.5" /> },
-  CONTINUE:     { label: "Davom et", color: "text-emerald-600 bg-emerald-50 border-emerald-200", icon: <ArrowRight className="h-3.5 w-3.5" /> },
-  START:        { label: "Boshlash", color: "text-slate-600 bg-slate-50 border-slate-200", icon: <PlayCircle className="h-3.5 w-3.5" /> },
+const ACTION_CONFIG: Record<string, {
+  label: string;
+  iconCls: string;
+  bgCls: string;
+  borderCls: string;
+  icon: React.ReactNode;
+}> = {
+  PREREQUISITE:     { label: "Oldingi mavzu", iconCls: "text-orange-400", bgCls: "bg-orange-500/10", borderCls: "border-orange-500/20", icon: <Layers className="h-4 w-4" /> },
+  RETRIEVE:         { label: "Takrorlash",    iconCls: "text-violet-400", bgCls: "bg-violet-500/10", borderCls: "border-violet-500/20", icon: <RotateCcw className="h-4 w-4" /> },
+  EXPLAIN_AGAIN:    { label: "Qayta o'qish",  iconCls: "text-amber-400",  bgCls: "bg-amber-500/10",  borderCls: "border-amber-500/20",  icon: <BookOpen className="h-4 w-4" /> },
+  PRACTICE:         { label: "Mashq",         iconCls: "text-blue-400",   bgCls: "bg-blue-500/10",   borderCls: "border-blue-500/20",   icon: <Zap className="h-4 w-4" /> },
+  ADVANCED_PRACTICE:{ label: "Murakkab",      iconCls: "text-pink-400",   bgCls: "bg-pink-500/10",   borderCls: "border-pink-500/20",   icon: <Zap className="h-4 w-4" /> },
+  CONTINUE:         { label: "Davom et",      iconCls: "text-emerald-400",bgCls: "bg-emerald-500/10",borderCls: "border-emerald-500/20",icon: <ArrowRight className="h-4 w-4" /> },
+  START:            { label: "Boshlash",      iconCls: "text-slate-400",  bgCls: "bg-slate-800",     borderCls: "border-slate-700",     icon: <PlayCircle className="h-4 w-4" /> },
 };
 
 function getActionHref(topicId: string, action: string) {
   if (action === "PRACTICE" || action === "ADVANCED_PRACTICE") return `/topics/${topicId}/practice`;
-  if (action === "EXPLAIN_AGAIN" || action === "START") return `/topics/${topicId}`;
-  if (action === "RETRIEVE") return `/retrieval`;
+  if (action === "EXPLAIN_AGAIN" || action === "START")        return `/topics/${topicId}`;
+  if (action === "RETRIEVE")                                   return `/retrieval`;
   return `/topics/${topicId}`;
 }
 
@@ -75,8 +77,8 @@ export default async function DashboardPage() {
 
   if (!student) redirect("/login");
 
-  const hasAssessment = !!student.cognitiveProfile;
-  const dueRetrievals = student.retrievalRecords.length;
+  const hasAssessment  = !!student.cognitiveProfile;
+  const dueRetrievals  = student.retrievalRecords.length;
 
   const allKnowledge = student.enrollments.flatMap((e) =>
     e.course.topics.flatMap((t) => t.learnerKnowledge)
@@ -85,7 +87,6 @@ export default async function DashboardPage() {
     ? allKnowledge.reduce((s, k) => s + k.masteryScore, 0) / allKnowledge.length
     : 0;
 
-  // Build recommendations from local data (no extra DB queries)
   interface Rec { topicId: string; topicTitle: string; courseTitle: string; action: string; mastery: number; priority: number }
   const recommendations: Rec[] = [];
 
@@ -93,7 +94,6 @@ export default async function DashboardPage() {
     for (const topic of enrollment.course.topics) {
       const knowledge = topic.learnerKnowledge[0];
       if (!knowledge) {
-        // unstarted
         recommendations.push({
           topicId: topic.id, topicTitle: topic.title,
           courseTitle: enrollment.course.title,
@@ -124,64 +124,113 @@ export default async function DashboardPage() {
   const topRecs = recommendations.slice(0, 3);
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto">
+    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
       <Header
         title={`Salom, ${student.firstName}!`}
         description="BrainUP — sizning adaptiv o'quv platformangiz"
       />
 
       <main className="flex-1 p-6 space-y-6">
+
         {/* Assessment CTA */}
         {!hasAssessment && (
-          <div className="rounded-xl border border-blue-200 bg-blue-50 p-5 flex items-start gap-4">
-            <Brain className="h-6 w-6 text-blue-600 mt-0.5 shrink-0" />
+          <div className="rounded-2xl border border-blue-500/20 bg-blue-500/5 p-5 flex items-start gap-4">
+            <div className="w-10 h-10 rounded-xl bg-blue-500/15 border border-blue-500/20 flex items-center justify-center shrink-0 mt-0.5">
+              <Brain className="h-5 w-5 text-blue-400" />
+            </div>
             <div className="flex-1">
-              <h3 className="font-semibold text-blue-900">Boshlang'ich baholashni o'ting</h3>
-              <p className="text-sm text-blue-700 mt-1">
-                10–15 daqiqa. Natijalar sizga shaxsiy o'quv yo'nalishi yaratishga yordam beradi.
+              <h3 className="font-semibold text-white text-sm">Boshlang&apos;ich baholashni o&apos;ting</h3>
+              <p className="text-sm text-slate-500 mt-1">
+                10–15 daqiqa. Natijalar sizga shaxsiy o&apos;quv yo&apos;nalishi yaratishga yordam beradi.
               </p>
             </div>
             <Link href="/assessment">
-              <Button size="sm" className="shrink-0">
-                Boshlash <ArrowRight className="h-4 w-4 ml-1" />
+              <Button size="sm" className="shrink-0 bg-blue-600 hover:bg-blue-500 border-0 text-white">
+                Boshlash <ArrowRight className="h-3.5 w-3.5 ml-1" />
               </Button>
             </Link>
           </div>
         )}
 
         {/* Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <StatCard icon={<BookOpen className="h-5 w-5 text-blue-600" />} label="Kurslar" value={student.enrollments.length} bg="bg-blue-50" />
-          <StatCard icon={<TrendingUp className="h-5 w-5 text-emerald-600" />} label="O'rtacha mastery" value={`${Math.round(avgMastery * 100)}%`} bg="bg-emerald-50" />
-          <StatCard icon={<RefreshCw className="h-5 w-5 text-amber-600" />} label="Takrorlash kutilmoqda" value={dueRetrievals} bg="bg-amber-50" />
-          <StatCard icon={<Brain className="h-5 w-5 text-violet-600" />} label="Baholash" value={hasAssessment ? "Bajarildi" : "Kutilmoqda"} bg="bg-violet-50" />
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            {
+              icon: <BookOpen className="h-5 w-5 text-blue-400" />,
+              label: "Kurslar",
+              value: student.enrollments.length,
+              border: "border-blue-500/20",
+              glow: "bg-blue-500/5",
+              iconBg: "bg-blue-500/10",
+            },
+            {
+              icon: <TrendingUp className="h-5 w-5 text-emerald-400" />,
+              label: "O'rtacha mastery",
+              value: `${Math.round(avgMastery * 100)}%`,
+              border: "border-emerald-500/20",
+              glow: "bg-emerald-500/5",
+              iconBg: "bg-emerald-500/10",
+            },
+            {
+              icon: <RefreshCw className="h-5 w-5 text-amber-400" />,
+              label: "Takrorlash",
+              value: dueRetrievals,
+              border: "border-amber-500/20",
+              glow: "bg-amber-500/5",
+              iconBg: "bg-amber-500/10",
+            },
+            {
+              icon: <Brain className="h-5 w-5 text-violet-400" />,
+              label: "Baholash",
+              value: hasAssessment ? "✓ Bajarildi" : "Kutilmoqda",
+              border: "border-violet-500/20",
+              glow: "bg-violet-500/5",
+              iconBg: "bg-violet-500/10",
+            },
+          ].map((s) => (
+            <div key={s.label} className={`rounded-2xl border ${s.border} ${s.glow} p-5`}>
+              <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>
+                {s.icon}
+              </div>
+              <p className="f-syne text-2xl font-bold text-white leading-none">{s.value}</p>
+              <p className="text-xs text-slate-500 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
+            </div>
+          ))}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 space-y-5">
+          <div className="lg:col-span-2 space-y-6">
 
             {/* Adaptive recommendations */}
             {topRecs.length > 0 && (
               <div className="space-y-3">
-                <h2 className="font-semibold text-slate-900">Keyingi qadam</h2>
+                <div className="flex items-center justify-between">
+                  <h2 className="f-syne font-bold text-white">Keyingi qadam</h2>
+                  <span className="text-xs text-slate-600 uppercase tracking-wide">Adaptiv tavsiya</span>
+                </div>
                 <div className="space-y-2">
                   {topRecs.map((rec) => {
                     const cfg = ACTION_CONFIG[rec.action] ?? ACTION_CONFIG.PRACTICE;
                     return (
                       <Link key={rec.topicId} href={getActionHref(rec.topicId, rec.action)}>
-                        <div className={cn(
-                          "rounded-lg border p-3.5 flex items-center gap-3 hover:shadow-sm transition-shadow",
-                          cfg.color
-                        )}>
-                          <div className="shrink-0">{cfg.icon}</div>
+                        <div className="group rounded-xl border border-slate-800 bg-slate-900 p-4 flex items-center gap-4 hover:border-slate-700 hover:bg-slate-800/50 transition-all cursor-pointer">
+                          <div className={`w-10 h-10 rounded-xl border flex items-center justify-center shrink-0 ${cfg.bgCls} ${cfg.borderCls}`}>
+                            <span className={cfg.iconCls}>{cfg.icon}</span>
+                          </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium truncate">{rec.topicTitle}</p>
-                            <p className="text-xs opacity-70 truncate">{rec.courseTitle}</p>
+                            <p className="text-sm font-medium text-slate-200 truncate">{rec.topicTitle}</p>
+                            <p className="text-xs text-slate-600 truncate mt-0.5">{rec.courseTitle}</p>
                           </div>
                           <div className="flex items-center gap-2 shrink-0">
-                            {rec.mastery > 0 && <MasteryBadge score={rec.mastery} />}
-                            <span className="text-xs font-semibold">{cfg.label}</span>
-                            <ArrowRight className="h-3.5 w-3.5" />
+                            {rec.mastery > 0 && (
+                              <span className="text-xs text-slate-500">
+                                {Math.round(rec.mastery * 100)}%
+                              </span>
+                            )}
+                            <span className={`text-xs font-medium px-2 py-1 rounded-full border ${cfg.bgCls} ${cfg.borderCls} ${cfg.iconCls}`}>
+                              {cfg.label}
+                            </span>
+                            <ArrowRight className="h-4 w-4 text-slate-700 group-hover:text-slate-400 transition-colors" />
                           </div>
                         </div>
                       </Link>
@@ -194,24 +243,26 @@ export default async function DashboardPage() {
             {/* Courses */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <h2 className="font-semibold text-slate-900">Kurslarim</h2>
+                <h2 className="f-syne font-bold text-white">Kurslarim</h2>
                 <Link href="/courses">
-                  <Button variant="ghost" size="sm">
-                    Barchasini ko'rish <ArrowRight className="h-3 w-3 ml-1" />
+                  <Button variant="ghost" size="sm" className="text-slate-500 hover:text-slate-300 hover:bg-slate-800 text-xs gap-1">
+                    Barchasini ko&apos;rish <ArrowRight className="h-3 w-3" />
                   </Button>
                 </Link>
               </div>
 
               {student.enrollments.length === 0 ? (
-                <Card>
-                  <CardContent className="flex flex-col items-center gap-3 py-10 text-center">
-                    <BookOpen className="h-10 w-10 text-slate-300" />
-                    <p className="text-sm text-slate-500">Hali kurslarga yozilmadingiz</p>
-                    <Link href="/courses">
-                      <Button size="sm">Kurs topish</Button>
-                    </Link>
-                  </CardContent>
-                </Card>
+                <div className="rounded-2xl border border-slate-800 bg-slate-900 p-10 flex flex-col items-center gap-3 text-center">
+                  <div className="w-14 h-14 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center">
+                    <BookOpen className="h-6 w-6 text-slate-600" />
+                  </div>
+                  <p className="text-sm text-slate-500">Hali kurslarga yozilmadingiz</p>
+                  <Link href="/courses">
+                    <Button size="sm" className="bg-blue-600 hover:bg-blue-500 border-0 text-white">
+                      Kurs topish
+                    </Button>
+                  </Link>
+                </div>
               ) : (
                 student.enrollments.map((enrollment) => (
                   <CourseCard key={enrollment.id} course={enrollment.course} />
@@ -222,32 +273,43 @@ export default async function DashboardPage() {
 
           {/* Right panel */}
           <div className="space-y-4">
+
             {/* Retrieval due */}
             {dueRetrievals > 0 && (
-              <Card>
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <RefreshCw className="h-4 w-4 text-amber-500" />
-                    Takrorlash
-                  </CardTitle>
-                  <CardDescription>{dueRetrievals} ta mavzu kutilmoqda</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-2">
+              <div className="rounded-2xl border border-amber-500/20 bg-amber-500/5 p-5">
+                <div className="flex items-center gap-2.5 mb-4">
+                  <div className="w-8 h-8 rounded-lg bg-amber-500/15 border border-amber-500/20 flex items-center justify-center">
+                    <RefreshCw className="h-4 w-4 text-amber-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-white">Takrorlash</p>
+                    <p className="text-xs text-slate-500">{dueRetrievals} mavzu kutilmoqda</p>
+                  </div>
+                </div>
+                <div className="space-y-2 mb-4">
                   {student.retrievalRecords.slice(0, 3).map((r) => (
                     <Link key={r.id} href={`/retrieval/${r.topic.id}?recordId=${r.id}`}>
-                      <div className="flex items-center justify-between text-sm py-1 hover:text-blue-600 transition-colors">
-                        <span className="text-slate-700 truncate">{r.topic.title}</span>
-                        <Badge variant="warning" className="text-xs ml-2 shrink-0">Muhim</Badge>
+                      <div className="flex items-center gap-2 text-sm py-1.5 px-3 rounded-lg hover:bg-amber-500/10 transition-colors group cursor-pointer">
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
+                        <span className="text-slate-300 truncate group-hover:text-amber-300 transition-colors text-xs">{r.topic.title}</span>
                       </div>
                     </Link>
                   ))}
-                  <Link href="/retrieval">
-                    <Button variant="outline" size="sm" className="w-full mt-2">
-                      Takrorlashni boshlash
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
+                </div>
+                <Link href="/retrieval">
+                  <Button size="sm" variant="outline" className="w-full border-amber-500/20 text-amber-400 hover:bg-amber-500/10 hover:text-amber-300 bg-transparent text-xs">
+                    Takrorlashni boshlash
+                  </Button>
+                </Link>
+              </div>
+            )}
+
+            {/* No assessment notice */}
+            {!hasAssessment && (
+              <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5 flex items-center gap-3">
+                <AlertCircle className="h-4 w-4 text-slate-600 shrink-0" />
+                <p className="text-xs text-slate-500">Kognitiv profil baholash o&apos;tgandan so&apos;ng ko&apos;rinadi</p>
+              </div>
             )}
 
             {/* Cognitive profile */}
@@ -266,47 +328,41 @@ export default async function DashboardPage() {
   );
 }
 
-function StatCard({ icon, label, value, bg }: {
-  icon: React.ReactNode; label: string; value: string | number; bg: string;
-}) {
-  return (
-    <Card className="border-slate-200 hover:border-slate-300 transition-colors">
-      <CardContent className="p-5 flex items-center gap-4">
-        <div className={`rounded-xl p-2.5 ${bg} shrink-0`}>{icon}</div>
-        <div className="min-w-0">
-          <p className="text-xs text-slate-400 font-medium uppercase tracking-wide">{label}</p>
-          <p className="text-2xl font-bold text-slate-900 leading-tight mt-0.5">{value}</p>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
 function CourseCard({ course }: {
   course: {
     id: string; title: string;
     topics: { id: string; learnerKnowledge: { masteryScore: number }[] }[];
   };
 }) {
-  const topicsWithMastery = course.topics.filter((t) => t.learnerKnowledge.length > 0);
-  const completedTopics = topicsWithMastery.filter((t) => t.learnerKnowledge[0].masteryScore >= 0.85).length;
-  const totalTopics = course.topics.length;
-  const progress = totalTopics > 0 ? (completedTopics / totalTopics) * 100 : 0;
+  const topicsWithMastery  = course.topics.filter((t) => t.learnerKnowledge.length > 0);
+  const completedTopics    = topicsWithMastery.filter((t) => t.learnerKnowledge[0].masteryScore >= 0.85).length;
+  const totalTopics        = course.topics.length;
+  const progress           = totalTopics > 0 ? (completedTopics / totalTopics) * 100 : 0;
 
   return (
-    <Card className="hover:border-blue-200 transition-colors">
-      <CardContent className="p-4">
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex-1 min-w-0">
-            <h3 className="font-medium text-slate-900 truncate">{course.title}</h3>
-            <p className="text-xs text-slate-500 mt-1">{completedTopics}/{totalTopics} mavzu yakunlandi</p>
-            <Progress value={progress} className="h-1.5 mt-2" />
-          </div>
-          <Link href={`/courses/${course.id}`}>
-            <Button size="sm" variant="outline">Davom etish</Button>
-          </Link>
+    <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+      <div className="flex items-start justify-between gap-4 mb-4">
+        <div className="min-w-0">
+          <h3 className="font-medium text-slate-200 truncate">{course.title}</h3>
+          <p className="text-xs text-slate-600 mt-1">{completedTopics}/{totalTopics} mavzu yakunlandi</p>
         </div>
-      </CardContent>
-    </Card>
+        <Link href={`/courses/${course.id}`}>
+          <Button size="sm" variant="outline" className="border-slate-700 text-slate-400 hover:bg-slate-800 hover:text-slate-200 shrink-0 text-xs bg-transparent">
+            Davom etish
+          </Button>
+        </Link>
+      </div>
+      {/* Progress bar */}
+      <div className="h-1 bg-slate-800 rounded-full overflow-hidden">
+        <div
+          className="h-full bg-blue-500 rounded-full transition-all"
+          style={{ width: `${progress}%` }}
+        />
+      </div>
+      <div className="flex justify-between mt-1.5">
+        <span className="text-[11px] text-slate-700">{Math.round(progress)}% yakunlandi</span>
+        <span className="text-[11px] text-slate-700">{totalTopics} mavzu</span>
+      </div>
+    </div>
   );
 }

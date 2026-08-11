@@ -4,11 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn, getSession } from "next-auth/react";
-import { Loader2, Eye, EyeOff } from "lucide-react";
+import { Loader2, Eye, EyeOff, CheckCircle2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function LoginForm() {
   const router = useRouter();
@@ -50,71 +47,79 @@ export function LoginForm() {
   }
 
   return (
-    <Card className="border-0 shadow-2xl ring-1 ring-white/10 bg-white">
-      <CardHeader>
-        <CardTitle className="text-slate-900">Kirish</CardTitle>
-        <CardDescription className="text-slate-500">Hisobingizga kiring</CardDescription>
-      </CardHeader>
-      <form onSubmit={handleSubmit}>
-        <CardContent className="space-y-4">
-          {registered && (
-            <div className="rounded-md bg-emerald-50 border border-emerald-200 px-4 py-3 text-sm text-emerald-700">
-              Ro&apos;yxatdan o&apos;tish muvaffaqiyatli! Endi kiring.
-            </div>
-          )}
-          {error && (
-            <div className="rounded-md bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
-              {error}
-            </div>
-          )}
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="example@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+    <div>
+      <h2 className="f-syne text-2xl font-bold text-white mb-1">Xush kelibsiz</h2>
+      <p className="text-slate-500 text-sm mb-8">Hisobingizga kiring</p>
+
+      {registered && (
+        <div className="mb-6 flex items-center gap-2.5 rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-400">
+          <CheckCircle2 className="h-4 w-4 shrink-0" />
+          Ro&apos;yxatdan o&apos;tish muvaffaqiyatli! Endi kiring.
+        </div>
+      )}
+      {error && (
+        <div className="mb-6 flex items-center gap-2.5 rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+          <AlertCircle className="h-4 w-4 shrink-0" />
+          {error}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="space-y-5">
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-slate-400">Email</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="example@email.com"
+            required
+            autoComplete="email"
+            className="auth-input"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-slate-400">Parol</label>
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
               required
-              autoComplete="email"
+              autoComplete="current-password"
+              className="auth-input auth-input-pw"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600 hover:text-slate-400 transition-colors"
+              tabIndex={-1}
+            >
+              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="password">Parol</Label>
-            <div className="relative">
-              <Input
-                id="password"
-                type={showPassword ? "text" : "password"}
-                placeholder="••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                autoComplete="current-password"
-                className="pr-10"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
-              >
-                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-              </button>
-            </div>
-          </div>
-        </CardContent>
-        <CardFooter className="flex flex-col gap-3">
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading && <Loader2 className="h-4 w-4 animate-spin" />}
-            Kirish
-          </Button>
-          <p className="text-center text-sm text-slate-500">
-            Hisobingiz yo&apos;qmi?{" "}
-            <Link href="/register" className="text-blue-600 hover:underline font-medium">
-              Ro&apos;yxatdan o&apos;ting
-            </Link>
-          </p>
-        </CardFooter>
+        </div>
+
+        <Button
+          type="submit"
+          disabled={loading}
+          className="w-full h-11 bg-blue-600 hover:bg-blue-500 text-white border-0 shadow-lg shadow-blue-600/20 gap-2 mt-1"
+        >
+          {loading && <Loader2 className="h-4 w-4 animate-spin" />}
+          Kirish
+        </Button>
       </form>
-    </Card>
+
+      <div className="mt-6 pt-6 border-t border-white/5 text-center text-sm text-slate-600">
+        Hisobingiz yo&apos;qmi?{" "}
+        <Link
+          href="/register"
+          className="text-blue-400 hover:text-blue-300 font-medium transition-colors"
+        >
+          Ro&apos;yxatdan o&apos;ting
+        </Link>
+      </div>
+    </div>
   );
 }

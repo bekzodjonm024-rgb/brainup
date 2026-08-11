@@ -2,30 +2,26 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect, notFound } from "next/navigation";
 import { Header } from "@/components/layout/header";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import {
   ArrowLeft, Users, TrendingUp, AlertTriangle,
-  HelpCircle, CheckCircle2, Clock, BarChart3
+  HelpCircle, CheckCircle2, BarChart3
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 function masteryColor(score: number) {
   if (score >= 0.85) return "bg-emerald-500";
   if (score >= 0.65) return "bg-blue-400";
   if (score >= 0.50) return "bg-amber-400";
-  return "bg-red-400";
+  return "bg-red-500";
 }
 
-function masteryBg(score: number) {
-  if (score >= 0.85) return "bg-emerald-100 text-emerald-700";
-  if (score >= 0.65) return "bg-blue-100 text-blue-700";
-  if (score >= 0.50) return "bg-amber-100 text-amber-700";
-  if (score > 0) return "bg-red-100 text-red-700";
-  return "bg-slate-100 text-slate-400";
+function masteryBadge(score: number) {
+  if (score >= 0.85) return "text-emerald-400 bg-emerald-500/10 border border-emerald-500/20";
+  if (score >= 0.65) return "text-blue-400 bg-blue-500/10 border border-blue-500/20";
+  if (score >= 0.50) return "text-amber-400 bg-amber-500/10 border border-amber-500/20";
+  if (score > 0) return "text-red-400 bg-red-500/10 border border-red-500/20";
+  return "text-slate-500 bg-slate-800 border border-slate-700";
 }
 
 function timeAgo(date: Date | null): string {
@@ -74,7 +70,6 @@ export default async function CourseAnalyticsPage({
   if (!course) notFound();
   if (course.professor.id !== session.user.profileId) redirect("/professor/dashboard");
 
-  // Per-topic stats
   const topicStats = course.topics.map((topic) => {
     const tried = topic.learnerKnowledge.filter((k) => k.attempts > 0);
     const avg = tried.length ? tried.reduce((s, k) => s + k.masteryScore, 0) / tried.length : 0;
@@ -91,7 +86,6 @@ export default async function CourseAnalyticsPage({
     };
   });
 
-  // Per-student stats (across all topics)
   const studentMap = new Map<string, {
     id: string; firstName: string; lastName: string;
     masteryScores: number[]; attempts: number; lastActive: Date | null;
@@ -135,7 +129,6 @@ export default async function CourseAnalyticsPage({
     }))
     .sort((a, b) => b.avgMastery - a.avgMastery);
 
-  // Hard questions (lowest correct rate, min 3 attempts)
   const hardQuestions = await db.question.findMany({
     where: {
       topicId: { in: course.topics.map((t) => t.id) },
@@ -158,7 +151,6 @@ export default async function CourseAnalyticsPage({
     .sort((a, b) => (a.rate ?? 1) - (b.rate ?? 1))
     .slice(0, 8);
 
-  // Summary counts
   const totalStudents = course.enrollments.length;
   const activeStudents = studentStats.filter((s) => s.attempts > 0).length;
   const masteredStudents = studentStats.filter((s) => s.topicsMastered > 0).length;
@@ -168,18 +160,20 @@ export default async function CourseAnalyticsPage({
     : 0;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto">
+    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
       <Header title={`${course.title} — Analitika`} description="Kurs bo'yicha batafsil tahlil" />
 
       <main className="flex-1 p-6 space-y-6 max-w-5xl">
-        <div className="flex items-center gap-3">
+
+        {/* Nav */}
+        <div className="flex items-center gap-2">
           <Link href={`/professor/courses/${courseId}`}>
-            <Button variant="ghost" size="sm">
+            <Button variant="ghost" size="sm" className="text-slate-400 hover:text-slate-200 hover:bg-slate-800">
               <ArrowLeft className="h-4 w-4 mr-1" /> Kursga qaytish
             </Button>
           </Link>
           <Link href="/professor/analytics">
-            <Button variant="ghost" size="sm">
+            <Button variant="ghost" size="sm" className="text-slate-400 hover:text-slate-200 hover:bg-slate-800">
               <BarChart3 className="h-4 w-4 mr-1" /> Umumiy analitika
             </Button>
           </Link>
@@ -188,191 +182,179 @@ export default async function CourseAnalyticsPage({
         {/* Summary stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { icon: <Users className="h-4 w-4 text-blue-600" />, label: "Jami talabalar", value: totalStudents, bg: "bg-blue-50" },
-            { icon: <TrendingUp className="h-4 w-4 text-emerald-600" />, label: "Faol talabalar", value: activeStudents, bg: "bg-emerald-50" },
-            { icon: <CheckCircle2 className="h-4 w-4 text-violet-600" />, label: "O'zlashtirildi", value: masteredStudents, bg: "bg-violet-50" },
-            { icon: <AlertTriangle className="h-4 w-4 text-amber-600" />, label: "O'rtacha mastery", value: `${Math.round(avgMastery * 100)}%`, bg: "bg-amber-50" },
+            { icon: <Users className="h-5 w-5 text-blue-400" />, label: "Jami talabalar", value: totalStudents, border: "border-blue-500/20", glow: "bg-blue-500/5", iconBg: "bg-blue-500/10" },
+            { icon: <TrendingUp className="h-5 w-5 text-emerald-400" />, label: "Faol talabalar", value: activeStudents, border: "border-emerald-500/20", glow: "bg-emerald-500/5", iconBg: "bg-emerald-500/10" },
+            { icon: <CheckCircle2 className="h-5 w-5 text-violet-400" />, label: "O'zlashtirildi", value: masteredStudents, border: "border-violet-500/20", glow: "bg-violet-500/5", iconBg: "bg-violet-500/10" },
+            { icon: <AlertTriangle className="h-5 w-5 text-amber-400" />, label: "O'rtacha mastery", value: `${Math.round(avgMastery * 100)}%`, border: "border-amber-500/20", glow: "bg-amber-500/5", iconBg: "bg-amber-500/10" },
           ].map((s) => (
-            <Card key={s.label}>
-              <CardContent className="p-4 flex items-center gap-3">
-                <div className={cn("rounded-lg p-1.5", s.bg)}>{s.icon}</div>
-                <div>
-                  <p className="text-xs text-slate-500">{s.label}</p>
-                  <p className="text-lg font-bold text-slate-900">{s.value}</p>
-                </div>
-              </CardContent>
-            </Card>
+            <div key={s.label} className={`rounded-2xl border ${s.border} ${s.glow} p-5`}>
+              <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
+              <p className="f-syne text-2xl font-bold text-white leading-none">{s.value}</p>
+              <p className="text-xs text-slate-500 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
+            </div>
           ))}
         </div>
 
-        {/* Topic performance */}
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-base flex items-center gap-2">
+        {/* Topic performance table */}
+        <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
+          <div className="p-5 border-b border-slate-800">
+            <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2">
               <BarChart3 className="h-4 w-4 text-slate-500" />
               Mavzular bo'yicha natijalar
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+            </h3>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-slate-800">
+                  <th className="text-left px-4 py-3 text-xs font-medium text-slate-600 uppercase tracking-wide w-8">#</th>
+                  <th className="text-left px-4 py-3 text-xs font-medium text-slate-600 uppercase tracking-wide">Mavzu</th>
+                  <th className="text-center px-3 py-3 text-xs font-medium text-slate-600 uppercase tracking-wide hidden sm:table-cell">Uringanlar</th>
+                  <th className="text-center px-3 py-3 text-xs font-medium text-slate-600 uppercase tracking-wide">Mastery</th>
+                  <th className="text-center px-3 py-3 text-xs font-medium text-slate-600 uppercase tracking-wide hidden md:table-cell">O'zlashtirildi</th>
+                  <th className="text-center px-3 py-3 text-xs font-medium text-slate-600 uppercase tracking-wide hidden md:table-cell">O'rt. urinish</th>
+                  <th className="text-center px-3 py-3 text-xs font-medium text-slate-600 uppercase tracking-wide hidden lg:table-cell">Savollar</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-800/60">
+                {topicStats.map((t, idx) => (
+                  <tr key={t.id} className="hover:bg-slate-800/30 transition-colors">
+                    <td className="px-4 py-3 text-slate-600 text-xs">{idx + 1}</td>
+                    <td className="px-4 py-3">
+                      <span className="text-slate-300 font-medium line-clamp-1">{t.title}</span>
+                    </td>
+                    <td className="px-3 py-3 text-center text-slate-500 hidden sm:table-cell">
+                      {t.tried}/{t.total}
+                    </td>
+                    <td className="px-3 py-3">
+                      <div className="flex flex-col items-center gap-1.5">
+                        <span className={`text-xs font-semibold rounded-full px-2 py-0.5 ${masteryBadge(t.avg)}`}>
+                          {t.tried > 0 ? `${Math.round(t.avg * 100)}%` : "—"}
+                        </span>
+                        {t.tried > 0 && (
+                          <div className="h-1 w-16 bg-slate-800 rounded-full overflow-hidden">
+                            <div className={`h-full rounded-full ${masteryColor(t.avg)}`} style={{ width: `${t.avg * 100}%` }} />
+                          </div>
+                        )}
+                      </div>
+                    </td>
+                    <td className="px-3 py-3 text-center text-slate-400 hidden md:table-cell">{t.masteredCount}</td>
+                    <td className="px-3 py-3 text-center text-slate-500 hidden md:table-cell">
+                      {t.avgAttempts > 0 ? t.avgAttempts.toFixed(1) : "—"}
+                    </td>
+                    <td className="px-3 py-3 text-center hidden lg:table-cell">
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${t.questions > 0 ? "text-slate-400 bg-slate-800" : "text-slate-600 bg-slate-900 border border-slate-800"}`}>
+                        {t.questions}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Student progress table */}
+        <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
+          <div className="p-5 border-b border-slate-800">
+            <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2">
+              <Users className="h-4 w-4 text-slate-500" />
+              Talabalar progressi
+            </h3>
+          </div>
+          {studentStats.length === 0 ? (
+            <div className="py-10 text-center">
+              <Users className="h-8 w-8 text-slate-700 mx-auto mb-2" />
+              <p className="text-sm text-slate-500">Talabalar hali yozilmagan</p>
+            </div>
+          ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="bg-slate-50 border-b border-slate-200">
-                    <th className="text-left px-4 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide w-8">#</th>
-                    <th className="text-left px-4 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide">Mavzu</th>
-                    <th className="text-center px-3 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide hidden sm:table-cell">Uringanlar</th>
-                    <th className="text-center px-3 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide">Mastery</th>
-                    <th className="text-center px-3 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide hidden md:table-cell">O'zlashtirildi</th>
-                    <th className="text-center px-3 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide hidden md:table-cell">O'rt. urinish</th>
-                    <th className="text-center px-3 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide hidden lg:table-cell">Savollar</th>
+                  <tr className="border-b border-slate-800">
+                    <th className="text-left px-4 py-3 text-xs font-medium text-slate-600 uppercase tracking-wide">Talaba</th>
+                    <th className="text-center px-3 py-3 text-xs font-medium text-slate-600 uppercase tracking-wide">Mastery</th>
+                    <th className="text-center px-3 py-3 text-xs font-medium text-slate-600 uppercase tracking-wide hidden sm:table-cell">Boshladi</th>
+                    <th className="text-center px-3 py-3 text-xs font-medium text-slate-600 uppercase tracking-wide">O'zlashtirildi</th>
+                    <th className="text-center px-3 py-3 text-xs font-medium text-slate-600 uppercase tracking-wide hidden md:table-cell">Urinishlar</th>
+                    <th className="text-right px-4 py-3 text-xs font-medium text-slate-600 uppercase tracking-wide hidden md:table-cell">Oxirgi faollik</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {topicStats.map((t, idx) => (
-                    <tr key={t.id} className="hover:bg-slate-50/80 transition-colors">
-                      <td className="px-4 py-3 text-slate-400 text-xs">{idx + 1}</td>
-                      <td className="px-4 py-3">
-                        <span className="text-slate-800 font-medium line-clamp-1">{t.title}</span>
-                      </td>
-                      <td className="px-3 py-3 text-center text-slate-600 hidden sm:table-cell">
-                        {t.tried}/{t.total}
-                      </td>
-                      <td className="px-3 py-3">
-                        <div className="flex flex-col items-center gap-1">
-                          <span className={cn(
-                            "text-xs font-semibold rounded-full px-2 py-0.5",
-                            masteryBg(t.avg)
-                          )}>
-                            {t.tried > 0 ? `${Math.round(t.avg * 100)}%` : "—"}
-                          </span>
-                          {t.tried > 0 && <Progress value={t.avg * 100} className="h-1 w-16" />}
-                        </div>
-                      </td>
-                      <td className="px-3 py-3 text-center text-slate-600 hidden md:table-cell">{t.masteredCount}</td>
-                      <td className="px-3 py-3 text-center text-slate-500 hidden md:table-cell">
-                        {t.avgAttempts > 0 ? t.avgAttempts.toFixed(1) : "—"}
-                      </td>
-                      <td className="px-3 py-3 text-center hidden lg:table-cell">
-                        <Badge variant={t.questions > 0 ? "secondary" : "outline"} className="text-xs">
-                          {t.questions}
-                        </Badge>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Student progress table */}
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-base flex items-center gap-2">
-              <Users className="h-4 w-4 text-slate-500" />
-              Talabalar progressi
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {studentStats.length === 0 ? (
-              <p className="text-sm text-slate-400 text-center py-6">Talabalar hali yozilmagan</p>
-            ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="bg-slate-50 border-b border-slate-200">
-                      <th className="text-left px-4 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide">Talaba</th>
-                      <th className="text-center px-3 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide">Mastery</th>
-                      <th className="text-center px-3 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide hidden sm:table-cell">Boshladi</th>
-                      <th className="text-center px-3 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide">O'zlashtirildi</th>
-                      <th className="text-center px-3 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide hidden md:table-cell">Urinishlar</th>
-                      <th className="text-right px-4 py-3 text-xs font-medium text-slate-500 uppercase tracking-wide hidden md:table-cell">Oxirgi faollik</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100">
-                    {studentStats.map((s) => {
-                      const name = `${s.firstName} ${s.lastName}`;
-                      const parts = name.trim().split(" ");
-                      const initials = parts.length >= 2 ? parts[0][0] + parts[1][0] : name.slice(0, 2);
-                      return (
-                      <tr key={s.id} className="hover:bg-slate-50/80 transition-colors">
+                <tbody className="divide-y divide-slate-800/60">
+                  {studentStats.map((s) => {
+                    const name = `${s.firstName} ${s.lastName}`;
+                    const parts = name.trim().split(" ");
+                    const initials = parts.length >= 2 ? parts[0][0] + parts[1][0] : name.slice(0, 2);
+                    const isInactive = s.lastActive && (Date.now() - s.lastActive.getTime()) > 7 * 24 * 60 * 60 * 1000;
+                    return (
+                      <tr key={s.id} className="hover:bg-slate-800/30 transition-colors">
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-3">
-                            <div className="h-8 w-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold shrink-0 uppercase select-none">
+                            <div className="h-8 w-8 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold shrink-0 uppercase select-none">
                               {initials}
                             </div>
-                            <span className="font-medium text-slate-800 truncate max-w-[160px]">
-                              {name}
-                            </span>
+                            <span className="font-medium text-slate-300 truncate max-w-[160px]">{name}</span>
                           </div>
                         </td>
                         <td className="px-3 py-3 text-center">
-                          <span className={cn(
-                            "text-xs font-semibold rounded-full px-2 py-0.5",
-                            masteryBg(s.avgMastery)
-                          )}>
+                          <span className={`text-xs font-semibold rounded-full px-2 py-0.5 ${masteryBadge(s.avgMastery)}`}>
                             {s.topicsStarted > 0 ? `${Math.round(s.avgMastery * 100)}%` : "—"}
                           </span>
                         </td>
-                        <td className="px-3 py-3 text-center text-slate-600 hidden sm:table-cell">
+                        <td className="px-3 py-3 text-center text-slate-500 hidden sm:table-cell">
                           {s.topicsStarted}/{course.topics.length}
                         </td>
                         <td className="px-3 py-3 text-center">
                           {s.topicsMastered > 0 ? (
-                            <span className="text-emerald-600 font-medium">{s.topicsMastered}</span>
+                            <span className="text-emerald-400 font-medium">{s.topicsMastered}</span>
                           ) : (
-                            <span className="text-slate-400">0</span>
+                            <span className="text-slate-600">0</span>
                           )}
                         </td>
                         <td className="px-3 py-3 text-center text-slate-500 hidden md:table-cell">{s.attempts}</td>
                         <td className="px-4 py-3 text-right text-xs hidden md:table-cell">
-                          <span className={cn(
-                            s.lastActive && (Date.now() - s.lastActive.getTime()) > 7 * 24 * 60 * 60 * 1000
-                              ? "text-amber-500"
-                              : "text-slate-400"
-                          )}>
+                          <span className={isInactive ? "text-amber-400" : "text-slate-500"}>
                             {timeAgo(s.lastActive)}
                           </span>
                         </td>
                       </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </CardContent>
-        </Card>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
 
         {/* Hard questions */}
         {questionStats.length > 0 && (
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-base flex items-center gap-2">
+          <div className="rounded-2xl border border-red-500/20 bg-slate-900 overflow-hidden">
+            <div className="p-5 border-b border-slate-800">
+              <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2">
                 <HelpCircle className="h-4 w-4 text-red-400" />
                 Eng qiyin savollar
-                <Badge variant="destructive" className="text-xs ml-1">{questionStats.length}</Badge>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {questionStats.map((q) => (
-                  <div key={q.id} className="flex items-start gap-3 p-3 rounded-lg bg-red-50 border border-red-100">
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm text-slate-800 line-clamp-2">{q.stem}</p>
-                      <p className="text-xs text-slate-500 mt-0.5">{q.topicTitle} • {q.total} ta urinish</p>
-                    </div>
-                    <div className="shrink-0 text-right">
-                      <span className="text-sm font-bold text-red-600">
-                        {Math.round((q.rate ?? 0) * 100)}%
-                      </span>
-                      <p className="text-xs text-slate-400">to'g'ri</p>
-                    </div>
+                <span className="text-xs font-bold text-red-400 bg-red-500/10 border border-red-500/20 rounded-full px-2 py-0.5 ml-1">
+                  {questionStats.length}
+                </span>
+              </h3>
+            </div>
+            <div className="p-5 space-y-3">
+              {questionStats.map((q) => (
+                <div key={q.id} className="flex items-start gap-3 p-3 rounded-xl border border-red-500/10 bg-red-500/5">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm text-slate-300 line-clamp-2">{q.stem}</p>
+                    <p className="text-xs text-slate-600 mt-0.5">{q.topicTitle} • {q.total} ta urinish</p>
                   </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+                  <div className="shrink-0 text-right">
+                    <span className="text-sm font-bold text-red-400">
+                      {Math.round((q.rate ?? 0) * 100)}%
+                    </span>
+                    <p className="text-xs text-slate-600">to'g'ri</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         )}
       </main>
     </div>

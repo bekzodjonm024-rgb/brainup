@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 interface Props {
@@ -26,7 +25,6 @@ export function DigitSpanTask({ item, onComplete, disabled }: Props) {
 
   useEffect(() => {
     if (phase !== "showing") return;
-
     const timeout = setTimeout(() => {
       if (currentDigitIdx < data.sequence.length - 1) {
         setPhase("blank");
@@ -39,7 +37,6 @@ export function DigitSpanTask({ item, onComplete, disabled }: Props) {
         setTimeout(() => setPhase("recall"), 500);
       }
     }, data.displayMs);
-
     return () => clearTimeout(timeout);
   }, [phase, currentDigitIdx, data]);
 
@@ -54,71 +51,81 @@ export function DigitSpanTask({ item, onComplete, disabled }: Props) {
   }
 
   return (
-    <Card>
-      <CardContent className="p-8 text-center space-y-6">
-        <p className="text-slate-700 text-sm">{item.prompt}</p>
+    <div className="rounded-2xl border border-slate-800 bg-slate-900 p-8 text-center space-y-8">
+      <p className="text-slate-400 text-sm">{item.prompt}</p>
 
-        {phase === "intro" && (
-          <div className="space-y-3">
-            <p className="text-slate-500 text-sm">{data.sequence.length} ta raqam ko'rsatiladi</p>
-            <Button onClick={startTask} disabled={disabled} size="lg">Boshlash</Button>
-          </div>
-        )}
+      {phase === "intro" && (
+        <div className="space-y-4">
+          <p className="text-slate-500 text-sm">{data.sequence.length} ta raqam ko&apos;rsatiladi</p>
+          <Button
+            onClick={startTask}
+            disabled={disabled}
+            size="lg"
+            className="bg-blue-600 hover:bg-blue-500 text-white border-0 shadow-lg shadow-blue-600/20 px-10"
+          >
+            Boshlash
+          </Button>
+        </div>
+      )}
 
-        {(phase === "showing" || phase === "blank") && (
-          <div className="h-32 flex items-center justify-center">
-            <span className={cn(
-              "text-7xl font-bold transition-all duration-100",
-              phase === "showing" ? "text-slate-900 scale-100" : "text-transparent scale-95"
-            )}>
-              {phase === "showing" ? data.sequence[currentDigitIdx] : "·"}
-            </span>
-          </div>
-        )}
+      {(phase === "showing" || phase === "blank") && (
+        <div className="h-36 flex items-center justify-center">
+          <span className={cn(
+            "text-8xl font-bold transition-all duration-100",
+            phase === "showing" ? "text-white scale-100" : "text-transparent scale-90"
+          )}>
+            {phase === "showing" ? data.sequence[currentDigitIdx] : "0"}
+          </span>
+        </div>
+      )}
 
-        {phase === "recall" && (
-          <div className="space-y-4">
-            <p className="text-slate-600 text-sm">Raqamlarni tartibda kiriting:</p>
-            <div className="flex justify-center gap-1">
-              {Array.from({ length: data.sequence.length }).map((_, i) => (
-                <div
-                  key={i}
-                  className={cn(
-                    "h-12 w-10 rounded-lg border-2 flex items-center justify-center text-xl font-bold",
-                    input[i] ? "border-blue-400 bg-blue-50 text-blue-700" : "border-slate-200 bg-slate-50 text-slate-300"
-                  )}
-                >
-                  {input[i] ?? "·"}
-                </div>
-              ))}
-            </div>
-            <div className="flex justify-center flex-wrap gap-2">
-              {[1,2,3,4,5,6,7,8,9,0].map((n) => (
-                <button
-                  key={n}
-                  disabled={input.length >= data.sequence.length}
-                  onClick={() => setInput((s) => s.length < data.sequence.length ? s + n : s)}
-                  className="h-10 w-10 rounded-lg border border-slate-200 bg-white text-slate-900 font-medium hover:bg-slate-50 disabled:opacity-40"
-                >
-                  {n}
-                </button>
-              ))}
-              <button
-                onClick={() => setInput((s) => s.slice(0, -1))}
-                className="h-10 px-3 rounded-lg border border-slate-200 bg-white text-slate-600 text-sm hover:bg-slate-50"
+      {phase === "recall" && (
+        <div className="space-y-6">
+          <p className="text-slate-400 text-sm">Raqamlarni tartibda kiriting:</p>
+          <div className="flex justify-center gap-2">
+            {Array.from({ length: data.sequence.length }).map((_, i) => (
+              <div
+                key={i}
+                className={cn(
+                  "h-12 w-10 rounded-xl border-2 flex items-center justify-center text-xl font-bold transition-colors",
+                  input[i]
+                    ? "border-blue-500 bg-blue-500/10 text-blue-400"
+                    : "border-slate-700 bg-slate-800 text-slate-600"
+                )}
               >
-                ←
-              </button>
-            </div>
-            <Button
-              onClick={handleSubmit}
-              disabled={disabled || input.length === 0}
-            >
-              Tasdiqlash →
-            </Button>
+                {input[i] ?? "·"}
+              </div>
+            ))}
           </div>
-        )}
-      </CardContent>
-    </Card>
+
+          <div className="flex justify-center flex-wrap gap-2">
+            {[1,2,3,4,5,6,7,8,9,0].map((n) => (
+              <button
+                key={n}
+                disabled={input.length >= data.sequence.length}
+                onClick={() => setInput((s) => s.length < data.sequence.length ? s + n : s)}
+                className="h-11 w-11 rounded-xl border border-slate-700 bg-slate-800 text-slate-200 font-bold hover:bg-slate-700 hover:border-slate-600 disabled:opacity-30 transition-colors text-sm"
+              >
+                {n}
+              </button>
+            ))}
+            <button
+              onClick={() => setInput((s) => s.slice(0, -1))}
+              className="h-11 px-4 rounded-xl border border-slate-700 bg-slate-800 text-slate-400 text-sm hover:bg-slate-700 transition-colors"
+            >
+              ←
+            </button>
+          </div>
+
+          <Button
+            onClick={handleSubmit}
+            disabled={disabled || input.length === 0}
+            className="bg-blue-600 hover:bg-blue-500 text-white border-0 px-10"
+          >
+            Tasdiqlash →
+          </Button>
+        </div>
+      )}
+    </div>
   );
 }

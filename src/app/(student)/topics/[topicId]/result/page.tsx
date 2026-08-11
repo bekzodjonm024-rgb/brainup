@@ -4,7 +4,6 @@ import { redirect, notFound } from "next/navigation";
 import { decideNextAction } from "@/lib/modules/adaptive/engine";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { MasteryBadge } from "@/components/shared/mastery-badge";
 import {
   CheckCircle2, ArrowRight, RotateCcw, BookOpen,
@@ -14,44 +13,51 @@ import {
 const ACTION_CONFIG: Record<string, {
   title: string;
   description: string;
-  color: string;
+  border: string;
+  iconBg: string;
   icon: React.ReactNode;
 }> = {
   CONTINUE: {
     title: "Keyingi mavzuga o'ting",
     description: "Ajoyib! Siz bu mavzuni yaxshi o'zlashtirdingiz. Oldinga!",
-    color: "from-emerald-50 to-green-50 border-emerald-200",
-    icon: <ArrowRight className="h-6 w-6 text-emerald-600" />,
+    border: "border-emerald-500/20",
+    iconBg: "bg-emerald-500/10",
+    icon: <ArrowRight className="h-6 w-6 text-emerald-400" />,
   },
   PRACTICE: {
     title: "Ko'proq mashq qiling",
     description: "Yaxshi harakat! Mustahkamlash uchun yana bir necha savol yechib ko'ring.",
-    color: "from-blue-50 to-indigo-50 border-blue-200",
-    icon: <Zap className="h-6 w-6 text-blue-600" />,
+    border: "border-blue-500/20",
+    iconBg: "bg-blue-500/10",
+    icon: <Zap className="h-6 w-6 text-blue-400" />,
   },
   EXPLAIN_AGAIN: {
     title: "Mavzuni qayta o'rganing",
     description: "Mavzuni yana bir bor o'qib chiqing, keyin mashq qiling.",
-    color: "from-amber-50 to-yellow-50 border-amber-200",
-    icon: <BookOpen className="h-6 w-6 text-amber-600" />,
+    border: "border-amber-500/20",
+    iconBg: "bg-amber-500/10",
+    icon: <BookOpen className="h-6 w-6 text-amber-400" />,
   },
   PREREQUISITE: {
     title: "Avvalgi mavzuni mustahkamlang",
     description: "Bu mavzuni tushunish uchun avval oldingi mavzuni yaxshi o'zlashtirib oling.",
-    color: "from-orange-50 to-red-50 border-orange-200",
-    icon: <Layers className="h-6 w-6 text-orange-600" />,
+    border: "border-orange-500/20",
+    iconBg: "bg-orange-500/10",
+    icon: <Layers className="h-6 w-6 text-orange-400" />,
   },
   RETRIEVE: {
     title: "Takrorlash vaqti",
     description: "O'tgan mavzuni eslash vaqti keldi. Aralashish (interleaving) xotirani mustahkamlaydi.",
-    color: "from-purple-50 to-violet-50 border-purple-200",
-    icon: <RotateCcw className="h-6 w-6 text-purple-600" />,
+    border: "border-violet-500/20",
+    iconBg: "bg-violet-500/10",
+    icon: <RotateCcw className="h-6 w-6 text-violet-400" />,
   },
   ADVANCED_PRACTICE: {
     title: "Murakkab savollar",
     description: "Zo'r! Siz shu mavzuni mukammal o'zlashtirdingiz. Murakkab topshiriqlar vaqti!",
-    color: "from-pink-50 to-rose-50 border-pink-200",
-    icon: <BookMarked className="h-6 w-6 text-pink-600" />,
+    border: "border-pink-500/20",
+    iconBg: "bg-pink-500/10",
+    icon: <BookMarked className="h-6 w-6 text-pink-400" />,
   },
 };
 
@@ -63,6 +69,7 @@ export default async function ResultPage({
   searchParams: Promise<{ topicId?: string }>;
 }) {
   const { topicId } = await params;
+  void searchParams;
   const session = await auth();
   if (!session?.user?.profileId) redirect("/login");
 
@@ -110,7 +117,6 @@ export default async function ResultPage({
     attemptsOnTopic: knowledge?.attempts ?? 0,
   });
 
-  // Get next topic for CONTINUE
   let nextTopic: { id: string; title: string } | null = null;
   if (decision.action === "CONTINUE") {
     nextTopic = await db.topic.findFirst({
@@ -147,56 +153,56 @@ export default async function ResultPage({
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-950">
       <div className="mx-auto max-w-xl px-4 py-8 space-y-6">
         {/* Back */}
         <Link
           href={`/topics/${topicId}`}
-          className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700"
+          className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-300 transition-colors"
         >
           <ArrowLeft className="h-4 w-4" /> {topic.title}
         </Link>
 
         {/* Mastery card */}
-        <Card>
-          <CardContent className="p-6 flex flex-col items-center gap-4 text-center">
-            <CheckCircle2 className="h-10 w-10 text-emerald-500" />
-            <div>
-              <h1 className="text-lg font-bold text-slate-900">Mashq yakunlandi</h1>
-              <p className="text-sm text-slate-500 mt-0.5">{topic.title}</p>
-            </div>
-            <MasteryBadge score={mastery} />
-          </CardContent>
-        </Card>
+        <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 flex flex-col items-center gap-4 text-center">
+          <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+            <CheckCircle2 className="h-8 w-8 text-emerald-400" />
+          </div>
+          <div>
+            <h1 className="f-syne text-lg font-bold text-white">Mashq yakunlandi</h1>
+            <p className="text-sm text-slate-500 mt-0.5">{topic.title}</p>
+          </div>
+          <MasteryBadge score={mastery} />
+        </div>
 
         {/* Adaptive recommendation */}
-        <Card className={`bg-gradient-to-br border ${cfg.color}`}>
-          <CardContent className="p-6 space-y-4">
-            <div className="flex items-start gap-3">
+        <div className={`rounded-2xl border ${cfg.border} bg-slate-900 p-6 space-y-4`}>
+          <div className="flex items-start gap-4">
+            <div className={`w-12 h-12 rounded-xl ${cfg.iconBg} flex items-center justify-center shrink-0`}>
               {cfg.icon}
-              <div>
-                <h2 className="font-semibold text-slate-900">{cfg.title}</h2>
-                <p className="text-sm text-slate-600 mt-1">{cfg.description}</p>
-              </div>
             </div>
-            <Link href={getActionHref()}>
-              <Button className="w-full">
-                {getActionLabel()}
-                <ArrowRight className="h-4 w-4 ml-2" />
-              </Button>
-            </Link>
-          </CardContent>
-        </Card>
+            <div>
+              <h2 className="font-semibold text-slate-200">{cfg.title}</h2>
+              <p className="text-sm text-slate-500 mt-1">{cfg.description}</p>
+            </div>
+          </div>
+          <Link href={getActionHref()}>
+            <Button className="w-full bg-blue-600 hover:bg-blue-500 text-white border-0">
+              {getActionLabel()}
+              <ArrowRight className="h-4 w-4 ml-2" />
+            </Button>
+          </Link>
+        </div>
 
         {/* Secondary actions */}
         <div className="flex gap-3">
           <Link href={`/courses/${topic.courseId}`} className="flex-1">
-            <Button variant="outline" className="w-full text-sm">
+            <Button variant="outline" className="w-full text-sm border-slate-700 text-slate-400 hover:bg-slate-800 bg-transparent">
               Kurs ro'yxati
             </Button>
           </Link>
           <Link href="/dashboard" className="flex-1">
-            <Button variant="outline" className="w-full text-sm">
+            <Button variant="outline" className="w-full text-sm border-slate-700 text-slate-400 hover:bg-slate-800 bg-transparent">
               Dashboard
             </Button>
           </Link>

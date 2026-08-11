@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef, useCallback, KeyboardEvent } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 
 interface Props {
   item: { id: string; prompt: string; stimuluData: Record<string, unknown> };
@@ -28,7 +27,6 @@ export function ReactionTimeTask({ item, onComplete, disabled }: Props) {
     timerRef.current = setTimeout(() => {
       setPhase("stimulus");
       stimulusStartRef.current = Date.now();
-      // Auto-timeout
       timerRef.current = setTimeout(() => {
         setPhase("done");
         setReactionTime(null);
@@ -38,7 +36,6 @@ export function ReactionTimeTask({ item, onComplete, disabled }: Props) {
 
   useEffect(() => () => clearTimer(), []);
 
-  // Spacebar / Enter support for desktop
   useEffect(() => {
     if (phase !== "waiting" && phase !== "stimulus") return;
     function onKey(e: KeyboardEvent) {
@@ -51,11 +48,7 @@ export function ReactionTimeTask({ item, onComplete, disabled }: Props) {
 
   function handleClick() {
     if (disabled) return;
-    if (phase === "waiting") {
-      clearTimer();
-      setPhase("too-early");
-      return;
-    }
+    if (phase === "waiting") { clearTimer(); setPhase("too-early"); return; }
     if (phase === "stimulus") {
       clearTimer();
       const rt = Date.now() - (stimulusStartRef.current ?? Date.now());
@@ -64,7 +57,6 @@ export function ReactionTimeTask({ item, onComplete, disabled }: Props) {
     }
   }
 
-  // Auto-advance after showing result (1.2s)
   useEffect(() => {
     if (phase !== "done") return;
     const t = setTimeout(() => {
@@ -77,58 +69,65 @@ export function ReactionTimeTask({ item, onComplete, disabled }: Props) {
   }, [phase, reactionTime, onComplete]);
 
   return (
-    <Card>
-      <CardContent className="p-8 text-center space-y-6">
-        <p className="text-slate-700 text-sm">{item.prompt}</p>
+    <div className="rounded-2xl border border-slate-800 bg-slate-900 p-8 text-center space-y-8">
+      <p className="text-slate-400 text-sm">{item.prompt}</p>
 
-        {phase === "ready" && (
-          <Button onClick={startTrial} disabled={disabled} size="lg">
-            Boshlash
+      {phase === "ready" && (
+        <Button
+          onClick={startTrial}
+          disabled={disabled}
+          size="lg"
+          className="bg-blue-600 hover:bg-blue-500 text-white border-0 shadow-lg shadow-blue-600/20 px-10"
+        >
+          Boshlash
+        </Button>
+      )}
+
+      {phase === "waiting" && (
+        <div
+          className="mx-auto h-36 w-36 rounded-full bg-slate-800 border-2 border-slate-700 flex items-center justify-center cursor-pointer select-none"
+          onClick={handleClick}
+        >
+          <span className="text-slate-500 text-sm">Kuting...</span>
+        </div>
+      )}
+
+      {phase === "stimulus" && (
+        <div
+          className="mx-auto h-36 w-36 rounded-full bg-emerald-500 border-2 border-emerald-400 flex items-center justify-center cursor-pointer select-none shadow-xl shadow-emerald-500/30"
+          onClick={handleClick}
+        >
+          <span className="text-white font-bold text-lg">BOSING!</span>
+        </div>
+      )}
+
+      {phase === "too-early" && (
+        <div className="space-y-6">
+          <div className="mx-auto h-36 w-36 rounded-full bg-amber-500/15 border-2 border-amber-500/30 flex items-center justify-center">
+            <span className="text-amber-400 text-sm font-medium">Juda erta!</span>
+          </div>
+          <Button
+            onClick={startTrial}
+            variant="outline"
+            className="border-slate-700 text-slate-300 hover:bg-slate-800 bg-transparent"
+          >
+            Qayta urinish
           </Button>
-        )}
+        </div>
+      )}
 
-        {phase === "waiting" && (
-          <div
-            className="mx-auto h-32 w-32 rounded-full bg-slate-200 flex items-center justify-center cursor-pointer select-none"
-            onClick={handleClick}
-          >
-            <span className="text-slate-400 text-sm">Kuting...</span>
-          </div>
-        )}
-
-        {phase === "stimulus" && (
-          <div
-            className="mx-auto h-32 w-32 rounded-full bg-emerald-500 flex items-center justify-center cursor-pointer select-none"
-            onClick={handleClick}
-          >
-            <span className="text-white font-bold text-lg">BOSING!</span>
-          </div>
-        )}
-
-        {phase === "too-early" && (
-          <div className="space-y-4">
-            <div className="mx-auto h-32 w-32 rounded-full bg-amber-100 flex items-center justify-center">
-              <span className="text-amber-700 text-sm font-medium">Juda erta!</span>
+      {phase === "done" && (
+        <div className="mx-auto h-36 w-36 rounded-full bg-blue-500/10 border-2 border-blue-500/20 flex items-center justify-center">
+          {reactionTime ? (
+            <div>
+              <p className="text-3xl font-bold text-blue-400">{reactionTime}</p>
+              <p className="text-xs text-slate-500">ms</p>
             </div>
-            <Button onClick={startTrial} variant="outline">Qayta urinish</Button>
-          </div>
-        )}
-
-        {phase === "done" && (
-          <div className="space-y-4">
-            <div className="mx-auto h-32 w-32 rounded-full bg-blue-50 flex items-center justify-center">
-              {reactionTime ? (
-                <div>
-                  <p className="text-2xl font-bold text-blue-700">{reactionTime}</p>
-                  <p className="text-xs text-blue-500">ms</p>
-                </div>
-              ) : (
-                <span className="text-slate-400 text-sm">Vaqt o'tdi</span>
-              )}
-            </div>
-          </div>
-        )}
-      </CardContent>
-    </Card>
+          ) : (
+            <span className="text-slate-500 text-sm">Vaqt o&apos;tdi</span>
+          )}
+        </div>
+      )}
+    </div>
   );
 }

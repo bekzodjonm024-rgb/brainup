@@ -40,7 +40,7 @@ export default async function AssessmentSessionPage({
   const overrides = (assessmentSession.itemOverrides ?? {}) as Record<string, unknown>;
 
   return (
-    <div className="flex flex-col h-full overflow-y-auto bg-slate-50">
+    <div className="flex flex-col h-full overflow-y-auto bg-slate-950">
       <AssessmentRunner
         sessionId={sessionId}
         items={items.map((item) => ({

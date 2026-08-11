@@ -2,9 +2,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect, notFound } from "next/navigation";
 import { Header } from "@/components/layout/header";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import { MasteryBadge } from "@/components/shared/mastery-badge";
 import { decideNextAction } from "@/lib/modules/adaptive/engine";
 import Link from "next/link";
@@ -12,15 +10,14 @@ import {
   ArrowLeft, CheckCircle2, Lock, PlayCircle,
   BookOpen, ChevronRight, Zap, RotateCcw, Layers
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 
-const ACTION_CHIP: Record<string, { label: string; color: string; icon: React.ReactNode }> = {
-  PRACTICE:          { label: "Mashq kerak", color: "text-blue-600 bg-blue-50",    icon: <Zap className="h-3 w-3" /> },
-  ADVANCED_PRACTICE: { label: "Murakkab",    color: "text-pink-600 bg-pink-50",    icon: <Zap className="h-3 w-3" /> },
-  EXPLAIN_AGAIN:     { label: "Qayta o'qi",  color: "text-amber-600 bg-amber-50",  icon: <BookOpen className="h-3 w-3" /> },
-  PREREQUISITE:      { label: "Oldingi mavzu",color: "text-orange-600 bg-orange-50",icon: <Layers className="h-3 w-3" /> },
-  RETRIEVE:          { label: "Takrorlash",  color: "text-purple-600 bg-purple-50",icon: <RotateCcw className="h-3 w-3" /> },
-  CONTINUE:          { label: "Tayyor",      color: "text-emerald-600 bg-emerald-50",icon: <CheckCircle2 className="h-3 w-3" /> },
+const ACTION_CHIP: Record<string, { label: string; border: string; bg: string; text: string; icon: React.ReactNode }> = {
+  PRACTICE:          { label: "Mashq kerak", border: "border-blue-500/20",    bg: "bg-blue-500/10",    text: "text-blue-400",    icon: <Zap className="h-3 w-3" /> },
+  ADVANCED_PRACTICE: { label: "Murakkab",    border: "border-pink-500/20",    bg: "bg-pink-500/10",    text: "text-pink-400",    icon: <Zap className="h-3 w-3" /> },
+  EXPLAIN_AGAIN:     { label: "Qayta o'qi",  border: "border-amber-500/20",   bg: "bg-amber-500/10",   text: "text-amber-400",   icon: <BookOpen className="h-3 w-3" /> },
+  PREREQUISITE:      { label: "Oldingi mavzu",border: "border-orange-500/20", bg: "bg-orange-500/10",  text: "text-orange-400",  icon: <Layers className="h-3 w-3" /> },
+  RETRIEVE:          { label: "Takrorlash",  border: "border-violet-500/20",  bg: "bg-violet-500/10",  text: "text-violet-400",  icon: <RotateCcw className="h-3 w-3" /> },
+  CONTINUE:          { label: "Tayyor",      border: "border-emerald-500/20", bg: "bg-emerald-500/10", text: "text-emerald-400", icon: <CheckCircle2 className="h-3 w-3" /> },
 };
 
 export default async function StudentCourseDetailPage({
@@ -59,7 +56,6 @@ export default async function StudentCourseDetailPage({
 
   if (!course) notFound();
 
-  // Build a mastery lookup for prerequisite checking
   const masteryByTopicId = new Map<string, number>(
     course.topics.map((t) => [t.id, t.learnerKnowledge[0]?.masteryScore ?? 0])
   );
@@ -70,35 +66,35 @@ export default async function StudentCourseDetailPage({
   const progress = course.topics.length > 0 ? (masteredTopics / course.topics.length) * 100 : 0;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto">
+    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
       <Header title={course.title} description={`${course.professor.firstName} ${course.professor.lastName}`} />
       <main className="flex-1 p-6 space-y-5">
         <Link href="/courses">
-          <Button variant="ghost" size="sm">
+          <Button variant="ghost" size="sm" className="text-slate-400 hover:text-slate-200 hover:bg-slate-800">
             <ArrowLeft className="h-4 w-4 mr-1" /> Kurslar
           </Button>
         </Link>
 
         {/* Course progress */}
-        <Card>
-          <CardContent className="p-5">
-            <div className="flex items-center justify-between mb-3">
-              <div>
-                <p className="text-sm text-slate-500">Umumiy progress</p>
-                <p className="text-2xl font-bold text-slate-900">{Math.round(progress)}%</p>
-              </div>
-              <div className="text-right text-sm text-slate-500">
-                <p>{masteredTopics}/{course.topics.length} mavzu</p>
-                <p>o'zlashtirildi</p>
-              </div>
+        <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <p className="text-xs text-slate-500 uppercase tracking-wide font-medium">Umumiy progress</p>
+              <p className="f-syne text-2xl font-bold text-white mt-1">{Math.round(progress)}%</p>
             </div>
-            <Progress value={progress} className="h-2" />
-          </CardContent>
-        </Card>
+            <div className="text-right">
+              <p className="text-sm font-semibold text-slate-300">{masteredTopics}/{course.topics.length}</p>
+              <p className="text-xs text-slate-600">mavzu o'zlashtirildi</p>
+            </div>
+          </div>
+          <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+            <div className="h-full bg-blue-500 rounded-full transition-all" style={{ width: `${progress}%` }} />
+          </div>
+        </div>
 
         {/* Topics list */}
         <div className="space-y-2">
-          <h2 className="font-semibold text-slate-900">Mavzular</h2>
+          <h2 className="f-syne font-bold text-slate-300">Mavzular</h2>
           {course.topics.map((topic, idx) => {
             const knowledge = topic.learnerKnowledge[0];
             const mastery = knowledge?.masteryScore ?? 0;
@@ -111,8 +107,7 @@ export default async function StudentCourseDetailPage({
             const prereqLocked = topic.prerequisiteTopic && prereqMastery < 0.6;
             const isLocked = !hasContent || !!prereqLocked;
 
-            // Adaptive action chip
-            let actionChip: { label: string; color: string; icon: React.ReactNode } | null = null;
+            let actionChip: typeof ACTION_CHIP[string] | null = null;
             if (isStarted && knowledge) {
               const decision = decideNextAction({
                 masteryScore: knowledge.masteryScore,
@@ -125,66 +120,68 @@ export default async function StudentCourseDetailPage({
             }
 
             return (
-              <Card
+              <div
                 key={topic.id}
-                className={cn(
-                  "transition-colors",
-                  isMastered && "border-emerald-200 bg-emerald-50/30",
-                  isLocked && "opacity-60"
-                )}
+                className={`rounded-xl border bg-slate-900 p-4 flex items-center gap-3 transition-colors ${
+                  isMastered ? "border-emerald-500/20 bg-emerald-500/5" :
+                  isLocked ? "border-slate-800 opacity-60" :
+                  "border-slate-800 hover:border-slate-700"
+                }`}
               >
-                <CardContent className="p-4 flex items-center gap-3">
-                  <div className="shrink-0">
-                    {isMastered ? (
-                      <CheckCircle2 className="h-5 w-5 text-emerald-500" />
-                    ) : isStarted ? (
-                      <PlayCircle className="h-5 w-5 text-blue-500" />
-                    ) : isLocked ? (
-                      <Lock className="h-5 w-5 text-slate-300" />
-                    ) : (
-                      <BookOpen className="h-5 w-5 text-slate-400" />
-                    )}
-                  </div>
-
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-xs font-medium text-slate-400">{idx + 1}</span>
-                      <h3 className="font-medium text-slate-900">{topic.title}</h3>
-                      {isStarted && <MasteryBadge score={mastery} />}
-                      {actionChip && (
-                        <span className={cn(
-                          "inline-flex items-center gap-1 text-xs font-medium rounded-full px-2 py-0.5",
-                          actionChip.color
-                        )}>
-                          {actionChip.icon}
-                          {actionChip.label}
-                        </span>
-                      )}
-                    </div>
-                    {topic.learningObjective && (
-                      <p className="text-xs text-slate-500 mt-0.5 line-clamp-1">{topic.learningObjective}</p>
-                    )}
-                    {prereqLocked && topic.prerequisiteTopic && (
-                      <p className="text-xs text-orange-600 mt-0.5">
-                        Avval &quot;{topic.prerequisiteTopic.title}&quot; mavzusini bajaring (≥60%)
-                      </p>
-                    )}
-                    <div className="flex gap-3 text-xs text-slate-400 mt-1">
-                      <span>{topic.contentItems.length} material</span>
-                      <span>{topic._count.questions} savol</span>
-                    </div>
-                  </div>
-
-                  {!isLocked && (
-                    <Link href={`/topics/${topic.id}`}>
-                      <Button size="sm" variant={isMastered ? "outline" : "default"}>
-                        {isMastered ? "Takrorlash" : isStarted ? "Davom etish" : "Boshlash"}
-                        <ChevronRight className="h-3 w-3 ml-1" />
-                      </Button>
-                    </Link>
+                <div className="shrink-0">
+                  {isMastered ? (
+                    <CheckCircle2 className="h-5 w-5 text-emerald-400" />
+                  ) : isStarted ? (
+                    <PlayCircle className="h-5 w-5 text-blue-400" />
+                  ) : isLocked ? (
+                    <Lock className="h-5 w-5 text-slate-700" />
+                  ) : (
+                    <BookOpen className="h-5 w-5 text-slate-600" />
                   )}
-                </CardContent>
-              </Card>
+                </div>
+
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-xs font-medium text-slate-600">{idx + 1}</span>
+                    <h3 className="font-medium text-slate-200">{topic.title}</h3>
+                    {isStarted && <MasteryBadge score={mastery} />}
+                    {actionChip && (
+                      <span className={`inline-flex items-center gap-1 text-xs font-medium rounded-full px-2 py-0.5 border ${actionChip.border} ${actionChip.bg} ${actionChip.text}`}>
+                        {actionChip.icon}
+                        {actionChip.label}
+                      </span>
+                    )}
+                  </div>
+                  {topic.learningObjective && (
+                    <p className="text-xs text-slate-600 mt-0.5 line-clamp-1">{topic.learningObjective}</p>
+                  )}
+                  {prereqLocked && topic.prerequisiteTopic && (
+                    <p className="text-xs text-orange-400 mt-0.5">
+                      Avval &quot;{topic.prerequisiteTopic.title}&quot; mavzusini bajaring (≥60%)
+                    </p>
+                  )}
+                  <div className="flex gap-3 text-xs text-slate-700 mt-1">
+                    <span>{topic.contentItems.length} material</span>
+                    <span>{topic._count.questions} savol</span>
+                  </div>
+                </div>
+
+                {!isLocked && (
+                  <Link href={`/topics/${topic.id}`}>
+                    <Button
+                      size="sm"
+                      className={isMastered
+                        ? "border-slate-700 text-slate-400 hover:bg-slate-800 bg-transparent"
+                        : "bg-blue-600 hover:bg-blue-500 text-white border-0"
+                      }
+                      variant={isMastered ? "outline" : "default"}
+                    >
+                      {isMastered ? "Takrorlash" : isStarted ? "Davom etish" : "Boshlash"}
+                      <ChevronRight className="h-3 w-3 ml-1" />
+                    </Button>
+                  </Link>
+                )}
+              </div>
             );
           })}
         </div>

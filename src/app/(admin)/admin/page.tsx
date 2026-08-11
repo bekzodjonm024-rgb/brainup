@@ -5,8 +5,6 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { Header } from "@/components/layout/header";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
 import {
@@ -63,12 +61,12 @@ export default async function AdminDashboardPage() {
   ]);
 
   const stats = [
-    { icon: <Users className="h-5 w-5 text-blue-600" />, label: "Jami talabalar", value: totalStudents, bg: "bg-blue-50" },
-    { icon: <UserCheck className="h-5 w-5 text-emerald-600" />, label: "Faol talabalar", value: activeStudents, bg: "bg-emerald-50" },
-    { icon: <GraduationCap className="h-5 w-5 text-violet-600" />, label: "Professorlar", value: totalProfessors, bg: "bg-violet-50" },
-    { icon: <BookOpen className="h-5 w-5 text-amber-600" />, label: "Faol kurslar", value: totalCourses, bg: "bg-amber-50" },
-    { icon: <TrendingUp className="h-5 w-5 text-pink-600" />, label: "Yozilishlar", value: totalEnrollments, bg: "bg-pink-50" },
-    { icon: <Brain className="h-5 w-5 text-cyan-600" />, label: "Baholash yakunlangan", value: assessmentsCompleted, bg: "bg-cyan-50" },
+    { icon: <Users className="h-5 w-5 text-blue-400" />, label: "Jami talabalar", value: totalStudents, border: "border-blue-500/20", glow: "bg-blue-500/5", iconBg: "bg-blue-500/10" },
+    { icon: <UserCheck className="h-5 w-5 text-emerald-400" />, label: "Faol talabalar", value: activeStudents, border: "border-emerald-500/20", glow: "bg-emerald-500/5", iconBg: "bg-emerald-500/10" },
+    { icon: <GraduationCap className="h-5 w-5 text-violet-400" />, label: "Professorlar", value: totalProfessors, border: "border-violet-500/20", glow: "bg-violet-500/5", iconBg: "bg-violet-500/10" },
+    { icon: <BookOpen className="h-5 w-5 text-amber-400" />, label: "Faol kurslar", value: totalCourses, border: "border-amber-500/20", glow: "bg-amber-500/5", iconBg: "bg-amber-500/10" },
+    { icon: <TrendingUp className="h-5 w-5 text-pink-400" />, label: "Yozilishlar", value: totalEnrollments, border: "border-pink-500/20", glow: "bg-pink-500/5", iconBg: "bg-pink-500/10" },
+    { icon: <Brain className="h-5 w-5 text-cyan-400" />, label: "Baholash yakunlangan", value: assessmentsCompleted, border: "border-cyan-500/20", glow: "bg-cyan-500/5", iconBg: "bg-cyan-500/10" },
   ];
 
   const quickLinks = [
@@ -88,7 +86,7 @@ export default async function AdminDashboardPage() {
   const hasAlerts = pendingContent > 0 || blockedUsers > 0;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto">
+    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
       <Header title="Admin panel" description="BrainUP tizimini boshqarish" />
       <main className="flex-1 p-6 space-y-6">
 
@@ -98,21 +96,21 @@ export default async function AdminDashboardPage() {
             {pendingContent > 0 && (
               <Link
                 href="/admin/content"
-                className="flex items-center gap-2.5 rounded-lg border border-amber-200 bg-amber-50 px-4 py-2.5 text-sm text-amber-800 hover:bg-amber-100 transition-colors"
+                className="flex items-center gap-2.5 rounded-xl border border-amber-500/20 bg-amber-500/5 px-4 py-2.5 text-sm text-amber-400 hover:bg-amber-500/10 transition-colors"
               >
-                <AlertCircle className="h-4 w-4 text-amber-500 shrink-0" />
+                <AlertCircle className="h-4 w-4 shrink-0" />
                 <span><strong>{pendingContent}</strong> ta kontent tasdiqlash kutmoqda</span>
-                <ChevronRight className="h-4 w-4 text-amber-400" />
+                <ChevronRight className="h-4 w-4 text-amber-500/50" />
               </Link>
             )}
             {blockedUsers > 0 && (
               <Link
                 href="/admin/users?filter=blocked"
-                className="flex items-center gap-2.5 rounded-lg border border-red-200 bg-red-50 px-4 py-2.5 text-sm text-red-700 hover:bg-red-100 transition-colors"
+                className="flex items-center gap-2.5 rounded-xl border border-red-500/20 bg-red-500/5 px-4 py-2.5 text-sm text-red-400 hover:bg-red-500/10 transition-colors"
               >
-                <AlertCircle className="h-4 w-4 text-red-400 shrink-0" />
+                <AlertCircle className="h-4 w-4 shrink-0" />
                 <span><strong>{blockedUsers}</strong> ta bloklangan hisob</span>
-                <ChevronRight className="h-4 w-4 text-red-300" />
+                <ChevronRight className="h-4 w-4 text-red-500/50" />
               </Link>
             )}
           </div>
@@ -121,21 +119,17 @@ export default async function AdminDashboardPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {stats.map((s) => (
-            <Card key={s.label}>
-              <CardContent className="p-5 flex items-center gap-4">
-                <div className={`rounded-xl p-2.5 ${s.bg} shrink-0`}>{s.icon}</div>
-                <div>
-                  <p className="text-xs text-slate-400 font-medium uppercase tracking-wide">{s.label}</p>
-                  <p className="text-2xl font-bold text-slate-900 leading-tight mt-0.5">{s.value}</p>
-                </div>
-              </CardContent>
-            </Card>
+            <div key={s.label} className={`rounded-2xl border ${s.border} ${s.glow} p-5`}>
+              <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
+              <p className="f-syne text-2xl font-bold text-white leading-none">{s.value}</p>
+              <p className="text-xs text-slate-500 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
+            </div>
           ))}
         </div>
 
         {/* Quick links */}
         <div>
-          <h2 className="text-sm font-semibold text-slate-700 mb-3">Bo'limlar</h2>
+          <h2 className="f-syne text-sm font-bold text-slate-400 mb-3 uppercase tracking-wider">Bo'limlar</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {quickLinks.map((link) => {
               const Icon = link.icon;
@@ -143,23 +137,23 @@ export default async function AdminDashboardPage() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 hover:border-blue-300 hover:shadow-sm transition-all group"
+                  className="flex items-center gap-3 rounded-xl border border-slate-800 bg-slate-900 p-4 hover:border-slate-700 hover:bg-slate-800/50 transition-all group"
                 >
-                  <div className="rounded-lg bg-slate-100 p-2 group-hover:bg-blue-50 transition-colors shrink-0">
-                    <Icon className="h-4 w-4 text-slate-600 group-hover:text-blue-600 transition-colors" />
+                  <div className="rounded-lg bg-slate-800 p-2 group-hover:bg-blue-500/10 transition-colors shrink-0">
+                    <Icon className="h-4 w-4 text-slate-500 group-hover:text-blue-400 transition-colors" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <p className="text-sm font-medium text-slate-900">{link.label}</p>
+                      <p className="text-sm font-medium text-slate-200">{link.label}</p>
                       {"badge" in link && link.badge !== undefined && (
                         <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-amber-500 px-1.5 text-[11px] font-bold text-white leading-none">
                           {link.badge}
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-slate-400 truncate">{link.description}</p>
+                    <p className="text-xs text-slate-500 truncate">{link.description}</p>
                   </div>
-                  <ChevronRight className="h-4 w-4 text-slate-300 group-hover:text-blue-400 shrink-0 transition-colors" />
+                  <ChevronRight className="h-4 w-4 text-slate-700 group-hover:text-slate-400 shrink-0 transition-colors" />
                 </Link>
               );
             })}
@@ -168,77 +162,76 @@ export default async function AdminDashboardPage() {
 
         {/* Recent activity */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-semibold flex items-center gap-2 text-slate-700">
-                <Clock className="h-4 w-4 text-slate-400" />
-                So'nggi ro'yxatdan o'tganlar (7 kun)
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-0">
-              {recentUsers.length === 0 ? (
-                <p className="text-xs text-slate-400 px-4 pb-4">So'nggi 7 kunda ro'yxatdan o'tgan yo'q</p>
-              ) : (
-                <div className="divide-y divide-slate-50">
-                  {recentUsers.map((u) => {
-                    const s = u.student;
-                    const name = s ? `${s.firstName} ${s.lastName}` : u.email;
-                    return (
-                      <div key={u.id} className="flex items-center gap-3 px-4 py-2.5">
-                        <div className="h-7 w-7 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-bold shrink-0 uppercase">
-                          {name.slice(0, 2)}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-slate-800 truncate">{name}</p>
-                          <p className="text-xs text-slate-400">
-                            {s?.university?.shortName ?? u.email}
-                          </p>
-                        </div>
-                        <span className="text-xs text-slate-400 shrink-0">{formatDate(u.createdAt)}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </CardContent>
-          </Card>
 
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-semibold flex items-center gap-2 text-slate-700">
-                <FileText className="h-4 w-4 text-slate-400" />
+          {/* Recent users */}
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
+            <div className="p-5 border-b border-slate-800">
+              <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2">
+                <Clock className="h-4 w-4 text-slate-500" />
+                So'nggi ro'yxatdan o'tganlar (7 kun)
+              </h3>
+            </div>
+            {recentUsers.length === 0 ? (
+              <p className="text-xs text-slate-600 p-5">So'nggi 7 kunda ro'yxatdan o'tgan yo'q</p>
+            ) : (
+              <div className="divide-y divide-slate-800/60">
+                {recentUsers.map((u) => {
+                  const s = u.student;
+                  const name = s ? `${s.firstName} ${s.lastName}` : u.email;
+                  return (
+                    <div key={u.id} className="flex items-center gap-3 px-5 py-3">
+                      <div className="h-8 w-8 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center text-xs font-bold shrink-0 uppercase">
+                        {name.slice(0, 2)}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-slate-200 truncate">{name}</p>
+                        <p className="text-xs text-slate-600">
+                          {s?.university?.shortName ?? u.email}
+                        </p>
+                      </div>
+                      <span className="text-xs text-slate-600 shrink-0">{formatDate(u.createdAt)}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* Pending content */}
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
+            <div className="p-5 border-b border-slate-800">
+              <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2">
+                <FileText className="h-4 w-4 text-slate-500" />
                 Tasdiqlash kutayotgan kontent
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-0">
-              {recentContent.length === 0 ? (
-                <p className="text-xs text-slate-400 px-4 pb-4">Tasdiqlash kutayotgan kontent yo'q</p>
-              ) : (
-                <div className="divide-y divide-slate-50">
+              </h3>
+            </div>
+            {recentContent.length === 0 ? (
+              <p className="text-xs text-slate-600 p-5">Tasdiqlash kutayotgan kontent yo'q</p>
+            ) : (
+              <>
+                <div className="divide-y divide-slate-800/60">
                   {recentContent.map((item) => {
                     const prof = item.topic.course.professor;
                     return (
-                      <div key={item.id} className="flex items-center gap-3 px-4 py-2.5">
-                        <Badge variant="secondary" className="text-xs shrink-0">{item.type}</Badge>
+                      <div key={item.id} className="flex items-center gap-3 px-5 py-3">
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 shrink-0">{item.type}</span>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm text-slate-800 truncate">{item.title}</p>
-                          <p className="text-xs text-slate-400">{prof.firstName} {prof.lastName}</p>
+                          <p className="text-sm text-slate-200 truncate">{item.title}</p>
+                          <p className="text-xs text-slate-600">{prof.firstName} {prof.lastName}</p>
                         </div>
-                        <span className="text-xs text-slate-400 shrink-0">{formatDate(item.createdAt)}</span>
+                        <span className="text-xs text-slate-600 shrink-0">{formatDate(item.createdAt)}</span>
                       </div>
                     );
                   })}
                 </div>
-              )}
-              {recentContent.length > 0 && (
-                <div className="px-4 pb-3 pt-2">
-                  <Link href="/admin/content" className="text-xs text-blue-600 hover:underline">
+                <div className="px-5 py-3 border-t border-slate-800">
+                  <Link href="/admin/content" className="text-xs text-blue-400 hover:text-blue-300 transition-colors">
                     Hammasini ko'rish →
                   </Link>
                 </div>
-              )}
-            </CardContent>
-          </Card>
+              </>
+            )}
+          </div>
         </div>
       </main>
     </div>
