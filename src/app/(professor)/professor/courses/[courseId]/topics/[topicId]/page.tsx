@@ -11,6 +11,7 @@ import { ContentType } from "@/generated/prisma";
 import { AddContentDialog } from "./add-content-dialog";
 import { ContentActions } from "./content-actions";
 import { GenerateQuestionsDialog } from "./generate-questions-dialog";
+import { EditTopicDialog } from "./edit-topic-dialog";
 
 const contentTypeIcon: Record<ContentType, React.ElementType> = {
   PDF: FileText, WORD: FileText, PPT: FileText,
@@ -56,11 +57,18 @@ export default async function TopicDetailPage({
               <ArrowLeft className="h-4 w-4 mr-1" /> {topic.course.title}
             </Button>
           </Link>
-          <Link href={`/professor/courses/${courseId}/topics/${topicId}/questions`}>
-            <Button variant="outline" size="sm">
-              <HelpCircle className="h-4 w-4 mr-1" /> Savollar banki
-            </Button>
-          </Link>
+          <div className="flex gap-2">
+            <EditTopicDialog
+              topicId={topicId}
+              currentTitle={topic.title}
+              currentObjective={topic.learningObjective}
+            />
+            <Link href={`/professor/courses/${courseId}/topics/${topicId}/questions`}>
+              <Button variant="outline" size="sm">
+                <HelpCircle className="h-4 w-4 mr-1" /> Savollar banki
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* Learning objective */}
