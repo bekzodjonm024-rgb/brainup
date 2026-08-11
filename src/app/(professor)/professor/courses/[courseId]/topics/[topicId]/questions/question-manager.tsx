@@ -1,18 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Plus, Pencil, Trash2, Eye, EyeOff } from "lucide-react";
+import { Plus, Pencil, Eye, EyeOff, Search, Loader2 } from "lucide-react";
+import { ActionToast, useToast } from "@/components/admin/action-toast";
 import { cn } from "@/lib/utils";
 
 type QuestionType = "MULTIPLE_CHOICE" | "TRUE_FALSE" | "SHORT_ANSWER";
@@ -221,7 +220,7 @@ function QuestionForm({
 
       {form.type === "MULTIPLE_CHOICE" && (
         <div className="space-y-2">
-          <Label>Variantlar (to'g'ri javobni belgilang)</Label>
+          <Label>Variantlar (to&apos;g&apos;ri javobni belgilang)</Label>
           {form.options.map((opt, i) => (
             <div key={i} className="flex items-center gap-2">
               <input
@@ -243,15 +242,15 @@ function QuestionForm({
 
       {form.type === "TRUE_FALSE" && (
         <div className="space-y-1.5">
-          <Label>To'g'ri javob</Label>
+          <Label>To&apos;g&apos;ri javob</Label>
           <Select
             value={form.answerTf}
             onValueChange={(v) => setForm((p) => ({ ...p, answerTf: v as "true" | "false" }))}
           >
             <SelectTrigger><SelectValue /></SelectTrigger>
             <SelectContent>
-              <SelectItem value="true">Ha (To'g'ri)</SelectItem>
-              <SelectItem value="false">Yo'q (Noto'g'ri)</SelectItem>
+              <SelectItem value="true">Ha (To&apos;g&apos;ri)</SelectItem>
+              <SelectItem value="false">Yo&apos;q (Noto&apos;g&apos;ri)</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -280,9 +279,10 @@ function QuestionForm({
 
       {error && <p className="text-sm text-red-600">{error}</p>}
       <div className="flex justify-end gap-2">
-        <Button variant="outline" onClick={onClose}>Bekor</Button>
+        <Button variant="outline" onClick={onClose} disabled={loading}>Bekor</Button>
         <Button onClick={handleSubmit} disabled={loading}>
-          {loading ? "Saqlanmoqda..." : questionId ? "Saqlash" : "Qo'shish"}
+          {loading && <Loader2 className="h-3.5 w-3.5 animate-spin mr-1.5" />}
+          {questionId ? "Saqlash" : "Qo'shish"}
         </Button>
       </div>
     </div>
@@ -297,7 +297,7 @@ export function AddQuestionDialog({ topicId }: { topicId: string }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button size="sm">
-          <Plus className="h-4 w-4 mr-1" /> Savol qo'shish
+          <Plus className="h-4 w-4 mr-1" /> Savol qo&apos;shish
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
@@ -310,6 +310,23 @@ export function AddQuestionDialog({ topicId }: { topicId: string }) {
 
 // ─── Question list ───────────────────────────────────────────
 
+const TYPE_FILTER_OPTIONS = [
+  { label: "Turi", value: "all" },
+  { label: "Ko'p tanlov", value: "MULTIPLE_CHOICE" },
+  { label: "Ha/Yo'q", value: "TRUE_FALSE" },
+  { label: "Qisqa javob", value: "SHORT_ANSWER" },
+] as const;
+
+const DIFF_FILTER_OPTIONS = [
+  { label: "Daraja", value: "all" },
+  { label: "Oson", value: "BASIC" },
+  { label: "O'rta", value: "INTERMEDIATE" },
+  { label: "Qiyin", value: "ADVANCED" },
+] as const;
+
+type TypeFilter = (typeof TYPE_FILTER_OPTIONS)[number]["value"];
+type DiffFilter = (typeof DIFF_FILTER_OPTIONS)[number]["value"];
+
 export function QuestionList({
   questions,
   topicId,
@@ -319,35 +336,126 @@ export function QuestionList({
 }) {
   const router = useRouter();
   const [editQuestion, setEditQuestion] = useState<Question | null>(null);
+  const [loadingId, setLoadingId] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
+  const [typeFilter, setTypeFilter] = useState<TypeFilter>("all");
+  const [diffFilter, setDiffFilter] = useState<DiffFilter>("all");
+  const [showInactive, setShowInactive] = useState(false);
+  const { toast, show, dismiss } = useToast();
+
+  const filtered = useMemo(() => {
+    const q = search.toLowerCase();
+    return questions.filter((question) => {
+      if (!showInactive && !question.isActive) return false;
+      if (typeFilter !== "all" && question.type !== typeFilter) return false;
+      if (diffFilter !== "all" && question.difficulty !== diffFilter) return false;
+      if (q && !question.stem.toLowerCase().includes(q)) return false;
+      return true;
+    });
+  }, [questions, search, typeFilter, diffFilter, showInactive]);
 
   async function handleToggle(q: Question) {
-    await fetch(`/api/questions/${q.id}`, {
+    setLoadingId(q.id);
+    const res = await fetch(`/api/questions/${q.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ isActive: !q.isActive }),
     });
-    router.refresh();
+    setLoadingId(null);
+    if (res.ok) {
+      show(q.isActive ? "Savol nofaol qilindi" : "Savol faollashtirildi", "success");
+      router.refresh();
+    } else {
+      show("Xatolik yuz berdi", "error");
+    }
   }
+
+  const activeCount = questions.filter((q) => q.isActive).length;
 
   if (questions.length === 0) {
     return (
       <div className="rounded-xl border border-dashed border-slate-200 bg-white p-12 text-center">
-        <p className="text-slate-500 text-sm">Hali savollar yo'q. "Savol qo'shish" yoki AI orqali yarating.</p>
+        <p className="text-slate-500 text-sm">Hali savollar yo&apos;q. &ldquo;Savol qo&apos;shish&rdquo; yoki AI orqali yarating.</p>
       </div>
     );
   }
 
   return (
     <>
-      <div className="space-y-2">
-        {questions.map((q, idx) => (
-          <Card key={q.id} className={cn(!q.isActive && "opacity-50")}>
-            <CardContent className="p-4">
+      {/* Filter bar */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+        <div className="relative flex-1 max-w-xs">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+          <Input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Savol matni bo'yicha qidirish..."
+            className="pl-9 h-9"
+          />
+        </div>
+        <div className="flex items-center gap-2 flex-wrap">
+          <Select value={typeFilter} onValueChange={(v) => setTypeFilter(v as TypeFilter)}>
+            <SelectTrigger className="h-9 w-36 text-xs">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {TYPE_FILTER_OPTIONS.map((o) => (
+                <SelectItem key={o.value} value={o.value} className="text-xs">{o.label}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Select value={diffFilter} onValueChange={(v) => setDiffFilter(v as DiffFilter)}>
+            <SelectTrigger className="h-9 w-28 text-xs">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {DIFF_FILTER_OPTIONS.map((o) => (
+                <SelectItem key={o.value} value={o.value} className="text-xs">{o.label}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <button
+            onClick={() => setShowInactive((v) => !v)}
+            className={cn(
+              "h-9 px-3 rounded-md border text-xs font-medium transition-colors",
+              showInactive
+                ? "bg-slate-900 text-white border-slate-900"
+                : "bg-white text-slate-600 border-slate-200 hover:border-slate-300"
+            )}
+          >
+            {showInactive ? "Nofaollar ko'rinmoqda" : "Nofaollarni ko'rsatish"}
+          </button>
+        </div>
+      </div>
+
+      {/* Count */}
+      <p className="text-sm text-slate-500">
+        {filtered.length} ta savol ko&apos;rsatilmoqda
+        <span className="ml-1 text-slate-400">({activeCount} faol, {questions.length - activeCount} nofaol)</span>
+      </p>
+
+      {/* List */}
+      {filtered.length === 0 ? (
+        <div className="rounded-xl border border-slate-100 bg-slate-50 p-10 text-center">
+          <p className="text-sm text-slate-400">Filtr bo&apos;yicha savol topilmadi</p>
+        </div>
+      ) : (
+        <div className="space-y-2">
+          {filtered.map((q, idx) => (
+            <div
+              key={q.id}
+              className={cn(
+                "rounded-xl border p-4 transition-colors",
+                q.isActive ? "bg-white border-slate-200" : "bg-slate-50 border-slate-100 opacity-60"
+              )}
+            >
               <div className="flex items-start gap-3">
                 <span className="text-xs text-slate-400 shrink-0 mt-1 w-6 text-right">{idx + 1}</span>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap mb-1">
-                    <span className="text-xs text-slate-500">{TYPE_LABEL[q.type]}</span>
+                  <div className="flex items-center gap-2 flex-wrap mb-1.5">
+                    <span className="text-xs text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">
+                      {TYPE_LABEL[q.type]}
+                    </span>
                     <span className={cn(
                       "text-xs px-2 py-0.5 rounded-full border font-medium",
                       DIFFICULTY_COLOR[q.difficulty]
@@ -380,26 +488,39 @@ export function QuestionList({
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-slate-400 hover:text-slate-600"
+                    className={cn(
+                      "h-8 w-8",
+                      q.isActive
+                        ? "text-slate-400 hover:text-amber-600 hover:bg-amber-50"
+                        : "text-slate-400 hover:text-emerald-600 hover:bg-emerald-50"
+                    )}
                     onClick={() => handleToggle(q)}
+                    disabled={loadingId !== null}
                     title={q.isActive ? "Nofaol qilish" : "Faollashtirish"}
                   >
-                    {q.isActive ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    {loadingId === q.id
+                      ? <Loader2 className="h-4 w-4 animate-spin" />
+                      : q.isActive
+                        ? <EyeOff className="h-4 w-4" />
+                        : <Eye className="h-4 w-4" />
+                    }
                   </Button>
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-slate-400 hover:text-blue-600"
+                    className="h-8 w-8 text-slate-400 hover:text-blue-600 hover:bg-blue-50"
                     onClick={() => setEditQuestion(q)}
+                    disabled={loadingId !== null}
+                    title="Tahrirlash"
                   >
                     <Pencil className="h-4 w-4" />
                   </Button>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Edit dialog */}
       {editQuestion && (
@@ -415,6 +536,8 @@ export function QuestionList({
           </DialogContent>
         </Dialog>
       )}
+
+      {toast && <ActionToast message={toast.message} type={toast.type} onDismiss={dismiss} />}
     </>
   );
 }
