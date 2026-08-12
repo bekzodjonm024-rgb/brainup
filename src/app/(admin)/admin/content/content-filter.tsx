@@ -27,7 +27,7 @@ export function ContentFilter({
   }
 
   return (
-    <div className="flex items-center gap-1 border-b border-slate-200 dark:border-slate-800 pb-0">
+    <div className="flex items-center gap-1 border-b border-slate-200 dark:border-slate-800 pb-0 overflow-x-auto">
       {TABS.map(({ key, label, activeColor }) => {
         const count = counts[key] ?? 0;
         const isActive = active === key;
@@ -36,7 +36,7 @@ export function ContentFilter({
             key={key}
             onClick={() => setTab(key)}
             className={cn(
-              "flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium border-b-2 transition-colors -mb-px",
+              "flex shrink-0 items-center gap-1.5 px-4 py-2.5 text-sm font-medium border-b-2 transition-colors -mb-px",
               isActive
                 ? `${activeColor} bg-transparent`
                 : "text-slate-500 dark:text-slate-600 border-transparent hover:text-slate-600 dark:hover:text-slate-400"
