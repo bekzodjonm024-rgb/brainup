@@ -25,7 +25,7 @@ type User = {
 type FilterType = "all" | "active" | "blocked";
 
 function Initials({ name }: { name: string }) {
-  const parts = name.trim().split(" ");
+  const parts = name.trim().split(/\s+/).filter(Boolean);
   const letters = parts.length >= 2
     ? parts[0][0] + parts[1][0]
     : name.slice(0, 2);

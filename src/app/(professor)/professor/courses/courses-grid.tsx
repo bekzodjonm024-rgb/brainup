@@ -127,8 +127,8 @@ export function CoursesGrid({ courses }: { courses: Course[] }) {
                     <Users className="h-3 w-3" />
                     {course._count.enrollments} talaba
                   </span>
-                  {course.semester && <span>{course.semester}</span>}
-                  {course.faculty && <span>{course.faculty.name}</span>}
+                  {course.semester && <span className="hidden sm:inline">{course.semester}</span>}
+                  {course.faculty && <span className="hidden sm:inline">{course.faculty.name}</span>}
                 </div>
                 {course.description && (
                   <p className="text-sm text-slate-400 dark:text-slate-600 mt-1 line-clamp-1">{course.description}</p>
