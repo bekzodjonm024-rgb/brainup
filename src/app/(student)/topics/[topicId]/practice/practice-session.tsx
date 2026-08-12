@@ -137,40 +137,42 @@ export function PracticeSession({
       const isSelected = selectedAnswer === option;
       if (isCorrectOption) return "border-emerald-500/40 bg-emerald-500/10 text-emerald-300";
       if (isSelected)      return "border-red-500/40    bg-red-500/10    text-red-300";
-      return "border-slate-800 bg-slate-900/50 text-slate-600";
+      return "border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 text-slate-400 dark:text-slate-600";
     }
     if (selectedAnswer === option) return "border-blue-500/40 bg-blue-500/10 text-blue-300";
-    return "border-slate-800 bg-slate-900 text-slate-300 hover:bg-slate-800 hover:border-slate-700";
+    return "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-700";
   }
 
   function getTFStyle(val: string) {
     if (phase === "feedback") {
       if (val === String(feedback?.correctAnswer)) return "border-emerald-500/40 bg-emerald-500/10 text-emerald-300";
       if (selectedAnswer === val)                  return "border-red-500/40    bg-red-500/10    text-red-300";
-      return "border-slate-800 bg-slate-900/50 text-slate-600";
+      return "border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 text-slate-400 dark:text-slate-600";
     }
     if (selectedAnswer === val) return "border-blue-500/40 bg-blue-500/10 text-blue-300";
-    return "border-slate-800 bg-slate-900 text-slate-300 hover:bg-slate-800 hover:border-slate-700";
+    return "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-700";
   }
 
+  void totalQuestions;
+
   return (
-    <div className="flex flex-col min-h-screen bg-slate-950">
+    <div className="flex flex-col min-h-screen bg-white dark:bg-slate-950">
       {/* Sticky header */}
-      <div className="sticky top-0 z-10 bg-slate-950/95 backdrop-blur border-b border-slate-800 px-5 py-3.5">
+      <div className="sticky top-0 z-10 bg-white/95 dark:bg-slate-950/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 px-5 py-3.5">
         <div className="mx-auto max-w-xl flex items-center gap-4">
           <button
             onClick={() => router.push(`/topics/${topicId}`)}
-            className="text-slate-600 hover:text-slate-400 transition-colors"
+            className="text-slate-400 dark:text-slate-600 hover:text-slate-600 dark:hover:text-slate-400 transition-colors"
           >
             <ArrowLeft className="h-5 w-5" />
           </button>
           <div className="flex-1">
-            <p className="text-xs text-slate-600 truncate mb-1">{topicTitle}</p>
-            <div className="h-1 bg-slate-800 rounded-full overflow-hidden">
+            <p className="text-xs text-slate-400 dark:text-slate-600 truncate mb-1">{topicTitle}</p>
+            <div className="h-1 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
               <div className="h-full bg-blue-500 rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
             </div>
           </div>
-          <span className="text-xs text-slate-600 shrink-0 tabular-nums">{stats.total}/{sessionTarget}</span>
+          <span className="text-xs text-slate-400 dark:text-slate-600 shrink-0 tabular-nums">{stats.total}/{sessionTarget}</span>
         </div>
       </div>
 
@@ -194,19 +196,19 @@ export function PracticeSession({
 
           {/* Loading */}
           {phase === "loading" && (
-            <div className="rounded-2xl border border-slate-800 bg-slate-900 py-16 flex items-center justify-center">
-              <Loader2 className="h-6 w-6 animate-spin text-slate-600" />
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-16 flex items-center justify-center">
+              <Loader2 className="h-6 w-6 animate-spin text-slate-400 dark:text-slate-600" />
             </div>
           )}
 
           {/* No questions */}
           {phase === "no-questions" && (
-            <div className="rounded-2xl border border-slate-800 bg-slate-900 py-12 text-center space-y-4">
-              <div className="w-14 h-14 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center mx-auto">
-                <AlertCircle className="h-6 w-6 text-slate-600" />
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-12 text-center space-y-4">
+              <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center mx-auto">
+                <AlertCircle className="h-6 w-6 text-slate-400 dark:text-slate-600" />
               </div>
               <p className="text-slate-500 text-sm">Bu mavzu uchun savollar hali qo&apos;shilmagan</p>
-              <Button variant="outline" onClick={() => router.push(`/courses/${courseId}`)} className="border-slate-700 text-slate-400 hover:bg-slate-800 bg-transparent">
+              <Button variant="outline" onClick={() => router.push(`/courses/${courseId}`)} className="border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 bg-transparent">
                 Kursga qaytish
               </Button>
             </div>
@@ -215,21 +217,21 @@ export function PracticeSession({
           {/* Question + Feedback */}
           {(phase === "question" || phase === "feedback") && currentQuestion && (
             <div className={cn(
-              "rounded-2xl border bg-slate-900 p-6 space-y-5 transition-all",
+              "rounded-2xl border bg-white dark:bg-slate-900 p-6 space-y-5 transition-all",
               phase === "feedback" && feedback?.isCorrect  ? "border-emerald-500/30" :
-              phase === "feedback" && feedback             ? "border-red-500/30"     : "border-slate-800"
+              phase === "feedback" && feedback             ? "border-red-500/30"     : "border-slate-200 dark:border-slate-800"
             )}>
               {/* Difficulty */}
               <div className="flex items-center gap-2">
                 <span className={cn("text-xs font-medium rounded-full border px-2.5 py-0.5",
-                  DIFF_STYLE[currentQuestion.difficulty] ?? "bg-slate-800 text-slate-400 border-slate-700"
+                  DIFF_STYLE[currentQuestion.difficulty] ?? "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700"
                 )}>
                   {DIFF_LABEL[currentQuestion.difficulty] ?? currentQuestion.difficulty}
                 </span>
               </div>
 
               {/* Stem */}
-              <p className="text-slate-200 font-medium leading-relaxed">{currentQuestion.stem}</p>
+              <p className="text-slate-700 dark:text-slate-200 font-medium leading-relaxed">{currentQuestion.stem}</p>
 
               {/* Multiple choice */}
               {currentQuestion.type === "MULTIPLE_CHOICE" && currentQuestion.options && (
@@ -282,7 +284,7 @@ export function PracticeSession({
                     </span>
                   </div>
                   {feedback.explanation && (
-                    <p className="text-sm text-slate-400 pl-6">{feedback.explanation}</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 pl-6">{feedback.explanation}</p>
                   )}
                   {!feedback.isCorrect && !feedback.explanation && (
                     aiFeedbackLoading ? (
@@ -292,7 +294,7 @@ export function PracticeSession({
                     ) : aiFeedback ? (
                       <div className="pl-6 flex items-start gap-1.5">
                         <Sparkles className="h-3.5 w-3.5 text-violet-400 shrink-0 mt-0.5" />
-                        <p className="text-sm text-slate-400">{aiFeedback}</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-400">{aiFeedback}</p>
                       </div>
                     ) : null
                   )}
@@ -310,14 +312,14 @@ export function PracticeSession({
                     {submitting && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
                     Tasdiqlash
                   </Button>
-                  <p className="text-center text-xs text-slate-700">
+                  <p className="text-center text-xs text-slate-300 dark:text-slate-700">
                     Raqam tugmalari variantni tanlaydi · Enter tasdiqlaydi
                   </p>
                 </div>
               )}
 
               {phase === "feedback" && (
-                <Button onClick={handleNext} className="w-full h-11 bg-slate-800 hover:bg-slate-700 text-slate-200 border-0">
+                <Button onClick={handleNext} className="w-full h-11 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-200 border-0">
                   {stats.total >= sessionTarget ? "Natijani ko'rish" : "Keyingi savol"}
                   <ChevronRight className="h-4 w-4 ml-1" />
                 </Button>
@@ -327,12 +329,12 @@ export function PracticeSession({
 
           {/* Complete */}
           {phase === "complete" && (
-            <div className="rounded-2xl border border-amber-500/20 bg-slate-900 p-8 text-center space-y-5">
+            <div className="rounded-2xl border border-amber-500/20 bg-white dark:bg-slate-900 p-8 text-center space-y-5">
               <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mx-auto">
                 <Trophy className="h-8 w-8 text-amber-400" />
               </div>
               <div>
-                <h2 className="f-syne text-xl font-bold text-white">Mashq yakunlandi!</h2>
+                <h2 className="f-syne text-xl font-bold text-slate-900 dark:text-white">Mashq yakunlandi!</h2>
                 <p className="text-slate-500 mt-1 text-sm">
                   {stats.correct}/{stats.total} to&apos;g&apos;ri javob
                 </p>
@@ -350,7 +352,7 @@ export function PracticeSession({
                 </Button>
                 <Button
                   variant="outline"
-                  className="border-slate-700 text-slate-400 hover:bg-slate-800 bg-transparent"
+                  className="border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 bg-transparent"
                   onClick={() => {
                     sessionQuestionIds.current = [];
                     setStats({ correct: 0, total: 0, mastery: stats.mastery });

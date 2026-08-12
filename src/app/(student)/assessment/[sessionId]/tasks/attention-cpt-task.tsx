@@ -93,20 +93,20 @@ export function AttentionCPTTask({ item, onComplete, disabled }: Props) {
   const targets = data.letters.filter((l) => l === data.targetLetter).length;
 
   return (
-    <div className="rounded-2xl border border-slate-800 bg-slate-900 p-8 text-center space-y-8">
-      <p className="text-slate-400 text-sm">{item.prompt}</p>
+    <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center space-y-8">
+      <p className="text-slate-500 dark:text-slate-400 text-sm">{item.prompt}</p>
 
       {phase === "intro" && (
         <div className="space-y-5">
           <div className="rounded-xl border border-blue-500/20 bg-blue-500/5 p-4 text-left space-y-2">
             <p className="text-sm font-medium text-blue-400">Qoida:</p>
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-slate-500 dark:text-slate-400">
               Har bir harf alohida ko&apos;rinadi. Faqat{" "}
-              <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white text-slate-900 font-bold text-lg mx-1">
+              <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-slate-800 dark:bg-white text-white dark:text-slate-900 font-bold text-lg mx-1">
                 {data.targetLetter}
               </span>{" "}
               ko&apos;rganda ekranni bosing yoki{" "}
-              <kbd className="rounded-lg bg-slate-800 border border-slate-700 px-2 py-0.5 font-mono text-xs text-slate-300">Space</kbd>{" "}
+              <kbd className="rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 px-2 py-0.5 font-mono text-xs text-slate-600 dark:text-slate-300">Space</kbd>{" "}
               tugmasini bosing.
             </p>
           </div>
@@ -126,13 +126,13 @@ export function AttentionCPTTask({ item, onComplete, disabled }: Props) {
           className={cn(
             "mx-auto h-40 w-40 rounded-2xl flex items-center justify-center cursor-pointer select-none transition-all border-2",
             showLetter
-              ? "bg-slate-800 border-slate-600"
-              : "bg-slate-900 border-slate-800"
+              ? "bg-slate-200 dark:bg-slate-800 border-slate-400 dark:border-slate-600"
+              : "bg-slate-100 dark:bg-slate-900 border-slate-200 dark:border-slate-800"
           )}
           onClick={handleResponse}
         >
           {showLetter && (
-            <span className="text-7xl font-bold text-white">
+            <span className="text-7xl font-bold text-slate-900 dark:text-white">
               {data.letters[currentLetterIdx]}
             </span>
           )}
@@ -141,7 +141,7 @@ export function AttentionCPTTask({ item, onComplete, disabled }: Props) {
 
       {phase === "done" && (
         <div className="space-y-5">
-          <div className="rounded-xl border border-slate-800 bg-slate-950 p-4 text-sm text-slate-500">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-4 text-sm text-slate-500">
             {data.letters.length} ta harf ko&apos;rsatildi, {targets} ta maqsadli
           </div>
           <Button

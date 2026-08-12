@@ -10,7 +10,7 @@ import { formatDate } from "@/lib/utils";
 import { TrendingUp, BookOpen, Zap, RefreshCw, Brain, CheckCircle2, Clock } from "lucide-react";
 
 function masteryBadge(score: number | null) {
-  if (score === null) return "text-slate-500 bg-slate-800 border border-slate-700";
+  if (score === null) return "text-slate-500 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700";
   if (score >= 0.85) return "text-emerald-400 bg-emerald-500/10 border border-emerald-500/20";
   if (score >= 0.6) return "text-blue-400 bg-blue-500/10 border border-blue-500/20";
   if (score >= 0.3) return "text-amber-400 bg-amber-500/10 border border-amber-500/20";
@@ -79,7 +79,7 @@ export default async function ProgressPage() {
   ).length;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
       <Header
         title="Progressim"
         description={`${student.firstName} ${student.lastName} — o'quv ko'rsatkichlari`}
@@ -96,7 +96,7 @@ export default async function ProgressPage() {
           ].map((s) => (
             <div key={s.label} className={`rounded-2xl border ${s.border} ${s.glow} p-5`}>
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
-              <p className="f-syne text-2xl font-bold text-white leading-none">{s.value}</p>
+              <p className="f-syne text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
               <p className="text-xs text-slate-500 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
               {"sub" in s && s.sub && <p className="text-xs text-amber-400 mt-1">{s.sub}</p>}
             </div>
@@ -106,9 +106,9 @@ export default async function ProgressPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-5">
             {student.enrollments.length === 0 ? (
-              <div className="rounded-2xl border border-slate-800 bg-slate-900 py-12 flex flex-col items-center gap-3 text-center">
-                <div className="w-14 h-14 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center">
-                  <BookOpen className="h-6 w-6 text-slate-600" />
+              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-12 flex flex-col items-center gap-3 text-center">
+                <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center">
+                  <BookOpen className="h-6 w-6 text-slate-400 dark:text-slate-600" />
                 </div>
                 <p className="text-sm text-slate-500">Hali kurslarga yozilmadingiz</p>
               </div>
@@ -128,12 +128,12 @@ export default async function ProgressPage() {
                     : 0;
 
                 return (
-                  <div key={enrollment.course.id} className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
-                    <div className="p-5 border-b border-slate-800">
+                  <div key={enrollment.course.id} className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+                    <div className="p-5 border-b border-slate-200 dark:border-slate-800">
                       <div className="flex items-start justify-between gap-4 mb-3">
                         <div>
-                          <h3 className="font-semibold text-slate-200">{enrollment.course.title}</h3>
-                          <p className="text-xs text-slate-600 mt-0.5">
+                          <h3 className="font-semibold text-slate-700 dark:text-slate-200">{enrollment.course.title}</h3>
+                          <p className="text-xs text-slate-400 dark:text-slate-600 mt-0.5">
                             {mastered}/{topics.length} mavzu · O&apos;rtacha {Math.round(courseMastery * 100)}%
                           </p>
                         </div>
@@ -141,30 +141,30 @@ export default async function ProgressPage() {
                           {masteryLabel(started > 0 ? courseMastery : null)}
                         </span>
                       </div>
-                      <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                      <div className="h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
                         <div className="h-full bg-blue-500 rounded-full" style={{ width: `${topics.length > 0 ? (mastered / topics.length) * 100 : 0}%` }} />
                       </div>
                     </div>
-                    <div className="divide-y divide-slate-800/60">
+                    <div className="divide-y divide-slate-200 dark:divide-slate-800/60">
                       {topics.map((topic) => {
                         const k = topic.learnerKnowledge[0];
                         const score = k?.masteryScore ?? null;
                         return (
                           <div
                             key={topic.id}
-                            className="flex items-center gap-3 px-5 py-2.5 text-sm hover:bg-slate-800/30 transition-colors"
+                            className="flex items-center gap-3 px-5 py-2.5 text-sm hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors"
                           >
-                            <span className="text-slate-700 text-xs w-5 text-right shrink-0">
+                            <span className="text-slate-400 dark:text-slate-700 text-xs w-5 text-right shrink-0">
                               {topic.orderIndex + 1}
                             </span>
-                            <span className="flex-1 text-slate-400 truncate">{topic.title}</span>
+                            <span className="flex-1 text-slate-500 dark:text-slate-400 truncate">{topic.title}</span>
                             {k && (
                               <>
-                                <span className="text-xs text-slate-600 shrink-0 hidden sm:block">
+                                <span className="text-xs text-slate-400 dark:text-slate-600 shrink-0 hidden sm:block">
                                   {k.attempts} urinish
                                 </span>
                                 {k.lastPracticedAt && (
-                                  <span className="text-xs text-slate-600 shrink-0 hidden md:block">
+                                  <span className="text-xs text-slate-400 dark:text-slate-600 shrink-0 hidden md:block">
                                     {formatDate(k.lastPracticedAt)}
                                   </span>
                                 )}
@@ -186,8 +186,8 @@ export default async function ProgressPage() {
           {/* Right panel */}
           <div className="space-y-4">
             {/* Practice stats */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-              <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2 mb-4">
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+              <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                 <Zap className="h-4 w-4 text-amber-400" />
                 Amaliyot statistikasi
               </h3>
@@ -200,7 +200,7 @@ export default async function ProgressPage() {
                 ].map((row) => (
                   <div key={row.label} className="flex items-center justify-between text-sm">
                     <span className="text-slate-500">{row.label}</span>
-                    <span className="font-medium text-slate-200">{row.value}</span>
+                    <span className="font-medium text-slate-700 dark:text-slate-200">{row.value}</span>
                   </div>
                 ))}
                 {retrievalPending > 0 && (
@@ -221,9 +221,9 @@ export default async function ProgressPage() {
                 memoryScore={student.cognitiveProfile.memoryScore}
               />
             ) : (
-              <div className="rounded-2xl border border-slate-800 bg-slate-900 py-8 flex flex-col items-center gap-3 text-center">
-                <div className="w-12 h-12 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center">
-                  <Brain className="h-6 w-6 text-slate-600" />
+              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-8 flex flex-col items-center gap-3 text-center">
+                <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center">
+                  <Brain className="h-6 w-6 text-slate-400 dark:text-slate-600" />
                 </div>
                 <p className="text-sm text-slate-500">Kognitiv baholash bajarilmagan</p>
               </div>

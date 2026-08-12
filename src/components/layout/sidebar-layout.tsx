@@ -18,7 +18,7 @@ export function SidebarLayout({ role, userName, avatarUrl, children, badges }: S
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="flex h-screen bg-slate-950">
+    <div className="flex h-screen bg-slate-50 dark:bg-slate-950">
       {/* Mobile overlay */}
       {mobileOpen && (
         <div
@@ -46,17 +46,17 @@ export function SidebarLayout({ role, userName, avatarUrl, children, badges }: S
       {/* Main content */}
       <div className="flex flex-1 flex-col overflow-hidden min-w-0">
         {/* Mobile top bar */}
-        <div className="lg:hidden sticky top-0 z-10 bg-slate-950 border-b border-slate-800 px-4 h-14 flex items-center gap-3 shrink-0">
+        <div className="lg:hidden sticky top-0 z-10 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 px-4 h-14 flex items-center gap-3 shrink-0">
           <button
             onClick={() => setMobileOpen(true)}
-            className="p-1.5 rounded-md text-slate-400 hover:bg-slate-800"
+            className="p-1.5 rounded-md text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
             aria-label="Menyuni ochish"
           >
             <Menu className="h-5 w-5" />
           </button>
           <div className="flex items-center gap-2">
             <BrainUPLogo size="sm" href="/" />
-            <span className="font-bold text-white">BrainUP</span>
+            <span className="font-bold text-slate-900 dark:text-white">BrainUP</span>
           </div>
         </div>
 

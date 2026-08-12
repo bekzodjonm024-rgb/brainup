@@ -69,11 +69,11 @@ export default async function TopicLearningPage({
     const prereqMastery = prereqKnowledge?.masteryScore ?? 0;
     if (prereqMastery < 0.6) {
       return (
-        <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
+        <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
           <Header title={topic.title} description={topic.course.title} />
           <main className="flex-1 p-6 max-w-3xl">
             <Link href={`/courses/${topic.courseId}`}>
-              <Button variant="ghost" size="sm" className="text-slate-400 hover:text-slate-200 hover:bg-slate-800 mb-6">
+              <Button variant="ghost" size="sm" className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 mb-6">
                 <ArrowLeft className="h-4 w-4 mr-1" /> {topic.course.title}
               </Button>
             </Link>
@@ -83,12 +83,12 @@ export default async function TopicLearningPage({
               </div>
               <div>
                 <h3 className="font-semibold text-orange-400">Bu mavzu qulflangan</h3>
-                <p className="text-sm text-slate-400 mt-1">
-                  Avval <strong className="text-slate-300">&quot;{topic.prerequisiteTopic.title}&quot;</strong> mavzusini{" "}
+                <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                  Avval <strong className="text-slate-600 dark:text-slate-300">&quot;{topic.prerequisiteTopic.title}&quot;</strong> mavzusini{" "}
                   kamida 60% o&apos;zlashtiring.
                 </p>
                 <Link href={`/topics/${topic.prerequisiteTopic.id}`} className="mt-3 inline-block">
-                  <Button size="sm" className="border-slate-700 text-slate-300 hover:bg-slate-800 bg-transparent">
+                  <Button size="sm" className="border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 bg-transparent">
                     O&apos;sha mavzuga o&apos;tish <ChevronRight className="h-3 w-3 ml-1" />
                   </Button>
                 </Link>
@@ -128,11 +128,11 @@ export default async function TopicLearningPage({
   const adaptiveUI = adaptiveDecision ? ADAPTIVE_UI[adaptiveDecision.action] : null;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
       <Header title={topic.title} description={topic.course.title} />
       <main className="flex-1 p-6 max-w-3xl space-y-5">
         <Link href={`/courses/${topic.courseId}`}>
-          <Button variant="ghost" size="sm" className="text-slate-400 hover:text-slate-200 hover:bg-slate-800">
+          <Button variant="ghost" size="sm" className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">
             <ArrowLeft className="h-4 w-4 mr-1" /> {topic.course.title}
           </Button>
         </Link>
@@ -144,22 +144,22 @@ export default async function TopicLearningPage({
               <Target className="h-4 w-4 text-blue-400" />
             </div>
             <div>
-              <p className="text-xs font-semibold text-blue-400 mb-1 uppercase tracking-wide">O'quv maqsadi</p>
-              <p className="text-sm text-slate-300">{topic.learningObjective}</p>
+              <p className="text-xs font-semibold text-blue-400 mb-1 uppercase tracking-wide">O&apos;quv maqsadi</p>
+              <p className="text-sm text-slate-600 dark:text-slate-300">{topic.learningObjective}</p>
             </div>
           </div>
         )}
 
         {/* Mastery panel */}
         {hasStarted && knowledge && (
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2">
+              <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
                 <TrendingUp className="h-4 w-4 text-slate-500" />
-                O'zlashtirish darajasi
+                O&apos;zlashtirish darajasi
               </h3>
               <div className="flex items-center gap-2">
-                <span className="text-xs text-slate-600">{attempts} ta urinish</span>
+                <span className="text-xs text-slate-400 dark:text-slate-600">{attempts} ta urinish</span>
                 <MasteryBadge score={mastery} />
               </div>
             </div>
@@ -174,12 +174,12 @@ export default async function TopicLearningPage({
 
         {/* Adaptive recommendation */}
         {adaptiveUI && (
-          <div className={`rounded-xl border ${adaptiveUI.border} bg-slate-900 p-4 flex items-start gap-3`}>
+          <div className={`rounded-xl border ${adaptiveUI.border} bg-white dark:bg-slate-900 p-4 flex items-start gap-3`}>
             <div className={`w-8 h-8 rounded-lg ${adaptiveUI.iconBg} flex items-center justify-center shrink-0`}>
               {adaptiveUI.icon}
             </div>
             <div className="flex-1">
-              <p className="text-sm font-semibold text-slate-200">{adaptiveUI.label}</p>
+              <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">{adaptiveUI.label}</p>
               <p className="text-xs text-slate-500 mt-0.5">{adaptiveUI.desc}</p>
             </div>
           </div>
@@ -187,11 +187,11 @@ export default async function TopicLearningPage({
 
         {/* Content items */}
         {topic.contentItems.length === 0 ? (
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 py-10 flex flex-col items-center gap-3 text-center">
-            <div className="w-14 h-14 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center">
-              <BookOpen className="h-6 w-6 text-slate-600" />
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-10 flex flex-col items-center gap-3 text-center">
+            <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center">
+              <BookOpen className="h-6 w-6 text-slate-400 dark:text-slate-600" />
             </div>
-            <p className="text-sm text-slate-500">Material hali qo'shilmagan</p>
+            <p className="text-sm text-slate-500">Material hali qo&apos;shilmagan</p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -200,18 +200,18 @@ export default async function TopicLearningPage({
               const isLink = item.externalUrl && ["LINK", "VIDEO", "ARTICLE"].includes(item.type);
 
               return (
-                <div key={item.id} className="rounded-2xl border border-slate-800 bg-slate-900 p-5 space-y-3">
+                <div key={item.id} className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-3">
                   <div className="flex items-center gap-2">
-                    <div className="rounded-lg bg-slate-800 p-1.5">
-                      <Icon className="h-4 w-4 text-slate-400" />
+                    <div className="rounded-lg bg-slate-100 dark:bg-slate-800 p-1.5">
+                      <Icon className="h-4 w-4 text-slate-500 dark:text-slate-400" />
                     </div>
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400">
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
                       {typeLabel[item.type]}
                     </span>
-                    <h3 className="text-base font-semibold text-slate-200">{item.title}</h3>
+                    <h3 className="text-base font-semibold text-slate-700 dark:text-slate-200">{item.title}</h3>
                   </div>
                   {item.body && (
-                    <div className="text-sm text-slate-400 whitespace-pre-wrap leading-relaxed">
+                    <div className="text-sm text-slate-500 dark:text-slate-400 whitespace-pre-wrap leading-relaxed">
                       {item.body}
                     </div>
                   )}
@@ -239,8 +239,8 @@ export default async function TopicLearningPage({
                     </a>
                   )}
                   {item.sources.length > 0 && (
-                    <div className="border-t border-slate-800 pt-3">
-                      <p className="text-xs font-medium text-slate-600 mb-2 uppercase tracking-wide">Ilmiy manbalar:</p>
+                    <div className="border-t border-slate-200 dark:border-slate-800 pt-3">
+                      <p className="text-xs font-medium text-slate-400 dark:text-slate-600 mb-2 uppercase tracking-wide">Ilmiy manbalar:</p>
                       <ul className="space-y-1">
                         {item.sources.map((s) => (
                           <li key={s.id} className="text-xs text-slate-500">
@@ -250,8 +250,8 @@ export default async function TopicLearningPage({
                             ) : (
                               s.title
                             )}
-                            {s.authors && <span className="text-slate-600"> — {s.authors}</span>}
-                            {s.year && <span className="text-slate-600"> ({s.year})</span>}
+                            {s.authors && <span className="text-slate-400 dark:text-slate-600"> — {s.authors}</span>}
+                            {s.year && <span className="text-slate-400 dark:text-slate-600"> ({s.year})</span>}
                           </li>
                         ))}
                       </ul>
@@ -268,7 +268,7 @@ export default async function TopicLearningPage({
           <div className="flex justify-end pt-2">
             <Link href={`/topics/${topicId}/practice`}>
               <Button className="bg-blue-600 hover:bg-blue-500 text-white border-0 gap-2">
-                Mashqga o'tish <ChevronRight className="h-4 w-4" />
+                Mashqga o&apos;tish <ChevronRight className="h-4 w-4" />
               </Button>
             </Link>
           </div>

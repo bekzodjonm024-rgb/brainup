@@ -66,35 +66,35 @@ export default async function StudentCourseDetailPage({
   const progress = course.topics.length > 0 ? (masteredTopics / course.topics.length) * 100 : 0;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
       <Header title={course.title} description={`${course.professor.firstName} ${course.professor.lastName}`} />
       <main className="flex-1 p-6 space-y-5">
         <Link href="/courses">
-          <Button variant="ghost" size="sm" className="text-slate-400 hover:text-slate-200 hover:bg-slate-800">
+          <Button variant="ghost" size="sm" className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">
             <ArrowLeft className="h-4 w-4 mr-1" /> Kurslar
           </Button>
         </Link>
 
         {/* Course progress */}
-        <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
           <div className="flex items-center justify-between mb-3">
             <div>
               <p className="text-xs text-slate-500 uppercase tracking-wide font-medium">Umumiy progress</p>
-              <p className="f-syne text-2xl font-bold text-white mt-1">{Math.round(progress)}%</p>
+              <p className="f-syne text-2xl font-bold text-slate-900 dark:text-white mt-1">{Math.round(progress)}%</p>
             </div>
             <div className="text-right">
-              <p className="text-sm font-semibold text-slate-300">{masteredTopics}/{course.topics.length}</p>
-              <p className="text-xs text-slate-600">mavzu o'zlashtirildi</p>
+              <p className="text-sm font-semibold text-slate-600 dark:text-slate-300">{masteredTopics}/{course.topics.length}</p>
+              <p className="text-xs text-slate-400 dark:text-slate-600">mavzu o'zlashtirildi</p>
             </div>
           </div>
-          <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+          <div className="h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
             <div className="h-full bg-blue-500 rounded-full transition-all" style={{ width: `${progress}%` }} />
           </div>
         </div>
 
         {/* Topics list */}
         <div className="space-y-2">
-          <h2 className="f-syne font-bold text-slate-300">Mavzular</h2>
+          <h2 className="f-syne font-bold text-slate-600 dark:text-slate-300">Mavzular</h2>
           {course.topics.map((topic, idx) => {
             const knowledge = topic.learnerKnowledge[0];
             const mastery = knowledge?.masteryScore ?? 0;
@@ -122,10 +122,10 @@ export default async function StudentCourseDetailPage({
             return (
               <div
                 key={topic.id}
-                className={`rounded-xl border bg-slate-900 p-4 flex items-center gap-3 transition-colors ${
+                className={`rounded-xl border bg-white dark:bg-slate-900 p-4 flex items-center gap-3 transition-colors ${
                   isMastered ? "border-emerald-500/20 bg-emerald-500/5" :
-                  isLocked ? "border-slate-800 opacity-60" :
-                  "border-slate-800 hover:border-slate-700"
+                  isLocked ? "border-slate-200 dark:border-slate-800 opacity-60" :
+                  "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700"
                 }`}
               >
                 <div className="shrink-0">
@@ -134,16 +134,16 @@ export default async function StudentCourseDetailPage({
                   ) : isStarted ? (
                     <PlayCircle className="h-5 w-5 text-blue-400" />
                   ) : isLocked ? (
-                    <Lock className="h-5 w-5 text-slate-700" />
+                    <Lock className="h-5 w-5 text-slate-300 dark:text-slate-700" />
                   ) : (
-                    <BookOpen className="h-5 w-5 text-slate-600" />
+                    <BookOpen className="h-5 w-5 text-slate-400 dark:text-slate-600" />
                   )}
                 </div>
 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-xs font-medium text-slate-600">{idx + 1}</span>
-                    <h3 className="font-medium text-slate-200">{topic.title}</h3>
+                    <span className="text-xs font-medium text-slate-400 dark:text-slate-600">{idx + 1}</span>
+                    <h3 className="font-medium text-slate-700 dark:text-slate-200">{topic.title}</h3>
                     {isStarted && <MasteryBadge score={mastery} />}
                     {actionChip && (
                       <span className={`inline-flex items-center gap-1 text-xs font-medium rounded-full px-2 py-0.5 border ${actionChip.border} ${actionChip.bg} ${actionChip.text}`}>
@@ -153,14 +153,14 @@ export default async function StudentCourseDetailPage({
                     )}
                   </div>
                   {topic.learningObjective && (
-                    <p className="text-xs text-slate-600 mt-0.5 line-clamp-1">{topic.learningObjective}</p>
+                    <p className="text-xs text-slate-400 dark:text-slate-600 mt-0.5 line-clamp-1">{topic.learningObjective}</p>
                   )}
                   {prereqLocked && topic.prerequisiteTopic && (
                     <p className="text-xs text-orange-400 mt-0.5">
                       Avval &quot;{topic.prerequisiteTopic.title}&quot; mavzusini bajaring (≥60%)
                     </p>
                   )}
-                  <div className="flex gap-3 text-xs text-slate-700 mt-1">
+                  <div className="flex gap-3 text-xs text-slate-400 dark:text-slate-700 mt-1">
                     <span>{topic.contentItems.length} material</span>
                     <span>{topic._count.questions} savol</span>
                   </div>
@@ -171,7 +171,7 @@ export default async function StudentCourseDetailPage({
                     <Button
                       size="sm"
                       className={isMastered
-                        ? "border-slate-700 text-slate-400 hover:bg-slate-800 bg-transparent"
+                        ? "border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 bg-transparent"
                         : "bg-blue-600 hover:bg-blue-500 text-white border-0"
                       }
                       variant={isMastered ? "outline" : "default"}

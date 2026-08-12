@@ -26,12 +26,12 @@ export default async function ProfessorProfilePage() {
   const initials = `${professor.firstName[0]}${professor.lastName[0]}`;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
       <Header title="Profil sozlamalari" description="Shaxsiy ma'lumotlar va xavfsizlik" />
       <main className="flex-1 p-6 space-y-6 max-w-2xl">
 
         {/* Info card */}
-        <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
           <div className="flex items-start gap-4">
             <AvatarUpload
               currentUrl={professor.user.avatarUrl}
@@ -39,7 +39,7 @@ export default async function ProfessorProfilePage() {
               size="lg"
             />
             <div className="flex-1 min-w-0">
-              <h2 className="font-semibold text-white text-lg">
+              <h2 className="font-semibold text-slate-900 dark:text-white text-lg">
                 {professor.firstName} {professor.lastName}
               </h2>
               {professor.title && (
@@ -49,7 +49,7 @@ export default async function ProfessorProfilePage() {
               )}
               <p className="text-sm text-slate-500 mt-1">{professor.user.email}</p>
             </div>
-            <div className="text-right text-xs text-slate-600 shrink-0">
+            <div className="text-right text-xs text-slate-400 dark:text-slate-600 shrink-0">
               <p className="flex items-center gap-1 justify-end">
                 <Calendar className="h-3 w-3" />
                 {formatDate(professor.user.createdAt)}

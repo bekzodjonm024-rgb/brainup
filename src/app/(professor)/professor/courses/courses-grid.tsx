@@ -59,19 +59,19 @@ export function CoursesGrid({ courses }: { courses: Course[] }) {
       {/* Controls */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
         {/* Tabs */}
-        <div className="flex items-center gap-1 p-1 bg-slate-800 rounded-lg">
+        <div className="flex items-center gap-1 p-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
           {TABS.map((t) => (
             <button
               key={t.value}
               onClick={() => setTab(t.value)}
               className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
                 tab === t.value
-                  ? "bg-slate-700 text-white shadow-sm"
-                  : "text-slate-500 hover:text-slate-300"
+                  ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm"
+                  : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
               }`}
             >
               {t.label}
-              <span className={`ml-1.5 text-xs ${tab === t.value ? "text-slate-400" : "text-slate-600"}`}>
+              <span className={`ml-1.5 text-xs ${tab === t.value ? "text-slate-400" : "text-slate-400 dark:text-slate-600"}`}>
                 {counts[t.value]}
               </span>
             </button>
@@ -85,16 +85,16 @@ export function CoursesGrid({ courses }: { courses: Course[] }) {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Kurs nomi, semester..."
-            className="w-full pl-9 pr-3 h-9 rounded-lg border border-slate-700 bg-slate-800 text-slate-200 text-sm placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+            className="w-full pl-9 pr-3 h-9 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
           />
         </div>
       </div>
 
       {/* Grid */}
       {filtered.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-slate-800 p-14 text-center">
-          <div className="w-14 h-14 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center mx-auto mb-3">
-            <BookOpen className="h-6 w-6 text-slate-600" />
+        <div className="rounded-2xl border border-dashed border-slate-200 dark:border-slate-800 p-14 text-center">
+          <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center mx-auto mb-3">
+            <BookOpen className="h-6 w-6 text-slate-400 dark:text-slate-600" />
           </div>
           {search ? (
             <p className="text-slate-500 text-sm">
@@ -102,23 +102,23 @@ export function CoursesGrid({ courses }: { courses: Course[] }) {
             </p>
           ) : (
             <>
-              <p className="font-medium text-slate-400 mb-1">Kurs topilmadi</p>
-              <p className="text-sm text-slate-600">Filtrni o&apos;zgartiring</p>
+              <p className="font-medium text-slate-500 dark:text-slate-400 mb-1">Kurs topilmadi</p>
+              <p className="text-sm text-slate-400 dark:text-slate-600">Filtrni o&apos;zgartiring</p>
             </>
           )}
         </div>
       ) : (
         <div className="grid gap-3">
           {filtered.map((course) => (
-            <div key={course.id} className="rounded-xl border border-slate-800 bg-slate-900 hover:border-slate-700 transition-colors p-5 flex items-center justify-between gap-4">
+            <div key={course.id} className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-300 dark:hover:border-slate-700 transition-colors p-5 flex items-center justify-between gap-4">
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                  <h3 className="font-semibold text-slate-200">{course.title}</h3>
+                  <h3 className="font-semibold text-slate-700 dark:text-slate-200">{course.title}</h3>
                   {!course.isActive && (
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-500">Nofaol</span>
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-500">Nofaol</span>
                   )}
                 </div>
-                <div className="flex items-center gap-4 text-xs text-slate-600">
+                <div className="flex items-center gap-4 text-xs text-slate-400 dark:text-slate-600">
                   <span className="flex items-center gap-1">
                     <LayoutList className="h-3 w-3" />
                     {course._count.topics} mavzu
@@ -131,11 +131,11 @@ export function CoursesGrid({ courses }: { courses: Course[] }) {
                   {course.faculty && <span>{course.faculty.name}</span>}
                 </div>
                 {course.description && (
-                  <p className="text-sm text-slate-600 mt-1 line-clamp-1">{course.description}</p>
+                  <p className="text-sm text-slate-400 dark:text-slate-600 mt-1 line-clamp-1">{course.description}</p>
                 )}
               </div>
               <Link href={`/professor/courses/${course.id}`}>
-                <Button variant="outline" size="sm" className="border-slate-700 text-slate-400 hover:bg-slate-800 bg-transparent">
+                <Button variant="outline" size="sm" className="border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 bg-transparent">
                   Boshqarish <ArrowRight className="h-3 w-3 ml-1" />
                 </Button>
               </Link>
@@ -145,7 +145,7 @@ export function CoursesGrid({ courses }: { courses: Course[] }) {
       )}
 
       {filtered.length > 0 && (
-        <p className="text-xs text-slate-600 text-right">
+        <p className="text-xs text-slate-400 dark:text-slate-600 text-right">
           {filtered.length} ta {search || tab !== "all" ? `(jami ${courses.length} dan)` : "kurs"}
         </p>
       )}

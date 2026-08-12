@@ -78,11 +78,11 @@ export function UsersTable({ users }: { users: User[] }) {
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                 filter === f.key
                   ? "bg-blue-600 text-white"
-                  : "bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-slate-200"
+                  : "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-700 dark:hover:text-slate-200"
               }`}
             >
               {f.label}
-              <span className={`ml-1.5 text-xs ${filter === f.key ? "text-blue-200" : "text-slate-600"}`}>
+              <span className={`ml-1.5 text-xs ${filter === f.key ? "text-blue-200" : "text-slate-400 dark:text-slate-600"}`}>
                 {f.count}
               </span>
             </button>
@@ -94,67 +94,67 @@ export function UsersTable({ users }: { users: User[] }) {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Ism, email, guruh..."
-            className="w-full pl-9 pr-3 h-9 rounded-lg border border-slate-700 bg-slate-800 text-slate-200 text-sm placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+            className="w-full pl-9 pr-3 h-9 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
           />
         </div>
       </div>
 
-      <div className="rounded-xl border border-slate-800 overflow-hidden">
+      <div className="rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-900 border-b border-slate-800">
-                <th className="text-left px-4 py-3 font-medium text-slate-600 text-xs uppercase tracking-wide">Talaba</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-600 text-xs uppercase tracking-wide hidden sm:table-cell">Guruh</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-600 text-xs uppercase tracking-wide hidden md:table-cell">Kurslar</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-600 text-xs uppercase tracking-wide hidden md:table-cell">Urinishlar</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-600 text-xs uppercase tracking-wide hidden lg:table-cell">Ro'yxatdan</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-600 text-xs uppercase tracking-wide">Holat</th>
-                <th className="px-4 py-3 text-xs font-medium text-slate-600 uppercase tracking-wide text-center">Amallar</th>
+              <tr className="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+                <th className="text-left px-4 py-3 font-medium text-slate-500 dark:text-slate-600 text-xs uppercase tracking-wide">Talaba</th>
+                <th className="text-left px-4 py-3 font-medium text-slate-500 dark:text-slate-600 text-xs uppercase tracking-wide hidden sm:table-cell">Guruh</th>
+                <th className="text-left px-4 py-3 font-medium text-slate-500 dark:text-slate-600 text-xs uppercase tracking-wide hidden md:table-cell">Kurslar</th>
+                <th className="text-left px-4 py-3 font-medium text-slate-500 dark:text-slate-600 text-xs uppercase tracking-wide hidden md:table-cell">Urinishlar</th>
+                <th className="text-left px-4 py-3 font-medium text-slate-500 dark:text-slate-600 text-xs uppercase tracking-wide hidden lg:table-cell">Ro&apos;yxatdan</th>
+                <th className="text-left px-4 py-3 font-medium text-slate-500 dark:text-slate-600 text-xs uppercase tracking-wide">Holat</th>
+                <th className="px-4 py-3 text-xs font-medium text-slate-500 dark:text-slate-600 uppercase tracking-wide text-center">Amallar</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 bg-slate-950">
+            <tbody className="divide-y divide-slate-200 dark:divide-slate-800/60 bg-white dark:bg-slate-950">
               {filtered.map((user) => {
                 const s = user.student;
                 const name = s ? `${s.firstName} ${s.lastName}` : user.email;
                 return (
-                  <tr key={user.id} className="hover:bg-slate-900/60 transition-colors">
+                  <tr key={user.id} className="hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
                         <Initials name={name} />
                         <div className="min-w-0">
                           <div className="flex items-center gap-1.5">
-                            <p className="font-medium text-slate-200 truncate max-w-[140px]">{name}</p>
+                            <p className="font-medium text-slate-700 dark:text-slate-200 truncate max-w-[140px]">{name}</p>
                             {s?.cognitiveProfile && (
                               <span title="Baholash bajarilgan">
                                 <Brain className="h-3.5 w-3.5 text-violet-400 shrink-0" />
                               </span>
                             )}
                           </div>
-                          <p className="text-xs text-slate-600 truncate max-w-[160px]">{user.email}</p>
+                          <p className="text-xs text-slate-400 dark:text-slate-600 truncate max-w-[160px]">{user.email}</p>
                         </div>
                       </div>
                     </td>
                     <td className="px-4 py-3 hidden sm:table-cell">
                       <div className="flex items-center gap-1.5 flex-wrap">
                         {s?.university?.shortName && (
-                          <span className="text-xs px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400">{s.university.shortName}</span>
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">{s.university.shortName}</span>
                         )}
                         {s?.yearLevel && (
-                          <span className="text-xs px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400">{s.yearLevel}-kurs</span>
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">{s.yearLevel}-kurs</span>
                         )}
                         {s?.groupName && (
-                          <span className="text-xs text-slate-600">{s.groupName}</span>
+                          <span className="text-xs text-slate-400 dark:text-slate-600">{s.groupName}</span>
                         )}
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-slate-400 hidden md:table-cell">
+                    <td className="px-4 py-3 text-slate-500 hidden md:table-cell">
                       {s?._count.enrollments ?? 0}
                     </td>
-                    <td className="px-4 py-3 text-slate-400 hidden md:table-cell">
+                    <td className="px-4 py-3 text-slate-500 hidden md:table-cell">
                       {s?._count.attempts ?? 0}
                     </td>
-                    <td className="px-4 py-3 text-slate-600 text-xs hidden lg:table-cell">
+                    <td className="px-4 py-3 text-slate-400 dark:text-slate-600 text-xs hidden lg:table-cell">
                       {formatDate(user.createdAt)}
                     </td>
                     <td className="px-4 py-3">
@@ -178,9 +178,9 @@ export function UsersTable({ users }: { users: User[] }) {
               {filtered.length === 0 && (
                 <tr>
                   <td colSpan={7} className="px-4 py-12 text-center">
-                    <Users className="h-8 w-8 text-slate-700 mx-auto mb-2" />
+                    <Users className="h-8 w-8 text-slate-300 dark:text-slate-700 mx-auto mb-2" />
                     <p className="text-sm text-slate-500">
-                      {search ? `"${search}" bo'yicha natija topilmadi` : "Talaba topilmadi"}
+                      {search ? `"${search}" bo&apos;yicha natija topilmadi` : "Talaba topilmadi"}
                     </p>
                   </td>
                 </tr>
@@ -189,7 +189,7 @@ export function UsersTable({ users }: { users: User[] }) {
           </table>
         </div>
         {filtered.length > 0 && (
-          <div className="px-4 py-2.5 bg-slate-900 border-t border-slate-800 text-xs text-slate-600">
+          <div className="px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-400 dark:text-slate-600">
             {filtered.length} ta {search || filter !== "all" ? `(jami ${users.length} dan)` : "talaba"}
           </div>
         )}

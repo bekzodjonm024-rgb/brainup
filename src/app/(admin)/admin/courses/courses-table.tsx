@@ -57,11 +57,11 @@ export function CoursesTable({ courses }: { courses: Course[] }) {
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                 filter === f.key
                   ? "bg-blue-600 text-white"
-                  : "bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-slate-200"
+                  : "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-700 dark:hover:text-slate-200"
               }`}
             >
               {f.label}
-              <span className={`ml-1.5 text-xs ${filter === f.key ? "text-blue-200" : "text-slate-600"}`}>
+              <span className={`ml-1.5 text-xs ${filter === f.key ? "text-blue-200" : "text-slate-400 dark:text-slate-600"}`}>
                 {f.count}
               </span>
             </button>
@@ -73,16 +73,16 @@ export function CoursesTable({ courses }: { courses: Course[] }) {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Kurs nomi, professor..."
-            className="w-full pl-9 pr-3 h-9 rounded-lg border border-slate-700 bg-slate-800 text-slate-200 text-sm placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+            className="w-full pl-9 pr-3 h-9 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
           />
         </div>
       </div>
 
-      <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
+      <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-950 border-b border-slate-800">
+              <tr className="bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
                 <th className="text-left px-4 py-3 font-medium text-slate-500 text-xs uppercase tracking-wide">Kurs</th>
                 <th className="text-left px-4 py-3 font-medium text-slate-500 text-xs uppercase tracking-wide hidden sm:table-cell">Professor</th>
                 <th className="text-left px-4 py-3 font-medium text-slate-500 text-xs uppercase tracking-wide hidden md:table-cell">Fakultet</th>
@@ -92,36 +92,36 @@ export function CoursesTable({ courses }: { courses: Course[] }) {
                 <th className="px-4 py-3 text-center text-xs font-medium text-slate-500 uppercase tracking-wide">Amal</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-slate-200 dark:divide-slate-800/60">
               {filtered.map((course) => {
                 const profName = `${course.professor.firstName} ${course.professor.lastName}`;
                 return (
-                  <tr key={course.id} className="hover:bg-slate-800/30 transition-colors">
+                  <tr key={course.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
                     <td className="px-4 py-3">
                       <div>
-                        <p className="font-medium text-slate-200">{course.title}</p>
+                        <p className="font-medium text-slate-700 dark:text-slate-200">{course.title}</p>
                         {course.semester && (
-                          <p className="text-xs text-slate-600">{course.semester}</p>
+                          <p className="text-xs text-slate-400 dark:text-slate-600">{course.semester}</p>
                         )}
                       </div>
                     </td>
                     <td className="px-4 py-3 hidden sm:table-cell">
                       <div>
-                        <p className="text-slate-400">{profName}</p>
+                        <p className="text-slate-500">{profName}</p>
                         {course.professor.title && (
-                          <p className="text-xs text-slate-600">{course.professor.title}</p>
+                          <p className="text-xs text-slate-400 dark:text-slate-600">{course.professor.title}</p>
                         )}
                       </div>
                     </td>
                     <td className="px-4 py-3 hidden md:table-cell">
                       <div className="flex items-center gap-1.5 flex-wrap">
                         {course.faculty?.university?.shortName && (
-                          <span className="text-xs px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400">
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
                             {course.faculty.university.shortName}
                           </span>
                         )}
                         {course.faculty?.name && (
-                          <span className="text-xs text-slate-600 max-w-[120px] truncate">{course.faculty.name}</span>
+                          <span className="text-xs text-slate-400 dark:text-slate-600 max-w-[120px] truncate">{course.faculty.name}</span>
                         )}
                       </div>
                     </td>
@@ -131,7 +131,7 @@ export function CoursesTable({ courses }: { courses: Course[] }) {
                       <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
                         course.isActive
                           ? "bg-emerald-500/10 border border-emerald-500/20 text-emerald-400"
-                          : "bg-slate-800 border border-slate-700 text-slate-500"
+                          : "bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-500"
                       }`}>
                         {course.isActive ? "Faol" : "Nofaol"}
                       </span>
@@ -145,8 +145,8 @@ export function CoursesTable({ courses }: { courses: Course[] }) {
               {filtered.length === 0 && (
                 <tr>
                   <td colSpan={7} className="px-4 py-12 text-center">
-                    <BookOpen className="h-8 w-8 text-slate-700 mx-auto mb-2" />
-                    <p className="text-sm text-slate-600">
+                    <BookOpen className="h-8 w-8 text-slate-300 dark:text-slate-700 mx-auto mb-2" />
+                    <p className="text-sm text-slate-400 dark:text-slate-600">
                       {search ? `"${search}" bo'yicha natija topilmadi` : "Kurs topilmadi"}
                     </p>
                   </td>
@@ -156,7 +156,7 @@ export function CoursesTable({ courses }: { courses: Course[] }) {
           </table>
         </div>
         {filtered.length > 0 && (
-          <div className="px-4 py-2.5 bg-slate-950 border-t border-slate-800 text-xs text-slate-600">
+          <div className="px-4 py-2.5 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-400 dark:text-slate-600">
             {filtered.length} ta {search || filter !== "all" ? `(jami ${courses.length} dan)` : "kurs"}
           </div>
         )}

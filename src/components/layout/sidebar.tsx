@@ -71,11 +71,11 @@ export function Sidebar({ role, userName, avatarUrl, onClose, badges }: SidebarP
   const initial = userName.charAt(0).toUpperCase();
 
   return (
-    <aside className="flex h-screen w-64 flex-col bg-slate-950">
+    <aside className="flex h-screen w-64 flex-col bg-slate-50 dark:bg-slate-950">
       {/* Logo */}
-      <div className="flex h-16 items-center gap-2.5 border-b border-slate-800 px-5">
+      <div className="flex h-16 items-center gap-2.5 border-b border-slate-200 dark:border-slate-800 px-5">
         <BrainUPLogo size="sm" href="/" />
-        <span className="text-lg font-bold text-white">BrainUP</span>
+        <span className="text-lg font-bold text-slate-900 dark:text-white">BrainUP</span>
       </div>
 
       {/* Nav */}
@@ -95,7 +95,7 @@ export function Sidebar({ role, userName, avatarUrl, onClose, badges }: SidebarP
                 "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all",
                 active
                   ? "bg-blue-600 text-white shadow-sm"
-                  : "text-slate-400 hover:bg-slate-800 hover:text-slate-100"
+                  : "text-slate-500 hover:bg-slate-100 hover:text-slate-800 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
               )}
             >
               <Icon className="h-4 w-4 shrink-0" />
@@ -111,24 +111,24 @@ export function Sidebar({ role, userName, avatarUrl, onClose, badges }: SidebarP
       </nav>
 
       {/* Footer */}
-      <div className="border-t border-slate-800 p-3 space-y-0.5">
+      <div className="border-t border-slate-200 dark:border-slate-800 p-3 space-y-0.5">
         <div className="flex items-center gap-2.5 rounded-lg px-3 py-2">
-          <div className="relative flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-slate-700 overflow-hidden">
+          <div className="relative flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
             {avatarUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={avatarUrl} alt={userName} className="h-full w-full object-cover" />
             ) : (
-              <span className="text-xs font-bold text-slate-200">{initial}</span>
+              <span className="text-xs font-bold text-slate-700 dark:text-slate-200">{initial}</span>
             )}
           </div>
           <div className="min-w-0">
-            <p className="text-xs font-medium text-slate-200 truncate">{userName}</p>
+            <p className="text-xs font-medium text-slate-700 dark:text-slate-200 truncate">{userName}</p>
             <p className="text-[11px] text-slate-500 capitalize">{role.toLowerCase()}</p>
           </div>
         </div>
         <button
           onClick={() => signOut({ callbackUrl: "/login" })}
-          className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-400 transition-colors hover:bg-slate-800 hover:text-slate-100"
+          className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-500 dark:text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-800 dark:hover:bg-slate-800 dark:hover:text-slate-100"
         >
           <LogOut className="h-4 w-4" />
           Chiqish

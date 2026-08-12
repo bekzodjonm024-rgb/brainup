@@ -45,14 +45,14 @@ const metrics = [
 
 export function CognitiveProfileCard(props: CognitiveProfileCardProps) {
   return (
-    <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+    <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
       <div className="flex items-center gap-2 mb-4">
         <div className="w-7 h-7 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center">
           <Brain className="h-3.5 w-3.5 text-violet-400" />
         </div>
         <div>
-          <p className="text-sm font-semibold text-white">Kognitiv profil</p>
-          <p className="text-[11px] text-slate-600">Klinik tashxis emas — o&apos;quv moslashuvi uchun</p>
+          <p className="text-sm font-semibold text-slate-900 dark:text-white">Kognitiv profil</p>
+          <p className="text-[11px] text-slate-400 dark:text-slate-600">Klinik tashxis emas — o&apos;quv moslashuvi uchun</p>
         </div>
       </div>
 
@@ -67,14 +67,14 @@ export function CognitiveProfileCard(props: CognitiveProfileCardProps) {
                   <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${bgClass} ${textClass}`}>
                     {label}
                   </span>
-                  <span className="text-xs text-slate-600 hidden sm:block">{sublabel}</span>
+                  <span className="text-xs text-slate-400 dark:text-slate-600 hidden sm:block">{sublabel}</span>
                 </div>
-                <span className={`text-sm font-bold ${value !== null ? textClass : "text-slate-700"}`}>
+                <span className={`text-sm font-bold ${value !== null ? textClass : "text-slate-300 dark:text-slate-700"}`}>
                   {value !== null ? `${value}` : "—"}
-                  {value !== null && <span className="text-xs font-normal text-slate-600">/100</span>}
+                  {value !== null && <span className="text-xs font-normal text-slate-400 dark:text-slate-600">/100</span>}
                 </span>
               </div>
-              <Progress value={value ?? 0} className={`h-1.5 bg-slate-800 ${barClass}`} />
+              <Progress value={value ?? 0} className={`h-1.5 bg-slate-200 dark:bg-slate-800 ${barClass}`} />
             </div>
           );
         })}

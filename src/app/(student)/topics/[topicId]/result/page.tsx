@@ -153,36 +153,36 @@ export default async function ResultPage({
   }
 
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-white dark:bg-slate-950">
       <div className="mx-auto max-w-xl px-4 py-8 space-y-6">
         {/* Back */}
         <Link
           href={`/topics/${topicId}`}
-          className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-300 transition-colors"
+          className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
         >
           <ArrowLeft className="h-4 w-4" /> {topic.title}
         </Link>
 
         {/* Mastery card */}
-        <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 flex flex-col items-center gap-4 text-center">
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 flex flex-col items-center gap-4 text-center">
           <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
             <CheckCircle2 className="h-8 w-8 text-emerald-400" />
           </div>
           <div>
-            <h1 className="f-syne text-lg font-bold text-white">Mashq yakunlandi</h1>
+            <h1 className="f-syne text-lg font-bold text-slate-900 dark:text-white">Mashq yakunlandi</h1>
             <p className="text-sm text-slate-500 mt-0.5">{topic.title}</p>
           </div>
           <MasteryBadge score={mastery} />
         </div>
 
         {/* Adaptive recommendation */}
-        <div className={`rounded-2xl border ${cfg.border} bg-slate-900 p-6 space-y-4`}>
+        <div className={`rounded-2xl border ${cfg.border} bg-white dark:bg-slate-900 p-6 space-y-4`}>
           <div className="flex items-start gap-4">
             <div className={`w-12 h-12 rounded-xl ${cfg.iconBg} flex items-center justify-center shrink-0`}>
               {cfg.icon}
             </div>
             <div>
-              <h2 className="font-semibold text-slate-200">{cfg.title}</h2>
+              <h2 className="font-semibold text-slate-700 dark:text-slate-200">{cfg.title}</h2>
               <p className="text-sm text-slate-500 mt-1">{cfg.description}</p>
             </div>
           </div>
@@ -197,12 +197,12 @@ export default async function ResultPage({
         {/* Secondary actions */}
         <div className="flex gap-3">
           <Link href={`/courses/${topic.courseId}`} className="flex-1">
-            <Button variant="outline" className="w-full text-sm border-slate-700 text-slate-400 hover:bg-slate-800 bg-transparent">
-              Kurs ro'yxati
+            <Button variant="outline" className="w-full text-sm border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 bg-transparent">
+              Kurs ro&apos;yxati
             </Button>
           </Link>
           <Link href="/dashboard" className="flex-1">
-            <Button variant="outline" className="w-full text-sm border-slate-700 text-slate-400 hover:bg-slate-800 bg-transparent">
+            <Button variant="outline" className="w-full text-sm border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 bg-transparent">
               Dashboard
             </Button>
           </Link>

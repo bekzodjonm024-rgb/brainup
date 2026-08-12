@@ -103,7 +103,7 @@ export default async function ProfessorAnalyticsPage() {
   const total = mastered + onTrack + struggling;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
       <Header title="Analitika" description="Barcha kurslar bo'yicha o'quv tahlili" />
 
       <main className="flex-1 p-6 space-y-6 max-w-5xl">
@@ -118,7 +118,7 @@ export default async function ProfessorAnalyticsPage() {
           ].map((s) => (
             <div key={s.label} className={`rounded-2xl border ${s.border} ${s.glow} p-5`}>
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
-              <p className="f-syne text-2xl font-bold text-white leading-none">{s.value}</p>
+              <p className="f-syne text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
               <p className="text-xs text-slate-500 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
             </div>
           ))}
@@ -129,8 +129,8 @@ export default async function ProfessorAnalyticsPage() {
 
             {/* Mastery distribution */}
             {total > 0 && (
-              <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-                <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2 mb-4">
+              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+                <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                   <BarChart3 className="h-4 w-4 text-slate-500" />
                   O'zlashtirish taqsimoti
                 </h3>
@@ -142,12 +142,12 @@ export default async function ProfessorAnalyticsPage() {
                   ].map((row) => (
                     <div key={row.label} className="space-y-1.5">
                       <div className="flex justify-between text-sm">
-                        <span className="text-slate-400">{row.label}</span>
-                        <span className="font-semibold text-white">
+                        <span className="text-slate-500 dark:text-slate-400">{row.label}</span>
+                        <span className="font-semibold text-slate-900 dark:text-white">
                           {row.count} ta ({row.pct}%)
                         </span>
                       </div>
-                      <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                      <div className="h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
                         <div className={`h-full rounded-full ${row.color}`} style={{ width: `${row.pct}%` }} />
                       </div>
                     </div>
@@ -157,36 +157,36 @@ export default async function ProfessorAnalyticsPage() {
             )}
 
             {/* Course summaries */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-              <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2 mb-4">
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+              <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                 <BookOpen className="h-4 w-4 text-slate-500" />
                 Kurslar bo'yicha natijalar
               </h3>
               <div className="space-y-4">
                 {courseSummaries.length === 0 ? (
-                  <p className="text-sm text-slate-600 text-center py-4">Kurslar yo'q</p>
+                  <p className="text-sm text-slate-400 dark:text-slate-600 text-center py-4">Kurslar yo'q</p>
                 ) : (
                   courseSummaries.map((c) => (
                     <div key={c.id} className="space-y-2">
                       <div className="flex items-center justify-between gap-3">
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2">
-                            <span className="text-sm font-medium text-slate-200 truncate">{c.title}</span>
-                            <span className="text-xs text-slate-600 shrink-0">{c.students} talaba</span>
+                            <span className="text-sm font-medium text-slate-700 dark:text-slate-200 truncate">{c.title}</span>
+                            <span className="text-xs text-slate-400 dark:text-slate-600 shrink-0">{c.students} talaba</span>
                           </div>
-                          <div className="flex gap-3 text-xs text-slate-600 mt-0.5">
+                          <div className="flex gap-3 text-xs text-slate-400 dark:text-slate-600 mt-0.5">
                             <span>{c.topics} mavzu</span>
                             <span>O'rtacha: {Math.round(c.avgMastery * 100)}%</span>
                             <span>{c.masteredCount} ta o'zlashtirildi</span>
                           </div>
                         </div>
                         <Link href={`/professor/courses/${c.id}/analytics`}>
-                          <Button variant="outline" size="sm" className="border-slate-700 text-slate-400 hover:bg-slate-800 bg-transparent text-xs shrink-0">
+                          <Button variant="outline" size="sm" className="border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 bg-transparent text-xs shrink-0">
                             Batafsil <ArrowRight className="h-3 w-3 ml-1" />
                           </Button>
                         </Link>
                       </div>
-                      <div className="h-1 bg-slate-800 rounded-full overflow-hidden">
+                      <div className="h-1 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
                         <div className="h-full bg-blue-500 rounded-full" style={{ width: `${c.avgMastery * 100}%` }} />
                       </div>
                     </div>
@@ -198,8 +198,8 @@ export default async function ProfessorAnalyticsPage() {
 
           <div className="space-y-4">
             {/* Difficult topics */}
-            <div className="rounded-2xl border border-amber-500/20 bg-slate-900 p-5">
-              <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2 mb-4">
+            <div className="rounded-2xl border border-amber-500/20 bg-white dark:bg-slate-900 p-5">
+              <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                 <AlertTriangle className="h-4 w-4 text-amber-400" />
                 Qiyin mavzular
               </h3>
@@ -215,13 +215,13 @@ export default async function ProfessorAnalyticsPage() {
                   {difficultTopics.map((t) => (
                     <div key={t.id} className="space-y-1.5">
                       <div className="flex items-center justify-between gap-2">
-                        <span className="text-xs font-medium text-slate-300 truncate flex-1 line-clamp-1">{t.title}</span>
+                        <span className="text-xs font-medium text-slate-600 dark:text-slate-300 truncate flex-1 line-clamp-1">{t.title}</span>
                         <span className={`text-xs font-semibold rounded-full px-2 py-0.5 shrink-0 ${masteryLevel(t.avg ?? 0).color}`}>
                           {Math.round((t.avg ?? 0) * 100)}%
                         </span>
                       </div>
-                      <p className="text-xs text-slate-600">{t.courseName} • {t.tried} talaba</p>
-                      <div className="h-1 bg-slate-800 rounded-full overflow-hidden">
+                      <p className="text-xs text-slate-400 dark:text-slate-600">{t.courseName} • {t.tried} talaba</p>
+                      <div className="h-1 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
                         <div className="h-full bg-amber-500 rounded-full" style={{ width: `${(t.avg ?? 0) * 100}%` }} />
                       </div>
                     </div>
@@ -232,16 +232,16 @@ export default async function ProfessorAnalyticsPage() {
 
             {/* Adaptive interventions */}
             {interventionCounts.length > 0 && (
-              <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-                <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2 mb-4">
+              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+                <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                   <Zap className="h-4 w-4 text-blue-400" />
                   Adaptiv tavsiyalar
                 </h3>
                 <div className="space-y-2">
                   {interventionCounts.map((iv) => (
                     <div key={iv.action} className="flex items-center justify-between text-sm">
-                      <span className="text-slate-400">{ACTION_LABELS[iv.action] ?? iv.action}</span>
-                      <span className="font-semibold text-white">{iv._count.action}</span>
+                      <span className="text-slate-500 dark:text-slate-400">{ACTION_LABELS[iv.action] ?? iv.action}</span>
+                      <span className="font-semibold text-slate-900 dark:text-white">{iv._count.action}</span>
                     </div>
                   ))}
                 </div>

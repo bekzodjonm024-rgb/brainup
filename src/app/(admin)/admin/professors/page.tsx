@@ -32,13 +32,13 @@ export default async function AdminProfessorsPage() {
   });
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
       <Header title="Professorlar" description="Professor hisoblarini boshqarish" />
       <main className="flex-1 p-6 space-y-6">
         <AddProfessorForm />
         {professors.length > 0 && (
           <div>
-            <h2 className="f-syne text-sm font-bold text-slate-400 mb-3 uppercase tracking-wider">Mavjud professorlar</h2>
+            <h2 className="f-syne text-sm font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wider">Mavjud professorlar</h2>
             <ProfessorsTable professors={professors} />
           </div>
         )}

@@ -60,17 +60,17 @@ export default async function AdminContentPage({
   const counts = Object.fromEntries(byStatus.map((r) => [r.status, r._count.id]));
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
       <Header title="Kontent" description="Materiallar boshqaruvi" />
       <main className="flex-1 p-6 space-y-4">
         <Suspense>
           <ContentFilter counts={counts} active={activeStatus} />
         </Suspense>
 
-        <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-950 border-b border-slate-800">
+              <thead className="bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
                 <tr>
                   <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Kontent</th>
                   <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide hidden sm:table-cell">Mavzu / Kurs</th>
@@ -79,27 +79,27 @@ export default async function AdminContentPage({
                   {activeStatus === "PENDING_REVIEW" && <th className="px-4 py-3" />}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-slate-200 dark:divide-slate-800/60">
                 {items.map((item) => (
-                  <tr key={item.id} className="hover:bg-slate-800/30 transition-colors">
+                  <tr key={item.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
                     <td className="px-4 py-3">
                       <div>
-                        <p className="font-medium text-slate-200">{item.title}</p>
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400 mt-0.5 inline-block">
+                        <p className="font-medium text-slate-700 dark:text-slate-200">{item.title}</p>
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 mt-0.5 inline-block">
                           {TYPE_LABELS[item.type] ?? item.type}
                         </span>
                       </div>
                     </td>
                     <td className="px-4 py-3 hidden sm:table-cell">
                       <div>
-                        <p className="text-slate-300 text-xs font-medium">{item.topic.title}</p>
-                        <p className="text-xs text-slate-600">{item.topic.course.title}</p>
+                        <p className="text-slate-600 dark:text-slate-300 text-xs font-medium">{item.topic.title}</p>
+                        <p className="text-xs text-slate-400 dark:text-slate-600">{item.topic.course.title}</p>
                       </div>
                     </td>
                     <td className="px-4 py-3 text-slate-500 hidden md:table-cell text-xs">
                       {item.topic.course.professor.firstName} {item.topic.course.professor.lastName}
                     </td>
-                    <td className="px-4 py-3 text-slate-600 hidden md:table-cell text-xs">
+                    <td className="px-4 py-3 text-slate-400 dark:text-slate-600 hidden md:table-cell text-xs">
                       {formatDate(item.createdAt)}
                     </td>
                     {activeStatus === "PENDING_REVIEW" && (
@@ -111,7 +111,7 @@ export default async function AdminContentPage({
                 ))}
                 {items.length === 0 && (
                   <tr>
-                    <td colSpan={5} className="px-4 py-10 text-center text-slate-600">
+                    <td colSpan={5} className="px-4 py-10 text-center text-slate-400 dark:text-slate-600">
                       Bu bo&apos;limda kontent yo&apos;q
                     </td>
                   </tr>

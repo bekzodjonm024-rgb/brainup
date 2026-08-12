@@ -86,7 +86,7 @@ export default async function AdminDashboardPage() {
   const hasAlerts = pendingContent > 0 || blockedUsers > 0;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
       <Header title="Admin panel" description="BrainUP tizimini boshqarish" />
       <main className="flex-1 p-6 space-y-6">
 
@@ -121,7 +121,7 @@ export default async function AdminDashboardPage() {
           {stats.map((s) => (
             <div key={s.label} className={`rounded-2xl border ${s.border} ${s.glow} p-5`}>
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
-              <p className="f-syne text-2xl font-bold text-white leading-none">{s.value}</p>
+              <p className="f-syne text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
               <p className="text-xs text-slate-500 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
             </div>
           ))}
@@ -129,7 +129,7 @@ export default async function AdminDashboardPage() {
 
         {/* Quick links */}
         <div>
-          <h2 className="f-syne text-sm font-bold text-slate-400 mb-3 uppercase tracking-wider">Bo'limlar</h2>
+          <h2 className="f-syne text-sm font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wider">Bo&apos;limlar</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {quickLinks.map((link) => {
               const Icon = link.icon;
@@ -137,14 +137,14 @@ export default async function AdminDashboardPage() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="flex items-center gap-3 rounded-xl border border-slate-800 bg-slate-900 p-4 hover:border-slate-700 hover:bg-slate-800/50 transition-all group"
+                  className="flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all group"
                 >
-                  <div className="rounded-lg bg-slate-800 p-2 group-hover:bg-blue-500/10 transition-colors shrink-0">
+                  <div className="rounded-lg bg-slate-100 dark:bg-slate-800 p-2 group-hover:bg-blue-500/10 transition-colors shrink-0">
                     <Icon className="h-4 w-4 text-slate-500 group-hover:text-blue-400 transition-colors" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <p className="text-sm font-medium text-slate-200">{link.label}</p>
+                      <p className="text-sm font-medium text-slate-700 dark:text-slate-200">{link.label}</p>
                       {"badge" in link && link.badge !== undefined && (
                         <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-amber-500 px-1.5 text-[11px] font-bold text-white leading-none">
                           {link.badge}
@@ -153,7 +153,7 @@ export default async function AdminDashboardPage() {
                     </div>
                     <p className="text-xs text-slate-500 truncate">{link.description}</p>
                   </div>
-                  <ChevronRight className="h-4 w-4 text-slate-700 group-hover:text-slate-400 shrink-0 transition-colors" />
+                  <ChevronRight className="h-4 w-4 text-slate-300 dark:text-slate-700 group-hover:text-slate-400 shrink-0 transition-colors" />
                 </Link>
               );
             })}
@@ -164,17 +164,17 @@ export default async function AdminDashboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
 
           {/* Recent users */}
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
-            <div className="p-5 border-b border-slate-800">
-              <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+            <div className="p-5 border-b border-slate-200 dark:border-slate-800">
+              <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
                 <Clock className="h-4 w-4 text-slate-500" />
-                So'nggi ro'yxatdan o'tganlar (7 kun)
+                So&apos;nggi ro&apos;yxatdan o&apos;tganlar (7 kun)
               </h3>
             </div>
             {recentUsers.length === 0 ? (
-              <p className="text-xs text-slate-600 p-5">So'nggi 7 kunda ro'yxatdan o'tgan yo'q</p>
+              <p className="text-xs text-slate-400 dark:text-slate-600 p-5">So&apos;nggi 7 kunda ro&apos;yxatdan o&apos;tgan yo&apos;q</p>
             ) : (
-              <div className="divide-y divide-slate-800/60">
+              <div className="divide-y divide-slate-200 dark:divide-slate-800/60">
                 {recentUsers.map((u) => {
                   const s = u.student;
                   const name = s ? `${s.firstName} ${s.lastName}` : u.email;
@@ -184,12 +184,12 @@ export default async function AdminDashboardPage() {
                         {name.slice(0, 2)}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-slate-200 truncate">{name}</p>
-                        <p className="text-xs text-slate-600">
+                        <p className="text-sm font-medium text-slate-700 dark:text-slate-200 truncate">{name}</p>
+                        <p className="text-xs text-slate-400 dark:text-slate-600">
                           {s?.university?.shortName ?? u.email}
                         </p>
                       </div>
-                      <span className="text-xs text-slate-600 shrink-0">{formatDate(u.createdAt)}</span>
+                      <span className="text-xs text-slate-400 dark:text-slate-600 shrink-0">{formatDate(u.createdAt)}</span>
                     </div>
                   );
                 })}
@@ -198,35 +198,35 @@ export default async function AdminDashboardPage() {
           </div>
 
           {/* Pending content */}
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
-            <div className="p-5 border-b border-slate-800">
-              <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+            <div className="p-5 border-b border-slate-200 dark:border-slate-800">
+              <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
                 <FileText className="h-4 w-4 text-slate-500" />
                 Tasdiqlash kutayotgan kontent
               </h3>
             </div>
             {recentContent.length === 0 ? (
-              <p className="text-xs text-slate-600 p-5">Tasdiqlash kutayotgan kontent yo'q</p>
+              <p className="text-xs text-slate-400 dark:text-slate-600 p-5">Tasdiqlash kutayotgan kontent yo&apos;q</p>
             ) : (
               <>
-                <div className="divide-y divide-slate-800/60">
+                <div className="divide-y divide-slate-200 dark:divide-slate-800/60">
                   {recentContent.map((item) => {
                     const prof = item.topic.course.professor;
                     return (
                       <div key={item.id} className="flex items-center gap-3 px-5 py-3">
                         <span className="text-xs px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 shrink-0">{item.type}</span>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm text-slate-200 truncate">{item.title}</p>
-                          <p className="text-xs text-slate-600">{prof.firstName} {prof.lastName}</p>
+                          <p className="text-sm text-slate-700 dark:text-slate-200 truncate">{item.title}</p>
+                          <p className="text-xs text-slate-400 dark:text-slate-600">{prof.firstName} {prof.lastName}</p>
                         </div>
-                        <span className="text-xs text-slate-600 shrink-0">{formatDate(item.createdAt)}</span>
+                        <span className="text-xs text-slate-400 dark:text-slate-600 shrink-0">{formatDate(item.createdAt)}</span>
                       </div>
                     );
                   })}
                 </div>
-                <div className="px-5 py-3 border-t border-slate-800">
+                <div className="px-5 py-3 border-t border-slate-200 dark:border-slate-800">
                   <Link href="/admin/content" className="text-xs text-blue-400 hover:text-blue-300 transition-colors">
-                    Hammasini ko'rish →
+                    Hammasini ko&apos;rish →
                   </Link>
                 </div>
               </>

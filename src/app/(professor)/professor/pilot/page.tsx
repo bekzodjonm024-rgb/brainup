@@ -44,12 +44,12 @@ export default async function PilotPage() {
 
   if (courseIds.length === 0) {
     return (
-      <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
+      <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
         <Header title="Pilot monitoring" description="Tadqiqot va pilot nazorat paneli" />
         <main className="flex-1 p-6">
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 py-14 text-center">
-            <div className="w-14 h-14 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center mx-auto mb-3">
-              <FlaskConical className="h-6 w-6 text-slate-600" />
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-14 text-center">
+            <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center mx-auto mb-3">
+              <FlaskConical className="h-6 w-6 text-slate-400 dark:text-slate-600" />
             </div>
             <p className="text-slate-500">Kurslar yo&apos;q — avval kurs yarating</p>
           </div>
@@ -149,7 +149,7 @@ export default async function PilotPage() {
   };
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
       <Header title="Pilot Monitoring" description="NamDPI tadqiqot va pilot nazorat paneli" />
 
       <main className="flex-1 p-6 space-y-6 max-w-5xl">
@@ -182,7 +182,7 @@ export default async function PilotPage() {
           ].map((s) => (
             <div key={s.label} className={`rounded-2xl border ${s.border} ${s.glow} p-5`}>
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
-              <p className="f-syne text-2xl font-bold text-white leading-none">{s.value}</p>
+              <p className="f-syne text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
               <p className="text-xs text-slate-500 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
             </div>
           ))}
@@ -192,8 +192,8 @@ export default async function PilotPage() {
           <div className="lg:col-span-2 space-y-5">
 
             {/* Engagement funnel */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-              <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2 mb-4">
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+              <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                 <Users className="h-4 w-4 text-slate-500" />
                 O&apos;quv funnel
               </h3>
@@ -201,13 +201,13 @@ export default async function PilotPage() {
                 {funnelSteps.map((step) => (
                   <div key={step.label} className="space-y-1">
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-slate-400">{step.label}</span>
-                      <span className="font-semibold text-slate-200">
+                      <span className="text-slate-500 dark:text-slate-400">{step.label}</span>
+                      <span className="font-semibold text-slate-700 dark:text-slate-200">
                         {step.count} ta
-                        <span className="text-slate-600 font-normal ml-1">({step.pct}%)</span>
+                        <span className="text-slate-400 dark:text-slate-600 font-normal ml-1">({step.pct}%)</span>
                       </span>
                     </div>
-                    <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                    <div className="h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
                       <div className={`h-full rounded-full transition-all ${step.color}`} style={{ width: `${step.pct}%` }} />
                     </div>
                   </div>
@@ -216,31 +216,31 @@ export default async function PilotPage() {
             </div>
 
             {/* Recent activity log */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-              <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2 mb-4">
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+              <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                 <Clock className="h-4 w-4 text-slate-500" />
                 So&apos;nggi faollik (anonim)
               </h3>
               {recentEvents.length === 0 ? (
-                <p className="text-sm text-slate-600 text-center py-6">Hali hech qanday event yo&apos;q</p>
+                <p className="text-sm text-slate-400 dark:text-slate-600 text-center py-6">Hali hech qanday event yo&apos;q</p>
               ) : (
                 <div className="space-y-1">
                   {recentEvents.map((ev) => {
                     const rid = ev.student.researchId ?? `ANON-${ev.studentId.slice(0, 6)}`;
                     return (
-                      <div key={ev.id} className="flex items-center justify-between py-2 border-b border-slate-800/60 last:border-0">
+                      <div key={ev.id} className="flex items-center justify-between py-2 border-b border-slate-200 dark:border-slate-800/60 last:border-0">
                         <div className="flex items-center gap-2 min-w-0">
-                          <code className="text-xs font-mono bg-slate-800 px-1.5 py-0.5 rounded text-slate-400 shrink-0">
+                          <code className="text-xs font-mono bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-slate-500 dark:text-slate-400 shrink-0">
                             {rid}
                           </code>
                           <span className="text-xs text-slate-500 truncate">
                             {EVENT_LABELS[ev.eventType] ?? ev.eventType}
                             {ev.topicId && topicTitles.get(ev.topicId) && (
-                              <span className="text-slate-600 ml-1">— {topicTitles.get(ev.topicId)}</span>
+                              <span className="text-slate-400 dark:text-slate-600 ml-1">— {topicTitles.get(ev.topicId)}</span>
                             )}
                           </span>
                         </div>
-                        <span className="text-xs text-slate-600 shrink-0 ml-2">
+                        <span className="text-xs text-slate-400 dark:text-slate-600 shrink-0 ml-2">
                           {timeAgo(ev.createdAt)}
                         </span>
                       </div>
@@ -254,8 +254,8 @@ export default async function PilotPage() {
           <div className="space-y-4">
             {/* Event distribution */}
             {eventTypeCounts.length > 0 && (
-              <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-                <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2 mb-3">
+              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+                <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-3">
                   <Activity className="h-4 w-4 text-slate-500" />
                   7 kunlik eventlar
                 </h3>
@@ -263,7 +263,7 @@ export default async function PilotPage() {
                   {eventTypeCounts.slice(0, 8).map((e) => (
                     <div key={e.eventType} className="flex items-center justify-between text-xs">
                       <span className="text-slate-500 truncate">{EVENT_LABELS[e.eventType] ?? e.eventType}</span>
-                      <span className="font-semibold text-slate-300 ml-2 shrink-0">{e._count.eventType}</span>
+                      <span className="font-semibold text-slate-600 dark:text-slate-300 ml-2 shrink-0">{e._count.eventType}</span>
                     </div>
                   ))}
                 </div>
@@ -272,8 +272,8 @@ export default async function PilotPage() {
 
             {/* Intervention distribution */}
             {interventionCounts.length > 0 && (
-              <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-                <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2 mb-3">
+              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+                <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-3">
                   <Zap className="h-4 w-4 text-slate-500" />
                   Adaptiv tavsiyalar
                 </h3>
@@ -281,7 +281,7 @@ export default async function PilotPage() {
                   {interventionCounts.map((iv) => (
                     <div key={iv.action} className="flex items-center justify-between text-xs">
                       <span className="text-slate-500">{ACTION_LABELS[iv.action] ?? iv.action}</span>
-                      <span className="font-semibold text-slate-300">{iv._count.action}</span>
+                      <span className="font-semibold text-slate-600 dark:text-slate-300">{iv._count.action}</span>
                     </div>
                   ))}
                 </div>
@@ -289,12 +289,12 @@ export default async function PilotPage() {
             )}
 
             {/* Export */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-              <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2 mb-3">
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+              <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-3">
                 <CheckCircle2 className="h-4 w-4 text-slate-500" />
                 Ma&apos;lumotlarni eksport qilish
               </h3>
-              <p className="text-xs text-slate-600 mb-3">
+              <p className="text-xs text-slate-400 dark:text-slate-600 mb-3">
                 Barcha ma&apos;lumotlar anonim (researchId) bilan CSV formatida yuklanadi.
               </p>
               <div className="space-y-2">
@@ -312,26 +312,26 @@ export default async function PilotPage() {
         </div>
 
         {/* Per-course breakdown */}
-        <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden">
-          <div className="px-5 py-4 border-b border-slate-800">
-            <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2">
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+          <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-800">
+            <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
               <Brain className="h-4 w-4 text-slate-500" />
               Kurslar bo&apos;yicha taqsimot
             </h3>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-950 border-b border-slate-800">
+              <thead className="bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
                 <tr>
                   <th className="text-left py-2.5 pr-4 px-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Kurs</th>
                   <th className="text-center py-2.5 px-2 text-xs font-semibold text-slate-500 uppercase tracking-wide">Yozilgan</th>
                   <th className="text-center py-2.5 px-2 text-xs font-semibold text-slate-500 uppercase tracking-wide">Eksport</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-slate-200 dark:divide-slate-800/60">
                 {courses.map((c) => (
-                  <tr key={c.id} className="hover:bg-slate-800/30 transition-colors">
-                    <td className="py-2.5 px-3 font-medium text-slate-300">{c.title}</td>
+                  <tr key={c.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                    <td className="py-2.5 px-3 font-medium text-slate-600 dark:text-slate-300">{c.title}</td>
                     <td className="py-2.5 px-2 text-center text-slate-500">{c._count.enrollments}</td>
                     <td className="py-2.5 px-2 text-center">
                       <ExportButton

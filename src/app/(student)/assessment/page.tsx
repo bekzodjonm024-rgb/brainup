@@ -27,7 +27,7 @@ export default async function AssessmentPage() {
   });
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
       <Header title="Kognitiv baholash" description="Boshlang'ich baholash natijalari" />
       <main className="flex-1 p-6 max-w-2xl space-y-5">
 
@@ -38,7 +38,7 @@ export default async function AssessmentPage() {
                 <CheckCircle2 className="h-4 w-4 text-emerald-400" />
               </div>
               <div>
-                <h3 className="font-semibold text-white text-sm">Baholash bajarildi</h3>
+                <h3 className="font-semibold text-slate-800 dark:text-white text-sm">Baholash bajarildi</h3>
                 <p className="text-sm text-slate-500 mt-1">
                   Quyida siz ushbu topshiriqlarda ko&apos;rsatgan natijalar keltirilgan.
                   Bu natijalar klinik tashxis emas — learning pathway&apos;ni moslashtirish uchun ishlatiladi.
@@ -53,8 +53,8 @@ export default async function AssessmentPage() {
               memoryScore={student.cognitiveProfile!.memoryScore}
             />
 
-            <div className="rounded-xl border border-slate-800 bg-slate-900 p-4 flex items-start gap-3">
-              <AlertCircle className="h-4 w-4 text-slate-600 mt-0.5 shrink-0" />
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 flex items-start gap-3">
+              <AlertCircle className="h-4 w-4 text-slate-400 dark:text-slate-600 mt-0.5 shrink-0" />
               <p className="text-xs text-slate-500">
                 Bu natijalar sizning o&apos;quv yo&apos;nalishingizni moslashtirish uchun ishlatiladi.
                 Ular vaqt o&apos;tishi bilan o&apos;zgarishi mumkin va doimiy &quot;yorliq&quot; emas.
@@ -67,13 +67,13 @@ export default async function AssessmentPage() {
           </>
         ) : (
           <>
-            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 space-y-6">
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-6">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
                   <Brain className="h-6 w-6 text-blue-400" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-white">Boshlang&apos;ich baholash</h3>
+                  <h3 className="font-semibold text-slate-800 dark:text-white">Boshlang&apos;ich baholash</h3>
                   <p className="text-sm text-slate-500 mt-0.5">BrainUP sizning o&apos;quv yo&apos;nalishingizni moslashtiradi</p>
                 </div>
               </div>
@@ -83,11 +83,11 @@ export default async function AssessmentPage() {
                   { label: "Davomiyligi", value: "~12 daqiqa", icon: <Clock className="h-4 w-4 text-slate-500" /> },
                   { label: "Topshiriqlar", value: "4 xil turdagi", icon: <Brain className="h-4 w-4 text-slate-500" /> },
                 ].map((s) => (
-                  <div key={s.label} className="rounded-xl border border-slate-800 bg-slate-950 p-4 flex items-center gap-3">
+                  <div key={s.label} className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-4 flex items-center gap-3">
                     {s.icon}
                     <div>
-                      <p className="text-xs text-slate-600">{s.label}</p>
-                      <p className="text-sm font-semibold text-slate-200">{s.value}</p>
+                      <p className="text-xs text-slate-400 dark:text-slate-600">{s.label}</p>
+                      <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">{s.value}</p>
                     </div>
                   </div>
                 ))}
@@ -104,7 +104,7 @@ export default async function AssessmentPage() {
                   ].map((m) => (
                     <div key={m.text} className={`flex items-center gap-2.5 rounded-xl border p-3 ${m.bg}`}>
                       {m.icon}
-                      <span className="text-xs text-slate-400">{m.text}</span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400">{m.text}</span>
                     </div>
                   ))}
                 </div>
