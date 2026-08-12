@@ -283,7 +283,7 @@ export default async function CourseAnalyticsPage({
                 <tbody className="divide-y divide-slate-200 dark:divide-slate-800/60">
                   {studentStats.map((s) => {
                     const name = `${s.firstName} ${s.lastName}`;
-                    const parts = name.trim().split(" ");
+                    const parts = name.trim().split(/\s+/).filter(Boolean);
                     const initials = parts.length >= 2 ? parts[0][0] + parts[1][0] : name.slice(0, 2);
                     const isInactive = s.lastActive && (Date.now() - s.lastActive.getTime()) > 7 * 24 * 60 * 60 * 1000;
                     return (
