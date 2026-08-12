@@ -192,7 +192,7 @@ export default async function DashboardPage() {
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>
                 {s.icon}
               </div>
-              <p className="f-syne text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
+              <p className="f-syne text-xl sm:text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
               <p className="text-xs text-slate-500 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
             </div>
           ))}

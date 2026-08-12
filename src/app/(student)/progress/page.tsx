@@ -87,7 +87,7 @@ export default async function ProgressPage() {
 
       <main className="flex-1 p-6 space-y-6">
         {/* Summary stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {[
             { icon: <TrendingUp className="h-5 w-5 text-emerald-400" />, label: "O'rtacha mastery", value: `${Math.round(avgMastery * 100)}%`, border: "border-emerald-500/20", glow: "bg-emerald-500/5", iconBg: "bg-emerald-500/10" },
             { icon: <CheckCircle2 className="h-5 w-5 text-blue-400" />, label: "O'zlashtirilgan", value: `${masteredTopics} / ${allKnowledge.length}`, border: "border-blue-500/20", glow: "bg-blue-500/5", iconBg: "bg-blue-500/10" },
@@ -96,7 +96,7 @@ export default async function ProgressPage() {
           ].map((s) => (
             <div key={s.label} className={`rounded-2xl border ${s.border} ${s.glow} p-5`}>
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
-              <p className="f-syne text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
+              <p className="f-syne text-xl sm:text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
               <p className="text-xs text-slate-500 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
               {"sub" in s && s.sub && <p className="text-xs text-amber-400 mt-1">{s.sub}</p>}
             </div>

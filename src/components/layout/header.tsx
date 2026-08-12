@@ -17,7 +17,7 @@ export function Header({ title, description }: HeaderProps) {
         <div>
           <h1 className="f-syne text-base font-bold text-slate-900 dark:text-white leading-tight">{title}</h1>
           {description && (
-            <p className="text-xs text-slate-500 leading-tight mt-0.5">{description}</p>
+            <p className="hidden sm:block text-xs text-slate-500 leading-tight mt-0.5">{description}</p>
           )}
         </div>
       </div>
