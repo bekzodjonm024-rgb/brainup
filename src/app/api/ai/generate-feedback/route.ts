@@ -45,7 +45,7 @@ ${question.explanation ? `Asosiy tushuntirish: ${question.explanation}` : ""}
 2-3 gap hajmida, o'zbek tilida, nima uchun to'g'ri javob shu ekanini va talabaning xatosi nima sababdan bo'lganini tushuntiring. Faqat tushuntirishning o'zini yozing.`;
 
   try {
-    const model = googleAI!.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = googleAI!.getGenerativeModel({ model: "gemini-3.5-flash" });
     const result = await model.generateContent(prompt);
     const feedback = result.response.text().trim();
 
