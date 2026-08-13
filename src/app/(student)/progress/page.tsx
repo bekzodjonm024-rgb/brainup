@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { Header } from "@/components/layout/header";
 import { CognitiveProfileCard } from "@/components/shared/cognitive-profile-card";
+import { CognitiveHistoryChart } from "@/components/shared/cognitive-history-chart";
 import { formatDate } from "@/lib/utils";
 import { TrendingUp, BookOpen, Zap, RefreshCw, Brain, CheckCircle2, Clock } from "lucide-react";
 
@@ -31,7 +32,7 @@ export default async function ProgressPage() {
 
   const studentId = session.user.profileId;
 
-  const student = await db.student.findUnique({
+  const [student, cognitiveHistory] = await Promise.all([db.student.findUnique({
     where: { id: studentId },
     include: {
       cognitiveProfile: true,
@@ -57,7 +58,20 @@ export default async function ProgressPage() {
         select: { status: true, dueAt: true },
       },
     },
-  });
+  }),
+  db.cognitiveHistory.findMany({
+    where: { studentId },
+    orderBy: { takenAt: "asc" },
+    select: {
+      id: true,
+      attentionScore: true,
+      workingMemoryScore: true,
+      processingSpeedScore: true,
+      memoryScore: true,
+      takenAt: true,
+    },
+  }),
+  ]);
 
   if (!student) redirect("/login");
 
@@ -229,6 +243,20 @@ export default async function ProgressPage() {
                   <Brain className="h-6 w-6 text-slate-400 dark:text-slate-600" />
                 </div>
                 <p className="text-sm text-slate-500">Kognitiv baholash bajarilmagan</p>
+              </div>
+            )}
+
+            {/* Cognitive history chart */}
+            {cognitiveHistory.length > 0 && (
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+                <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-1">
+                  <Brain className="h-4 w-4 text-slate-500" />
+                  Kognitiv rivojlanish
+                </h3>
+                <p className="text-xs text-slate-400 mb-4">{cognitiveHistory.length} ta diagnostik test</p>
+                <CognitiveHistoryChart
+                  history={cognitiveHistory.map((h) => ({ ...h, takenAt: h.takenAt.toISOString() }))}
+                />
               </div>
             )}
           </div>
