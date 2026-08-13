@@ -1,4 +1,47 @@
-# BrainUP Responsive Design
+# BRAINUP RESPONSIVE DESIGN EXPERT
+
+Every BrainUP page must work across:
+
+- large desktop
+- laptop
+- tablet
+- mobile
+
+Do not simply shrink desktop layouts.
+
+For mobile:
+
+- simplify
+- prioritize
+- stack
+- reduce density
+- preserve readability
+
+Check:
+
+- navigation
+- cards
+- charts
+- tables
+- forms
+- modals
+- buttons
+- typography
+
+Never allow:
+
+- horizontal scrolling
+- clipped content
+- overlapping elements
+- inaccessible controls
+
+Touch targets should be comfortably usable.
+
+Test extreme but realistic viewport widths.
+
+---
+
+# IMPLEMENTATION REFERENCE
 
 Mobile-first responsive patterns for BrainUP. All pages must work on 375px (iPhone SE) through 1440px (desktop). Read before writing layout code.
 
