@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { anthropic, isAIAvailable } from "@/lib/ai/client";
+import { googleAI, isAIAvailable } from "@/lib/ai/client";
 import { z } from "zod";
 
 const schema = z.object({
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
 
   if (!isAIAvailable()) {
     return NextResponse.json(
-      { error: "AI xizmati sozlanmagan. ANTHROPIC_API_KEY ni .env faylga qo'shing." },
+      { error: "AI xizmati sozlanmagan. GOOGLE_API_KEY ni Vercel'ga qo'shing." },
       { status: 503 }
     );
   }
@@ -95,16 +95,9 @@ Faqat JSON massivini qaytaring, boshqa matn yo'q:
 ]`;
 
   try {
-    const message = await anthropic!.messages.create({
-      model: "claude-haiku-4-5-20251001",
-      max_tokens: 2048,
-      messages: [{ role: "user", content: prompt }],
-    });
-
-    const rawText = message.content
-      .filter((b) => b.type === "text")
-      .map((b) => (b as { type: "text"; text: string }).text)
-      .join("");
+    const model = googleAI!.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const result = await model.generateContent(prompt);
+    const rawText = result.response.text();
 
     // Extract JSON array from response
     const jsonMatch = rawText.match(/\[[\s\S]*\]/);

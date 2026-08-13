@@ -1,15 +1,15 @@
-import Anthropic from "@anthropic-ai/sdk";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 function createClient() {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.GOOGLE_API_KEY;
   if (!apiKey) return null;
-  return new Anthropic({ apiKey });
+  return new GoogleGenerativeAI(apiKey);
 }
 
-const globalForAI = globalThis as unknown as { anthropic: Anthropic | null };
-export const anthropic = globalForAI.anthropic ?? createClient();
-if (process.env.NODE_ENV !== "production") globalForAI.anthropic = anthropic;
+const globalForAI = globalThis as unknown as { googleAI: GoogleGenerativeAI | null };
+export const googleAI = globalForAI.googleAI ?? createClient();
+if (process.env.NODE_ENV !== "production") globalForAI.googleAI = googleAI;
 
 export function isAIAvailable() {
-  return !!process.env.ANTHROPIC_API_KEY;
+  return !!process.env.GOOGLE_API_KEY;
 }
