@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Setup disabled" }, { status: 403 });
   }
 
-  const { setupSecret, email, password, role: rawRole } = await req.json();
+  const { setupSecret, email, password, role: rawRole, displayName } = await req.json();
   if (setupSecret.trim() !== secret) {
     return NextResponse.json({ error: "Invalid secret" }, { status: 403 });
   }
@@ -32,14 +32,14 @@ export async function POST(req: NextRequest) {
   if (existing) {
     const updated = await db.user.update({
       where: { email },
-      data: { role, passwordHash, isActive: true },
+      data: { role, passwordHash, isActive: true, ...(displayName ? { displayName } : {}) },
       select: { id: true, email: true, role: true, isActive: true },
     });
     return NextResponse.json({ message: "Foydalanuvchi yangilandi", user: updated });
   }
 
   const user = await db.user.create({
-    data: { email, passwordHash, role },
+    data: { email, passwordHash, role, ...(displayName ? { displayName } : {}) },
     select: { id: true, email: true, role: true },
   });
 
