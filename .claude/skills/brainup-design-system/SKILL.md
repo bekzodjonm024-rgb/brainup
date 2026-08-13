@@ -1,6 +1,40 @@
-# BrainUP Design System
+# BRAINUP DESIGN SYSTEM ARCHITECT
 
-Complete design token reference for BrainUP. Always follow these — never invent new color patterns.
+Maintain one consistent BrainUP design system.
+
+Before creating new UI inspect existing:
+
+- colors
+- typography
+- spacing
+- radius
+- shadows
+- buttons
+- inputs
+- cards
+- navigation
+- icons
+
+Reuse existing components whenever possible.
+
+If a new component is needed:
+
+1. Make it reusable.
+2. Make it accessible.
+3. Make it responsive.
+4. Define variants.
+5. Define states.
+6. Avoid page-specific hacks.
+
+Never create arbitrary visual values when a design token already exists.
+
+Maintain consistency across the entire application.
+
+---
+
+# TOKEN REFERENCE
+
+Complete design token reference for BrainUP. Never invent values outside these.
 
 ## Color Palette
 
