@@ -36,10 +36,38 @@ function formatDate(iso: string) {
 }
 
 export function CognitiveHistoryChart({ history }: Props) {
-  if (history.length < 2) {
+  if (history.length === 0) {
     return (
-      <div className="flex items-center justify-center h-40 text-slate-400 text-sm">
-        Grafik uchun kamida 2 ta diagnostik test natijasi kerak
+      <div className="flex items-center justify-center h-32 text-slate-400 text-sm">
+        Hali diagnostik test topshirilmagan
+      </div>
+    );
+  }
+
+  if (history.length === 1) {
+    const h = history[0];
+    const metrics = [
+      { label: "Diqqat",        score: h.attentionScore,        color: "bg-indigo-500", textColor: "text-indigo-600" },
+      { label: "Ishchi xotira", score: h.workingMemoryScore,    color: "bg-blue-500",   textColor: "text-blue-600" },
+      { label: "Tezlik",        score: h.processingSpeedScore,  color: "bg-amber-500",  textColor: "text-amber-600" },
+      { label: "Xotira",        score: h.memoryScore,           color: "bg-emerald-500", textColor: "text-emerald-600" },
+    ];
+    return (
+      <div className="space-y-3">
+        {metrics.map((m) => (
+          <div key={m.label}>
+            <div className="flex justify-between text-sm mb-1">
+              <span className="text-slate-500">{m.label}</span>
+              <span className={`font-semibold ${m.textColor}`}>{Math.round(m.score)}%</span>
+            </div>
+            <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+              <div className={`h-full rounded-full ${m.color}`} style={{ width: `${m.score}%` }} />
+            </div>
+          </div>
+        ))}
+        <p className="text-xs text-slate-400 pt-1">
+          1-test: {formatDate(h.takenAt)} — dinamika grafigi 2-testdan keyin ko&apos;rinadi
+        </p>
       </div>
     );
   }
