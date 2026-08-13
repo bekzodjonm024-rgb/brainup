@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { Header } from "@/components/layout/header";
+import { CognitiveHistoryChart } from "@/components/shared/cognitive-history-chart";
 import { Users, TrendingUp, Zap } from "lucide-react";
 
 function MiniBar({ value, max, color }: { value: number; max: number; color: string }) {
@@ -41,6 +42,8 @@ export default async function AdminAnalyticsPage() {
     masteryBuckets,
     topCourses,
     eventTypes,
+    allCognitiveHistory,
+    cognitiveAvg,
   ] = await Promise.all([
     db.student.count(),
     db.user.count({ where: { role: "STUDENT", createdAt: { gte: thirtyDaysAgo } } }),
@@ -66,6 +69,21 @@ export default async function AdminAnalyticsPage() {
       take: 5,
     }),
     db.learningEvent.groupBy({ by: ["eventType"], _count: { id: true }, orderBy: { _count: { id: "desc" } }, take: 6 }),
+    db.cognitiveHistory.findMany({
+      orderBy: { takenAt: "asc" },
+      select: {
+        id: true,
+        attentionScore: true,
+        workingMemoryScore: true,
+        processingSpeedScore: true,
+        memoryScore: true,
+        takenAt: true,
+      },
+    }),
+    db.cognitiveProfile.aggregate({
+      _avg: { attentionScore: true, workingMemoryScore: true, processingSpeedScore: true, memoryScore: true },
+      _count: { id: true },
+    }),
   ]);
 
   const buckets = { "0–25%": 0, "26–50%": 0, "51–75%": 0, "76–100%": 0 };
@@ -81,6 +99,43 @@ export default async function AdminAnalyticsPage() {
   const contentMap = Object.fromEntries(contentByStatus.map((r) => [r.status, r._count.id]));
   const maxEnrollment = Math.max(...topCourses.map((c) => c._count.enrollments), 1);
   const maxEventCount = Math.max(...eventTypes.map((e) => e._count.id), 1);
+
+  // Haftalik o'rtacha kognitiv ko'rsatkichlar
+  function weekKey(date: Date) {
+    const d = new Date(date);
+    d.setHours(0, 0, 0, 0);
+    d.setDate(d.getDate() - d.getDay()); // hafta boshi (yakshanba)
+    return d.toISOString();
+  }
+
+  const weekMap = new Map<string, { sum: number[]; count: number }>();
+  for (const h of allCognitiveHistory) {
+    const key = weekKey(h.takenAt);
+    if (!weekMap.has(key)) weekMap.set(key, { sum: [0, 0, 0, 0], count: 0 });
+    const entry = weekMap.get(key)!;
+    entry.sum[0] += h.attentionScore;
+    entry.sum[1] += h.workingMemoryScore;
+    entry.sum[2] += h.processingSpeedScore;
+    entry.sum[3] += h.memoryScore;
+    entry.count++;
+  }
+
+  const weeklyChartData = Array.from(weekMap.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([key, { sum, count }], i) => ({
+      id: `week-${i}`,
+      attentionScore: sum[0] / count,
+      workingMemoryScore: sum[1] / count,
+      processingSpeedScore: sum[2] / count,
+      memoryScore: sum[3] / count,
+      takenAt: key,
+    }));
+
+  const profileCount = cognitiveAvg._count.id;
+  const avgAttention = Math.round(cognitiveAvg._avg.attentionScore ?? 0);
+  const avgWM = Math.round(cognitiveAvg._avg.workingMemoryScore ?? 0);
+  const avgSpeed = Math.round(cognitiveAvg._avg.processingSpeedScore ?? 0);
+  const avgMemory = Math.round(cognitiveAvg._avg.memoryScore ?? 0);
 
   const EVENT_LABELS: Record<string, string> = {
     LESSON_STARTED: "Dars boshlandi",
@@ -207,6 +262,37 @@ export default async function AdminAnalyticsPage() {
             </div>
           </div>
         </div>
+
+        {/* Cognitive dynamics */}
+        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+          <div className="flex flex-wrap items-start justify-between gap-4 mb-5">
+            <div>
+              <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300">
+                Platformadagi kognitiv dinamika
+              </h3>
+              <p className="text-xs text-slate-400 mt-0.5">
+                {allCognitiveHistory.length} ta diagnostik test — {profileCount} ta talaba profili
+              </p>
+            </div>
+            {profileCount > 0 && (
+              <div className="flex flex-wrap gap-3">
+                {[
+                  { label: "Diqqat", value: avgAttention, color: "text-indigo-600 bg-indigo-50 dark:bg-indigo-950/40 border-indigo-200 dark:border-indigo-800" },
+                  { label: "Ishchi xotira", value: avgWM, color: "text-blue-600 bg-blue-50 dark:bg-blue-950/40 border-blue-200 dark:border-blue-800" },
+                  { label: "Tezlik", value: avgSpeed, color: "text-amber-600 bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800" },
+                  { label: "Xotira", value: avgMemory, color: "text-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800" },
+                ].map((m) => (
+                  <div key={m.label} className={`rounded-lg border px-3 py-1.5 ${m.color}`}>
+                    <p className="text-[11px] font-medium opacity-70">{m.label}</p>
+                    <p className="text-lg font-bold leading-tight">{m.value}%</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <CognitiveHistoryChart history={weeklyChartData} />
+        </div>
+
       </main>
     </div>
   );
