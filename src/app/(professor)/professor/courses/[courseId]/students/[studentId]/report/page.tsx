@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { redirect, notFound } from "next/navigation";
 import { Header } from "@/components/layout/header";
 import { CognitiveProfileCard } from "@/components/shared/cognitive-profile-card";
+import { CognitiveHistoryChart } from "@/components/shared/cognitive-history-chart";
 import Link from "next/link";
 import { ArrowLeft, Brain, CheckCircle2, Zap, BookOpen, Clock } from "lucide-react";
 import { formatDate } from "@/lib/utils";
@@ -38,13 +39,27 @@ export default async function StudentReportPage({
   });
   if (!enrollment) notFound();
 
-  const student = await db.student.findUnique({
-    where: { id: studentId },
-    include: {
-      cognitiveProfile: true,
-      user: { select: { email: true } },
-    },
-  });
+  const [student, cognitiveHistory] = await Promise.all([
+    db.student.findUnique({
+      where: { id: studentId },
+      include: {
+        cognitiveProfile: true,
+        user: { select: { email: true } },
+      },
+    }),
+    db.cognitiveHistory.findMany({
+      where: { studentId },
+      orderBy: { takenAt: "asc" },
+      select: {
+        id: true,
+        attentionScore: true,
+        workingMemoryScore: true,
+        processingSpeedScore: true,
+        memoryScore: true,
+        takenAt: true,
+      },
+    }),
+  ]);
   if (!student) notFound();
 
   const topics = await db.topic.findMany({
@@ -198,6 +213,17 @@ export default async function StudentReportPage({
               </div>
             )}
           </div>
+        </div>
+
+        {/* Cognitive history chart */}
+        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+          <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 mb-1">
+            Kognitiv rivojlanish dinamikasi
+          </h3>
+          <p className="text-xs text-slate-400 mb-4">{cognitiveHistory.length} ta diagnostik test natijasi</p>
+          <CognitiveHistoryChart
+            history={cognitiveHistory.map((h) => ({ ...h, takenAt: h.takenAt.toISOString() }))}
+          />
         </div>
       </main>
     </div>

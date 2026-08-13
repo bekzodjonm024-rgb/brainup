@@ -69,11 +69,29 @@ export async function POST(_req: NextRequest, { params }: { params: Promise<{ se
     },
   });
 
-  // Mark session as completed only after profile is safely persisted
-  await db.assessmentSession.update({
-    where: { id: sessionId },
-    data: { status: "COMPLETED", completedAt: new Date() },
-  });
+  const nextDiagnosticAt = new Date(Date.now() + 10 * 24 * 60 * 60 * 1000);
+
+  // Mark session completed + set next diagnostic date
+  await Promise.all([
+    db.assessmentSession.update({
+      where: { id: sessionId },
+      data: { status: "COMPLETED", completedAt: new Date() },
+    }),
+    db.student.update({
+      where: { id: session.user.profileId },
+      data: { nextDiagnosticAt },
+    }),
+    db.cognitiveHistory.create({
+      data: {
+        studentId: session.user.profileId,
+        assessmentSessionId: sessionId,
+        attentionScore: scores.attention,
+        workingMemoryScore: scores.workingMemory,
+        processingSpeedScore: scores.processingSpeed,
+        memoryScore: scores.memory,
+      },
+    }),
+  ]);
 
   // Log event — non-critical, swallow errors
   try {

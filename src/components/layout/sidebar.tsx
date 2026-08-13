@@ -33,6 +33,7 @@ const studentNav: NavItem[] = [
   { href: "/dashboard", label: "Bosh sahifa", icon: LayoutDashboard, exact: true },
   { href: "/courses", label: "Kurslarim", icon: BookOpen },
   { href: "/assessment", label: "Baholash", icon: Brain },
+  { href: "/training", label: "Kognitiv mashqlar", icon: FlaskConical },
   { href: "/retrieval", label: "Takrorlash", icon: RefreshCw },
   { href: "/progress", label: "Progressim", icon: TrendingUp },
   { href: "/profile", label: "Profilim", icon: UserCircle },

@@ -149,15 +149,21 @@ model Student {
   // Research: pseudonymized participant ID
   researchId   String?    @unique
 
+  // Cognitive training cycle
+  nextDiagnosticAt DateTime?
+
   enrollments         Enrollment[]
   assessmentSessions  AssessmentSession[]
   cognitiveProfile    CognitiveProfile?
+  cognitiveHistory    CognitiveHistory[]
   learnerKnowledge    LearnerKnowledge[]
   attempts            Attempt[]
   learningEvents      LearningEvent[]
   interventions       Intervention[]
   retrievalRecords    RetrievalRecord[]
   recommendations     Recommendation[]
+  dailyTrainingPlans  DailyTrainingPlan[]
+  trainingSessions    TrainingSession[]
 
   @@map("students")
 }
@@ -349,6 +355,54 @@ model CognitiveProfile {
   createdAt               DateTime          @default(now())
 
   @@map("cognitive_profiles")
+}
+
+// ─── COGNITIVE HISTORY ───────────────────────────────────────
+
+model CognitiveHistory {
+  id                   String   @id @default(cuid())
+  studentId            String
+  student              Student  @relation(fields: [studentId], references: [id])
+  assessmentSessionId  String?  @unique
+  attentionScore       Float
+  workingMemoryScore   Float
+  processingSpeedScore Float
+  memoryScore          Float
+  takenAt              DateTime @default(now())
+
+  @@map("cognitive_history")
+}
+
+// ─── COGNITIVE TRAINING ──────────────────────────────────────
+
+model DailyTrainingPlan {
+  id         String   @id @default(cuid())
+  studentId  String
+  student    Student  @relation(fields: [studentId], references: [id])
+  planDate   DateTime
+  cycleDay   Int
+  exercises  Json
+  isComplete Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  trainingSessions TrainingSession[]
+
+  @@unique([studentId, planDate])
+  @@map("daily_training_plans")
+}
+
+model TrainingSession {
+  id          String            @id @default(cuid())
+  studentId   String
+  student     Student           @relation(fields: [studentId], references: [id])
+  planId      String
+  plan        DailyTrainingPlan @relation(fields: [planId], references: [id])
+  category    String
+  difficulty  String
+  score       Float
+  completedAt DateTime          @default(now())
+
+  @@map("training_sessions")
 }
 
 // ─── ENROLLMENT ──────────────────────────────────────────────
