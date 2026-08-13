@@ -91,7 +91,7 @@ model User {
   role          Role      @default(STUDENT)
   isActive      Boolean   @default(true)
   avatarUrl     String?
-  displayName   String?
+  displayName   String?   @map("display_name")
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
