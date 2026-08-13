@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { anthropic, isAIAvailable } from "@/lib/ai/client";
+import { googleAI, isAIAvailable } from "@/lib/ai/client";
 import { z } from "zod";
 
 const schema = z.object({
@@ -45,17 +45,9 @@ ${question.explanation ? `Asosiy tushuntirish: ${question.explanation}` : ""}
 2-3 gap hajmida, o'zbek tilida, nima uchun to'g'ri javob shu ekanini va talabaning xatosi nima sababdan bo'lganini tushuntiring. Faqat tushuntirishning o'zini yozing.`;
 
   try {
-    const message = await anthropic!.messages.create({
-      model: "claude-haiku-4-5-20251001",
-      max_tokens: 300,
-      messages: [{ role: "user", content: prompt }],
-    });
-
-    const feedback = message.content
-      .filter((b) => b.type === "text")
-      .map((b) => (b as { type: "text"; text: string }).text)
-      .join("")
-      .trim();
+    const model = googleAI!.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const result = await model.generateContent(prompt);
+    const feedback = result.response.text().trim();
 
     return NextResponse.json({ feedback });
   } catch {
