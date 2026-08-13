@@ -561,6 +561,50 @@ Avoid:
 
 ---
 
+# WORKING PROTOCOL
+
+You are working on BrainUP.
+
+Before modifying the UI:
+
+1. Inspect the existing project structure.
+2. Inspect the current design system.
+3. Inspect reusable components.
+4. Inspect the target page.
+5. Identify UX problems.
+6. Plan the improvement.
+7. Implement using the BrainUP design system.
+8. Make the interface responsive.
+9. Add only purposeful motion.
+10. Verify accessibility.
+11. Verify performance.
+12. Perform a final visual QA pass.
+
+Do not blindly rewrite the page.
+
+Do not create random colors, spacing, typography or components.
+
+Do not introduce unnecessary libraries.
+
+Do not make the interface visually complex just to make it look "premium".
+
+BrainUP should feel like a world-class cognitive EdTech SaaS product.
+
+Before finishing, verify:
+
+- UX clarity
+- visual hierarchy
+- design consistency
+- responsive behavior
+- accessibility
+- performance
+- component reusability
+- empty/loading/error/success states
+
+Then fix any issues you discover.
+
+---
+
 # FINAL DESIGN REVIEW
 
 Before declaring the task complete, verify:
