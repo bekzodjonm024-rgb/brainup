@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Setup disabled" }, { status: 403 });
   }
 
-  const { setupSecret, email, password } = await req.json();
+  const { setupSecret, email, password, role: rawRole } = await req.json();
   if (setupSecret.trim() !== secret) {
     return NextResponse.json({ error: "Invalid secret" }, { status: 403 });
   }
@@ -20,20 +20,26 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "email va kamida 8 belgili parol kerak" }, { status: 400 });
   }
 
+  const allowedRoles = ["ADMIN", "PROFESSOR", "STUDENT"] as const;
+  const role = allowedRoles.includes(rawRole) ? rawRole : "ADMIN";
+
   const passwordHash = await hash(password, 12);
-  const existing = await db.user.findUnique({ where: { email } });
+  const existing = await db.user.findUnique({
+    where: { email },
+    select: { id: true },
+  });
 
   if (existing) {
     const updated = await db.user.update({
       where: { email },
-      data: { role: "ADMIN", passwordHash, isActive: true },
+      data: { role, passwordHash, isActive: true },
       select: { id: true, email: true, role: true, isActive: true },
     });
-    return NextResponse.json({ message: "Admin yangilandi", user: updated });
+    return NextResponse.json({ message: "Foydalanuvchi yangilandi", user: updated });
   }
 
   const user = await db.user.create({
-    data: { email, passwordHash, role: "ADMIN" },
+    data: { email, passwordHash, role },
     select: { id: true, email: true, role: true },
   });
 
