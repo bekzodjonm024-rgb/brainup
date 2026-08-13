@@ -71,7 +71,7 @@ export function Sidebar({ role, userName, avatarUrl, onClose, badges }: SidebarP
   const initial = userName.charAt(0).toUpperCase();
 
   return (
-    <aside className="flex h-screen w-64 flex-col bg-slate-50 dark:bg-slate-950">
+    <aside className="flex h-screen w-64 flex-col bg-slate-950">
       {/* Logo */}
       <div className="flex h-16 items-center gap-2.5 border-b border-slate-200 dark:border-slate-800 px-5">
         <BrainUPLogo size="sm" href="/" />

@@ -329,12 +329,12 @@ export function PracticeSession({
 
           {/* Complete */}
           {phase === "complete" && (
-            <div className="rounded-2xl border border-amber-500/20 bg-white dark:bg-slate-900 p-8 text-center space-y-5">
-              <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mx-auto">
-                <Trophy className="h-8 w-8 text-amber-400" />
+            <div className="rounded-2xl border border-emerald-500/20 bg-white dark:bg-slate-900 p-8 text-center space-y-5">
+              <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mx-auto">
+                <Trophy className="h-8 w-8 text-emerald-500" />
               </div>
               <div>
-                <h2 className="f-syne text-xl font-bold text-slate-900 dark:text-white">Mashq yakunlandi!</h2>
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white">Mashq yakunlandi!</h2>
                 <p className="text-slate-500 mt-1 text-sm">
                   {stats.correct}/{stats.total} to&apos;g&apos;ri javob
                 </p>

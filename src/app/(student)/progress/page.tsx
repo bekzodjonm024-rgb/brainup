@@ -11,17 +11,17 @@ import { TrendingUp, BookOpen, Zap, RefreshCw, Brain, CheckCircle2, Clock } from
 
 function masteryBadge(score: number | null) {
   if (score === null) return "text-slate-500 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700";
-  if (score >= 0.85) return "text-emerald-400 bg-emerald-500/10 border border-emerald-500/20";
-  if (score >= 0.6) return "text-blue-400 bg-blue-500/10 border border-blue-500/20";
-  if (score >= 0.3) return "text-amber-400 bg-amber-500/10 border border-amber-500/20";
-  return "text-red-400 bg-red-500/10 border border-red-500/20";
+  if (score >= 0.85) return "text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20";
+  if (score >= 0.6) return "text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20";
+  if (score >= 0.4) return "text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20";
+  return "text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20";
 }
 
 function masteryLabel(score: number | null) {
   if (score === null) return "Boshlanmagan";
   if (score >= 0.85) return "O'zlashtirildi";
   if (score >= 0.6) return "Yaxshi";
-  if (score >= 0.3) return "O'rta";
+  if (score >= 0.4) return "O'rta";
   return "Boshlang'ich";
 }
 
@@ -89,16 +89,16 @@ export default async function ProgressPage() {
         {/* Summary stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { icon: <TrendingUp className="h-5 w-5 text-emerald-400" />, label: "O'rtacha mastery", value: `${Math.round(avgMastery * 100)}%`, border: "border-emerald-500/20", glow: "bg-emerald-500/5", iconBg: "bg-emerald-500/10" },
-            { icon: <CheckCircle2 className="h-5 w-5 text-blue-400" />, label: "O'zlashtirilgan", value: `${masteredTopics} / ${allKnowledge.length}`, border: "border-blue-500/20", glow: "bg-blue-500/5", iconBg: "bg-blue-500/10" },
-            { icon: <Zap className="h-5 w-5 text-amber-400" />, label: "Aniqlik", value: totalAttempts > 0 ? `${Math.round(accuracy * 100)}%` : "—", border: "border-amber-500/20", glow: "bg-amber-500/5", iconBg: "bg-amber-500/10" },
-            { icon: <RefreshCw className="h-5 w-5 text-violet-400" />, label: "Takrorlash", value: `${retrievalDone} bajarildi`, border: "border-violet-500/20", glow: "bg-violet-500/5", iconBg: "bg-violet-500/10", sub: retrievalPending > 0 ? `${retrievalPending} muddati o'tgan` : undefined },
+            { icon: <TrendingUp className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />, label: "O'rtacha mastery", value: `${Math.round(avgMastery * 100)}%`, iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
+            { icon: <CheckCircle2 className="h-5 w-5 text-blue-600 dark:text-blue-400" />, label: "O'zlashtirilgan", value: `${masteredTopics} / ${allKnowledge.length}`, iconBg: "bg-blue-50 dark:bg-blue-950/50" },
+            { icon: <Zap className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "Aniqlik", value: totalAttempts > 0 ? `${Math.round(accuracy * 100)}%` : "—", iconBg: "bg-amber-50 dark:bg-amber-950/50" },
+            { icon: <RefreshCw className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "Takrorlash", value: `${retrievalDone} bajarildi`, iconBg: "bg-violet-50 dark:bg-violet-950/50", sub: retrievalPending > 0 ? `${retrievalPending} muddati o'tgan` : undefined },
           ].map((s) => (
-            <div key={s.label} className={`rounded-2xl border ${s.border} ${s.glow} p-5`}>
+            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
-              <p className="f-syne text-xl sm:text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
-              <p className="text-xs text-slate-500 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
-              {"sub" in s && s.sub && <p className="text-xs text-amber-400 mt-1">{s.sub}</p>}
+              <p className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
+              {"sub" in s && s.sub && <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">{s.sub}</p>}
             </div>
           ))}
         </div>
@@ -142,7 +142,10 @@ export default async function ProgressPage() {
                         </span>
                       </div>
                       <div className="h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-                        <div className="h-full bg-blue-500 rounded-full" style={{ width: `${topics.length > 0 ? (mastered / topics.length) * 100 : 0}%` }} />
+                        <div
+                          className={`h-full rounded-full ${courseMastery >= 0.85 ? "bg-emerald-500" : courseMastery >= 0.6 ? "bg-blue-500" : courseMastery >= 0.4 ? "bg-amber-500" : "bg-red-500"}`}
+                          style={{ width: `${topics.length > 0 ? (mastered / topics.length) * 100 : 0}%` }}
+                        />
                       </div>
                     </div>
                     <div className="divide-y divide-slate-200 dark:divide-slate-800/60">

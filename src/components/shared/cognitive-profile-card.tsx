@@ -59,7 +59,7 @@ export function CognitiveProfileCard(props: CognitiveProfileCardProps) {
       <div className="space-y-4">
         {metrics.map(({ key, label, sublabel, barClass, textClass, bgClass }) => {
           const raw   = props[key];
-          const value = raw !== null && raw !== undefined ? Math.round(raw) : null;
+          const value = raw !== null && raw !== undefined ? Math.round(raw * 100) : null;
           return (
             <div key={key} className="space-y-1.5">
               <div className="flex items-center justify-between">

@@ -156,44 +156,36 @@ export default async function DashboardPage() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {[
             {
-              icon: <BookOpen className="h-5 w-5 text-blue-400" />,
+              icon: <BookOpen className="h-5 w-5 text-blue-600 dark:text-blue-400" />,
               label: "Kurslar",
               value: student.enrollments.length,
-              border: "border-blue-500/20",
-              glow: "bg-blue-500/5",
-              iconBg: "bg-blue-500/10",
+              iconBg: "bg-blue-50 dark:bg-blue-950/50",
             },
             {
-              icon: <TrendingUp className="h-5 w-5 text-emerald-400" />,
+              icon: <TrendingUp className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />,
               label: "O'rtacha mastery",
               value: `${Math.round(avgMastery * 100)}%`,
-              border: "border-emerald-500/20",
-              glow: "bg-emerald-500/5",
-              iconBg: "bg-emerald-500/10",
+              iconBg: "bg-emerald-50 dark:bg-emerald-950/50",
             },
             {
-              icon: <RefreshCw className="h-5 w-5 text-amber-400" />,
+              icon: <RefreshCw className="h-5 w-5 text-amber-600 dark:text-amber-400" />,
               label: "Takrorlash",
               value: dueRetrievals,
-              border: "border-amber-500/20",
-              glow: "bg-amber-500/5",
-              iconBg: "bg-amber-500/10",
+              iconBg: "bg-amber-50 dark:bg-amber-950/50",
             },
             {
-              icon: <Brain className="h-5 w-5 text-violet-400" />,
+              icon: <Brain className="h-5 w-5 text-violet-600 dark:text-violet-400" />,
               label: "Baholash",
               value: hasAssessment ? "✓ Bajarildi" : "Kutilmoqda",
-              border: "border-violet-500/20",
-              glow: "bg-violet-500/5",
-              iconBg: "bg-violet-500/10",
+              iconBg: "bg-violet-50 dark:bg-violet-950/50",
             },
           ].map((s) => (
-            <div key={s.label} className={`rounded-2xl border ${s.border} ${s.glow} p-5`}>
+            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>
                 {s.icon}
               </div>
-              <p className="f-syne text-xl sm:text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
-              <p className="text-xs text-slate-500 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
+              <p className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
             </div>
           ))}
         </div>
@@ -205,7 +197,7 @@ export default async function DashboardPage() {
             {topRecs.length > 0 && (
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <h2 className="f-syne font-bold text-slate-900 dark:text-white">Keyingi qadam</h2>
+                  <h2 className="text-base font-semibold text-slate-900 dark:text-white">Keyingi qadam</h2>
                   <span className="text-xs text-slate-400 dark:text-slate-600 uppercase tracking-wide">Adaptiv tavsiya</span>
                 </div>
                 <div className="space-y-2">
@@ -243,7 +235,7 @@ export default async function DashboardPage() {
             {/* Courses */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <h2 className="f-syne font-bold text-slate-900 dark:text-white">Kurslarim</h2>
+                <h2 className="text-base font-semibold text-slate-900 dark:text-white">Kurslarim</h2>
                 <Link href="/courses">
                   <Button variant="ghost" size="sm" className="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs gap-1">
                     Barchasini ko&apos;rish <ArrowRight className="h-3 w-3" />

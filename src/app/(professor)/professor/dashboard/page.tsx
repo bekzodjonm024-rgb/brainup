@@ -8,7 +8,6 @@ import { Header } from "@/components/layout/header";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { BookOpen, Users, TrendingUp, AlertTriangle, ArrowRight, Plus, BarChart3 } from "lucide-react";
-import { AvatarUpload } from "@/components/shared/avatar-upload";
 
 export default async function ProfessorDashboard() {
   const session = await auth();
@@ -62,40 +61,52 @@ export default async function ProfessorDashboard() {
       <main className="flex-1 p-6 space-y-6">
 
         {/* Profile row */}
-        <div className="flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
-          <AvatarUpload
-            currentUrl={professor.user.avatarUrl}
-            initials={`${professor.firstName[0]}${professor.lastName[0]}`}
-            size="md"
-          />
+        <div className="flex items-center gap-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
+          <div className="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-950/50 border border-slate-200 dark:border-slate-700 flex items-center justify-center shrink-0">
+            {professor.user.avatarUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={professor.user.avatarUrl} alt="" className="w-10 h-10 rounded-full object-cover" />
+            ) : (
+              <span className="text-sm font-bold text-blue-600 dark:text-blue-400 uppercase">
+                {professor.firstName[0]}{professor.lastName[0]}
+              </span>
+            )}
+          </div>
           <div>
             <p className="font-semibold text-slate-900 dark:text-white">{professor.firstName} {professor.lastName}</p>
             {professor.title && <p className="text-sm text-slate-500">{professor.title}</p>}
+          </div>
+          <div className="ml-auto">
+            <Link href="/professor/profile">
+              <Button variant="ghost" size="sm" className="text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">
+                Profil →
+              </Button>
+            </Link>
           </div>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[
-            { icon: <BookOpen className="h-5 w-5 text-blue-400" />,     label: "Kurslar",        value: totalCourses,         border: "border-blue-500/20",   glow: "bg-blue-500/5",   iconBg: "bg-blue-500/10" },
-            { icon: <Users className="h-5 w-5 text-emerald-400" />,      label: "Talabalar",      value: totalStudents,         border: "border-emerald-500/20",glow: "bg-emerald-500/5",iconBg: "bg-emerald-500/10" },
-            { icon: <AlertTriangle className="h-5 w-5 text-amber-400" />, label: "Qiyin mavzular", value: difficultTopics.length, border: "border-amber-500/20",  glow: "bg-amber-500/5",  iconBg: "bg-amber-500/10" },
+            { icon: <BookOpen className="h-5 w-5 text-blue-600 dark:text-blue-400" />,      label: "Kurslar",        value: totalCourses,          iconBg: "bg-blue-50 dark:bg-blue-950/50" },
+            { icon: <Users className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />,   label: "Talabalar",      value: totalStudents,          iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
+            { icon: <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "Qiyin mavzular", value: difficultTopics.length, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
           ].map((s) => (
-            <div key={s.label} className={`rounded-2xl border ${s.border} ${s.glow} p-5`}>
+            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
-              <p className="f-syne text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
-              <p className="text-xs text-slate-500 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
+              <p className="text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
             </div>
           ))}
 
           <Link href="/professor/analytics">
-            <div className="rounded-2xl border border-violet-500/20 bg-violet-500/5 p-5 hover:border-violet-500/40 transition-colors h-full flex flex-col justify-between cursor-pointer">
-              <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center mb-4">
-                <BarChart3 className="h-5 w-5 text-violet-400" />
+            <div className="rounded-xl border border-violet-200 dark:border-violet-900/50 bg-white dark:bg-slate-800 p-5 hover:border-violet-300 dark:hover:border-violet-800 transition-colors h-full flex flex-col justify-between cursor-pointer shadow-sm">
+              <div className="w-10 h-10 rounded-xl bg-violet-50 dark:bg-violet-950/50 flex items-center justify-center mb-4">
+                <BarChart3 className="h-5 w-5 text-violet-600 dark:text-violet-400" />
               </div>
               <div>
-                <p className="text-xs text-slate-500 uppercase tracking-wide font-medium mb-1">Analitika</p>
-                <p className="text-sm font-semibold text-violet-400">Ko&apos;rish →</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide font-medium mb-1">Analitika</p>
+                <p className="text-sm font-semibold text-violet-600 dark:text-violet-400">Ko&apos;rish →</p>
               </div>
             </div>
           </Link>
@@ -105,7 +116,7 @@ export default async function ProfessorDashboard() {
           {/* Courses */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="f-syne font-bold text-slate-900 dark:text-white">Mening kurslarim</h2>
+              <h2 className="text-base font-semibold text-slate-900 dark:text-white">Mening kurslarim</h2>
               <Link href="/professor/courses/new">
                 <Button size="sm" className="bg-blue-600 hover:bg-blue-500 border-0 text-white gap-1">
                   <Plus className="h-3.5 w-3.5" /> Yangi kurs
@@ -158,7 +169,7 @@ export default async function ProfessorDashboard() {
 
           {/* Difficult topics */}
           <div className="space-y-4">
-            <h2 className="f-syne font-bold text-slate-900 dark:text-white">Qiyin mavzular</h2>
+            <h2 className="text-base font-semibold text-slate-900 dark:text-white">Qiyin mavzular</h2>
             {difficultTopics.length === 0 ? (
               <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-8 text-center">
                 <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mx-auto mb-3">

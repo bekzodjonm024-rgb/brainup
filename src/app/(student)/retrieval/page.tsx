@@ -67,27 +67,27 @@ export default async function RetrievalPage() {
         description="Spaced repetition — bilimlarni uzoq muddatga saqlash"
       />
 
-      <main className="flex-1 p-6 space-y-6 max-w-2xl">
+      <main className="flex-1 p-6 space-y-6 max-w-2xl mx-auto w-full">
 
         {/* Stats row */}
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {[
-            { icon: <RotateCcw className="h-5 w-5 text-amber-400" />, label: "Bugun muddati o'tgan", value: dueRecords.length, border: "border-amber-500/20", glow: "bg-amber-500/5", iconBg: "bg-amber-500/10" },
-            { icon: <Clock className="h-5 w-5 text-blue-400" />, label: "Kelayotgan (14 kun)", value: upcomingRecords.length, border: "border-blue-500/20", glow: "bg-blue-500/5", iconBg: "bg-blue-500/10" },
-            { icon: <CheckCircle2 className="h-5 w-5 text-emerald-400" />, label: "Bu oy bajarildi", value: completedCount, border: "border-emerald-500/20", glow: "bg-emerald-500/5", iconBg: "bg-emerald-500/10" },
+            { icon: <RotateCcw className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "Bugun muddati o'tgan", value: dueRecords.length, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
+            { icon: <Clock className="h-5 w-5 text-blue-600 dark:text-blue-400" />, label: "Kelayotgan (14 kun)", value: upcomingRecords.length, iconBg: "bg-blue-50 dark:bg-blue-950/50" },
+            { icon: <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />, label: "Bu oy bajarildi", value: completedCount, iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
           ].map((s) => (
-            <div key={s.label} className={`rounded-2xl border ${s.border} ${s.glow} p-4`}>
+            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 shadow-sm">
               <div className={`w-9 h-9 rounded-xl ${s.iconBg} flex items-center justify-center mb-3`}>{s.icon}</div>
-              <p className="f-syne text-xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
-              <p className="text-xs text-slate-500 mt-1.5 leading-tight">{s.label}</p>
+              <p className="text-xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 leading-tight">{s.label}</p>
             </div>
           ))}
         </div>
 
         {/* Due records */}
         <section className="space-y-3">
-          <h2 className="f-syne font-bold text-slate-600 dark:text-slate-300 flex items-center gap-2">
-            <RotateCcw className="h-4 w-4 text-amber-400" />
+          <h2 className="text-base font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
+            <RotateCcw className="h-4 w-4 text-amber-500" />
             Takrorlash kerak
             {dueRecords.length > 0 && (
               <span className="text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 rounded-full px-2 py-0.5 ml-1">
@@ -132,7 +132,7 @@ export default async function RetrievalPage() {
                       </div>
                     </div>
                     <Link href={`/retrieval/${rec.topic.id}?recordId=${rec.id}`}>
-                      <Button size="sm" className="bg-violet-600 hover:bg-violet-500 text-white border-0">
+                      <Button size="sm" className="bg-blue-600 hover:bg-blue-500 text-white border-0">
                         Boshlash <ArrowRight className="h-3 w-3 ml-1" />
                       </Button>
                     </Link>
@@ -146,8 +146,8 @@ export default async function RetrievalPage() {
         {/* Upcoming */}
         {upcomingRecords.length > 0 && (
           <section className="space-y-3">
-            <h2 className="f-syne font-bold text-slate-600 dark:text-slate-300 flex items-center gap-2">
-              <Clock className="h-4 w-4 text-blue-400" />
+            <h2 className="text-base font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
+              <Clock className="h-4 w-4 text-blue-500" />
               Kelayotgan takrorlashlar
             </h2>
             <div className="space-y-2">

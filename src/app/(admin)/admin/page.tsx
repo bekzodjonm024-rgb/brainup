@@ -61,12 +61,12 @@ export default async function AdminDashboardPage() {
   ]);
 
   const stats = [
-    { icon: <Users className="h-5 w-5 text-blue-400" />, label: "Jami talabalar", value: totalStudents, border: "border-blue-500/20", glow: "bg-blue-500/5", iconBg: "bg-blue-500/10" },
-    { icon: <UserCheck className="h-5 w-5 text-emerald-400" />, label: "Faol talabalar", value: activeStudents, border: "border-emerald-500/20", glow: "bg-emerald-500/5", iconBg: "bg-emerald-500/10" },
-    { icon: <GraduationCap className="h-5 w-5 text-violet-400" />, label: "Professorlar", value: totalProfessors, border: "border-violet-500/20", glow: "bg-violet-500/5", iconBg: "bg-violet-500/10" },
-    { icon: <BookOpen className="h-5 w-5 text-amber-400" />, label: "Faol kurslar", value: totalCourses, border: "border-amber-500/20", glow: "bg-amber-500/5", iconBg: "bg-amber-500/10" },
-    { icon: <TrendingUp className="h-5 w-5 text-pink-400" />, label: "Yozilishlar", value: totalEnrollments, border: "border-pink-500/20", glow: "bg-pink-500/5", iconBg: "bg-pink-500/10" },
-    { icon: <Brain className="h-5 w-5 text-cyan-400" />, label: "Baholash yakunlangan", value: assessmentsCompleted, border: "border-cyan-500/20", glow: "bg-cyan-500/5", iconBg: "bg-cyan-500/10" },
+    { icon: <Users className="h-5 w-5 text-blue-600 dark:text-blue-400" />, label: "Jami talabalar", value: totalStudents, iconBg: "bg-blue-50 dark:bg-blue-950/50" },
+    { icon: <UserCheck className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />, label: "Faol talabalar", value: activeStudents, iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
+    { icon: <GraduationCap className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "Professorlar", value: totalProfessors, iconBg: "bg-violet-50 dark:bg-violet-950/50" },
+    { icon: <BookOpen className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "Faol kurslar", value: totalCourses, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
+    { icon: <TrendingUp className="h-5 w-5 text-pink-600 dark:text-pink-400" />, label: "Yozilishlar", value: totalEnrollments, iconBg: "bg-pink-50 dark:bg-pink-950/50" },
+    { icon: <Brain className="h-5 w-5 text-cyan-600 dark:text-cyan-400" />, label: "Baholash yakunlangan", value: assessmentsCompleted, iconBg: "bg-cyan-50 dark:bg-cyan-950/50" },
   ];
 
   const quickLinks = [
@@ -119,17 +119,17 @@ export default async function AdminDashboardPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {stats.map((s) => (
-            <div key={s.label} className={`rounded-2xl border ${s.border} ${s.glow} p-5`}>
+            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
-              <p className="f-syne text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
-              <p className="text-xs text-slate-500 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
+              <p className="text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
             </div>
           ))}
         </div>
 
         {/* Quick links */}
         <div>
-          <h2 className="f-syne text-sm font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wider">Bo&apos;limlar</h2>
+          <h2 className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wider">Bo&apos;limlar</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {quickLinks.map((link) => {
               const Icon = link.icon;
@@ -181,7 +181,7 @@ export default async function AdminDashboardPage() {
                   return (
                     <div key={u.id} className="flex items-center gap-3 px-5 py-3">
                       <div className="h-8 w-8 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center text-xs font-bold shrink-0 uppercase">
-                        {name.slice(0, 2)}
+                        {name.split(/\s+/).filter(Boolean).slice(0, 2).map(n => n[0]).join("").toUpperCase() || "?"}
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium text-slate-700 dark:text-slate-200 truncate">{name}</p>

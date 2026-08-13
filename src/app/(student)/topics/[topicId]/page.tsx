@@ -116,15 +116,6 @@ export default async function TopicLearningPage({
     });
   }
 
-  await db.learningEvent.create({
-    data: {
-      studentId,
-      topicId,
-      courseId: topic.courseId,
-      eventType: "LESSON_STARTED",
-    },
-  });
-
   const adaptiveUI = adaptiveDecision ? ADAPTIVE_UI[adaptiveDecision.action] : null;
 
   return (

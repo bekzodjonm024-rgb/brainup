@@ -45,11 +45,6 @@ export default async function RetrievalTopicPage({
 
   const knowledge = topic.learnerKnowledge[0];
 
-  // Log retrieval started
-  await db.learningEvent.create({
-    data: { studentId, topicId, eventType: "RETRIEVAL_STARTED" },
-  });
-
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
       <RetrievalSession

@@ -7,6 +7,8 @@ import { signIn, getSession } from "next-auth/react";
 import { Loader2, Eye, EyeOff, CheckCircle2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+const inputCls = "w-full h-11 px-4 rounded-xl bg-slate-900 border border-slate-800 text-white text-sm outline-none transition-colors focus:border-blue-500 placeholder:text-slate-600";
+
 export function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -74,7 +76,7 @@ export function LoginForm() {
             placeholder="example@email.com"
             required
             autoComplete="email"
-            className="auth-input"
+            className={inputCls}
           />
         </div>
 
@@ -88,7 +90,7 @@ export function LoginForm() {
               placeholder="••••••••"
               required
               autoComplete="current-password"
-              className="auth-input auth-input-pw"
+              className={`${inputCls} pr-11`}
             />
             <button
               type="button"

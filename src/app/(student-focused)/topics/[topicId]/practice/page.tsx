@@ -28,17 +28,6 @@ export default async function PracticePage({
 
   const knowledge = topic.learnerKnowledge[0];
 
-  // Log practice started
-  await db.learningEvent.create({
-    data: {
-      studentId: session.user.profileId,
-      topicId,
-      courseId: topic.courseId,
-      eventType: "PRACTICE_COMPLETED",
-      payload: { phase: "started" },
-    },
-  });
-
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
       <PracticeSession
