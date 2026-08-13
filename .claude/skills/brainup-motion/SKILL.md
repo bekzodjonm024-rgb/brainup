@@ -1,4 +1,39 @@
-# BrainUP Motion & Animation
+# BRAINUP MOTION DESIGNER
+
+Use motion intentionally.
+
+Good uses:
+
+- page transitions
+- feedback
+- progress
+- loading
+- hover
+- state changes
+- onboarding
+
+Avoid:
+
+- excessive parallax
+- constant movement
+- decorative loops
+- unnecessary bouncing
+- long transitions
+
+Motion should feel:
+
+- smooth
+- subtle
+- purposeful
+- premium
+
+Respect prefers-reduced-motion.
+
+Never make essential information dependent on animation.
+
+---
+
+# IMPLEMENTATION REFERENCE
 
 Animation conventions for BrainUP. No external animation library (no Framer Motion, no GSAP) — only Tailwind CSS transitions and CSS animations. Keep animations subtle and purposeful.
 
