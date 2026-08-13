@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { Header } from "@/components/layout/header";
 import { CognitiveProfileCard } from "@/components/shared/cognitive-profile-card";
+import { CognitiveHistoryChart } from "@/components/shared/cognitive-history-chart";
 import { MasteryBadge } from "@/components/shared/mastery-badge";
 import { AvatarUpload } from "@/components/shared/avatar-upload";
 import { ProfileSettings } from "@/components/shared/profile-settings";
@@ -13,29 +14,43 @@ export default async function ProfilePage() {
   const session = await auth();
   if (!session?.user?.profileId) redirect("/login");
 
-  const student = await db.student.findUnique({
-    where: { id: session.user.profileId },
-    include: {
-      user: { select: { email: true, createdAt: true, avatarUrl: true } },
-      university: { select: { name: true } },
-      faculty: { select: { name: true } },
-      cognitiveProfile: true,
-      enrollments: {
-        include: {
-          course: {
-            include: {
-              topics: {
-                include: {
-                  learnerKnowledge: { where: { studentId: session.user.profileId }, take: 1 },
+  const [student, cognitiveHistory] = await Promise.all([
+    db.student.findUnique({
+      where: { id: session.user.profileId },
+      include: {
+        user: { select: { email: true, createdAt: true, avatarUrl: true } },
+        university: { select: { name: true } },
+        faculty: { select: { name: true } },
+        cognitiveProfile: true,
+        enrollments: {
+          include: {
+            course: {
+              include: {
+                topics: {
+                  include: {
+                    learnerKnowledge: { where: { studentId: session.user.profileId }, take: 1 },
+                  },
                 },
               },
             },
           },
         },
+        _count: { select: { attempts: true, learningEvents: true } },
       },
-      _count: { select: { attempts: true, learningEvents: true } },
-    },
-  });
+    }),
+    db.cognitiveHistory.findMany({
+      where: { studentId: session.user.profileId },
+      orderBy: { takenAt: "asc" },
+      select: {
+        id: true,
+        attentionScore: true,
+        workingMemoryScore: true,
+        processingSpeedScore: true,
+        memoryScore: true,
+        takenAt: true,
+      },
+    }),
+  ]);
 
   if (!student) redirect("/login");
 
@@ -118,6 +133,17 @@ export default async function ProfilePage() {
                 Kognitiv profil yaratish uchun boshlang'ich baholashni bajaring.
               </p>
             </div>
+          </div>
+        )}
+
+        {/* Cognitive history chart */}
+        {cognitiveHistory.length > 0 && (
+          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+            <h3 className="font-semibold text-slate-700 dark:text-slate-200 mb-1">Kognitiv rivojlanish</h3>
+            <p className="text-xs text-slate-400 mb-4">{cognitiveHistory.length} ta diagnostik test natijasi</p>
+            <CognitiveHistoryChart
+              history={cognitiveHistory.map((h) => ({ ...h, takenAt: h.takenAt.toISOString() }))}
+            />
           </div>
         )}
 
