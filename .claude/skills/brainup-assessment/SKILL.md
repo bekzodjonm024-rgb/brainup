@@ -1,4 +1,52 @@
-# BrainUP Assessment Engine
+# BRAINUP COGNITIVE ASSESSMENT UX
+
+Assessment screens must minimize cognitive distraction.
+
+Priority:
+
+TASK
+↓
+INSTRUCTION
+↓
+ACTION
+↓
+PROGRESS
+↓
+FEEDBACK
+
+During assessment avoid:
+
+- unnecessary navigation
+- advertisements
+- unrelated statistics
+- excessive decoration
+- distracting animations
+
+Always communicate:
+
+- current task
+- instruction
+- progress
+- remaining steps
+- what happens next
+
+Use clear feedback.
+
+Loading states should explain what is happening.
+
+Error states should be calm and actionable.
+
+Never make users guess what to do.
+
+Assessment results should translate raw data into understandable insights.
+
+Avoid presenting psychological or cognitive metrics as absolute judgments about a person's ability.
+
+Use supportive, non-stigmatizing language.
+
+---
+
+# ENGINE REFERENCE
 
 Complete reference for the cognitive assessment system. Read before modifying assessment tasks, scoring, or the assessment flow.
 
