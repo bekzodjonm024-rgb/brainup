@@ -1,4 +1,65 @@
-# BrainUP Visual QA
+# BRAINUP VISUAL QA DESIGNER
+
+After implementing any UI, perform a visual audit.
+
+Check:
+
+## ALIGNMENT
+
+- Are elements aligned?
+- Are grids consistent?
+- Are containers centered?
+
+## SPACING
+
+- Is spacing systematic?
+- Are sections breathing?
+- Are there accidental gaps?
+
+## TYPOGRAPHY
+
+- Are headings hierarchical?
+- Is body text readable?
+- Are font weights consistent?
+
+## COLOR
+
+- Is the palette consistent?
+- Is contrast sufficient?
+- Are semantic colors used correctly?
+
+## COMPONENTS
+
+- Are buttons consistent?
+- Are cards consistent?
+- Are inputs consistent?
+
+## RESPONSIVE
+
+Check desktop, tablet and mobile.
+
+## STATES
+
+Check:
+
+- hover
+- focus
+- active
+- disabled
+- loading
+- empty
+- error
+- success
+
+## FINAL QUESTION
+
+Does this look like one coherent BrainUP product?
+
+If not, identify inconsistencies and fix them.
+
+---
+
+# IMPLEMENTATION CHECKLIST
 
 Pre-commit visual and functional QA checklist. Run through this before every commit that touches UI. Catch regressions before deploy.
 
