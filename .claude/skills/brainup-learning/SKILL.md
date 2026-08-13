@@ -1,4 +1,39 @@
-# BrainUP Learning Engine
+# BRAINUP LEARNING EXPERIENCE DESIGNER
+
+Design learning experiences around:
+
+Discover
+→ Learn
+→ Practice
+→ Test
+→ Feedback
+→ Review
+→ Progress
+
+Users should always know:
+
+- where they are
+- what they completed
+- what comes next
+- why the next activity matters
+
+Use progress indicators.
+
+Make learning content scannable.
+
+Break large lessons into manageable sections.
+
+Avoid excessive text walls.
+
+Use meaningful visual hierarchy.
+
+Recommendations should feel useful, not manipulative.
+
+Never shame users for incomplete progress.
+
+---
+
+# ENGINE REFERENCE
 
 Complete reference for the mastery system, adaptive engine, practice sessions, and retrieval (spaced repetition). Read before touching any of these modules.
 
