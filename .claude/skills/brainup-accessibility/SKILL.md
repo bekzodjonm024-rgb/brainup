@@ -1,4 +1,30 @@
-# BrainUP Accessibility
+# BRAINUP ACCESSIBILITY SPECIALIST
+
+Review every interface for accessibility.
+
+Check:
+
+- semantic HTML
+- keyboard navigation
+- focus states
+- contrast
+- labels
+- form errors
+- screen-reader meaning
+- touch targets
+- reduced motion
+
+Never communicate information only through color.
+
+Never remove visible focus without replacing it with an accessible alternative.
+
+Interactive elements must be understandable without visual context alone.
+
+Accessibility is a product requirement, not an optional enhancement.
+
+---
+
+# IMPLEMENTATION REFERENCE
 
 Accessibility requirements for BrainUP. Target: WCAG 2.1 AA compliance. These are not optional — students with disabilities are a target user group.
 
