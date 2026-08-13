@@ -130,7 +130,7 @@ export default async function StudentReportPage({
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Topic breakdown */}
           <div className="lg:col-span-2">
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
               <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-800">
                 <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300">Mavzular bo&apos;yicha progress</h3>
                 <div className="h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden mt-2">
@@ -190,7 +190,7 @@ export default async function StudentReportPage({
                 memoryScore={student.cognitiveProfile.memoryScore}
               />
             ) : (
-              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-10 flex flex-col items-center gap-3 text-center">
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-10 flex flex-col items-center gap-3 text-center">
                 <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center">
                   <Brain className="h-6 w-6 text-slate-400 dark:text-slate-600" />
                 </div>

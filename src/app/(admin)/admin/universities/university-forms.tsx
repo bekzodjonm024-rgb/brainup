@@ -29,7 +29,7 @@ export function AddUniversityForm() {
   }
 
   return (
-    <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
       <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 mb-4">Yangi universitet qo&apos;shish</h3>
       <form onSubmit={handleSubmit} className="flex flex-wrap gap-3 items-end">
         <div className="space-y-1">

@@ -143,7 +143,7 @@ export default async function TopicLearningPage({
 
         {/* Mastery panel */}
         {hasStarted && knowledge && (
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
                 <TrendingUp className="h-4 w-4 text-slate-500" />
@@ -178,7 +178,7 @@ export default async function TopicLearningPage({
 
         {/* Content items */}
         {topic.contentItems.length === 0 ? (
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-10 flex flex-col items-center gap-3 text-center">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-10 flex flex-col items-center gap-3 text-center">
             <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center">
               <BookOpen className="h-6 w-6 text-slate-400 dark:text-slate-600" />
             </div>
@@ -191,7 +191,7 @@ export default async function TopicLearningPage({
               const isLink = item.externalUrl && ["LINK", "VIDEO", "ARTICLE"].includes(item.type);
 
               return (
-                <div key={item.id} className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-3">
+                <div key={item.id} className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-3">
                   <div className="flex items-center gap-2">
                     <div className="rounded-lg bg-slate-100 dark:bg-slate-800 p-1.5">
                       <Icon className="h-4 w-4 text-slate-500 dark:text-slate-400" />

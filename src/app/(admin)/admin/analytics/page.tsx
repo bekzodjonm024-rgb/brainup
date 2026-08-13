@@ -119,7 +119,7 @@ export default async function AdminAnalyticsPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Mastery distribution */}
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
             <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 mb-4">Mastery taqsimoti</h3>
             <div className="space-y-3">
               {Object.entries(buckets).map(([label, count]) => (
@@ -136,7 +136,7 @@ export default async function AdminAnalyticsPage() {
           </div>
 
           {/* Content by status */}
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
             <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 mb-4">Kontent holati</h3>
             <div className="space-y-3">
               {[
@@ -161,7 +161,7 @@ export default async function AdminAnalyticsPage() {
           </div>
 
           {/* Top courses */}
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
             <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 mb-4">Eng mashhur kurslar</h3>
             <div className="space-y-3">
               {topCourses.map((course) => (
@@ -185,7 +185,7 @@ export default async function AdminAnalyticsPage() {
           </div>
 
           {/* Activity events */}
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
             <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 mb-3">Faollik turlari</h3>
             <div className="flex items-center gap-3 text-xs text-slate-500 mb-4">
               <span>Jami: <strong className="text-slate-600 dark:text-slate-300">{totalEvents}</strong></span>

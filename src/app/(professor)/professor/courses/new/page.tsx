@@ -68,7 +68,7 @@ export default function NewCoursePage() {
           <ArrowLeft className="h-4 w-4" /> Orqaga
         </Link>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
           <div className="mb-6">
             <h2 className="font-semibold text-slate-700 dark:text-slate-200 text-lg">Kurs ma&apos;lumotlari</h2>
             <p className="text-sm text-slate-500 mt-1">

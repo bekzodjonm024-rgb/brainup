@@ -59,7 +59,7 @@ export function AddProfessorForm() {
   function fieldError(f: string) { return errors[f]?.[0]; }
 
   return (
-    <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 max-w-lg">
+    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 max-w-lg">
       <h3 className="text-base font-semibold text-slate-900 dark:text-white flex items-center gap-2 mb-5">
         <UserPlus className="h-4 w-4 text-violet-400" />
         Yangi professor

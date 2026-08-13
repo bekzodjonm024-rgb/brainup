@@ -31,7 +31,7 @@ export default async function ProfessorProfilePage() {
       <main className="flex-1 p-6 space-y-6 max-w-2xl">
 
         {/* Info card */}
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
           <div className="flex items-start gap-4">
             <AvatarUpload
               currentUrl={professor.user.avatarUrl}

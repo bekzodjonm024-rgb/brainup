@@ -205,7 +205,7 @@ export function RetrievalSession({
 
           {/* Loading */}
           {(phase === "loading" || phase === "completing") && (
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-16 flex flex-col items-center gap-3">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-16 flex flex-col items-center gap-3">
               <Loader2 className={cn("h-6 w-6 animate-spin", phase === "completing" ? "text-violet-400" : "text-slate-400 dark:text-slate-600")} />
               {phase === "completing" && <p className="text-sm text-slate-500">Natijalar saqlanmoqda...</p>}
             </div>
@@ -213,7 +213,7 @@ export function RetrievalSession({
 
           {/* No questions */}
           {phase === "no-questions" && (
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-12 text-center space-y-4">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-12 text-center space-y-4">
               <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center mx-auto">
                 <AlertCircle className="h-6 w-6 text-slate-400 dark:text-slate-600" />
               </div>

@@ -196,7 +196,7 @@ export default async function CourseAnalyticsPage({
         </div>
 
         {/* Topic performance table */}
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
           <div className="p-5 border-b border-slate-200 dark:border-slate-800">
             <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
               <BarChart3 className="h-4 w-4 text-slate-500" />
@@ -255,7 +255,7 @@ export default async function CourseAnalyticsPage({
         </div>
 
         {/* Student progress table */}
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
           <div className="p-5 border-b border-slate-200 dark:border-slate-800">
             <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
               <Users className="h-4 w-4 text-slate-500" />

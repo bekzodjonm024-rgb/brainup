@@ -106,7 +106,7 @@ export default async function ProgressPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-5">
             {student.enrollments.length === 0 ? (
-              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-12 flex flex-col items-center gap-3 text-center">
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-12 flex flex-col items-center gap-3 text-center">
                 <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center">
                   <BookOpen className="h-6 w-6 text-slate-400 dark:text-slate-600" />
                 </div>
@@ -128,7 +128,7 @@ export default async function ProgressPage() {
                     : 0;
 
                 return (
-                  <div key={enrollment.course.id} className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+                  <div key={enrollment.course.id} className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
                     <div className="p-5 border-b border-slate-200 dark:border-slate-800">
                       <div className="flex items-start justify-between gap-4 mb-3">
                         <div>
@@ -189,7 +189,7 @@ export default async function ProgressPage() {
           {/* Right panel */}
           <div className="space-y-4">
             {/* Practice stats */}
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                 <Zap className="h-4 w-4 text-amber-400" />
                 Amaliyot statistikasi
@@ -224,7 +224,7 @@ export default async function ProgressPage() {
                 memoryScore={student.cognitiveProfile.memoryScore}
               />
             ) : (
-              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-8 flex flex-col items-center gap-3 text-center">
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-8 flex flex-col items-center gap-3 text-center">
                 <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center">
                   <Brain className="h-6 w-6 text-slate-400 dark:text-slate-600" />
                 </div>

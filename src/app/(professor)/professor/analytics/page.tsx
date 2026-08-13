@@ -129,7 +129,7 @@ export default async function ProfessorAnalyticsPage() {
 
             {/* Mastery distribution */}
             {total > 0 && (
-              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
                 <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                   <BarChart3 className="h-4 w-4 text-slate-500" />
                   O'zlashtirish taqsimoti
@@ -157,7 +157,7 @@ export default async function ProfessorAnalyticsPage() {
             )}
 
             {/* Course summaries */}
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                 <BookOpen className="h-4 w-4 text-slate-500" />
                 Kurslar bo'yicha natijalar
@@ -232,7 +232,7 @@ export default async function ProfessorAnalyticsPage() {
 
             {/* Adaptive interventions */}
             {interventionCounts.length > 0 && (
-              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
                 <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                   <Zap className="h-4 w-4 text-blue-400" />
                   Adaptiv tavsiyalar

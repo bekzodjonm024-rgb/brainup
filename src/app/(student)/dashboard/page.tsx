@@ -244,7 +244,7 @@ export default async function DashboardPage() {
               </div>
 
               {student.enrollments.length === 0 ? (
-                <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-10 flex flex-col items-center gap-3 text-center">
+                <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-10 flex flex-col items-center gap-3 text-center">
                   <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center">
                     <BookOpen className="h-6 w-6 text-slate-400 dark:text-slate-600" />
                   </div>
@@ -298,7 +298,7 @@ export default async function DashboardPage() {
 
             {/* No assessment notice */}
             {!hasAssessment && (
-              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 flex items-center gap-3">
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 flex items-center gap-3">
                 <AlertCircle className="h-4 w-4 text-slate-400 dark:text-slate-600 shrink-0" />
                 <p className="text-xs text-slate-500">Kognitiv profil baholash o&apos;tgandan so&apos;ng ko&apos;rinadi</p>
               </div>

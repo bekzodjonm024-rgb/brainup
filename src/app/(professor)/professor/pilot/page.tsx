@@ -47,7 +47,7 @@ export default async function PilotPage() {
       <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
         <Header title="Pilot monitoring" description="Tadqiqot va pilot nazorat paneli" />
         <main className="flex-1 p-6">
-          <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-14 text-center">
+          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-14 text-center">
             <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center mx-auto mb-3">
               <FlaskConical className="h-6 w-6 text-slate-400 dark:text-slate-600" />
             </div>
@@ -192,7 +192,7 @@ export default async function PilotPage() {
           <div className="lg:col-span-2 space-y-5">
 
             {/* Engagement funnel */}
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                 <Users className="h-4 w-4 text-slate-500" />
                 O&apos;quv funnel
@@ -216,7 +216,7 @@ export default async function PilotPage() {
             </div>
 
             {/* Recent activity log */}
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                 <Clock className="h-4 w-4 text-slate-500" />
                 So&apos;nggi faollik (anonim)
@@ -254,7 +254,7 @@ export default async function PilotPage() {
           <div className="space-y-4">
             {/* Event distribution */}
             {eventTypeCounts.length > 0 && (
-              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
                 <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-3">
                   <Activity className="h-4 w-4 text-slate-500" />
                   7 kunlik eventlar
@@ -272,7 +272,7 @@ export default async function PilotPage() {
 
             {/* Intervention distribution */}
             {interventionCounts.length > 0 && (
-              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
                 <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-3">
                   <Zap className="h-4 w-4 text-slate-500" />
                   Adaptiv tavsiyalar
@@ -289,7 +289,7 @@ export default async function PilotPage() {
             )}
 
             {/* Export */}
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-3">
                 <CheckCircle2 className="h-4 w-4 text-slate-500" />
                 Ma&apos;lumotlarni eksport qilish
@@ -312,7 +312,7 @@ export default async function PilotPage() {
         </div>
 
         {/* Per-course breakdown */}
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
           <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-800">
             <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
               <Brain className="h-4 w-4 text-slate-500" />

@@ -196,14 +196,14 @@ export function PracticeSession({
 
           {/* Loading */}
           {phase === "loading" && (
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-16 flex items-center justify-center">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-16 flex items-center justify-center">
               <Loader2 className="h-6 w-6 animate-spin text-slate-400 dark:text-slate-600" />
             </div>
           )}
 
           {/* No questions */}
           {phase === "no-questions" && (
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-12 text-center space-y-4">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-12 text-center space-y-4">
               <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center mx-auto">
                 <AlertCircle className="h-6 w-6 text-slate-400 dark:text-slate-600" />
               </div>

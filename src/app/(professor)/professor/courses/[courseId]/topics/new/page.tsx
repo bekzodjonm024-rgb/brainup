@@ -53,7 +53,7 @@ export default function NewTopicPage() {
           <ArrowLeft className="h-4 w-4" /> Kursga qaytish
         </Link>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
+        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
           <div className="mb-6">
             <h2 className="font-semibold text-slate-700 dark:text-slate-200 text-lg">Mavzu ma&apos;lumotlari</h2>
             <p className="text-sm text-slate-500 mt-1">

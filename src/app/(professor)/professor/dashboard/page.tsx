@@ -125,7 +125,7 @@ export default async function ProfessorDashboard() {
             </div>
 
             {professor.courses.length === 0 ? (
-              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-10 flex flex-col items-center gap-3 text-center">
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-10 flex flex-col items-center gap-3 text-center">
                 <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center">
                   <BookOpen className="h-6 w-6 text-slate-400 dark:text-slate-600" />
                 </div>
@@ -171,7 +171,7 @@ export default async function ProfessorDashboard() {
           <div className="space-y-4">
             <h2 className="text-base font-semibold text-slate-900 dark:text-white">Qiyin mavzular</h2>
             {difficultTopics.length === 0 ? (
-              <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-8 text-center">
+              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-8 text-center">
                 <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mx-auto mb-3">
                   <TrendingUp className="h-5 w-5 text-emerald-400" />
                 </div>

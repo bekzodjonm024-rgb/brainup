@@ -55,7 +55,7 @@ export default async function ProfilePage() {
       <main className="flex-1 p-6 space-y-6 max-w-3xl mx-auto w-full">
 
         {/* Student info */}
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
           <div className="flex items-start gap-4">
             <AvatarUpload
               currentUrl={student.user.avatarUrl}
@@ -138,7 +138,7 @@ export default async function ProfilePage() {
           const topics = enrollment.course.topics;
           if (topics.length === 0) return null;
           return (
-            <div key={enrollment.courseId} className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+            <div key={enrollment.courseId} className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
               <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-800">
                 <h3 className="font-semibold text-slate-700 dark:text-slate-200">{enrollment.course.title}</h3>
               </div>

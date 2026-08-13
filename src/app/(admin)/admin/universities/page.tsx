@@ -36,7 +36,7 @@ export default async function AdminUniversitiesPage() {
 
         <div className="space-y-4">
           {universities.map((uni) => (
-            <div key={uni.id} className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+            <div key={uni.id} className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
               {/* University header */}
               <div className="flex items-center gap-3 px-5 py-4 border-b border-slate-200 dark:border-slate-800">
                 <div className="rounded-xl bg-blue-500/10 border border-blue-500/20 p-2.5 shrink-0">
