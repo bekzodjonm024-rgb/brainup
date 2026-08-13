@@ -643,6 +643,32 @@ If any answer is NO, improve the implementation before finishing.
 
 ---
 
+# ANTI-GENERIC-AI-DESIGN RULE
+
+Do not produce generic AI-generated SaaS aesthetics.
+
+Avoid automatically using:
+
+- excessive purple-blue gradients
+- glassmorphism everywhere
+- huge rounded cards
+- floating decorative blobs
+- excessive shadows
+- random glowing effects
+- meaningless dashboard charts
+- excessive pills
+- excessive badges
+- generic AI illustrations
+- excessive whitespace without hierarchy
+
+Do not imitate common template aesthetics.
+
+Every visual decision must have a product reason.
+
+BrainUP should have its own recognizable visual identity.
+
+---
+
 # IMPORTANT RULE
 
 Never optimize for "more beautiful".
