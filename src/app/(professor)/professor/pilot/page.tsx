@@ -152,7 +152,7 @@ export default async function PilotPage() {
     <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
       <Header title="Pilot Monitoring" description="NamDPI tadqiqot va pilot nazorat paneli" />
 
-      <main className="flex-1 p-6 space-y-6 max-w-5xl">
+      <main className="flex-1 p-6 space-y-6 max-w-5xl mx-auto w-full">
 
         {/* Research ID alert */}
         {withoutResearchId > 0 && (

@@ -52,7 +52,7 @@ export default async function ProfilePage() {
   return (
     <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
       <Header title="Mening profilim" description="Shaxsiy o'quv profili" />
-      <main className="flex-1 p-6 space-y-6 max-w-3xl">
+      <main className="flex-1 p-6 space-y-6 max-w-3xl mx-auto w-full">
 
         {/* Student info */}
         <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">

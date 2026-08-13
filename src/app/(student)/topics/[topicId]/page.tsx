@@ -71,7 +71,7 @@ export default async function TopicLearningPage({
       return (
         <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
           <Header title={topic.title} description={topic.course.title} />
-          <main className="flex-1 p-6 max-w-3xl">
+          <main className="flex-1 p-6 max-w-3xl mx-auto w-full">
             <Link href={`/courses/${topic.courseId}`}>
               <Button variant="ghost" size="sm" className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 mb-6">
                 <ArrowLeft className="h-4 w-4 mr-1" /> {topic.course.title}
@@ -121,7 +121,7 @@ export default async function TopicLearningPage({
   return (
     <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
       <Header title={topic.title} description={topic.course.title} />
-      <main className="flex-1 p-6 max-w-3xl space-y-5">
+      <main className="flex-1 p-6 max-w-3xl mx-auto w-full space-y-5">
         <Link href={`/courses/${topic.courseId}`}>
           <Button variant="ghost" size="sm" className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">
             <ArrowLeft className="h-4 w-4 mr-1" /> {topic.course.title}
