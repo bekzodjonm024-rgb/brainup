@@ -31,13 +31,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const profileId = user.student?.id ?? user.professor?.id ?? null;
         const firstName = user.student?.firstName ?? user.professor?.firstName ?? "";
         const lastName = user.student?.lastName ?? user.professor?.lastName ?? "";
+        const derivedName = `${firstName} ${lastName}`.trim();
 
         return {
           id: user.id,
           email: user.email,
           role: user.role,
           profileId,
-          name: `${firstName} ${lastName}`.trim(),
+          name: user.displayName ?? derivedName,
         };
       },
     }),
