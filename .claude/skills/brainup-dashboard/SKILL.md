@@ -1,4 +1,55 @@
-# BrainUP Dashboard Patterns
+# BRAINUP DASHBOARD DESIGNER
+
+Design dashboards around user decisions, not data volume.
+
+The dashboard should quickly answer:
+
+- How am I progressing?
+- What should I do now?
+- What improved?
+- What needs attention?
+
+Recommended hierarchy:
+
+1. Welcome / context
+2. Current progress
+3. Key cognitive indicators
+4. Recommended next action
+5. Learning progress
+6. Recent activity
+7. Achievements / milestones
+
+Do not overwhelm users with every metric.
+
+Metrics should always have context.
+
+Bad:
+
+"Processing Speed: 74"
+
+Better:
+
+"Processing Speed
+74
++8% this month"
+
+Best when appropriate:
+
+"Processing Speed
+74
+Improving
+Try today's speed practice"
+
+Every dashboard element should either:
+
+- inform
+- guide
+- motivate
+- enable action
+
+---
+
+# IMPLEMENTATION REFERENCE
 
 Reference for dashboard pages across all three roles. Read when building or modifying dashboard, stat cards, or overview pages.
 
