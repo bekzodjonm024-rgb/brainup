@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { Header } from "@/components/layout/header";
 import { Button } from "@/components/ui/button";
+import { CognitiveHistoryChart } from "@/components/shared/cognitive-history-chart";
 import Link from "next/link";
 import {
   Users, TrendingUp, AlertTriangle, ArrowRight,
@@ -69,12 +70,75 @@ export default async function ProfessorAnalyticsPage() {
     .sort((a, b) => (a.avg ?? 1) - (b.avg ?? 1))
     .slice(0, 8);
 
-  const interventionCounts = await db.intervention.groupBy({
-    by: ["action"],
-    where: { topic: { course: { professorId } } },
-    _count: { action: true },
-    orderBy: { _count: { action: "desc" } },
-  });
+  const [interventionCounts, enrolledStudentIds] = await Promise.all([
+    db.intervention.groupBy({
+      by: ["action"],
+      where: { topic: { course: { professorId } } },
+      _count: { action: true },
+      orderBy: { _count: { action: "desc" } },
+    }),
+    db.enrollment.findMany({
+      where: { course: { professorId } },
+      select: { studentId: true },
+    }).then((rows) => [...new Set(rows.map((r) => r.studentId))]),
+  ]);
+
+  const [cognitiveHistory, cognitiveProfiles] = await Promise.all([
+    db.cognitiveHistory.findMany({
+      where: { studentId: { in: enrolledStudentIds } },
+      orderBy: { takenAt: "asc" },
+      select: {
+        id: true,
+        attentionScore: true,
+        workingMemoryScore: true,
+        processingSpeedScore: true,
+        memoryScore: true,
+        takenAt: true,
+      },
+    }),
+    db.cognitiveProfile.findMany({
+      where: { studentId: { in: enrolledStudentIds } },
+      select: { attentionScore: true, workingMemoryScore: true, processingSpeedScore: true, memoryScore: true },
+    }),
+  ]);
+
+  function weekKey(date: Date) {
+    const d = new Date(date);
+    d.setHours(0, 0, 0, 0);
+    d.setDate(d.getDate() - d.getDay());
+    return d.toISOString();
+  }
+
+  const weekMap = new Map<string, { sum: number[]; count: number }>();
+  for (const h of cognitiveHistory) {
+    const key = weekKey(h.takenAt);
+    if (!weekMap.has(key)) weekMap.set(key, { sum: [0, 0, 0, 0], count: 0 });
+    const entry = weekMap.get(key)!;
+    entry.sum[0] += h.attentionScore;
+    entry.sum[1] += h.workingMemoryScore;
+    entry.sum[2] += h.processingSpeedScore;
+    entry.sum[3] += h.memoryScore;
+    entry.count++;
+  }
+
+  const weeklyChartData = Array.from(weekMap.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([key, { sum, count }], i) => ({
+      id: `w${i}`,
+      attentionScore: sum[0] / count,
+      workingMemoryScore: sum[1] / count,
+      processingSpeedScore: sum[2] / count,
+      memoryScore: sum[3] / count,
+      takenAt: key,
+    }));
+
+  const avgOf = (arr: number[]) => arr.length ? Math.round(arr.reduce((a, b) => a + b, 0) / arr.length) : 0;
+  const cogAvg = {
+    attention: avgOf(cognitiveProfiles.map((p) => p.attentionScore ?? 0)),
+    workingMemory: avgOf(cognitiveProfiles.map((p) => p.workingMemoryScore ?? 0)),
+    speed: avgOf(cognitiveProfiles.map((p) => p.processingSpeedScore ?? 0)),
+    memory: avgOf(cognitiveProfiles.map((p) => p.memoryScore ?? 0)),
+  };
 
   const courseSummaries = courses.map((c) => {
     const k = c.topics.flatMap((t) => t.learnerKnowledge);
@@ -249,6 +313,37 @@ export default async function ProfessorAnalyticsPage() {
             )}
           </div>
         </div>
+
+        {/* Cognitive dynamics */}
+        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+          <div className="flex flex-wrap items-start justify-between gap-4 mb-5">
+            <div>
+              <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300">
+                Talabalar kognitiv dinamikasi
+              </h3>
+              <p className="text-xs text-slate-400 mt-0.5">
+                {cognitiveHistory.length} ta diagnostik test — {cognitiveProfiles.length} ta talaba profili
+              </p>
+            </div>
+            {cognitiveProfiles.length > 0 && (
+              <div className="flex flex-wrap gap-3">
+                {[
+                  { label: "Diqqat",        value: cogAvg.attention,    color: "text-indigo-600 bg-indigo-50 dark:bg-indigo-950/40 border-indigo-200 dark:border-indigo-800" },
+                  { label: "Ishchi xotira", value: cogAvg.workingMemory, color: "text-blue-600 bg-blue-50 dark:bg-blue-950/40 border-blue-200 dark:border-blue-800" },
+                  { label: "Tezlik",        value: cogAvg.speed,         color: "text-amber-600 bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800" },
+                  { label: "Xotira",        value: cogAvg.memory,        color: "text-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800" },
+                ].map((m) => (
+                  <div key={m.label} className={`rounded-lg border px-3 py-1.5 ${m.color}`}>
+                    <p className="text-[11px] font-medium opacity-70">{m.label}</p>
+                    <p className="text-lg font-bold leading-tight">{m.value}%</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <CognitiveHistoryChart history={weeklyChartData} />
+        </div>
+
       </main>
     </div>
   );
