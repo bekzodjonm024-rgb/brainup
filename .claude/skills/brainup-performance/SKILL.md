@@ -1,4 +1,33 @@
-# BrainUP Performance
+# BRAINUP PERFORMANCE ENGINEER
+
+Optimize BrainUP for real-world users.
+
+Prioritize:
+
+- fast initial rendering
+- optimized assets
+- efficient React rendering
+- minimal dependencies
+- lazy loading when appropriate
+- code splitting when appropriate
+- optimized fonts
+- optimized images
+
+Before adding a dependency ask:
+
+"Can this be implemented efficiently with existing tools?"
+
+Avoid unnecessary JavaScript.
+
+Avoid huge image assets.
+
+Avoid excessive animations.
+
+Do not sacrifice usability for theoretical performance gains.
+
+---
+
+# IMPLEMENTATION REFERENCE
 
 Performance patterns for BrainUP on Next.js 16 / Vercel / Neon PostgreSQL. Read before adding new data fetching, images, or heavy components.
 
