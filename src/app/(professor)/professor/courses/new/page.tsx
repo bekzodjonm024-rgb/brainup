@@ -63,7 +63,7 @@ export default function NewCoursePage() {
   return (
     <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
       <Header title="Yangi kurs yaratish" />
-      <main className="flex-1 p-6 max-w-2xl">
+      <main className="flex-1 p-6 max-w-2xl mx-auto w-full">
         <Link href="/professor/courses" className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 mb-6 transition-colors">
           <ArrowLeft className="h-4 w-4" /> Orqaga
         </Link>

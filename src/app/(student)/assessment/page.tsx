@@ -29,7 +29,7 @@ export default async function AssessmentPage() {
   return (
     <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
       <Header title="Kognitiv baholash" description="Boshlang'ich baholash natijalari" />
-      <main className="flex-1 p-6 max-w-2xl space-y-5">
+      <main className="flex-1 p-6 max-w-2xl mx-auto w-full space-y-5">
 
         {hasProfile ? (
           <>

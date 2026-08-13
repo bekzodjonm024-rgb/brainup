@@ -22,7 +22,7 @@ export default async function AdminProfilePage() {
   return (
     <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
       <Header title="Profilim" description="Admin hisob sozlamalari" />
-      <main className="flex-1 p-6 max-w-xl space-y-6">
+      <main className="flex-1 p-6 max-w-xl mx-auto w-full space-y-6">
         <AvatarUpload
           currentUrl={user.avatarUrl}
           initials="A"
