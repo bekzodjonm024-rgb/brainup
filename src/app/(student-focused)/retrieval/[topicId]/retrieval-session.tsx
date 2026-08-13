@@ -315,7 +315,7 @@ export function RetrievalSession({
                 <RotateCcw className="h-8 w-8 text-violet-400" />
               </div>
               <div>
-                <h2 className="f-syne text-xl font-bold text-slate-900 dark:text-white">Takrorlash yakunlandi!</h2>
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white">Takrorlash yakunlandi!</h2>
                 <p className="text-slate-500 mt-1 text-sm">
                   {correct + (feedback?.isCorrect ? 1 : 0)}/{total + 1} savol to&apos;g&apos;ri
                 </p>

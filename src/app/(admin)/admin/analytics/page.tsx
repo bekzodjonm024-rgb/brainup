@@ -104,15 +104,15 @@ export default async function AdminAnalyticsPage() {
         {/* Registration trend */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
-            { icon: <Users className="h-5 w-5 text-blue-400" />, label: "Jami talabalar", value: totalStudents, sub: undefined as string | undefined, border: "border-blue-500/20", glow: "bg-blue-500/5", iconBg: "bg-blue-500/10" },
-            { icon: <TrendingUp className="h-5 w-5 text-emerald-400" />, label: "So'nggi 30 kun", value: `+${newStudents30d}`, sub: "yangi talaba", border: "border-emerald-500/20", glow: "bg-emerald-500/5", iconBg: "bg-emerald-500/10" },
-            { icon: <Zap className="h-5 w-5 text-violet-400" />, label: "So'nggi 7 kun", value: `+${newStudents7d}`, sub: "yangi talaba", border: "border-violet-500/20", glow: "bg-violet-500/5", iconBg: "bg-violet-500/10" },
+            { icon: <Users className="h-5 w-5 text-blue-600 dark:text-blue-400" />, label: "Jami talabalar", value: totalStudents, sub: undefined as string | undefined, iconBg: "bg-blue-50 dark:bg-blue-950/50" },
+            { icon: <TrendingUp className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />, label: "So'nggi 30 kun", value: `+${newStudents30d}`, sub: "yangi talaba", iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
+            { icon: <Zap className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "So'nggi 7 kun", value: `+${newStudents7d}`, sub: "yangi talaba", iconBg: "bg-violet-50 dark:bg-violet-950/50" },
           ].map((s) => (
-            <div key={s.label} className={`rounded-2xl border ${s.border} ${s.glow} p-5`}>
+            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
-              <p className="f-syne text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
-              <p className="text-xs text-slate-500 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
-              {s.sub && <p className="text-xs text-slate-400 dark:text-slate-600 mt-0.5">{s.sub}</p>}
+              <p className="text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
+              {s.sub && <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{s.sub}</p>}
             </div>
           ))}
         </div>

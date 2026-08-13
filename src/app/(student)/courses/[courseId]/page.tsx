@@ -80,7 +80,7 @@ export default async function StudentCourseDetailPage({
           <div className="flex items-center justify-between mb-3">
             <div>
               <p className="text-xs text-slate-500 uppercase tracking-wide font-medium">Umumiy progress</p>
-              <p className="f-syne text-2xl font-bold text-slate-900 dark:text-white mt-1">{Math.round(progress)}%</p>
+              <p className="text-2xl font-bold text-slate-900 dark:text-white mt-1">{Math.round(progress)}%</p>
             </div>
             <div className="text-right">
               <p className="text-sm font-semibold text-slate-600 dark:text-slate-300">{masteredTopics}/{course.topics.length}</p>
@@ -94,7 +94,7 @@ export default async function StudentCourseDetailPage({
 
         {/* Topics list */}
         <div className="space-y-2">
-          <h2 className="f-syne font-bold text-slate-600 dark:text-slate-300">Mavzular</h2>
+          <h2 className="text-base font-semibold text-slate-600 dark:text-slate-300">Mavzular</h2>
           {course.topics.map((topic, idx) => {
             const knowledge = topic.learnerKnowledge[0];
             const mastery = knowledge?.masteryScore ?? 0;

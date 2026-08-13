@@ -38,7 +38,7 @@ export default async function AdminProfessorsPage() {
         <AddProfessorForm />
         {professors.length > 0 && (
           <div>
-            <h2 className="f-syne text-sm font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wider">Mavjud professorlar</h2>
+            <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wider">Mavjud professorlar</h2>
             <ProfessorsTable professors={professors} />
           </div>
         )}

@@ -169,7 +169,7 @@ export default async function ResultPage({
             <CheckCircle2 className="h-8 w-8 text-emerald-400" />
           </div>
           <div>
-            <h1 className="f-syne text-lg font-bold text-slate-900 dark:text-white">Mashq yakunlandi</h1>
+            <h1 className="text-lg font-bold text-slate-900 dark:text-white">Mashq yakunlandi</h1>
             <p className="text-sm text-slate-500 mt-0.5">{topic.title}</p>
           </div>
           <MasteryBadge score={mastery} />

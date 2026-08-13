@@ -113,16 +113,16 @@ export default async function StudentReportPage({
         {/* Summary stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { icon: <Zap className="h-5 w-5 text-amber-400" />, label: "O'rtacha mastery", value: `${Math.round(avgMastery * 100)}%`, border: "border-amber-500/20", glow: "bg-amber-500/5", iconBg: "bg-amber-500/10" },
-            { icon: <CheckCircle2 className="h-5 w-5 text-emerald-400" />, label: "O'zlashtirilgan", value: `${topicsMastered} / ${topics.length}`, border: "border-emerald-500/20", glow: "bg-emerald-500/5", iconBg: "bg-emerald-500/10" },
-            { icon: <BookOpen className="h-5 w-5 text-blue-400" />, label: "Boshlangan mavzu", value: `${topicsStarted} / ${topics.length}`, border: "border-blue-500/20", glow: "bg-blue-500/5", iconBg: "bg-blue-500/10" },
-            { icon: <Zap className="h-5 w-5 text-violet-400" />, label: "Amaliyot aniqligi", value: totalAttempts > 0 ? `${Math.round(accuracy * 100)}%` : "—", border: "border-violet-500/20", glow: "bg-violet-500/5", iconBg: "bg-violet-500/10", sub: `${totalAttempts} ta savol` },
+            { icon: <Zap className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "O'rtacha mastery", value: `${Math.round(avgMastery * 100)}%`, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
+            { icon: <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />, label: "O'zlashtirilgan", value: `${topicsMastered} / ${topics.length}`, iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
+            { icon: <BookOpen className="h-5 w-5 text-blue-600 dark:text-blue-400" />, label: "Boshlangan mavzu", value: `${topicsStarted} / ${topics.length}`, iconBg: "bg-blue-50 dark:bg-blue-950/50" },
+            { icon: <Zap className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "Amaliyot aniqligi", value: totalAttempts > 0 ? `${Math.round(accuracy * 100)}%` : "—", iconBg: "bg-violet-50 dark:bg-violet-950/50", sub: `${totalAttempts} ta savol` },
           ].map((s) => (
-            <div key={s.label} className={`rounded-2xl border ${s.border} ${s.glow} p-4`}>
+            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 shadow-sm">
               <div className={`w-9 h-9 rounded-xl ${s.iconBg} flex items-center justify-center mb-3`}>{s.icon}</div>
-              <p className="f-syne text-xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
-              <p className="text-xs text-slate-500 mt-1.5 uppercase tracking-wide font-medium">{s.label}</p>
-              {"sub" in s && s.sub && <p className="text-xs text-slate-400 dark:text-slate-600 mt-0.5">{s.sub}</p>}
+              <p className="text-xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 uppercase tracking-wide font-medium">{s.label}</p>
+              {"sub" in s && s.sub && <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{s.sub}</p>}
             </div>
           ))}
         </div>

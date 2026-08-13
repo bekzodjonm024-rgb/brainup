@@ -163,7 +163,7 @@ export default async function CourseAnalyticsPage({
     <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
       <Header title={`${course.title} — Analitika`} description="Kurs bo'yicha batafsil tahlil" />
 
-      <main className="flex-1 p-6 space-y-6 max-w-5xl">
+      <main className="flex-1 p-6 space-y-6 max-w-5xl mx-auto w-full">
 
         {/* Nav */}
         <div className="flex items-center gap-2">
@@ -182,15 +182,15 @@ export default async function CourseAnalyticsPage({
         {/* Summary stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { icon: <Users className="h-5 w-5 text-blue-400" />, label: "Jami talabalar", value: totalStudents, border: "border-blue-500/20", glow: "bg-blue-500/5", iconBg: "bg-blue-500/10" },
-            { icon: <TrendingUp className="h-5 w-5 text-emerald-400" />, label: "Faol talabalar", value: activeStudents, border: "border-emerald-500/20", glow: "bg-emerald-500/5", iconBg: "bg-emerald-500/10" },
-            { icon: <CheckCircle2 className="h-5 w-5 text-violet-400" />, label: "O'zlashtirildi", value: masteredStudents, border: "border-violet-500/20", glow: "bg-violet-500/5", iconBg: "bg-violet-500/10" },
-            { icon: <AlertTriangle className="h-5 w-5 text-amber-400" />, label: "O'rtacha mastery", value: `${Math.round(avgMastery * 100)}%`, border: "border-amber-500/20", glow: "bg-amber-500/5", iconBg: "bg-amber-500/10" },
+            { icon: <Users className="h-5 w-5 text-blue-600 dark:text-blue-400" />, label: "Jami talabalar", value: totalStudents, iconBg: "bg-blue-50 dark:bg-blue-950/50" },
+            { icon: <TrendingUp className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />, label: "Faol talabalar", value: activeStudents, iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
+            { icon: <CheckCircle2 className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "O'zlashtirildi", value: masteredStudents, iconBg: "bg-violet-50 dark:bg-violet-950/50" },
+            { icon: <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "O'rtacha mastery", value: `${Math.round(avgMastery * 100)}%`, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
           ].map((s) => (
-            <div key={s.label} className={`rounded-2xl border ${s.border} ${s.glow} p-5`}>
+            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
-              <p className="f-syne text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
-              <p className="text-xs text-slate-500 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
+              <p className="text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
             </div>
           ))}
         </div>
