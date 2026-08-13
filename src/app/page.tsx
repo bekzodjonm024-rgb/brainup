@@ -169,7 +169,7 @@ export default async function LandingPage() {
                 </h1>
 
                 <p className="a3 text-slate-400 text-lg leading-relaxed mb-10 max-w-md">
-                  BrainUP kognitiv profilingiz, xatolaringiz va temingizga
+                  BrainUP kognitiv profilingiz, xatolaringiz va tempingizga
                   asoslanib &mdash; har bir talaba uchun individual ta&apos;lim
                   yo&apos;nalishi yaratadi.
                 </p>
