@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Setup disabled" }, { status: 403 });
   }
 
-  const { setupSecret, email, password, role: rawRole, displayName } = await req.json();
+  const { setupSecret, email, password, role: rawRole, displayName, firstName, lastName } = await req.json();
   if (setupSecret.trim() !== secret) {
     return NextResponse.json({ error: "Invalid secret" }, { status: 403 });
   }
@@ -35,13 +35,26 @@ export async function POST(req: NextRequest) {
       data: { role, passwordHash, isActive: true, ...(displayName ? { displayName } : {}) },
       select: { id: true, email: true, role: true, isActive: true },
     });
+    if (role === "PROFESSOR" && firstName && lastName) {
+      await db.professor.upsert({
+        where: { userId: updated.id },
+        update: { firstName, lastName },
+        create: { userId: updated.id, firstName, lastName },
+      });
+    }
     return NextResponse.json({ message: "Foydalanuvchi yangilandi", user: updated });
   }
 
   const user = await db.user.create({
-    data: { email, passwordHash, role, ...(displayName ? { displayName } : {}) },
+    data: {
+      email, passwordHash, role,
+      ...(displayName ? { displayName } : {}),
+      ...(role === "PROFESSOR" && firstName && lastName
+        ? { professor: { create: { firstName, lastName } } }
+        : {}),
+    },
     select: { id: true, email: true, role: true },
   });
 
-  return NextResponse.json({ message: "Admin yaratildi", user }, { status: 201 });
+  return NextResponse.json({ message: "Foydalanuvchi yaratildi", user }, { status: 201 });
 }
