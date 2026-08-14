@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -42,7 +42,7 @@ export function PasswordReset({ userId, name }: { userId: string; name: string }
         <Button
           variant="ghost"
           size="icon"
-          className="h-6 w-6 text-slate-400 hover:text-amber-600"
+          className="h-6 w-6 text-stone-400 hover:text-amber-600"
           onClick={handleCopy}
           title="Nusxa olish"
         >
@@ -58,7 +58,7 @@ export function PasswordReset({ userId, name }: { userId: string; name: string }
       <Button
         variant="ghost"
         size="icon"
-        className="text-slate-400 hover:text-amber-600 hover:bg-amber-50"
+        className="text-stone-400 hover:text-amber-600 hover:bg-amber-50"
         onClick={() => setOpen(true)}
         title="Parolni reset qilish"
       >

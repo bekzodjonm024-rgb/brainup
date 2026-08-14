@@ -76,17 +76,17 @@ export default async function RetrievalPage() {
             { icon: <Clock className="h-5 w-5 text-[#B45309] dark:text-amber-400" />, label: "Kelayotgan (14 kun)", value: upcomingRecords.length, iconBg: "bg-[#FEF4E7] dark:bg-amber-950/30" },
             { icon: <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />, label: "Bu oy bajarildi", value: completedCount, iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
           ].map((s) => (
-            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1C1710] p-4 shadow-sm">
+            <div key={s.label} className="rounded-xl border border-stone-200 dark:border-white/10 bg-white dark:bg-[#1C1710] p-4 shadow-sm">
               <div className={`w-9 h-9 rounded-xl ${s.iconBg} flex items-center justify-center mb-3`}>{s.icon}</div>
-              <p className="text-xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 leading-tight">{s.label}</p>
+              <p className="text-xl font-bold text-[#1C1208] dark:text-white leading-none">{s.value}</p>
+              <p className="text-xs text-stone-500 dark:text-slate-400 mt-1.5 leading-tight">{s.label}</p>
             </div>
           ))}
         </div>
 
         {/* Due records */}
         <section className="space-y-3">
-          <h2 className="text-base font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
+          <h2 className="text-base font-semibold text-stone-600 dark:text-slate-300 flex items-center gap-2">
             <RotateCcw className="h-4 w-4 text-amber-500" />
             Takrorlash kerak
             {dueRecords.length > 0 && (
@@ -97,12 +97,12 @@ export default async function RetrievalPage() {
           </h2>
 
           {dueRecords.length === 0 ? (
-            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] py-10 flex flex-col items-center gap-3 text-center">
+            <div className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] py-10 flex flex-col items-center gap-3 text-center">
               <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
                 <CheckCircle2 className="h-7 w-7 text-emerald-400" />
               </div>
-              <p className="text-slate-600 dark:text-slate-300 font-medium">Hozircha takrorlash kerak emas</p>
-              <p className="text-sm text-slate-500 max-w-xs">
+              <p className="text-stone-600 dark:text-slate-300 font-medium">Hozircha takrorlash kerak emas</p>
+              <p className="text-sm text-stone-500 max-w-xs">
                 Mavzularni o'zlashtirsangiz, takrorlash jadvali avtomatik tuziladi.
               </p>
             </div>
@@ -114,19 +114,19 @@ export default async function RetrievalPage() {
                 const { label, urgent } = formatDueDate(rec.dueAt);
 
                 return (
-                  <div key={rec.id} className={`rounded-xl border bg-white dark:bg-[#17130E] p-4 flex items-center gap-3 ${urgent ? "border-amber-500/20" : "border-slate-200 dark:border-white/8"}`}>
-                    <RotateCcw className={`h-5 w-5 shrink-0 ${urgent ? "text-amber-400" : "text-slate-400 dark:text-slate-600"}`} />
+                  <div key={rec.id} className={`rounded-xl border bg-white dark:bg-[#17130E] p-4 flex items-center gap-3 ${urgent ? "border-amber-500/20" : "border-stone-200 dark:border-white/8"}`}>
+                    <RotateCcw className={`h-5 w-5 shrink-0 ${urgent ? "text-amber-400" : "text-stone-400 dark:text-slate-600"}`} />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <h3 className="font-medium text-slate-700 dark:text-slate-200 text-sm">{rec.topic.title}</h3>
+                        <h3 className="font-medium text-stone-700 dark:text-slate-200 text-sm">{rec.topic.title}</h3>
                         <MasteryBadge score={mastery} />
                       </div>
-                      <p className="text-xs text-slate-400 dark:text-slate-600 mt-0.5">{rec.topic.course.title}</p>
+                      <p className="text-xs text-stone-400 dark:text-slate-600 mt-0.5">{rec.topic.course.title}</p>
                       <div className="flex items-center gap-3 mt-1">
-                        <span className={`text-xs font-medium ${urgent ? "text-amber-400" : "text-slate-500"}`}>
+                        <span className={`text-xs font-medium ${urgent ? "text-amber-400" : "text-stone-500"}`}>
                           {label}
                         </span>
-                        <span className="text-xs text-slate-400 dark:text-slate-700">
+                        <span className="text-xs text-stone-400 dark:text-slate-700">
                           Interval: {rec.intervalDays} kun
                         </span>
                       </div>
@@ -146,7 +146,7 @@ export default async function RetrievalPage() {
         {/* Upcoming */}
         {upcomingRecords.length > 0 && (
           <section className="space-y-3">
-            <h2 className="text-base font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
+            <h2 className="text-base font-semibold text-stone-600 dark:text-slate-300 flex items-center gap-2">
               <Clock className="h-4 w-4 text-[#B45309]" />
               Kelayotgan takrorlashlar
             </h2>
@@ -156,13 +156,13 @@ export default async function RetrievalPage() {
                 return (
                   <div
                     key={rec.id}
-                    className="flex items-center justify-between px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E]"
+                    className="flex items-center justify-between px-4 py-2.5 rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E]"
                   >
                     <div className="min-w-0">
-                      <p className="text-sm font-medium text-slate-600 dark:text-slate-300 truncate">{rec.topic.title}</p>
-                      <p className="text-xs text-slate-400 dark:text-slate-600 truncate">{rec.topic.course.title}</p>
+                      <p className="text-sm font-medium text-stone-600 dark:text-slate-300 truncate">{rec.topic.title}</p>
+                      <p className="text-xs text-stone-400 dark:text-slate-600 truncate">{rec.topic.course.title}</p>
                     </div>
-                    <span className="text-xs text-slate-500 shrink-0 ml-3">{label}</span>
+                    <span className="text-xs text-stone-500 shrink-0 ml-3">{label}</span>
                   </div>
                 );
               })}
@@ -177,7 +177,7 @@ export default async function RetrievalPage() {
           </div>
           <div className="text-sm space-y-1">
             <p className="font-medium text-amber-400">Spaced Repetition nima?</p>
-            <p className="text-slate-500 text-xs leading-relaxed">
+            <p className="text-stone-500 text-xs leading-relaxed">
               Mavzuni o'zlashtirganingizdan so'ng, uni to'g'ri vaqtda takrorlash
               uzoq muddatli xotirani mustahkamlaydi. Intervalar: 3 → 7 → 14 → 30 kun.
             </p>

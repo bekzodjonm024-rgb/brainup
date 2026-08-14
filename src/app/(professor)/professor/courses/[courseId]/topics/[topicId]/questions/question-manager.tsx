@@ -374,8 +374,8 @@ export function QuestionList({
 
   if (questions.length === 0) {
     return (
-      <div className="rounded-xl border border-dashed border-slate-200 bg-white p-12 text-center">
-        <p className="text-slate-500 text-sm">Hali savollar yo&apos;q. &ldquo;Savol qo&apos;shish&rdquo; yoki AI orqali yarating.</p>
+      <div className="rounded-xl border border-dashed border-stone-200 bg-white p-12 text-center">
+        <p className="text-stone-500 text-sm">Hali savollar yo&apos;q. &ldquo;Savol qo&apos;shish&rdquo; yoki AI orqali yarating.</p>
       </div>
     );
   }
@@ -385,7 +385,7 @@ export function QuestionList({
       {/* Filter bar */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
         <div className="relative flex-1 max-w-xs">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-stone-400" />
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -420,7 +420,7 @@ export function QuestionList({
               "h-9 px-3 rounded-md border text-xs font-medium transition-colors",
               showInactive
                 ? "bg-slate-900 text-white border-slate-900"
-                : "bg-white text-slate-600 border-slate-200 hover:border-slate-300"
+                : "bg-white text-stone-600 border-stone-200 hover:border-stone-300"
             )}
           >
             {showInactive ? "Nofaollar ko'rinmoqda" : "Nofaollarni ko'rsatish"}
@@ -429,15 +429,15 @@ export function QuestionList({
       </div>
 
       {/* Count */}
-      <p className="text-sm text-slate-500">
+      <p className="text-sm text-stone-500">
         {filtered.length} ta savol ko&apos;rsatilmoqda
-        <span className="ml-1 text-slate-400">({activeCount} faol, {questions.length - activeCount} nofaol)</span>
+        <span className="ml-1 text-stone-400">({activeCount} faol, {questions.length - activeCount} nofaol)</span>
       </p>
 
       {/* List */}
       {filtered.length === 0 ? (
-        <div className="rounded-xl border border-slate-100 bg-slate-50 p-10 text-center">
-          <p className="text-sm text-slate-400">Filtr bo&apos;yicha savol topilmadi</p>
+        <div className="rounded-xl border border-slate-100 bg-stone-50 p-10 text-center">
+          <p className="text-sm text-stone-400">Filtr bo&apos;yicha savol topilmadi</p>
         </div>
       ) : (
         <div className="space-y-2">
@@ -446,14 +446,14 @@ export function QuestionList({
               key={q.id}
               className={cn(
                 "rounded-xl border p-4 transition-colors",
-                q.isActive ? "bg-white border-slate-200" : "bg-slate-50 border-slate-100 opacity-60"
+                q.isActive ? "bg-white border-stone-200" : "bg-slate-50 border-slate-100 opacity-60"
               )}
             >
               <div className="flex items-start gap-3">
-                <span className="text-xs text-slate-400 shrink-0 mt-1 w-6 text-right">{idx + 1}</span>
+                <span className="text-xs text-stone-400 shrink-0 mt-1 w-6 text-right">{idx + 1}</span>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap mb-1.5">
-                    <span className="text-xs text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">
+                    <span className="text-xs text-stone-500 bg-stone-100 px-2 py-0.5 rounded-full">
                       {TYPE_LABEL[q.type]}
                     </span>
                     <span className={cn(
@@ -463,12 +463,12 @@ export function QuestionList({
                       {DIFFICULTY_LABEL[q.difficulty]}
                     </span>
                     {!q.isActive && (
-                      <span className="text-xs text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">
+                      <span className="text-xs text-stone-400 bg-stone-100 px-2 py-0.5 rounded-full">
                         Nofaol
                       </span>
                     )}
                   </div>
-                  <p className="text-sm text-slate-900 line-clamp-2">{q.stem}</p>
+                  <p className="text-sm text-[#1C1208] line-clamp-2">{q.stem}</p>
                   {q.type === "MULTIPLE_CHOICE" && Array.isArray(q.options) && (
                     <div className="mt-2 grid grid-cols-2 gap-1">
                       {q.options.map((opt, i) => (
@@ -476,7 +476,7 @@ export function QuestionList({
                           "text-xs px-2 py-1 rounded",
                           String(q.answer) === String(i)
                             ? "bg-emerald-50 text-emerald-700 font-medium"
-                            : "text-slate-500"
+                            : "text-stone-500"
                         )}>
                           {i + 1}. {opt}
                         </p>
@@ -491,8 +491,8 @@ export function QuestionList({
                     className={cn(
                       "h-8 w-8",
                       q.isActive
-                        ? "text-slate-400 hover:text-amber-600 hover:bg-amber-50"
-                        : "text-slate-400 hover:text-emerald-600 hover:bg-emerald-50"
+                        ? "text-stone-400 hover:text-amber-600 hover:bg-amber-50"
+                        : "text-stone-400 hover:text-emerald-600 hover:bg-emerald-50"
                     )}
                     onClick={() => handleToggle(q)}
                     disabled={loadingId !== null}
@@ -508,7 +508,7 @@ export function QuestionList({
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8 text-slate-400 hover:text-[#B45309] hover:bg-[#FEF4E7]"
+                    className="h-8 w-8 text-stone-400 hover:text-[#B45309] hover:bg-[#FEF4E7]"
                     onClick={() => setEditQuestion(q)}
                     disabled={loadingId !== null}
                     title="Tahrirlash"

@@ -38,8 +38,8 @@ export default async function AssessmentPage() {
                 <CheckCircle2 className="h-4 w-4 text-emerald-400" />
               </div>
               <div>
-                <h3 className="font-semibold text-slate-800 dark:text-white text-sm">Baholash bajarildi</h3>
-                <p className="text-sm text-slate-500 mt-1">
+                <h3 className="font-semibold text-[#1C1208] dark:text-white text-sm">Baholash bajarildi</h3>
+                <p className="text-sm text-stone-500 mt-1">
                   Quyida siz ushbu topshiriqlarda ko&apos;rsatgan natijalar keltirilgan.
                   Bu natijalar klinik tashxis emas — learning pathway&apos;ni moslashtirish uchun ishlatiladi.
                 </p>
@@ -53,9 +53,9 @@ export default async function AssessmentPage() {
               memoryScore={student.cognitiveProfile!.memoryScore}
             />
 
-            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-4 flex items-start gap-3">
-              <AlertCircle className="h-4 w-4 text-slate-400 dark:text-slate-600 mt-0.5 shrink-0" />
-              <p className="text-xs text-slate-500">
+            <div className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-4 flex items-start gap-3">
+              <AlertCircle className="h-4 w-4 text-stone-400 dark:text-slate-600 mt-0.5 shrink-0" />
+              <p className="text-xs text-stone-500">
                 Bu natijalar sizning o&apos;quv yo&apos;nalishingizni moslashtirish uchun ishlatiladi.
                 Ular vaqt o&apos;tishi bilan o&apos;zgarishi mumkin va doimiy &quot;yorliq&quot; emas.
               </p>
@@ -67,34 +67,34 @@ export default async function AssessmentPage() {
           </>
         ) : (
           <>
-            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-6 space-y-6">
+            <div className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-6 space-y-6">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-[#FEF4E7]/10 border border-[#B45309]/20 flex items-center justify-center shrink-0">
                   <Brain className="h-6 w-6 text-amber-400" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-slate-800 dark:text-white">Boshlang&apos;ich baholash</h3>
-                  <p className="text-sm text-slate-500 mt-0.5">BrainUP sizning o&apos;quv yo&apos;nalishingizni moslashtiradi</p>
+                  <h3 className="font-semibold text-[#1C1208] dark:text-white">Boshlang&apos;ich baholash</h3>
+                  <p className="text-sm text-stone-500 mt-0.5">BrainUP sizning o&apos;quv yo&apos;nalishingizni moslashtiradi</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { label: "Davomiyligi", value: "~12 daqiqa", icon: <Clock className="h-4 w-4 text-slate-500" /> },
-                  { label: "Topshiriqlar", value: "4 xil turdagi", icon: <Brain className="h-4 w-4 text-slate-500" /> },
+                  { label: "Davomiyligi", value: "~12 daqiqa", icon: <Clock className="h-4 w-4 text-stone-500" /> },
+                  { label: "Topshiriqlar", value: "4 xil turdagi", icon: <Brain className="h-4 w-4 text-stone-500" /> },
                 ].map((s) => (
-                  <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/8 bg-slate-50 dark:bg-slate-950 p-4 flex items-center gap-3">
+                  <div key={s.label} className="rounded-xl border border-stone-200 dark:border-white/8 bg-stone-50 dark:bg-slate-950 p-4 flex items-center gap-3">
                     {s.icon}
                     <div>
-                      <p className="text-xs text-slate-400 dark:text-slate-600">{s.label}</p>
-                      <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">{s.value}</p>
+                      <p className="text-xs text-stone-400 dark:text-slate-600">{s.label}</p>
+                      <p className="text-sm font-semibold text-stone-700 dark:text-slate-200">{s.value}</p>
                     </div>
                   </div>
                 ))}
               </div>
 
               <div>
-                <p className="text-xs text-slate-500 uppercase tracking-wide font-medium mb-3">Nima o&apos;lchanadi</p>
+                <p className="text-xs text-stone-500 uppercase tracking-wide font-medium mb-3">Nima o&apos;lchanadi</p>
                 <div className="grid grid-cols-2 gap-2">
                   {[
                     { icon: <Eye className="h-3.5 w-3.5 text-violet-400" />,   text: "Diqqat topshiriqlari",   bg: "bg-violet-500/10 border-violet-500/20" },
@@ -104,13 +104,13 @@ export default async function AssessmentPage() {
                   ].map((m) => (
                     <div key={m.text} className={`flex items-center gap-2.5 rounded-xl border p-3 ${m.bg}`}>
                       {m.icon}
-                      <span className="text-xs text-slate-500 dark:text-slate-400">{m.text}</span>
+                      <span className="text-xs text-stone-500 dark:text-slate-400">{m.text}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-3 text-xs text-slate-500">
+              <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-3 text-xs text-stone-500">
                 Bu baholash klinik tashxis bermaydi. Natijalarda faqat siz ushbu topshiriqlarda
                 ko&apos;rsatgan ko&apos;rsatkichlar aks etadi.
               </div>

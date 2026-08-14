@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -46,20 +46,20 @@ export function AdminProfileSettings({ email }: { email: string }) {
       <Card>
         <CardHeader className="pb-3">
           <CardTitle className="text-sm font-semibold flex items-center gap-2">
-            <Lock className="h-4 w-4 text-slate-400" />
+            <Lock className="h-4 w-4 text-stone-400" />
             Email
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-slate-600">{email}</p>
-          <p className="text-xs text-slate-400 mt-1">Email manzilni o'zgartirish uchun texnik qo'llab-quvvatlashga murojaat qiling.</p>
+          <p className="text-sm text-stone-600">{email}</p>
+          <p className="text-xs text-stone-400 mt-1">Email manzilni o'zgartirish uchun texnik qo'llab-quvvatlashga murojaat qiling.</p>
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader className="pb-3">
           <CardTitle className="text-sm font-semibold flex items-center gap-2">
-            <Lock className="h-4 w-4 text-slate-400" />
+            <Lock className="h-4 w-4 text-stone-400" />
             Parolni o'zgartirish
           </CardTitle>
         </CardHeader>

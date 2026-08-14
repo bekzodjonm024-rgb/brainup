@@ -51,57 +51,57 @@ export function ProfessorsTable({ professors }: { professors: Professor[] }) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-3">
-        <p className="text-sm text-slate-500">
-          Jami <strong className="text-slate-700 dark:text-slate-200">{professors.length}</strong> professor
+        <p className="text-sm text-stone-500">
+          Jami <strong className="text-stone-700 dark:text-slate-200">{professors.length}</strong> professor
           {" · "}
           <span className="text-emerald-400">{activeCount} faol</span>
           {" · "}
-          <span className="text-slate-400 dark:text-slate-600">{professors.length - activeCount} bloklangan</span>
+          <span className="text-stone-400 dark:text-slate-600">{professors.length - activeCount} bloklangan</span>
         </p>
         <div className="relative w-64">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-stone-500" />
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Ism, email, unvon..."
-            className="w-full pl-9 pr-3 h-9 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
+            className="w-full pl-9 pr-3 h-9 rounded-lg border border-stone-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-[#1C1208] dark:text-slate-200 text-sm placeholder:text-stone-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
           />
         </div>
       </div>
 
-      <div className="rounded-xl border border-slate-200 dark:border-white/8 overflow-hidden">
+      <div className="rounded-xl border border-stone-200 dark:border-white/8 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 dark:bg-[#17130E] border-b border-slate-200 dark:border-white/8">
-                <th className="text-left px-4 py-3 font-medium text-slate-500 dark:text-slate-600 text-xs uppercase tracking-wide">Professor</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-500 dark:text-slate-600 text-xs uppercase tracking-wide hidden sm:table-cell">Email</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-500 dark:text-slate-600 text-xs uppercase tracking-wide hidden md:table-cell">Kurslar</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-500 dark:text-slate-600 text-xs uppercase tracking-wide hidden lg:table-cell">Qo'shilgan</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-500 dark:text-slate-600 text-xs uppercase tracking-wide">Holat</th>
-                <th className="px-4 py-3 text-xs font-medium text-slate-500 dark:text-slate-600 uppercase tracking-wide text-center">Amallar</th>
+              <tr className="bg-slate-50 dark:bg-[#17130E] border-b border-stone-200 dark:border-white/8">
+                <th className="text-left px-4 py-3 font-medium text-stone-500 dark:text-slate-600 text-xs uppercase tracking-wide">Professor</th>
+                <th className="text-left px-4 py-3 font-medium text-stone-500 dark:text-slate-600 text-xs uppercase tracking-wide hidden sm:table-cell">Email</th>
+                <th className="text-left px-4 py-3 font-medium text-stone-500 dark:text-slate-600 text-xs uppercase tracking-wide hidden md:table-cell">Kurslar</th>
+                <th className="text-left px-4 py-3 font-medium text-stone-500 dark:text-slate-600 text-xs uppercase tracking-wide hidden lg:table-cell">Qo'shilgan</th>
+                <th className="text-left px-4 py-3 font-medium text-stone-500 dark:text-slate-600 text-xs uppercase tracking-wide">Holat</th>
+                <th className="px-4 py-3 text-xs font-medium text-stone-500 dark:text-slate-600 uppercase tracking-wide text-center">Amallar</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200 dark:divide-slate-800/60 bg-[#f8faff] dark:bg-[#100D09]">
+            <tbody className="divide-y divide-stone-200 dark:divide-slate-800/60 bg-[#f8faff] dark:bg-[#100D09]">
               {filtered.map((user) => {
                 const p = user.professor;
                 const name = p ? `${p.firstName} ${p.lastName}` : user.email;
                 return (
-                  <tr key={user.id} className="hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors">
+                  <tr key={user.id} className="hover:bg-stone-50 dark:hover:bg-slate-900/60 transition-colors">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
                         <Initials name={name} />
                         <div className="min-w-0">
-                          <p className="font-medium text-slate-700 dark:text-slate-200 truncate max-w-[160px]">{name}</p>
-                          {p?.title && <p className="text-xs text-slate-400 dark:text-slate-600">{p.title}</p>}
+                          <p className="font-medium text-stone-700 dark:text-slate-200 truncate max-w-[160px]">{name}</p>
+                          {p?.title && <p className="text-xs text-stone-400 dark:text-slate-600">{p.title}</p>}
                         </div>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-slate-400 dark:text-slate-600 text-xs hidden sm:table-cell">{user.email}</td>
+                    <td className="px-4 py-3 text-stone-400 dark:text-slate-600 text-xs hidden sm:table-cell">{user.email}</td>
                     <td className="px-4 py-3 hidden md:table-cell">
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400">{p?._count.courses ?? 0} ta</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-stone-100 dark:bg-[#1C1710] border border-stone-200 dark:border-white/10 text-stone-500 dark:text-slate-400">{p?._count.courses ?? 0} ta</span>
                     </td>
-                    <td className="px-4 py-3 text-slate-400 dark:text-slate-600 text-xs hidden lg:table-cell">
+                    <td className="px-4 py-3 text-stone-400 dark:text-slate-600 text-xs hidden lg:table-cell">
                       {formatDate(user.createdAt)}
                     </td>
                     <td className="px-4 py-3">
@@ -126,7 +126,7 @@ export function ProfessorsTable({ professors }: { professors: Professor[] }) {
                 <tr>
                   <td colSpan={6} className="px-4 py-12 text-center">
                     <UserCog className="h-8 w-8 text-slate-300 dark:text-slate-700 mx-auto mb-2" />
-                    <p className="text-sm text-slate-500">
+                    <p className="text-sm text-stone-500">
                       {search ? `"${search}" bo'yicha natija topilmadi` : "Professor topilmadi"}
                     </p>
                   </td>
@@ -136,7 +136,7 @@ export function ProfessorsTable({ professors }: { professors: Professor[] }) {
           </table>
         </div>
         {filtered.length > 0 && (
-          <div className="px-4 py-2.5 bg-slate-50 dark:bg-[#17130E] border-t border-slate-200 dark:border-white/8 text-xs text-slate-400 dark:text-slate-600">
+          <div className="px-4 py-2.5 bg-stone-50 dark:bg-[#17130E] border-t border-stone-200 dark:border-white/8 text-xs text-stone-400 dark:text-slate-600">
             {filtered.length} ta {search ? `(jami ${professors.length} dan)` : "professor"}
           </div>
         )}

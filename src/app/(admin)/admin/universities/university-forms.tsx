@@ -29,35 +29,35 @@ export function AddUniversityForm() {
   }
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
-      <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 mb-4">Yangi universitet qo&apos;shish</h3>
+    <div className="card-lift rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
+      <h3 className="text-sm font-semibold text-stone-600 dark:text-slate-300 mb-4">Yangi universitet qo&apos;shish</h3>
       <form onSubmit={handleSubmit} className="flex flex-wrap gap-3 items-end">
         <div className="space-y-1">
-          <label className="text-xs text-slate-500 font-medium">Nomi *</label>
+          <label className="text-xs text-stone-500 font-medium">Nomi *</label>
           <input
             value={form.name}
             onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
             placeholder="To'liq nomi"
-            className="h-9 w-64 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
+            className="h-9 w-64 px-3 rounded-lg border border-stone-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-[#1C1208] dark:text-slate-200 text-sm placeholder:text-stone-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
             required
           />
         </div>
         <div className="space-y-1">
-          <label className="text-xs text-slate-500 font-medium">Qisqa nomi</label>
+          <label className="text-xs text-stone-500 font-medium">Qisqa nomi</label>
           <input
             value={form.shortName}
             onChange={(e) => setForm((p) => ({ ...p, shortName: e.target.value }))}
             placeholder="NamDPI"
-            className="h-9 w-28 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
+            className="h-9 w-28 px-3 rounded-lg border border-stone-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-[#1C1208] dark:text-slate-200 text-sm placeholder:text-stone-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
           />
         </div>
         <div className="space-y-1">
-          <label className="text-xs text-slate-500 font-medium">Shahar</label>
+          <label className="text-xs text-stone-500 font-medium">Shahar</label>
           <input
             value={form.city}
             onChange={(e) => setForm((p) => ({ ...p, city: e.target.value }))}
             placeholder="Namangan"
-            className="h-9 w-32 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
+            className="h-9 w-32 px-3 rounded-lg border border-stone-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-[#1C1208] dark:text-slate-200 text-sm placeholder:text-stone-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
           />
         </div>
         <button
@@ -104,13 +104,13 @@ export function AddFacultyForm({ universityId, universityName }: { universityId:
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder={`${universityName} — yangi fakultet`}
-        className="h-8 flex-1 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-slate-900 dark:text-slate-200 text-xs placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
+        className="h-8 flex-1 px-3 rounded-lg border border-stone-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-[#1C1208] dark:text-slate-200 text-xs placeholder:text-stone-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
         required
       />
       <button
         type="submit"
         disabled={loading}
-        className="h-8 px-3 flex items-center gap-1 text-xs bg-slate-100 dark:bg-[#1C1710] hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-white/10 disabled:opacity-50 text-slate-600 dark:text-slate-300 rounded-lg transition-colors"
+        className="h-8 px-3 flex items-center gap-1 text-xs bg-stone-100 dark:bg-[#1C1710] hover:bg-stone-200 dark:hover:bg-slate-700 border border-stone-200 dark:border-white/10 disabled:opacity-50 text-stone-600 dark:text-slate-300 rounded-lg transition-colors"
       >
         <Plus className="h-3.5 w-3.5" />
         Fakultet

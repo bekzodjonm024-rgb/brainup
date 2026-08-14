@@ -34,7 +34,7 @@ export function StartAssessmentButton({ retake = false }: { retake?: boolean }) 
         size="lg"
         className={
           retake
-            ? "w-full h-11 border-slate-300 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#2a2720] bg-transparent"
+            ? "w-full h-11 border-stone-300 dark:border-white/10 text-stone-600 dark:text-slate-300 hover:bg-stone-100 dark:hover:bg-[#2a2720] bg-transparent"
             : "w-full h-11 bg-[#B45309] hover:bg-[#92400E] text-white border-0 shadow-lg shadow-[#1C1208]/12"
         }
         variant={retake ? "outline" : "default"}

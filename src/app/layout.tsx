@@ -1,17 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Syne } from "next/font/google";
+import { Outfit, DM_Serif_Display } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 
-const geist = Geist({
-  variable: "--font-geist-sans",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
-const syne = Syne({
-  variable: "--font-syne",
+const dmSerif = DM_Serif_Display({
+  variable: "--font-dm-serif",
   subsets: ["latin"],
-  weight: ["700", "800"],
+  weight: ["400"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -44,7 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="uz"
       suppressHydrationWarning
-      className={`${geist.variable} ${syne.variable} h-full antialiased`}
+      className={`${outfit.variable} ${dmSerif.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-[var(--background)] text-[var(--foreground)]">
         <Providers>{children}</Providers>

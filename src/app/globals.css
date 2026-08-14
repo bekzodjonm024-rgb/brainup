@@ -24,7 +24,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-outfit), system-ui, -apple-system, sans-serif;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
@@ -32,9 +32,9 @@ body {
   box-sizing: border-box;
 }
 
-/* Display font */
-.f-syne {
-  font-family: var(--font-syne), sans-serif;
+/* Display/serif font */
+.f-serif {
+  font-family: var(--font-dm-serif), Georgia, serif;
 }
 
 /* Smooth scroll */
@@ -53,3 +53,37 @@ html {
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 4px; }
 .dark ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); }
+
+/* Card hover lift — add class "card-lift" to any card */
+.card-lift {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.card-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(28,18,8,0.10), 0 2px 6px rgba(28,18,8,0.06);
+}
+.dark .card-lift:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.32), 0 2px 6px rgba(0,0,0,0.20);
+}
+
+/* Stat card — slight warm glow on hover */
+.stat-card {
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(180,83,9,0.08), 0 1px 4px rgba(28,18,8,0.06);
+  border-color: rgba(180,83,9,0.18);
+}
+.dark .stat-card:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.30);
+  border-color: rgba(180,83,9,0.20);
+}
+
+/* Warm gradient text utility */
+.text-warm-gradient {
+  background: linear-gradient(135deg, #B45309 0%, #D4973A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

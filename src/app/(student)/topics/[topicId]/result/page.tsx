@@ -158,19 +158,19 @@ export default async function ResultPage({
         {/* Back */}
         <Link
           href={`/topics/${topicId}`}
-          className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
+          className="inline-flex items-center gap-1.5 text-sm text-stone-500 hover:text-stone-700 dark:hover:text-slate-300 transition-colors"
         >
           <ArrowLeft className="h-4 w-4" /> {topic.title}
         </Link>
 
         {/* Mastery card */}
-        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-6 flex flex-col items-center gap-4 text-center">
+        <div className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-6 flex flex-col items-center gap-4 text-center">
           <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
             <CheckCircle2 className="h-8 w-8 text-emerald-400" />
           </div>
           <div>
-            <h1 className="text-lg font-bold text-slate-900 dark:text-white">Mashq yakunlandi</h1>
-            <p className="text-sm text-slate-500 mt-0.5">{topic.title}</p>
+            <h1 className="text-lg font-bold text-[#1C1208] dark:text-white">Mashq yakunlandi</h1>
+            <p className="text-sm text-stone-500 mt-0.5">{topic.title}</p>
           </div>
           <MasteryBadge score={mastery} />
         </div>
@@ -182,8 +182,8 @@ export default async function ResultPage({
               {cfg.icon}
             </div>
             <div>
-              <h2 className="font-semibold text-slate-700 dark:text-slate-200">{cfg.title}</h2>
-              <p className="text-sm text-slate-500 mt-1">{cfg.description}</p>
+              <h2 className="font-semibold text-stone-700 dark:text-slate-200">{cfg.title}</h2>
+              <p className="text-sm text-stone-500 mt-1">{cfg.description}</p>
             </div>
           </div>
           <Link href={getActionHref()}>
@@ -197,12 +197,12 @@ export default async function ResultPage({
         {/* Secondary actions */}
         <div className="flex gap-3">
           <Link href={`/courses/${topic.courseId}`} className="flex-1">
-            <Button variant="outline" className="w-full text-sm border-slate-300 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#2a2720] bg-transparent">
+            <Button variant="outline" className="w-full text-sm border-stone-300 dark:border-white/10 text-stone-500 dark:text-slate-400 hover:bg-stone-100 dark:hover:bg-[#2a2720] bg-transparent">
               Kurs ro&apos;yxati
             </Button>
           </Link>
           <Link href="/dashboard" className="flex-1">
-            <Button variant="outline" className="w-full text-sm border-slate-300 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#2a2720] bg-transparent">
+            <Button variant="outline" className="w-full text-sm border-stone-300 dark:border-white/10 text-stone-500 dark:text-slate-400 hover:bg-stone-100 dark:hover:bg-[#2a2720] bg-transparent">
               Dashboard
             </Button>
           </Link>

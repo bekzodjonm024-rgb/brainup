@@ -114,7 +114,7 @@ export function AssessmentRunner({ sessionId, items, initialItemIndex, totalItem
   if (!currentItem) {
     return (
       <div className="flex items-center justify-center h-screen bg-slate-950">
-        <p className="text-slate-500 text-sm">Baholash yakunlanmoqda...</p>
+        <p className="text-stone-500 text-sm">Baholash yakunlanmoqda...</p>
       </div>
     );
   }
@@ -138,7 +138,7 @@ export function AssessmentRunner({ sessionId, items, initialItemIndex, totalItem
             </div>
           </div>
 
-          <span className="text-xs text-slate-600 shrink-0 tabular-nums">
+          <span className="text-xs text-stone-600 shrink-0 tabular-nums">
             {currentIndex + 1} / {totalItems}
           </span>
         </div>
@@ -149,7 +149,7 @@ export function AssessmentRunner({ sessionId, items, initialItemIndex, totalItem
         <div className="w-full max-w-xl space-y-5">
           {/* Category chip */}
           <div className="flex justify-center">
-            <span className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium ${catCfg?.color ?? "bg-slate-800 text-slate-400 border-slate-700"}`}>
+            <span className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium ${catCfg?.color ?? "bg-slate-800 text-stone-400 border-slate-700"}`}>
               {catCfg?.label ?? currentItem.category}
             </span>
           </div>

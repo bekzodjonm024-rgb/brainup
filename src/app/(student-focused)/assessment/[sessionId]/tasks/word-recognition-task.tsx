@@ -65,13 +65,13 @@ export function WordRecognitionTask({ item, onComplete, disabled }: Props) {
   }
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-6 space-y-6">
-      <p className="text-slate-500 dark:text-slate-400 text-sm text-center">{item.prompt}</p>
+    <div className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-6 space-y-6">
+      <p className="text-stone-500 dark:text-slate-400 text-sm text-center">{item.prompt}</p>
 
       {phase === "study" && (
         <>
           <div className="flex items-center justify-between text-sm">
-            <span className="text-slate-500">So&apos;zlarni yodlang</span>
+            <span className="text-stone-500">So&apos;zlarni yodlang</span>
             <span className="font-mono font-bold text-amber-400">{timeLeft}s</span>
           </div>
           <div className="grid grid-cols-2 gap-2">
@@ -86,19 +86,19 @@ export function WordRecognitionTask({ item, onComplete, disabled }: Props) {
 
       {phase === "delay" && (
         <div className="py-12 text-center">
-          <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 mb-4">
+          <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-stone-100 dark:bg-[#1C1710] border border-stone-200 dark:border-white/10 mb-4">
             <div className="h-5 w-5 rounded-full border-2 border-[#B45309] border-t-transparent animate-spin" />
           </div>
-          <p className="text-sm text-slate-500">Tayyor bo&apos;ling...</p>
+          <p className="text-sm text-stone-500">Tayyor bo&apos;ling...</p>
         </div>
       )}
 
       {phase === "recognition" && (
         <>
-          <p className="text-sm text-slate-500 text-center">
+          <p className="text-sm text-stone-500 text-center">
             Oldin ko&apos;rgan so&apos;zlaringizni tanlang ({selected.size} ta tanlandi):
           </p>
-          <div className="grid grid-cols-2 gap-2 max-h-64 overflow-y-auto rounded-xl border border-slate-200 dark:border-white/8 bg-slate-50 dark:bg-slate-950 p-2">
+          <div className="grid grid-cols-2 gap-2 max-h-64 overflow-y-auto rounded-xl border border-stone-200 dark:border-white/8 bg-stone-50 dark:bg-slate-950 p-2">
             {allOptions.map((word) => (
               <button
                 key={word}
@@ -108,7 +108,7 @@ export function WordRecognitionTask({ item, onComplete, disabled }: Props) {
                   "rounded-xl border px-3 py-2.5 text-sm font-medium transition-all text-left flex items-center gap-2",
                   selected.has(word)
                     ? "border-[#B45309]/40 bg-[#FEF4E7]/15 text-amber-300"
-                    : "border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#2a2720] hover:text-slate-700 dark:hover:text-slate-300"
+                    : "border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] text-stone-500 dark:text-slate-400 hover:bg-stone-100 dark:hover:bg-[#2a2720] hover:text-stone-700 dark:hover:text-slate-300"
                 )}
               >
                 {selected.has(word) && <Check className="h-3.5 w-3.5 shrink-0 text-amber-400" />}

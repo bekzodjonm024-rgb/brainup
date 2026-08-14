@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -60,10 +60,10 @@ export function EditCourseDialog({ courseId, currentTitle, currentDescription, c
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40">
-      <div className="w-full max-w-md rounded-xl bg-white shadow-xl border border-slate-200">
+      <div className="w-full max-w-md rounded-xl bg-white shadow-xl border border-stone-200">
         <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
-          <h2 className="font-semibold text-slate-900">Kursni tahrirlash</h2>
-          <button onClick={() => setOpen(false)} className="text-slate-400 hover:text-slate-600">
+          <h2 className="font-semibold text-[#1C1208]">Kursni tahrirlash</h2>
+          <button onClick={() => setOpen(false)} className="text-stone-400 hover:text-slate-600">
             <X className="h-5 w-5" />
           </button>
         </div>

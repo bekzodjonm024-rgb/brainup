@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -112,7 +112,7 @@ export function ProfileSettings({ role, firstName, lastName, title, yearLevel, g
       <Card>
         <CardHeader className="pb-3">
           <CardTitle className="text-sm flex items-center gap-2">
-            <User className="h-4 w-4 text-slate-500" /> Ism-familiya
+            <User className="h-4 w-4 text-stone-500" /> Ism-familiya
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -140,7 +140,7 @@ export function ProfileSettings({ role, firstName, lastName, title, yearLevel, g
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm flex items-center gap-2">
-              <BadgeCheck className="h-4 w-4 text-slate-500" /> Ilmiy unvon
+              <BadgeCheck className="h-4 w-4 text-stone-500" /> Ilmiy unvon
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -163,7 +163,7 @@ export function ProfileSettings({ role, firstName, lastName, title, yearLevel, g
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm flex items-center gap-2">
-              <GraduationCap className="h-4 w-4 text-slate-500" /> O'quv ma'lumotlari
+              <GraduationCap className="h-4 w-4 text-stone-500" /> O'quv ma'lumotlari
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -193,7 +193,7 @@ export function ProfileSettings({ role, firstName, lastName, title, yearLevel, g
       <Card>
         <CardHeader className="pb-3">
           <CardTitle className="text-sm flex items-center gap-2">
-            <Lock className="h-4 w-4 text-slate-500" /> Parolni o'zgartirish
+            <Lock className="h-4 w-4 text-stone-500" /> Parolni o'zgartirish
           </CardTitle>
         </CardHeader>
         <CardContent>

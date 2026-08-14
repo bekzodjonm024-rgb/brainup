@@ -74,7 +74,7 @@ export function TrainingHub({ profile, nextDiagnosticAt, history }: Props) {
 
   if (status === "loading") {
     return (
-      <div className="flex items-center justify-center py-20 text-slate-400">
+      <div className="flex items-center justify-center py-20 text-stone-400">
         <div className="animate-spin rounded-full h-8 w-8 border-2 border-[#B45309] border-t-transparent" />
       </div>
     );
@@ -84,8 +84,8 @@ export function TrainingHub({ profile, nextDiagnosticAt, history }: Props) {
     return (
       <div className="rounded-2xl border border-amber-200 bg-amber-50 p-8 text-center">
         <Brain className="h-12 w-12 text-amber-500 mx-auto mb-3" />
-        <h2 className="text-lg font-semibold text-slate-800 mb-2">Kognitiv profil yo&apos;q</h2>
-        <p className="text-slate-500 mb-6 text-sm">
+        <h2 className="text-lg font-semibold text-[#1C1208] mb-2">Kognitiv profil yo&apos;q</h2>
+        <p className="text-stone-500 mb-6 text-sm">
           Mashqlar boshlash uchun avval diagnostik testni topshiring
         </p>
         <Button asChild>
@@ -99,8 +99,8 @@ export function TrainingHub({ profile, nextDiagnosticAt, history }: Props) {
     return (
       <div className="rounded-2xl border border-[#FDE8C8] bg-[#FEF4E7] p-8 text-center">
         <AlertTriangle className="h-12 w-12 text-[#B45309] mx-auto mb-3" />
-        <h2 className="text-lg font-semibold text-slate-800 mb-2">Diagnostik test vaqti keldi!</h2>
-        <p className="text-slate-500 mb-6 text-sm">
+        <h2 className="text-lg font-semibold text-[#1C1208] mb-2">Diagnostik test vaqti keldi!</h2>
+        <p className="text-stone-500 mb-6 text-sm">
           10 kunlik tsikl tugadi. Yangi diagnostik test topshiring va ko&apos;rsatkichlaringiz yangilansin.
         </p>
         <Button asChild>
@@ -120,20 +120,20 @@ export function TrainingHub({ profile, nextDiagnosticAt, history }: Props) {
           { label: "Tarix", value: `${history.length} ta test`, icon: <TrendingUp className="h-4 w-4" /> },
           { label: "Bugun", value: plan?.isComplete ? "Bajarildi ✓" : `${plan?.exercises.filter((e) => e.completed).length ?? 0}/${plan?.exercises.length ?? 0}`, icon: <CheckCircle2 className="h-4 w-4" /> },
         ].map((s) => (
-          <div key={s.label} className="rounded-xl border border-slate-200 bg-white p-4">
-            <div className="flex items-center gap-2 text-slate-400 mb-1">
+          <div key={s.label} className="rounded-xl border border-stone-200 bg-white p-4">
+            <div className="flex items-center gap-2 text-stone-400 mb-1">
               {s.icon}
               <span className="text-xs uppercase tracking-wide">{s.label}</span>
             </div>
-            <p className="text-lg font-bold text-slate-800">{s.value}</p>
+            <p className="text-lg font-bold text-[#1C1208]">{s.value}</p>
           </div>
         ))}
       </div>
 
       {/* Bugungi mashqlar */}
       {plan && (
-        <div className="rounded-2xl border border-slate-200 bg-white p-5">
-          <h2 className="font-semibold text-slate-800 mb-4">
+        <div className="rounded-2xl border border-stone-200 bg-white p-5">
+          <h2 className="font-semibold text-[#1C1208] mb-4">
             Bugungi mashqlar — {plan.cycleDay === 9 ? "Tayyorlov kuni" : `Kun ${plan.cycleDay}`}
           </h2>
           <div className="space-y-3">
@@ -143,16 +143,16 @@ export function TrainingHub({ profile, nextDiagnosticAt, history }: Props) {
                 <div
                   key={ex.order}
                   className={`flex items-center justify-between rounded-xl border p-4 ${
-                    ex.completed ? "bg-slate-50 border-slate-200 opacity-70" : meta.bg
+                    ex.completed ? "bg-slate-50 border-stone-200 opacity-70" : meta.bg
                   }`}
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-2xl">{meta.icon}</span>
                     <div>
-                      <p className={`font-medium ${ex.completed ? "text-slate-500" : meta.color}`}>
+                      <p className={`font-medium ${ex.completed ? "text-stone-500" : meta.color}`}>
                         {meta.label}
                       </p>
-                      <p className="text-xs text-slate-400">{DIFFICULTY_LABEL[ex.difficulty]}</p>
+                      <p className="text-xs text-stone-400">{DIFFICULTY_LABEL[ex.difficulty]}</p>
                     </div>
                   </div>
                   {ex.completed ? (
@@ -178,16 +178,16 @@ export function TrainingHub({ profile, nextDiagnosticAt, history }: Props) {
       )}
 
       {/* Rivojlanish grafigi */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-5">
-        <h2 className="font-semibold text-slate-800 mb-1">Kognitiv rivojlanish</h2>
-        <p className="text-xs text-slate-400 mb-4">Har diagnostik testdagi natijalar dinamikasi</p>
+      <div className="rounded-2xl border border-stone-200 bg-white p-5">
+        <h2 className="font-semibold text-[#1C1208] mb-1">Kognitiv rivojlanish</h2>
+        <p className="text-xs text-stone-400 mb-4">Har diagnostik testdagi natijalar dinamikasi</p>
         <CognitiveHistoryChart history={history} />
       </div>
 
       {/* Joriy profil ballari */}
       {profile && (
-        <div className="rounded-2xl border border-slate-200 bg-white p-5">
-          <h2 className="font-semibold text-slate-800 mb-4">Joriy kognitiv profil</h2>
+        <div className="rounded-2xl border border-stone-200 bg-white p-5">
+          <h2 className="font-semibold text-[#1C1208] mb-4">Joriy kognitiv profil</h2>
           <div className="space-y-3">
             {[
               { key: "attentionScore", label: "Diqqat", score: profile.attentionScore, color: "bg-indigo-500" },
@@ -198,9 +198,9 @@ export function TrainingHub({ profile, nextDiagnosticAt, history }: Props) {
               <div key={item.key}>
                 <div className="flex justify-between text-sm mb-1">
                   <span className="text-slate-600">{item.label}</span>
-                  <span className="font-medium text-slate-800">{Math.round(item.score ?? 0)}%</span>
+                  <span className="font-medium text-[#1C1208]">{Math.round(item.score ?? 0)}%</span>
                 </div>
-                <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                <div className="h-2 bg-stone-100 rounded-full overflow-hidden">
                   <div
                     className={`h-full rounded-full ${item.color}`}
                     style={{ width: `${item.score ?? 0}%` }}

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -48,7 +48,7 @@ export function SendReminderButton({ courseId }: Props) {
 
   if (state === "disabled") {
     return (
-      <div className="flex items-center gap-2 text-sm text-slate-500 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2">
+      <div className="flex items-center gap-2 text-sm text-stone-500 bg-stone-50 border border-stone-200 rounded-lg px-3 py-2">
         <AlertCircle className="h-4 w-4 shrink-0" />
         {message}
       </div>

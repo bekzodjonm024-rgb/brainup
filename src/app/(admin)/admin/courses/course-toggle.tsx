@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -44,8 +44,8 @@ export function CourseToggle({
         variant="ghost"
         size="icon"
         className={isActive
-          ? "text-slate-400 hover:text-red-600 hover:bg-red-50"
-          : "text-slate-400 hover:text-emerald-600 hover:bg-emerald-50"
+          ? "text-stone-400 hover:text-red-600 hover:bg-red-50"
+          : "text-stone-400 hover:text-emerald-600 hover:bg-emerald-50"
         }
         onClick={() => setOpen(true)}
         title={isActive ? "O'chirish" : "Faollashtirish"}

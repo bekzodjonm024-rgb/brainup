@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -82,7 +82,7 @@ export function ContentActions({ contentId, status, title, courseId, topicId }: 
           title="O'chirish"
           onClick={() => setDeleteOpen(true)}
           disabled={loading !== null}
-          className="text-slate-400 hover:text-red-600 hover:bg-red-50"
+          className="text-stone-400 hover:text-red-600 hover:bg-red-50"
         >
           {loading === "delete"
             ? <Loader2 className="h-4 w-4 animate-spin" />

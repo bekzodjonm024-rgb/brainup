@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect } from "react";
 import { BrainUPLogo } from "@/components/ui/brainup-logo";
@@ -17,14 +17,14 @@ export default function GlobalError({
   }, [error]);
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-stone-50 flex flex-col items-center justify-center p-4">
       <div className="text-center space-y-6 max-w-sm">
         <div className="flex justify-center">
           <BrainUPLogo size="lg" href="/" />
         </div>
         <div>
-          <h2 className="text-xl font-bold text-slate-900">Xatolik yuz berdi</h2>
-          <p className="text-sm text-slate-500 mt-2">
+          <h2 className="text-xl font-bold text-[#1C1208]">Xatolik yuz berdi</h2>
+          <p className="text-sm text-stone-500 mt-2">
             Kutilmagan muammo paydo bo'ldi. Qaytadan urinib ko'ring.
           </p>
         </div>

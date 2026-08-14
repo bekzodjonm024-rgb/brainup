@@ -70,7 +70,7 @@ export default async function ProfilePage() {
       <main className="flex-1 p-6 space-y-6 max-w-3xl mx-auto w-full">
 
         {/* Student info */}
-        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
+        <div className="card-lift rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
           <div className="flex items-start gap-4">
             <AvatarUpload
               currentUrl={student.user.avatarUrl}
@@ -78,17 +78,17 @@ export default async function ProfilePage() {
               size="lg"
             />
             <div className="flex-1 min-w-0">
-              <h2 className="font-semibold text-slate-900 dark:text-white text-lg">
+              <h2 className="font-semibold text-[#1C1208] dark:text-white text-lg">
                 {student.firstName} {student.lastName}
               </h2>
-              <p className="text-sm text-slate-500">{student.user.email}</p>
+              <p className="text-sm text-stone-500">{student.user.email}</p>
               <div className="flex flex-wrap gap-2 mt-2">
                 {[student.university.name, student.faculty.name, `${student.yearLevel}-kurs`, student.groupName].filter(Boolean).map((tag) => (
-                  <span key={tag} className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400">{tag}</span>
+                  <span key={tag} className="text-xs px-2 py-0.5 rounded-full bg-stone-100 dark:bg-[#1C1710] border border-stone-200 dark:border-white/10 text-stone-500 dark:text-slate-400">{tag}</span>
                 ))}
               </div>
             </div>
-            <div className="text-right text-xs text-slate-400 dark:text-slate-600 shrink-0">
+            <div className="text-right text-xs text-stone-400 dark:text-slate-600 shrink-0">
               <p className="flex items-center gap-1 justify-end">
                 <Calendar className="h-3 w-3" />
                 {formatDate(student.user.createdAt)}
@@ -106,10 +106,10 @@ export default async function ProfilePage() {
             { icon: <GraduationCap className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "Urinishlar", value: student._count.attempts, iconBg: "bg-violet-50 dark:bg-violet-950/50" },
             { icon: <TrendingUp className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "O'rtacha mastery", value: `${Math.round(avgMastery * 100)}%`, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
           ].map((s) => (
-            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1C1710] p-5 shadow-sm">
+            <div key={s.label} className="stat-card rounded-xl border border-stone-200 dark:border-white/10 bg-white dark:bg-[#1C1710] p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
-              <p className="text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
+              <p className="text-2xl font-bold text-[#1C1208] dark:text-white leading-none">{s.value}</p>
+              <p className="text-xs text-stone-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
             </div>
           ))}
         </div>
@@ -128,8 +128,8 @@ export default async function ProfilePage() {
               <Brain className="h-6 w-6 text-amber-400" />
             </div>
             <div>
-              <p className="font-medium text-slate-700 dark:text-slate-200">Baholash hali bajarilmagan</p>
-              <p className="text-sm text-slate-500 mt-0.5">
+              <p className="font-medium text-stone-700 dark:text-slate-200">Baholash hali bajarilmagan</p>
+              <p className="text-sm text-stone-500 mt-0.5">
                 Kognitiv profil yaratish uchun boshlang'ich baholashni bajaring.
               </p>
             </div>
@@ -138,9 +138,9 @@ export default async function ProfilePage() {
 
         {/* Cognitive history chart */}
         {cognitiveHistory.length > 0 && (
-          <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
-            <h3 className="font-semibold text-slate-700 dark:text-slate-200 mb-1">Kognitiv rivojlanish</h3>
-            <p className="text-xs text-slate-400 mb-4">{cognitiveHistory.length} ta diagnostik test natijasi</p>
+          <div className="card-lift rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
+            <h3 className="font-semibold text-stone-700 dark:text-slate-200 mb-1">Kognitiv rivojlanish</h3>
+            <p className="text-xs text-stone-400 mb-4">{cognitiveHistory.length} ta diagnostik test natijasi</p>
             <CognitiveHistoryChart
               history={cognitiveHistory.map((h) => ({ ...h, takenAt: h.takenAt.toISOString() }))}
             />
@@ -149,7 +149,7 @@ export default async function ProfilePage() {
 
         {/* Profile settings */}
         <div>
-          <h2 className="text-base font-semibold text-slate-600 dark:text-slate-300 mb-3">Sozlamalar</h2>
+          <h2 className="text-base font-semibold text-stone-600 dark:text-slate-300 mb-3">Sozlamalar</h2>
           <ProfileSettings
             role="STUDENT"
             firstName={student.firstName}
@@ -164,9 +164,9 @@ export default async function ProfilePage() {
           const topics = enrollment.course.topics;
           if (topics.length === 0) return null;
           return (
-            <div key={enrollment.courseId} className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] overflow-hidden">
-              <div className="px-5 py-4 border-b border-slate-200 dark:border-white/8">
-                <h3 className="font-semibold text-slate-700 dark:text-slate-200">{enrollment.course.title}</h3>
+            <div key={enrollment.courseId} className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] overflow-hidden">
+              <div className="px-5 py-4 border-b border-stone-200 dark:border-white/8">
+                <h3 className="font-semibold text-stone-700 dark:text-slate-200">{enrollment.course.title}</h3>
               </div>
               <div className="p-5 space-y-3">
                 {topics.map((topic) => {
@@ -175,14 +175,14 @@ export default async function ProfilePage() {
                   return (
                     <div key={topic.id} className="space-y-1.5">
                       <div className="flex items-center justify-between text-sm">
-                        <span className="text-slate-500 dark:text-slate-400 truncate flex-1 mr-2">{topic.title}</span>
+                        <span className="text-stone-500 dark:text-slate-400 truncate flex-1 mr-2">{topic.title}</span>
                         {mastery > 0 ? (
                           <MasteryBadge score={mastery} />
                         ) : (
-                          <span className="text-xs text-slate-400 dark:text-slate-700">Boshlanmagan</span>
+                          <span className="text-xs text-stone-400 dark:text-slate-700">Boshlanmagan</span>
                         )}
                       </div>
-                      <div className="h-1 bg-slate-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
+                      <div className="h-1 bg-stone-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
                         <div className="h-full bg-[#B45309] rounded-full" style={{ width: `${mastery * 100}%` }} />
                       </div>
                     </div>

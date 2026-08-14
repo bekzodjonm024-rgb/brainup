@@ -51,7 +51,7 @@ export default async function TopicDetailPage({
       <main className="flex-1 p-6 space-y-5">
         <div className="flex items-center justify-between">
           <Link href={`/professor/courses/${courseId}`}>
-            <button className="flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#2a2720] px-3 py-1.5 rounded-lg transition-colors">
+            <button className="flex items-center gap-1.5 text-sm text-stone-500 dark:text-slate-400 hover:text-stone-700 dark:hover:text-slate-200 hover:bg-stone-100 dark:hover:bg-[#2a2720] px-3 py-1.5 rounded-lg transition-colors">
               <ArrowLeft className="h-4 w-4" /> {topic.course.title}
             </button>
           </Link>
@@ -62,7 +62,7 @@ export default async function TopicDetailPage({
               currentObjective={topic.learningObjective}
             />
             <Link href={`/professor/courses/${courseId}/topics/${topicId}/questions`}>
-              <button className="flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#2a2720] border border-slate-300 dark:border-white/10 px-3 py-1.5 rounded-lg transition-colors">
+              <button className="flex items-center gap-1.5 text-sm text-stone-500 dark:text-slate-400 hover:text-stone-700 dark:hover:text-slate-200 hover:bg-stone-100 dark:hover:bg-[#2a2720] border border-stone-300 dark:border-white/10 px-3 py-1.5 rounded-lg transition-colors">
                 <HelpCircle className="h-4 w-4" /> Savollar banki
               </button>
             </Link>
@@ -73,16 +73,16 @@ export default async function TopicDetailPage({
         {topic.learningObjective && (
           <div className="rounded-xl border border-[#B45309]/20 bg-[#FEF4E7]/5 px-4 py-3">
             <p className="text-xs font-medium text-amber-400 mb-0.5">O&apos;quv maqsadi</p>
-            <p className="text-sm text-slate-600 dark:text-slate-300">{topic.learningObjective}</p>
+            <p className="text-sm text-stone-600 dark:text-slate-300">{topic.learningObjective}</p>
           </div>
         )}
 
         {/* Question count banner */}
-        <div className="flex items-center justify-between rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] px-4 py-3">
+        <div className="flex items-center justify-between rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] px-4 py-3">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-sm text-slate-500 dark:text-slate-400">
+            <span className="text-sm text-stone-500 dark:text-slate-400">
               Savollar banki:
-              <strong className="ml-1 text-slate-700 dark:text-slate-200">{questionCount} ta savol</strong>
+              <strong className="ml-1 text-stone-700 dark:text-slate-200">{questionCount} ta savol</strong>
             </span>
             {questionCount === 0 && (
               <span className="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 rounded-full px-2 py-0.5">
@@ -97,7 +97,7 @@ export default async function TopicDetailPage({
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <h2 className="font-semibold text-slate-700 dark:text-slate-200">Materiallar</h2>
+              <h2 className="font-semibold text-stone-700 dark:text-slate-200">Materiallar</h2>
               {pendingCount > 0 && (
                 <span className="rounded-full bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 text-xs font-medium text-amber-400">
                   {pendingCount} ta tasdiq kutmoqda
@@ -108,11 +108,11 @@ export default async function TopicDetailPage({
           </div>
 
           {topic.contentItems.length === 0 ? (
-            <div className="rounded-xl border border-dashed border-slate-200 dark:border-white/8 p-10 text-center">
-              <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 flex items-center justify-center mx-auto mb-3">
-                <FileText className="h-6 w-6 text-slate-400 dark:text-slate-600" />
+            <div className="rounded-xl border border-dashed border-stone-200 dark:border-white/8 p-10 text-center">
+              <div className="w-14 h-14 rounded-2xl bg-stone-100 dark:bg-[#1C1710] border border-stone-200 dark:border-white/10 flex items-center justify-center mx-auto mb-3">
+                <FileText className="h-6 w-6 text-stone-400 dark:text-slate-600" />
               </div>
-              <p className="text-sm text-slate-500 mb-3">Hali material qo&apos;shilmagan</p>
+              <p className="text-sm text-stone-500 mb-3">Hali material qo&apos;shilmagan</p>
               <AddContentDialog topicId={topicId} asButton />
             </div>
           ) : (
@@ -121,18 +121,18 @@ export default async function TopicDetailPage({
                 const Icon = contentTypeIcon[item.type] ?? FileText;
                 const isApproved = item.status === "APPROVED";
                 return (
-                  <div key={item.id} className={`rounded-xl border ${isApproved ? "border-emerald-500/20 bg-emerald-500/5" : "border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E]"} p-4`}>
+                  <div key={item.id} className={`rounded-xl border ${isApproved ? "border-emerald-500/20 bg-emerald-500/5" : "border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E]"} p-4`}>
                     <div className="flex items-start gap-3">
-                      <div className={`rounded-lg p-2 shrink-0 ${isApproved ? "bg-emerald-500/10" : "bg-slate-100 dark:bg-[#1C1710]"}`}>
-                        <Icon className={`h-4 w-4 ${isApproved ? "text-emerald-400" : "text-slate-400 dark:text-slate-500"}`} />
+                      <div className={`rounded-lg p-2 shrink-0 ${isApproved ? "bg-emerald-500/10" : "bg-stone-100 dark:bg-[#1C1710]"}`}>
+                        <Icon className={`h-4 w-4 ${isApproved ? "text-emerald-400" : "text-stone-400 dark:text-slate-500"}`} />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="font-medium text-slate-700 dark:text-slate-200">{item.title}</span>
+                          <span className="font-medium text-stone-700 dark:text-slate-200">{item.title}</span>
                           <ContentStatusBadge status={item.status} />
                         </div>
                         {item.body && (
-                          <p className="text-sm text-slate-500 mt-1 line-clamp-2">{item.body}</p>
+                          <p className="text-sm text-stone-500 mt-1 line-clamp-2">{item.body}</p>
                         )}
                         {item.externalUrl && (
                           <a href={item.externalUrl} target="_blank" rel="noopener noreferrer"
@@ -141,7 +141,7 @@ export default async function TopicDetailPage({
                           </a>
                         )}
                         {item.sources.length > 0 && (
-                          <p className="text-xs text-slate-400 dark:text-slate-600 mt-1">
+                          <p className="text-xs text-stone-400 dark:text-slate-600 mt-1">
                             {item.sources.length} ta ilmiy manba
                           </p>
                         )}

@@ -61,8 +61,8 @@ export default async function ProfessorDashboard() {
       <main className="flex-1 p-6 space-y-6">
 
         {/* Profile row */}
-        <div className="flex items-center gap-4 rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-4">
-          <div className="w-10 h-10 rounded-full bg-[#FEF4E7] dark:bg-amber-950/30 border border-slate-200 dark:border-white/10 flex items-center justify-center shrink-0">
+        <div className="flex items-center gap-4 rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-4">
+          <div className="w-10 h-10 rounded-full bg-[#FEF4E7] dark:bg-amber-950/30 border border-stone-200 dark:border-white/10 flex items-center justify-center shrink-0">
             {professor.user.avatarUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={professor.user.avatarUrl} alt="" className="w-10 h-10 rounded-full object-cover" />
@@ -73,12 +73,12 @@ export default async function ProfessorDashboard() {
             )}
           </div>
           <div>
-            <p className="font-semibold text-slate-900 dark:text-white">{professor.firstName} {professor.lastName}</p>
-            {professor.title && <p className="text-sm text-slate-500">{professor.title}</p>}
+            <p className="font-semibold text-[#1C1208] dark:text-white">{professor.firstName} {professor.lastName}</p>
+            {professor.title && <p className="text-sm text-stone-500">{professor.title}</p>}
           </div>
           <div className="ml-auto">
             <Link href="/professor/profile">
-              <Button variant="ghost" size="sm" className="text-xs text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">
+              <Button variant="ghost" size="sm" className="text-xs text-stone-500 hover:text-stone-700 dark:hover:text-slate-300">
                 Profil →
               </Button>
             </Link>
@@ -92,10 +92,10 @@ export default async function ProfessorDashboard() {
             { icon: <Users className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />,   label: "Talabalar",      value: totalStudents,          iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
             { icon: <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "Qiyin mavzular", value: difficultTopics.length, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
           ].map((s) => (
-            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1C1710] p-5 shadow-sm">
+            <div key={s.label} className="stat-card rounded-xl border border-stone-200 dark:border-white/10 bg-white dark:bg-[#1C1710] p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
-              <p className="text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
+              <p className="text-2xl font-bold text-[#1C1208] dark:text-white leading-none">{s.value}</p>
+              <p className="text-xs text-stone-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
             </div>
           ))}
 
@@ -105,7 +105,7 @@ export default async function ProfessorDashboard() {
                 <BarChart3 className="h-5 w-5 text-violet-600 dark:text-violet-400" />
               </div>
               <div>
-                <p className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide font-medium mb-1">Analitika</p>
+                <p className="text-xs text-stone-500 dark:text-slate-400 uppercase tracking-wide font-medium mb-1">Analitika</p>
                 <p className="text-sm font-semibold text-violet-600 dark:text-violet-400">Ko&apos;rish →</p>
               </div>
             </div>
@@ -116,7 +116,7 @@ export default async function ProfessorDashboard() {
           {/* Courses */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-base font-semibold text-slate-900 dark:text-white">Mening kurslarim</h2>
+              <h2 className="text-base font-semibold text-[#1C1208] dark:text-white">Mening kurslarim</h2>
               <Link href="/professor/courses/new">
                 <Button size="sm" className="bg-[#B45309] hover:bg-[#92400E] border-0 text-white gap-1">
                   <Plus className="h-3.5 w-3.5" /> Yangi kurs
@@ -125,11 +125,11 @@ export default async function ProfessorDashboard() {
             </div>
 
             {professor.courses.length === 0 ? (
-              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] py-10 flex flex-col items-center gap-3 text-center">
-                <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 flex items-center justify-center">
-                  <BookOpen className="h-6 w-6 text-slate-400 dark:text-slate-600" />
+              <div className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] py-10 flex flex-col items-center gap-3 text-center">
+                <div className="w-14 h-14 rounded-2xl bg-stone-100 dark:bg-[#1C1710] border border-stone-200 dark:border-white/10 flex items-center justify-center">
+                  <BookOpen className="h-6 w-6 text-stone-400 dark:text-slate-600" />
                 </div>
-                <p className="text-sm text-slate-500">Hali kurs yaratilinmadi</p>
+                <p className="text-sm text-stone-500">Hali kurs yaratilinmadi</p>
                 <Link href="/professor/courses/new">
                   <Button size="sm" className="bg-[#B45309] hover:bg-[#92400E] border-0 text-white">Kurs yaratish</Button>
                 </Link>
@@ -142,23 +142,23 @@ export default async function ProfessorDashboard() {
                   : 0;
 
                 return (
-                  <div key={course.id} className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
+                  <div key={course.id} className="card-lift rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
                     <div className="flex items-start justify-between gap-4 mb-4">
                       <div className="min-w-0">
-                        <h3 className="font-medium text-slate-700 dark:text-slate-200 truncate">{course.title}</h3>
-                        <div className="flex items-center gap-4 mt-1.5 text-xs text-slate-400 dark:text-slate-600">
+                        <h3 className="font-medium text-stone-700 dark:text-slate-200 truncate">{course.title}</h3>
+                        <div className="flex items-center gap-4 mt-1.5 text-xs text-stone-400 dark:text-slate-600">
                           <span>{course._count.enrollments} talaba</span>
                           <span>{course._count.topics} mavzu</span>
                           <span>{Math.round(avgMastery * 100)}% mastery</span>
                         </div>
                       </div>
                       <Link href={`/professor/courses/${course.id}`}>
-                        <Button size="sm" variant="outline" className="border-slate-300 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#2a2720] bg-transparent shrink-0 text-xs">
+                        <Button size="sm" variant="outline" className="border-stone-300 dark:border-white/10 text-stone-500 dark:text-slate-400 hover:bg-stone-100 dark:hover:bg-[#2a2720] bg-transparent shrink-0 text-xs">
                           Ko&apos;rish <ArrowRight className="h-3 w-3 ml-1" />
                         </Button>
                       </Link>
                     </div>
-                    <div className="h-1 bg-slate-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
+                    <div className="h-1 bg-stone-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
                       <div className="h-full bg-[#B45309] rounded-full" style={{ width: `${avgMastery * 100}%` }} />
                     </div>
                   </div>
@@ -169,24 +169,24 @@ export default async function ProfessorDashboard() {
 
           {/* Difficult topics */}
           <div className="space-y-4">
-            <h2 className="text-base font-semibold text-slate-900 dark:text-white">Qiyin mavzular</h2>
+            <h2 className="text-base font-semibold text-[#1C1208] dark:text-white">Qiyin mavzular</h2>
             {difficultTopics.length === 0 ? (
-              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] py-8 text-center">
+              <div className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] py-8 text-center">
                 <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mx-auto mb-3">
                   <TrendingUp className="h-5 w-5 text-emerald-400" />
                 </div>
-                <p className="text-sm text-slate-500">Qiyin mavzular aniqlanmadi</p>
+                <p className="text-sm text-stone-500">Qiyin mavzular aniqlanmadi</p>
               </div>
             ) : (
               <div className="rounded-2xl border border-amber-500/20 bg-white dark:bg-[#17130E] p-5 space-y-4">
                 {difficultTopics.map((topic) => (
                   <div key={topic.id} className="space-y-1.5">
                     <div className="flex items-center justify-between gap-2">
-                      <span className="text-sm font-medium text-slate-600 dark:text-slate-300 truncate flex-1">{topic.title}</span>
+                      <span className="text-sm font-medium text-stone-600 dark:text-slate-300 truncate flex-1">{topic.title}</span>
                       <span className="text-xs font-bold text-amber-400 shrink-0">{Math.round(topic.avgMastery * 100)}%</span>
                     </div>
-                    <p className="text-xs text-slate-400 dark:text-slate-600">{topic.courseTitle}</p>
-                    <div className="h-1 bg-slate-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
+                    <p className="text-xs text-stone-400 dark:text-slate-600">{topic.courseTitle}</p>
+                    <div className="h-1 bg-stone-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
                       <div className="h-full bg-amber-500 rounded-full" style={{ width: `${topic.avgMastery * 100}%` }} />
                     </div>
                   </div>

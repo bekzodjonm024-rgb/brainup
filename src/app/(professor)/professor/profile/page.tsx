@@ -31,7 +31,7 @@ export default async function ProfessorProfilePage() {
       <main className="flex-1 p-6 space-y-6 max-w-2xl mx-auto w-full">
 
         {/* Info card */}
-        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
+        <div className="card-lift rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
           <div className="flex items-start gap-4">
             <AvatarUpload
               currentUrl={professor.user.avatarUrl}
@@ -39,7 +39,7 @@ export default async function ProfessorProfilePage() {
               size="lg"
             />
             <div className="flex-1 min-w-0">
-              <h2 className="font-semibold text-slate-900 dark:text-white text-lg">
+              <h2 className="font-semibold text-[#1C1208] dark:text-white text-lg">
                 {professor.firstName} {professor.lastName}
               </h2>
               {professor.title && (
@@ -47,9 +47,9 @@ export default async function ProfessorProfilePage() {
                   {professor.title}
                 </span>
               )}
-              <p className="text-sm text-slate-500 mt-1">{professor.user.email}</p>
+              <p className="text-sm text-stone-500 mt-1">{professor.user.email}</p>
             </div>
-            <div className="text-right text-xs text-slate-400 dark:text-slate-600 shrink-0">
+            <div className="text-right text-xs text-stone-400 dark:text-slate-600 shrink-0">
               <p className="flex items-center gap-1 justify-end">
                 <Calendar className="h-3 w-3" />
                 {formatDate(professor.user.createdAt)}

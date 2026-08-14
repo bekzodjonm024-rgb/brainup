@@ -32,7 +32,7 @@ const ACTION_CONFIG: Record<string, {
   PRACTICE:         { label: "Mashq",         iconCls: "text-amber-400",   bgCls: "bg-[#FEF4E7]/10",   borderCls: "border-[#B45309]/20",   icon: <Zap className="h-4 w-4" /> },
   ADVANCED_PRACTICE:{ label: "Murakkab",      iconCls: "text-pink-400",   bgCls: "bg-pink-500/10",   borderCls: "border-pink-500/20",   icon: <Zap className="h-4 w-4" /> },
   CONTINUE:         { label: "Davom et",      iconCls: "text-emerald-400",bgCls: "bg-emerald-500/10",borderCls: "border-emerald-500/20",icon: <ArrowRight className="h-4 w-4" /> },
-  START:            { label: "Boshlash",      iconCls: "text-slate-500 dark:text-slate-400", bgCls: "bg-slate-100 dark:bg-[#1C1710]", borderCls: "border-slate-200 dark:border-white/10", icon: <PlayCircle className="h-4 w-4" /> },
+  START:            { label: "Boshlash",      iconCls: "text-stone-500 dark:text-slate-400", bgCls: "bg-stone-100 dark:bg-[#1C1710]", borderCls: "border-stone-200 dark:border-white/10", icon: <PlayCircle className="h-4 w-4" /> },
 };
 
 function getActionHref(topicId: string, action: string) {
@@ -139,8 +139,8 @@ export default async function DashboardPage() {
               <Brain className="h-5 w-5 text-amber-400" />
             </div>
             <div className="flex-1">
-              <h3 className="font-semibold text-slate-900 dark:text-white text-sm">Boshlang&apos;ich baholashni o&apos;ting</h3>
-              <p className="text-sm text-slate-500 mt-1">
+              <h3 className="font-semibold text-[#1C1208] dark:text-white text-sm">Boshlang&apos;ich baholashni o&apos;ting</h3>
+              <p className="text-sm text-stone-500 mt-1">
                 10–15 daqiqa. Natijalar sizga shaxsiy o&apos;quv yo&apos;nalishi yaratishga yordam beradi.
               </p>
             </div>
@@ -180,12 +180,12 @@ export default async function DashboardPage() {
               iconBg: "bg-violet-50 dark:bg-violet-950/50",
             },
           ].map((s) => (
-            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1C1710] p-5 shadow-sm">
+            <div key={s.label} className="stat-card rounded-xl border border-stone-200 dark:border-white/10 bg-white dark:bg-[#1C1710] p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>
                 {s.icon}
               </div>
-              <p className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
+              <p className="text-xl sm:text-2xl font-bold text-[#1C1208] dark:text-white leading-none">{s.value}</p>
+              <p className="text-xs text-stone-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
             </div>
           ))}
         </div>
@@ -197,32 +197,32 @@ export default async function DashboardPage() {
             {topRecs.length > 0 && (
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-base font-semibold text-slate-900 dark:text-white">Keyingi qadam</h2>
-                  <span className="text-xs text-slate-400 dark:text-slate-600 uppercase tracking-wide">Adaptiv tavsiya</span>
+                  <h2 className="text-base font-semibold text-[#1C1208] dark:text-white">Keyingi qadam</h2>
+                  <span className="text-xs text-stone-400 dark:text-slate-600 uppercase tracking-wide">Adaptiv tavsiya</span>
                 </div>
                 <div className="space-y-2">
                   {topRecs.map((rec) => {
                     const cfg = ACTION_CONFIG[rec.action] ?? ACTION_CONFIG.PRACTICE;
                     return (
                       <Link key={rec.topicId} href={getActionHref(rec.topicId, rec.action)}>
-                        <div className="group rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-4 flex items-center gap-4 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-[#2a2720]/60 transition-all cursor-pointer">
+                        <div className="group rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-4 flex items-center gap-4 hover:border-stone-300 dark:hover:border-stone-700 hover:bg-stone-50 dark:hover:bg-[#2a2720]/60 transition-all cursor-pointer">
                           <div className={`w-10 h-10 rounded-xl border flex items-center justify-center shrink-0 ${cfg.bgCls} ${cfg.borderCls}`}>
                             <span className={cfg.iconCls}>{cfg.icon}</span>
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium text-slate-700 dark:text-slate-200 truncate">{rec.topicTitle}</p>
-                            <p className="text-xs text-slate-400 dark:text-slate-600 truncate mt-0.5">{rec.courseTitle}</p>
+                            <p className="text-sm font-medium text-stone-700 dark:text-slate-200 truncate">{rec.topicTitle}</p>
+                            <p className="text-xs text-stone-400 dark:text-slate-600 truncate mt-0.5">{rec.courseTitle}</p>
                           </div>
                           <div className="flex items-center gap-2 shrink-0">
                             {rec.mastery > 0 && (
-                              <span className="text-xs text-slate-500">
+                              <span className="text-xs text-stone-500">
                                 {Math.round(rec.mastery * 100)}%
                               </span>
                             )}
                             <span className={`text-xs font-medium px-2 py-1 rounded-full border ${cfg.bgCls} ${cfg.borderCls} ${cfg.iconCls}`}>
                               {cfg.label}
                             </span>
-                            <ArrowRight className="h-4 w-4 text-slate-400 dark:text-slate-700 group-hover:text-slate-600 dark:group-hover:text-slate-400 transition-colors" />
+                            <ArrowRight className="h-4 w-4 text-stone-400 dark:text-slate-700 group-hover:text-stone-600 dark:group-hover:text-slate-400 transition-colors" />
                           </div>
                         </div>
                       </Link>
@@ -235,20 +235,20 @@ export default async function DashboardPage() {
             {/* Courses */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <h2 className="text-base font-semibold text-slate-900 dark:text-white">Kurslarim</h2>
+                <h2 className="text-base font-semibold text-[#1C1208] dark:text-white">Kurslarim</h2>
                 <Link href="/courses">
-                  <Button variant="ghost" size="sm" className="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#2a2720] text-xs gap-1">
+                  <Button variant="ghost" size="sm" className="text-stone-500 hover:text-stone-700 dark:hover:text-slate-300 hover:bg-stone-100 dark:hover:bg-[#2a2720] text-xs gap-1">
                     Barchasini ko&apos;rish <ArrowRight className="h-3 w-3" />
                   </Button>
                 </Link>
               </div>
 
               {student.enrollments.length === 0 ? (
-                <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-10 flex flex-col items-center gap-3 text-center">
-                  <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 flex items-center justify-center">
-                    <BookOpen className="h-6 w-6 text-slate-400 dark:text-slate-600" />
+                <div className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-10 flex flex-col items-center gap-3 text-center">
+                  <div className="w-14 h-14 rounded-2xl bg-stone-100 dark:bg-[#1C1710] border border-stone-200 dark:border-white/10 flex items-center justify-center">
+                    <BookOpen className="h-6 w-6 text-stone-400 dark:text-slate-600" />
                   </div>
-                  <p className="text-sm text-slate-500">Hali kurslarga yozilmadingiz</p>
+                  <p className="text-sm text-stone-500">Hali kurslarga yozilmadingiz</p>
                   <Link href="/courses">
                     <Button size="sm" className="bg-[#B45309] hover:bg-[#92400E] border-0 text-white">
                       Kurs topish
@@ -274,8 +274,8 @@ export default async function DashboardPage() {
                     <RefreshCw className="h-4 w-4 text-amber-400" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-slate-900 dark:text-white">Takrorlash</p>
-                    <p className="text-xs text-slate-500">{dueRetrievals} mavzu kutilmoqda</p>
+                    <p className="text-sm font-semibold text-[#1C1208] dark:text-white">Takrorlash</p>
+                    <p className="text-xs text-stone-500">{dueRetrievals} mavzu kutilmoqda</p>
                   </div>
                 </div>
                 <div className="space-y-2 mb-4">
@@ -283,7 +283,7 @@ export default async function DashboardPage() {
                     <Link key={r.id} href={`/retrieval/${r.topic.id}?recordId=${r.id}`}>
                       <div className="flex items-center gap-2 text-sm py-1.5 px-3 rounded-lg hover:bg-amber-500/10 transition-colors group cursor-pointer">
                         <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
-                        <span className="text-slate-600 dark:text-slate-300 truncate group-hover:text-amber-600 dark:group-hover:text-amber-300 transition-colors text-xs">{r.topic.title}</span>
+                        <span className="text-stone-600 dark:text-slate-300 truncate group-hover:text-amber-600 dark:group-hover:text-amber-300 transition-colors text-xs">{r.topic.title}</span>
                       </div>
                     </Link>
                   ))}
@@ -298,9 +298,9 @@ export default async function DashboardPage() {
 
             {/* No assessment notice */}
             {!hasAssessment && (
-              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5 flex items-center gap-3">
-                <AlertCircle className="h-4 w-4 text-slate-400 dark:text-slate-600 shrink-0" />
-                <p className="text-xs text-slate-500">Kognitiv profil baholash o&apos;tgandan so&apos;ng ko&apos;rinadi</p>
+              <div className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5 flex items-center gap-3">
+                <AlertCircle className="h-4 w-4 text-stone-400 dark:text-slate-600 shrink-0" />
+                <p className="text-xs text-stone-500">Kognitiv profil baholash o&apos;tgandan so&apos;ng ko&apos;rinadi</p>
               </div>
             )}
 
@@ -332,27 +332,27 @@ function CourseCard({ course }: {
   const progress           = totalTopics > 0 ? (completedTopics / totalTopics) * 100 : 0;
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
+    <div className="card-lift rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
       <div className="flex items-start justify-between gap-4 mb-4">
         <div className="min-w-0">
-          <h3 className="font-medium text-slate-700 dark:text-slate-200 truncate">{course.title}</h3>
-          <p className="text-xs text-slate-400 dark:text-slate-600 mt-1">{completedTopics}/{totalTopics} mavzu yakunlandi</p>
+          <h3 className="font-medium text-stone-700 dark:text-slate-200 truncate">{course.title}</h3>
+          <p className="text-xs text-stone-400 dark:text-slate-600 mt-1">{completedTopics}/{totalTopics} mavzu yakunlandi</p>
         </div>
         <Link href={`/courses/${course.id}`}>
-          <Button size="sm" variant="outline" className="border-slate-300 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#2a2720] hover:text-slate-700 dark:hover:text-slate-200 shrink-0 text-xs bg-transparent">
+          <Button size="sm" variant="outline" className="border-stone-300 dark:border-white/10 text-stone-500 dark:text-slate-400 hover:bg-stone-100 dark:hover:bg-[#2a2720] hover:text-stone-700 dark:hover:text-slate-200 shrink-0 text-xs bg-transparent">
             Davom etish
           </Button>
         </Link>
       </div>
-      <div className="h-1 bg-slate-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
+      <div className="h-1 bg-stone-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
         <div
           className="h-full bg-[#B45309] rounded-full transition-all"
           style={{ width: `${progress}%` }}
         />
       </div>
       <div className="flex justify-between mt-1.5">
-        <span className="text-[11px] text-slate-400 dark:text-slate-700">{Math.round(progress)}% yakunlandi</span>
-        <span className="text-[11px] text-slate-400 dark:text-slate-700">{totalTopics} mavzu</span>
+        <span className="text-[11px] text-stone-400 dark:text-slate-700">{Math.round(progress)}% yakunlandi</span>
+        <span className="text-[11px] text-stone-400 dark:text-slate-700">{totalTopics} mavzu</span>
       </div>
     </div>
   );

@@ -28,7 +28,7 @@ export default async function ProfessorCoursesPage() {
       <Header title="Kurslarim" description="Kurslarni boshqarish va tahlil" />
       <main className="flex-1 p-6 space-y-4">
         <div className="flex items-center justify-between">
-          <p className="text-sm text-slate-500">{courses.length} ta kurs</p>
+          <p className="text-sm text-stone-500">{courses.length} ta kurs</p>
           <Link href="/professor/courses/new">
             <Button size="sm" className="bg-[#B45309] hover:bg-[#92400E] text-white border-0">
               <Plus className="h-4 w-4 mr-1" /> Yangi kurs
@@ -37,12 +37,12 @@ export default async function ProfessorCoursesPage() {
         </div>
 
         {courses.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-slate-200 dark:border-white/8 p-14 text-center">
-            <div className="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 flex items-center justify-center mx-auto mb-4">
-              <BookOpen className="h-7 w-7 text-slate-400 dark:text-slate-600" />
+          <div className="rounded-2xl border border-dashed border-stone-200 dark:border-white/8 p-14 text-center">
+            <div className="w-16 h-16 rounded-2xl bg-stone-100 dark:bg-[#1C1710] border border-stone-200 dark:border-white/10 flex items-center justify-center mx-auto mb-4">
+              <BookOpen className="h-7 w-7 text-stone-400 dark:text-slate-600" />
             </div>
-            <p className="font-medium text-slate-500 dark:text-slate-400 mb-1">Hali kurs yaratilmagan</p>
-            <p className="text-sm text-slate-400 dark:text-slate-600 mb-4">Birinchi kursni yarating va mavzularni qo&apos;shing</p>
+            <p className="font-medium text-stone-500 dark:text-slate-400 mb-1">Hali kurs yaratilmagan</p>
+            <p className="text-sm text-stone-400 dark:text-slate-600 mb-4">Birinchi kursni yarating va mavzularni qo&apos;shing</p>
             <Link href="/professor/courses/new">
               <Button size="sm" className="bg-[#B45309] hover:bg-[#92400E] text-white border-0">Kurs yaratish</Button>
             </Link>

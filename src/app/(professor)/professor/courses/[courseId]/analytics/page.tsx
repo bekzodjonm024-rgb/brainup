@@ -21,7 +21,7 @@ function masteryBadge(score: number) {
   if (score >= 0.65) return "text-amber-400 bg-[#FEF4E7]/10 border border-[#B45309]/20";
   if (score >= 0.50) return "text-amber-400 bg-amber-500/10 border border-amber-500/20";
   if (score > 0) return "text-red-400 bg-red-500/10 border border-red-500/20";
-  return "text-slate-500 bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10";
+  return "text-stone-500 bg-stone-100 dark:bg-[#1C1710] border border-stone-200 dark:border-white/10";
 }
 
 function timeAgo(date: Date | null): string {
@@ -168,12 +168,12 @@ export default async function CourseAnalyticsPage({
         {/* Nav */}
         <div className="flex items-center gap-2">
           <Link href={`/professor/courses/${courseId}`}>
-            <Button variant="ghost" size="sm" className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#2a2720]">
+            <Button variant="ghost" size="sm" className="text-stone-500 dark:text-slate-400 hover:text-stone-700 dark:hover:text-slate-200 hover:bg-stone-100 dark:hover:bg-[#2a2720]">
               <ArrowLeft className="h-4 w-4 mr-1" /> Kursga qaytish
             </Button>
           </Link>
           <Link href="/professor/analytics">
-            <Button variant="ghost" size="sm" className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#2a2720]">
+            <Button variant="ghost" size="sm" className="text-stone-500 dark:text-slate-400 hover:text-stone-700 dark:hover:text-slate-200 hover:bg-stone-100 dark:hover:bg-[#2a2720]">
               <BarChart3 className="h-4 w-4 mr-1" /> Umumiy analitika
             </Button>
           </Link>
@@ -187,43 +187,43 @@ export default async function CourseAnalyticsPage({
             { icon: <CheckCircle2 className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "O'zlashtirildi", value: masteredStudents, iconBg: "bg-violet-50 dark:bg-violet-950/50" },
             { icon: <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "O'rtacha mastery", value: `${Math.round(avgMastery * 100)}%`, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
           ].map((s) => (
-            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1C1710] p-5 shadow-sm">
+            <div key={s.label} className="stat-card rounded-xl border border-stone-200 dark:border-white/10 bg-white dark:bg-[#1C1710] p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
-              <p className="text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
+              <p className="text-2xl font-bold text-[#1C1208] dark:text-white leading-none">{s.value}</p>
+              <p className="text-xs text-stone-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
             </div>
           ))}
         </div>
 
         {/* Topic performance table */}
-        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] overflow-hidden">
-          <div className="p-5 border-b border-slate-200 dark:border-white/8">
-            <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
-              <BarChart3 className="h-4 w-4 text-slate-500" />
+        <div className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] overflow-hidden">
+          <div className="p-5 border-b border-stone-200 dark:border-white/8">
+            <h3 className="text-sm font-semibold text-stone-600 dark:text-slate-300 flex items-center gap-2">
+              <BarChart3 className="h-4 w-4 text-stone-500" />
               Mavzular bo&apos;yicha natijalar
             </h3>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-slate-200 dark:border-white/8">
-                  <th className="text-left px-4 py-3 text-xs font-medium text-slate-400 dark:text-slate-600 uppercase tracking-wide w-8">#</th>
-                  <th className="text-left px-4 py-3 text-xs font-medium text-slate-400 dark:text-slate-600 uppercase tracking-wide">Mavzu</th>
-                  <th className="text-center px-3 py-3 text-xs font-medium text-slate-400 dark:text-slate-600 uppercase tracking-wide hidden sm:table-cell">Uringanlar</th>
-                  <th className="text-center px-3 py-3 text-xs font-medium text-slate-400 dark:text-slate-600 uppercase tracking-wide">Mastery</th>
-                  <th className="text-center px-3 py-3 text-xs font-medium text-slate-400 dark:text-slate-600 uppercase tracking-wide hidden md:table-cell">O&apos;zlashtirildi</th>
-                  <th className="text-center px-3 py-3 text-xs font-medium text-slate-400 dark:text-slate-600 uppercase tracking-wide hidden md:table-cell">O&apos;rt. urinish</th>
-                  <th className="text-center px-3 py-3 text-xs font-medium text-slate-400 dark:text-slate-600 uppercase tracking-wide hidden lg:table-cell">Savollar</th>
+                <tr className="border-b border-stone-200 dark:border-white/8">
+                  <th className="text-left px-4 py-3 text-xs font-medium text-stone-400 dark:text-slate-600 uppercase tracking-wide w-8">#</th>
+                  <th className="text-left px-4 py-3 text-xs font-medium text-stone-400 dark:text-slate-600 uppercase tracking-wide">Mavzu</th>
+                  <th className="text-center px-3 py-3 text-xs font-medium text-stone-400 dark:text-slate-600 uppercase tracking-wide hidden sm:table-cell">Uringanlar</th>
+                  <th className="text-center px-3 py-3 text-xs font-medium text-stone-400 dark:text-slate-600 uppercase tracking-wide">Mastery</th>
+                  <th className="text-center px-3 py-3 text-xs font-medium text-stone-400 dark:text-slate-600 uppercase tracking-wide hidden md:table-cell">O&apos;zlashtirildi</th>
+                  <th className="text-center px-3 py-3 text-xs font-medium text-stone-400 dark:text-slate-600 uppercase tracking-wide hidden md:table-cell">O&apos;rt. urinish</th>
+                  <th className="text-center px-3 py-3 text-xs font-medium text-stone-400 dark:text-slate-600 uppercase tracking-wide hidden lg:table-cell">Savollar</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200 dark:divide-slate-800/60">
+              <tbody className="divide-y divide-stone-200 dark:divide-slate-800/60">
                 {topicStats.map((t, idx) => (
-                  <tr key={t.id} className="hover:bg-slate-50 dark:hover:bg-[#2a2720]/30 transition-colors">
-                    <td className="px-4 py-3 text-slate-400 dark:text-slate-600 text-xs">{idx + 1}</td>
+                  <tr key={t.id} className="hover:bg-stone-50 dark:hover:bg-[#2a2720]/30 transition-colors">
+                    <td className="px-4 py-3 text-stone-400 dark:text-slate-600 text-xs">{idx + 1}</td>
                     <td className="px-4 py-3">
-                      <span className="text-slate-600 dark:text-slate-300 font-medium line-clamp-1">{t.title}</span>
+                      <span className="text-stone-600 dark:text-slate-300 font-medium line-clamp-1">{t.title}</span>
                     </td>
-                    <td className="px-3 py-3 text-center text-slate-500 hidden sm:table-cell">
+                    <td className="px-3 py-3 text-center text-stone-500 hidden sm:table-cell">
                       {t.tried}/{t.total}
                     </td>
                     <td className="px-3 py-3">
@@ -232,18 +232,18 @@ export default async function CourseAnalyticsPage({
                           {t.tried > 0 ? `${Math.round(t.avg * 100)}%` : "—"}
                         </span>
                         {t.tried > 0 && (
-                          <div className="h-1 w-16 bg-slate-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
+                          <div className="h-1 w-16 bg-stone-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
                             <div className={`h-full rounded-full ${masteryColor(t.avg)}`} style={{ width: `${t.avg * 100}%` }} />
                           </div>
                         )}
                       </div>
                     </td>
-                    <td className="px-3 py-3 text-center text-slate-500 hidden md:table-cell">{t.masteredCount}</td>
-                    <td className="px-3 py-3 text-center text-slate-500 hidden md:table-cell">
+                    <td className="px-3 py-3 text-center text-stone-500 hidden md:table-cell">{t.masteredCount}</td>
+                    <td className="px-3 py-3 text-center text-stone-500 hidden md:table-cell">
                       {t.avgAttempts > 0 ? t.avgAttempts.toFixed(1) : "—"}
                     </td>
                     <td className="px-3 py-3 text-center hidden lg:table-cell">
-                      <span className={`text-xs px-2 py-0.5 rounded-full ${t.questions > 0 ? "text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-[#1C1710]" : "text-slate-400 dark:text-slate-600 bg-white dark:bg-[#17130E] border border-slate-200 dark:border-white/8"}`}>
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${t.questions > 0 ? "text-stone-500 dark:text-slate-400 bg-stone-100 dark:bg-[#1C1710]" : "text-stone-400 dark:text-slate-600 bg-white dark:bg-[#17130E] border border-stone-200 dark:border-white/8"}`}>
                         {t.questions}
                       </span>
                     </td>
@@ -255,45 +255,45 @@ export default async function CourseAnalyticsPage({
         </div>
 
         {/* Student progress table */}
-        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] overflow-hidden">
-          <div className="p-5 border-b border-slate-200 dark:border-white/8">
-            <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
-              <Users className="h-4 w-4 text-slate-500" />
+        <div className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] overflow-hidden">
+          <div className="p-5 border-b border-stone-200 dark:border-white/8">
+            <h3 className="text-sm font-semibold text-stone-600 dark:text-slate-300 flex items-center gap-2">
+              <Users className="h-4 w-4 text-stone-500" />
               Talabalar progressi
             </h3>
           </div>
           {studentStats.length === 0 ? (
             <div className="py-10 text-center">
               <Users className="h-8 w-8 text-slate-300 dark:text-slate-700 mx-auto mb-2" />
-              <p className="text-sm text-slate-500">Talabalar hali yozilmagan</p>
+              <p className="text-sm text-stone-500">Talabalar hali yozilmagan</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-slate-200 dark:border-white/8">
-                    <th className="text-left px-4 py-3 text-xs font-medium text-slate-400 dark:text-slate-600 uppercase tracking-wide">Talaba</th>
-                    <th className="text-center px-3 py-3 text-xs font-medium text-slate-400 dark:text-slate-600 uppercase tracking-wide">Mastery</th>
-                    <th className="text-center px-3 py-3 text-xs font-medium text-slate-400 dark:text-slate-600 uppercase tracking-wide hidden sm:table-cell">Boshladi</th>
-                    <th className="text-center px-3 py-3 text-xs font-medium text-slate-400 dark:text-slate-600 uppercase tracking-wide">O&apos;zlashtirildi</th>
-                    <th className="text-center px-3 py-3 text-xs font-medium text-slate-400 dark:text-slate-600 uppercase tracking-wide hidden md:table-cell">Urinishlar</th>
-                    <th className="text-right px-4 py-3 text-xs font-medium text-slate-400 dark:text-slate-600 uppercase tracking-wide hidden md:table-cell">Oxirgi faollik</th>
+                  <tr className="border-b border-stone-200 dark:border-white/8">
+                    <th className="text-left px-4 py-3 text-xs font-medium text-stone-400 dark:text-slate-600 uppercase tracking-wide">Talaba</th>
+                    <th className="text-center px-3 py-3 text-xs font-medium text-stone-400 dark:text-slate-600 uppercase tracking-wide">Mastery</th>
+                    <th className="text-center px-3 py-3 text-xs font-medium text-stone-400 dark:text-slate-600 uppercase tracking-wide hidden sm:table-cell">Boshladi</th>
+                    <th className="text-center px-3 py-3 text-xs font-medium text-stone-400 dark:text-slate-600 uppercase tracking-wide">O&apos;zlashtirildi</th>
+                    <th className="text-center px-3 py-3 text-xs font-medium text-stone-400 dark:text-slate-600 uppercase tracking-wide hidden md:table-cell">Urinishlar</th>
+                    <th className="text-right px-4 py-3 text-xs font-medium text-stone-400 dark:text-slate-600 uppercase tracking-wide hidden md:table-cell">Oxirgi faollik</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-200 dark:divide-slate-800/60">
+                <tbody className="divide-y divide-stone-200 dark:divide-slate-800/60">
                   {studentStats.map((s) => {
                     const name = `${s.firstName} ${s.lastName}`;
                     const parts = name.trim().split(/\s+/).filter(Boolean);
                     const initials = parts.length >= 2 ? parts[0][0] + parts[1][0] : name.slice(0, 2);
                     const isInactive = s.lastActive && (Date.now() - s.lastActive.getTime()) > 7 * 24 * 60 * 60 * 1000;
                     return (
-                      <tr key={s.id} className="hover:bg-slate-50 dark:hover:bg-[#2a2720]/30 transition-colors">
+                      <tr key={s.id} className="hover:bg-stone-50 dark:hover:bg-[#2a2720]/30 transition-colors">
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-3">
                             <div className="h-8 w-8 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold shrink-0 uppercase select-none">
                               {initials}
                             </div>
-                            <span className="font-medium text-slate-600 dark:text-slate-300 truncate max-w-[160px]">{name}</span>
+                            <span className="font-medium text-stone-600 dark:text-slate-300 truncate max-w-[160px]">{name}</span>
                           </div>
                         </td>
                         <td className="px-3 py-3 text-center">
@@ -301,19 +301,19 @@ export default async function CourseAnalyticsPage({
                             {s.topicsStarted > 0 ? `${Math.round(s.avgMastery * 100)}%` : "—"}
                           </span>
                         </td>
-                        <td className="px-3 py-3 text-center text-slate-500 hidden sm:table-cell">
+                        <td className="px-3 py-3 text-center text-stone-500 hidden sm:table-cell">
                           {s.topicsStarted}/{course.topics.length}
                         </td>
                         <td className="px-3 py-3 text-center">
                           {s.topicsMastered > 0 ? (
                             <span className="text-emerald-400 font-medium">{s.topicsMastered}</span>
                           ) : (
-                            <span className="text-slate-400 dark:text-slate-600">0</span>
+                            <span className="text-stone-400 dark:text-slate-600">0</span>
                           )}
                         </td>
-                        <td className="px-3 py-3 text-center text-slate-500 hidden md:table-cell">{s.attempts}</td>
+                        <td className="px-3 py-3 text-center text-stone-500 hidden md:table-cell">{s.attempts}</td>
                         <td className="px-4 py-3 text-right text-xs hidden md:table-cell">
-                          <span className={isInactive ? "text-amber-400" : "text-slate-500"}>
+                          <span className={isInactive ? "text-amber-400" : "text-stone-500"}>
                             {timeAgo(s.lastActive)}
                           </span>
                         </td>
@@ -329,8 +329,8 @@ export default async function CourseAnalyticsPage({
         {/* Hard questions */}
         {questionStats.length > 0 && (
           <div className="rounded-2xl border border-red-500/20 bg-white dark:bg-[#17130E] overflow-hidden">
-            <div className="p-5 border-b border-slate-200 dark:border-white/8">
-              <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
+            <div className="p-5 border-b border-stone-200 dark:border-white/8">
+              <h3 className="text-sm font-semibold text-stone-600 dark:text-slate-300 flex items-center gap-2">
                 <HelpCircle className="h-4 w-4 text-red-400" />
                 Eng qiyin savollar
                 <span className="text-xs font-bold text-red-400 bg-red-500/10 border border-red-500/20 rounded-full px-2 py-0.5 ml-1">
@@ -342,14 +342,14 @@ export default async function CourseAnalyticsPage({
               {questionStats.map((q) => (
                 <div key={q.id} className="flex items-start gap-3 p-3 rounded-xl border border-red-500/10 bg-red-500/5">
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm text-slate-600 dark:text-slate-300 line-clamp-2">{q.stem}</p>
-                    <p className="text-xs text-slate-400 dark:text-slate-600 mt-0.5">{q.topicTitle} • {q.total} ta urinish</p>
+                    <p className="text-sm text-stone-600 dark:text-slate-300 line-clamp-2">{q.stem}</p>
+                    <p className="text-xs text-stone-400 dark:text-slate-600 mt-0.5">{q.topicTitle} • {q.total} ta urinish</p>
                   </div>
                   <div className="shrink-0 text-right">
                     <span className="text-sm font-bold text-red-400">
                       {Math.round((q.rate ?? 0) * 100)}%
                     </span>
-                    <p className="text-xs text-slate-400 dark:text-slate-600">to&apos;g&apos;ri</p>
+                    <p className="text-xs text-stone-400 dark:text-slate-600">to&apos;g&apos;ri</p>
                   </div>
                 </div>
               ))}

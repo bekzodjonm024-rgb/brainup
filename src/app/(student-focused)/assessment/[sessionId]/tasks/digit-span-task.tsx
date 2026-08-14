@@ -51,12 +51,12 @@ export function DigitSpanTask({ item, onComplete, disabled }: Props) {
   }
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-8 text-center space-y-8">
-      <p className="text-slate-500 dark:text-slate-400 text-sm">{item.prompt}</p>
+    <div className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-8 text-center space-y-8">
+      <p className="text-stone-500 dark:text-slate-400 text-sm">{item.prompt}</p>
 
       {phase === "intro" && (
         <div className="space-y-4">
-          <p className="text-slate-500 text-sm">{data.sequence.length} ta raqam ko&apos;rsatiladi</p>
+          <p className="text-stone-500 text-sm">{data.sequence.length} ta raqam ko&apos;rsatiladi</p>
           <Button
             onClick={startTask}
             disabled={disabled}
@@ -72,7 +72,7 @@ export function DigitSpanTask({ item, onComplete, disabled }: Props) {
         <div className="h-36 flex items-center justify-center">
           <span className={cn(
             "text-8xl font-bold transition-all duration-100",
-            phase === "showing" ? "text-slate-900 dark:text-white scale-100" : "text-transparent scale-90"
+            phase === "showing" ? "text-[#1C1208] dark:text-white scale-100" : "text-transparent scale-90"
           )}>
             {phase === "showing" ? data.sequence[currentDigitIdx] : "0"}
           </span>
@@ -81,7 +81,7 @@ export function DigitSpanTask({ item, onComplete, disabled }: Props) {
 
       {phase === "recall" && (
         <div className="space-y-6">
-          <p className="text-slate-500 dark:text-slate-400 text-sm">Raqamlarni tartibda kiriting:</p>
+          <p className="text-stone-500 dark:text-slate-400 text-sm">Raqamlarni tartibda kiriting:</p>
           <div className="flex justify-center gap-2">
             {Array.from({ length: data.sequence.length }).map((_, i) => (
               <div
@@ -90,7 +90,7 @@ export function DigitSpanTask({ item, onComplete, disabled }: Props) {
                   "h-12 w-10 rounded-xl border-2 flex items-center justify-center text-xl font-bold transition-colors",
                   input[i]
                     ? "border-[#B45309] bg-[#FEF4E7]/10 text-amber-400"
-                    : "border-slate-300 dark:border-white/10 bg-slate-100 dark:bg-[#1C1710] text-slate-400 dark:text-slate-600"
+                    : "border-stone-300 dark:border-white/10 bg-stone-100 dark:bg-[#1C1710] text-stone-400 dark:text-slate-600"
                 )}
               >
                 {input[i] ?? "·"}
@@ -104,14 +104,14 @@ export function DigitSpanTask({ item, onComplete, disabled }: Props) {
                 key={n}
                 disabled={input.length >= data.sequence.length}
                 onClick={() => setInput((s) => s.length < data.sequence.length ? s + n : s)}
-                className="h-11 w-11 rounded-xl border border-slate-300 dark:border-white/10 bg-slate-100 dark:bg-[#1C1710] text-slate-700 dark:text-slate-200 font-bold hover:bg-slate-200 dark:hover:bg-slate-700 hover:border-slate-400 dark:hover:border-slate-600 disabled:opacity-30 transition-colors text-sm"
+                className="h-11 w-11 rounded-xl border border-stone-300 dark:border-white/10 bg-stone-100 dark:bg-[#1C1710] text-stone-700 dark:text-slate-200 font-bold hover:bg-stone-200 dark:hover:bg-slate-700 hover:border-slate-400 dark:hover:border-slate-600 disabled:opacity-30 transition-colors text-sm"
               >
                 {n}
               </button>
             ))}
             <button
               onClick={() => setInput((s) => s.slice(0, -1))}
-              className="h-11 px-4 rounded-xl border border-slate-300 dark:border-white/10 bg-slate-100 dark:bg-[#1C1710] text-slate-500 dark:text-slate-400 text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+              className="h-11 px-4 rounded-xl border border-stone-300 dark:border-white/10 bg-stone-100 dark:bg-[#1C1710] text-stone-500 dark:text-slate-400 text-sm hover:bg-stone-200 dark:hover:bg-slate-700 transition-colors"
             >
               ←
             </button>

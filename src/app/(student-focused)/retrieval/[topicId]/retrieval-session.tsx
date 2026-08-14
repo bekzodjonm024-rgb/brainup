@@ -142,20 +142,20 @@ export function RetrievalSession({
       const isSelected = selectedAnswer === option;
       if (isCorrect)   return "border-emerald-500/40 bg-emerald-500/10 text-emerald-300";
       if (isSelected)  return "border-red-500/40    bg-red-500/10    text-red-300";
-      return "border-slate-200 dark:border-white/8 bg-slate-50/50 dark:bg-[#17130E]/50 text-slate-400 dark:text-slate-600";
+      return "border-stone-200 dark:border-white/8 bg-slate-50/50 dark:bg-[#17130E]/50 text-stone-400 dark:text-slate-600";
     }
     if (selectedAnswer === option) return "border-violet-500/40 bg-violet-500/10 text-violet-300";
-    return "border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[#2a2720] hover:border-slate-300 dark:hover:border-slate-700";
+    return "border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] text-stone-600 dark:text-slate-300 hover:bg-stone-50 dark:hover:bg-[#2a2720] hover:border-stone-300 dark:hover:border-slate-700";
   }
 
   function getTFStyle(val: string) {
     if (phase === "feedback") {
       if (val === String(feedback?.correctAnswer)) return "border-emerald-500/40 bg-emerald-500/10 text-emerald-300";
       if (selectedAnswer === val)                  return "border-red-500/40    bg-red-500/10    text-red-300";
-      return "border-slate-200 dark:border-white/8 bg-slate-50/50 dark:bg-[#17130E]/50 text-slate-400 dark:text-slate-600";
+      return "border-stone-200 dark:border-white/8 bg-slate-50/50 dark:bg-[#17130E]/50 text-stone-400 dark:text-slate-600";
     }
     if (selectedAnswer === val) return "border-violet-500/40 bg-violet-500/10 text-violet-300";
-    return "border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[#2a2720] hover:border-slate-300 dark:hover:border-slate-700";
+    return "border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] text-stone-600 dark:text-slate-300 hover:bg-stone-50 dark:hover:bg-[#2a2720] hover:border-stone-300 dark:hover:border-slate-700";
   }
 
   void initialMastery;
@@ -163,9 +163,9 @@ export function RetrievalSession({
   return (
     <div className="flex flex-col min-h-screen bg-[#f8faff] dark:bg-[#100D09]">
       {/* Sticky header */}
-      <div className="sticky top-0 z-10 bg-white/95 dark:bg-slate-950/95 backdrop-blur border-b border-slate-200 dark:border-white/8 px-5 py-3.5">
+      <div className="sticky top-0 z-10 bg-white/95 dark:bg-slate-950/95 backdrop-blur border-b border-stone-200 dark:border-white/8 px-5 py-3.5">
         <div className="mx-auto max-w-xl flex items-center gap-4">
-          <button onClick={() => router.push("/retrieval")} className="text-slate-400 dark:text-slate-600 hover:text-slate-600 dark:hover:text-slate-400 transition-colors">
+          <button onClick={() => router.push("/retrieval")} className="text-stone-400 dark:text-slate-600 hover:text-stone-600 dark:hover:text-slate-400 transition-colors">
             <ArrowLeft className="h-5 w-5" />
           </button>
           <div className="flex-1">
@@ -173,11 +173,11 @@ export function RetrievalSession({
               <RotateCcw className="h-3 w-3 text-violet-400" />
               <p className="text-xs text-violet-400 font-medium">Takrorlash sessiyasi</p>
             </div>
-            <div className="h-1 bg-slate-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
+            <div className="h-1 bg-stone-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
               <div className="h-full bg-violet-500 rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
             </div>
           </div>
-          <span className="text-xs text-slate-400 dark:text-slate-600 shrink-0 tabular-nums">{total}/{sessionTarget}</span>
+          <span className="text-xs text-stone-400 dark:text-slate-600 shrink-0 tabular-nums">{total}/{sessionTarget}</span>
         </div>
       </div>
 
@@ -186,8 +186,8 @@ export function RetrievalSession({
 
           {/* Topic info */}
           <div className="text-center">
-            <p className="text-sm font-medium text-slate-600 dark:text-slate-300">{topicTitle}</p>
-            <p className="text-xs text-slate-400 dark:text-slate-600 mt-0.5">
+            <p className="text-sm font-medium text-stone-600 dark:text-slate-300">{topicTitle}</p>
+            <p className="text-xs text-stone-400 dark:text-slate-600 mt-0.5">
               {courseTitle} · Interval: {INTERVAL_LABEL[intervalDays] ?? `${intervalDays} kun`}
             </p>
           </div>
@@ -199,26 +199,26 @@ export function RetrievalSession({
                 <span className="flex items-center gap-1.5 text-emerald-400"><CheckCircle2 className="h-4 w-4" /> {correct}</span>
                 <span className="flex items-center gap-1.5 text-red-400"><XCircle className="h-4 w-4" /> {total - correct}</span>
               </div>
-              <span className="text-xs text-slate-500">{accuracy}% aniqlik</span>
+              <span className="text-xs text-stone-500">{accuracy}% aniqlik</span>
             </div>
           )}
 
           {/* Loading */}
           {(phase === "loading" || phase === "completing") && (
-            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] py-16 flex flex-col items-center gap-3">
-              <Loader2 className={cn("h-6 w-6 animate-spin", phase === "completing" ? "text-violet-400" : "text-slate-400 dark:text-slate-600")} />
-              {phase === "completing" && <p className="text-sm text-slate-500">Natijalar saqlanmoqda...</p>}
+            <div className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] py-16 flex flex-col items-center gap-3">
+              <Loader2 className={cn("h-6 w-6 animate-spin", phase === "completing" ? "text-violet-400" : "text-stone-400 dark:text-slate-600")} />
+              {phase === "completing" && <p className="text-sm text-stone-500">Natijalar saqlanmoqda...</p>}
             </div>
           )}
 
           {/* No questions */}
           {phase === "no-questions" && (
-            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] py-12 text-center space-y-4">
-              <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 flex items-center justify-center mx-auto">
-                <AlertCircle className="h-6 w-6 text-slate-400 dark:text-slate-600" />
+            <div className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] py-12 text-center space-y-4">
+              <div className="w-14 h-14 rounded-2xl bg-stone-100 dark:bg-[#1C1710] border border-stone-200 dark:border-white/10 flex items-center justify-center mx-auto">
+                <AlertCircle className="h-6 w-6 text-stone-400 dark:text-slate-600" />
               </div>
-              <p className="text-slate-500 text-sm">Bu mavzu uchun savollar topilmadi</p>
-              <Button variant="outline" onClick={() => router.push("/retrieval")} className="border-slate-300 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#2a2720] bg-transparent">
+              <p className="text-stone-500 text-sm">Bu mavzu uchun savollar topilmadi</p>
+              <Button variant="outline" onClick={() => router.push("/retrieval")} className="border-stone-300 dark:border-white/10 text-stone-500 dark:text-slate-400 hover:bg-stone-100 dark:hover:bg-[#2a2720] bg-transparent">
                 Orqaga qaytish
               </Button>
             </div>
@@ -229,9 +229,9 @@ export function RetrievalSession({
             <div className={cn(
               "rounded-2xl border bg-white dark:bg-[#17130E] p-6 space-y-5 transition-all",
               phase === "feedback" && feedback?.isCorrect  ? "border-emerald-500/30" :
-              phase === "feedback" && feedback             ? "border-red-500/30"     : "border-slate-200 dark:border-white/8"
+              phase === "feedback" && feedback             ? "border-red-500/30"     : "border-stone-200 dark:border-white/8"
             )}>
-              <p className="text-slate-700 dark:text-slate-200 font-medium leading-relaxed">{currentQuestion.stem}</p>
+              <p className="text-stone-700 dark:text-slate-200 font-medium leading-relaxed">{currentQuestion.stem}</p>
 
               {currentQuestion.type === "MULTIPLE_CHOICE" && currentQuestion.options && (
                 <div className="space-y-2">
@@ -279,7 +279,7 @@ export function RetrievalSession({
                       {feedback.isCorrect ? "To'g'ri esladingiz!" : "Eslay olmadingiz"}
                     </span>
                   </div>
-                  {feedback.explanation && <p className="text-sm text-slate-500 dark:text-slate-400 pl-6">{feedback.explanation}</p>}
+                  {feedback.explanation && <p className="text-sm text-stone-500 dark:text-slate-400 pl-6">{feedback.explanation}</p>}
                 </div>
               )}
 
@@ -300,7 +300,7 @@ export function RetrievalSession({
               )}
 
               {phase === "feedback" && (
-                <Button onClick={handleNext} className="w-full h-11 bg-slate-100 dark:bg-[#1C1710] hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-200 border-0">
+                <Button onClick={handleNext} className="w-full h-11 bg-stone-100 dark:bg-[#1C1710] hover:bg-stone-200 dark:hover:bg-slate-700 text-stone-600 dark:text-slate-200 border-0">
                   {total + 1 >= sessionTarget ? "Takrorlashni yakunlash" : "Keyingi savol"}
                   <ChevronRight className="h-4 w-4 ml-1" />
                 </Button>
@@ -315,19 +315,19 @@ export function RetrievalSession({
                 <RotateCcw className="h-8 w-8 text-violet-400" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-slate-900 dark:text-white">Takrorlash yakunlandi!</h2>
-                <p className="text-slate-500 mt-1 text-sm">
+                <h2 className="text-xl font-bold text-[#1C1208] dark:text-white">Takrorlash yakunlandi!</h2>
+                <p className="text-stone-500 mt-1 text-sm">
                   {correct + (feedback?.isCorrect ? 1 : 0)}/{total + 1} savol to&apos;g&apos;ri
                 </p>
               </div>
-              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-slate-50 dark:bg-slate-950 p-4 space-y-3 text-left">
+              <div className="rounded-xl border border-stone-200 dark:border-white/8 bg-stone-50 dark:bg-slate-950 p-4 space-y-3 text-left">
                 <div className="flex justify-between text-sm">
-                  <span className="text-slate-500">Eslab qolish darajasi</span>
-                  <span className="font-semibold text-slate-900 dark:text-white">{Math.round(result.retrievalScore * 100)}%</span>
+                  <span className="text-stone-500">Eslab qolish darajasi</span>
+                  <span className="font-semibold text-[#1C1208] dark:text-white">{Math.round(result.retrievalScore * 100)}%</span>
                 </div>
                 {result.scheduled ? (
                   <div className="flex justify-between text-sm">
-                    <span className="text-slate-500 flex items-center gap-1">
+                    <span className="text-stone-500 flex items-center gap-1">
                       <Calendar className="h-3.5 w-3.5" /> Keyingi takrorlash
                     </span>
                     <span className="font-semibold text-violet-400">
@@ -342,7 +342,7 @@ export function RetrievalSession({
                 <Button onClick={() => router.push("/retrieval")} className="flex-1 h-11 bg-violet-600 hover:bg-violet-500 text-white border-0">
                   Takrorlash ro&apos;yxati
                 </Button>
-                <Button variant="outline" onClick={() => router.push(`/topics/${topicId}`)} className="flex-1 border-slate-300 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#2a2720] bg-transparent">
+                <Button variant="outline" onClick={() => router.push(`/topics/${topicId}`)} className="flex-1 border-stone-300 dark:border-white/10 text-stone-500 dark:text-slate-400 hover:bg-stone-100 dark:hover:bg-[#2a2720] bg-transparent">
                   Mavzuni o&apos;qish
                 </Button>
               </div>

@@ -9,7 +9,7 @@ import { ArrowLeft, Brain, CheckCircle2, Zap, BookOpen, Clock } from "lucide-rea
 import { formatDate } from "@/lib/utils";
 
 function masteryColor(score: number | null) {
-  if (score === null) return "bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 text-slate-500";
+  if (score === null) return "bg-stone-100 dark:bg-[#1C1710] border border-stone-200 dark:border-white/10 text-stone-500";
   if (score >= 0.85) return "bg-emerald-500/10 border border-emerald-500/20 text-emerald-400";
   if (score >= 0.6) return "bg-[#FEF4E7]/10 border border-[#B45309]/20 text-amber-400";
   if (score >= 0.3) return "bg-amber-500/10 border border-amber-500/20 text-amber-400";
@@ -99,27 +99,27 @@ export default async function StudentReportPage({
 
       <main className="flex-1 p-6 space-y-6">
         <Link href={`/professor/courses/${courseId}/students`}>
-          <button className="flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#2a2720] px-3 py-1.5 rounded-lg transition-colors">
+          <button className="flex items-center gap-1.5 text-sm text-stone-500 dark:text-slate-400 hover:text-stone-700 dark:hover:text-slate-200 hover:bg-stone-100 dark:hover:bg-[#2a2720] px-3 py-1.5 rounded-lg transition-colors">
             <ArrowLeft className="h-4 w-4" /> Talabalar ro&apos;yxati
           </button>
         </Link>
 
         {/* Student info */}
-        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] px-5 py-4 flex flex-wrap items-center gap-4">
+        <div className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] px-5 py-4 flex flex-wrap items-center gap-4">
           <div className="flex-1 min-w-0">
-            <p className="font-semibold text-slate-800 dark:text-slate-200">
+            <p className="font-semibold text-[#1C1208] dark:text-slate-200">
               {student.firstName} {student.lastName}
             </p>
-            <p className="text-sm text-slate-500">{student.user.email}</p>
+            <p className="text-sm text-stone-500">{student.user.email}</p>
           </div>
           <div className="flex flex-wrap gap-2">
             {student.yearLevel && (
-              <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400">{student.yearLevel}-kurs</span>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-stone-100 dark:bg-[#1C1710] border border-stone-200 dark:border-white/10 text-stone-500 dark:text-slate-400">{student.yearLevel}-kurs</span>
             )}
             {student.groupName && (
-              <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400">{student.groupName}</span>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-stone-100 dark:bg-[#1C1710] border border-stone-200 dark:border-white/10 text-stone-500 dark:text-slate-400">{student.groupName}</span>
             )}
-            <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400">
+            <span className="text-xs px-2 py-0.5 rounded-full bg-stone-100 dark:bg-[#1C1710] border border-stone-200 dark:border-white/10 text-stone-500 dark:text-slate-400">
               Yozilgan: {formatDate(enrollment.enrolledAt)}
             </span>
           </div>
@@ -133,11 +133,11 @@ export default async function StudentReportPage({
             { icon: <BookOpen className="h-5 w-5 text-[#B45309] dark:text-amber-400" />, label: "Boshlangan mavzu", value: `${topicsStarted} / ${topics.length}`, iconBg: "bg-[#FEF4E7] dark:bg-amber-950/30" },
             { icon: <Zap className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "Amaliyot aniqligi", value: totalAttempts > 0 ? `${Math.round(accuracy * 100)}%` : "—", iconBg: "bg-violet-50 dark:bg-violet-950/50", sub: `${totalAttempts} ta savol` },
           ].map((s) => (
-            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1C1710] p-4 shadow-sm">
+            <div key={s.label} className="rounded-xl border border-stone-200 dark:border-white/10 bg-white dark:bg-[#1C1710] p-4 shadow-sm">
               <div className={`w-9 h-9 rounded-xl ${s.iconBg} flex items-center justify-center mb-3`}>{s.icon}</div>
-              <p className="text-xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 uppercase tracking-wide font-medium">{s.label}</p>
-              {"sub" in s && s.sub && <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{s.sub}</p>}
+              <p className="text-xl font-bold text-[#1C1208] dark:text-white leading-none">{s.value}</p>
+              <p className="text-xs text-stone-500 dark:text-slate-400 mt-1.5 uppercase tracking-wide font-medium">{s.label}</p>
+              {"sub" in s && s.sub && <p className="text-xs text-stone-400 dark:text-slate-500 mt-0.5">{s.sub}</p>}
             </div>
           ))}
         </div>
@@ -145,36 +145,36 @@ export default async function StudentReportPage({
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Topic breakdown */}
           <div className="lg:col-span-2">
-            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] overflow-hidden">
-              <div className="px-5 py-4 border-b border-slate-200 dark:border-white/8">
-                <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300">Mavzular bo&apos;yicha progress</h3>
-                <div className="h-1.5 bg-slate-200 dark:bg-[#1C1710] rounded-full overflow-hidden mt-2">
+            <div className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] overflow-hidden">
+              <div className="px-5 py-4 border-b border-stone-200 dark:border-white/8">
+                <h3 className="text-sm font-semibold text-stone-600 dark:text-slate-300">Mavzular bo&apos;yicha progress</h3>
+                <div className="h-1.5 bg-stone-200 dark:bg-[#1C1710] rounded-full overflow-hidden mt-2">
                   <div
                     className="h-full bg-[#B45309] rounded-full"
                     style={{ width: `${topics.length > 0 ? (topicsMastered / topics.length) * 100 : 0}%` }}
                   />
                 </div>
               </div>
-              <div className="divide-y divide-slate-200 dark:divide-slate-800/60">
+              <div className="divide-y divide-stone-200 dark:divide-slate-800/60">
                 {topics.map((topic) => {
                   const k = topic.learnerKnowledge[0];
                   const mastery = k?.masteryScore ?? null;
                   return (
                     <div
                       key={topic.id}
-                      className="flex items-center gap-3 text-sm px-5 py-2.5 hover:bg-slate-50 dark:hover:bg-[#2a2720]/30 transition-colors"
+                      className="flex items-center gap-3 text-sm px-5 py-2.5 hover:bg-stone-50 dark:hover:bg-[#2a2720]/30 transition-colors"
                     >
                       <span className="text-slate-300 dark:text-slate-700 text-xs w-5 text-right shrink-0">
                         {topic.orderIndex + 1}
                       </span>
-                      <span className="flex-1 text-slate-500 dark:text-slate-400 truncate">{topic.title}</span>
+                      <span className="flex-1 text-stone-500 dark:text-slate-400 truncate">{topic.title}</span>
                       {k ? (
                         <>
-                          <span className="text-xs text-slate-400 dark:text-slate-600 hidden sm:block shrink-0">
+                          <span className="text-xs text-stone-400 dark:text-slate-600 hidden sm:block shrink-0">
                             {k.attempts} urinish
                           </span>
                           {k.lastPracticedAt && (
-                            <span className="text-xs text-slate-400 dark:text-slate-600 hidden md:block shrink-0">
+                            <span className="text-xs text-stone-400 dark:text-slate-600 hidden md:block shrink-0">
                               <Clock className="inline h-3 w-3 mr-0.5" />
                               {formatDate(k.lastPracticedAt)}
                             </span>
@@ -205,22 +205,22 @@ export default async function StudentReportPage({
                 memoryScore={student.cognitiveProfile.memoryScore}
               />
             ) : (
-              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] py-10 flex flex-col items-center gap-3 text-center">
-                <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 flex items-center justify-center">
-                  <Brain className="h-6 w-6 text-slate-400 dark:text-slate-600" />
+              <div className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] py-10 flex flex-col items-center gap-3 text-center">
+                <div className="w-12 h-12 rounded-xl bg-stone-100 dark:bg-[#1C1710] border border-stone-200 dark:border-white/10 flex items-center justify-center">
+                  <Brain className="h-6 w-6 text-stone-400 dark:text-slate-600" />
                 </div>
-                <p className="text-sm text-slate-500">Kognitiv baholash bajarilmagan</p>
+                <p className="text-sm text-stone-500">Kognitiv baholash bajarilmagan</p>
               </div>
             )}
           </div>
         </div>
 
         {/* Cognitive history chart */}
-        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
-          <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 mb-1">
+        <div className="card-lift rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
+          <h3 className="text-sm font-semibold text-stone-600 dark:text-slate-300 mb-1">
             Kognitiv rivojlanish dinamikasi
           </h3>
-          <p className="text-xs text-slate-400 mb-4">{cognitiveHistory.length} ta diagnostik test natijasi</p>
+          <p className="text-xs text-stone-400 mb-4">{cognitiveHistory.length} ta diagnostik test natijasi</p>
           <CognitiveHistoryChart
             history={cognitiveHistory.map((h) => ({ ...h, takenAt: h.takenAt.toISOString() }))}
           />

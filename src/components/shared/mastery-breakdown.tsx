@@ -29,13 +29,13 @@ export function MasteryBreakdown({
         return (
           <div key={key}>
             <div className="flex items-center justify-between mb-1">
-              <span className="text-xs text-slate-600">{label}</span>
+              <span className="text-xs text-stone-600">{label}</span>
               <div className="flex items-center gap-2">
-                <span className="text-xs text-slate-400">og'irlik {weight}</span>
-                <span className="text-xs font-semibold text-slate-700">{pct}%</span>
+                <span className="text-xs text-stone-400">og'irlik {weight}</span>
+                <span className="text-xs font-semibold text-stone-700">{pct}%</span>
               </div>
             </div>
-            <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+            <div className="h-1.5 bg-stone-100 rounded-full overflow-hidden">
               <div
                 className={cn("h-full rounded-full transition-all", color)}
                 style={{ width: `${pct}%` }}

@@ -60,11 +60,11 @@ export function StudentsTable({
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-3">
-        <p className="text-sm text-slate-500">
-          Jami <strong className="text-slate-900">{enrollments.length}</strong> ta talaba
+        <p className="text-sm text-stone-500">
+          Jami <strong className="text-[#1C1208]">{enrollments.length}</strong> ta talaba
         </p>
         <div className="relative w-64">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-stone-400" />
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -74,17 +74,17 @@ export function StudentsTable({
         </div>
       </div>
 
-      <div className="rounded-xl border border-slate-200 overflow-hidden">
+      <div className="rounded-xl border border-stone-200 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left px-4 py-3 font-medium text-slate-500 text-xs uppercase tracking-wide">Talaba</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-500 text-xs uppercase tracking-wide hidden sm:table-cell">Guruh</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-500 text-xs uppercase tracking-wide hidden md:table-cell">Yozilgan</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-500 text-xs uppercase tracking-wide">Mastery</th>
-                <th className="text-left px-4 py-3 font-medium text-slate-500 text-xs uppercase tracking-wide hidden md:table-cell">Urinish</th>
-                <th className="px-4 py-3 text-center text-xs font-medium text-slate-500 uppercase tracking-wide">Amallar</th>
+              <tr className="bg-slate-50 border-b border-stone-200">
+                <th className="text-left px-4 py-3 font-medium text-stone-500 text-xs uppercase tracking-wide">Talaba</th>
+                <th className="text-left px-4 py-3 font-medium text-stone-500 text-xs uppercase tracking-wide hidden sm:table-cell">Guruh</th>
+                <th className="text-left px-4 py-3 font-medium text-stone-500 text-xs uppercase tracking-wide hidden md:table-cell">Yozilgan</th>
+                <th className="text-left px-4 py-3 font-medium text-stone-500 text-xs uppercase tracking-wide">Mastery</th>
+                <th className="text-left px-4 py-3 font-medium text-stone-500 text-xs uppercase tracking-wide hidden md:table-cell">Urinish</th>
+                <th className="px-4 py-3 text-center text-xs font-medium text-stone-500 uppercase tracking-wide">Amallar</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -101,8 +101,8 @@ export function StudentsTable({
                       <div className="flex items-center gap-3">
                         <Initials name={name} />
                         <div className="min-w-0">
-                          <p className="font-medium text-slate-900 truncate max-w-[140px]">{name}</p>
-                          <p className="text-xs text-slate-400 truncate max-w-[160px]">{s.user.email}</p>
+                          <p className="font-medium text-[#1C1208] truncate max-w-[140px]">{name}</p>
+                          <p className="text-xs text-stone-400 truncate max-w-[160px]">{s.user.email}</p>
                         </div>
                       </div>
                     </td>
@@ -110,24 +110,24 @@ export function StudentsTable({
                       <div className="flex items-center gap-1.5 flex-wrap">
                         <Badge variant="secondary" className="text-xs">{s.yearLevel}-kurs</Badge>
                         {s.groupName && (
-                          <span className="text-xs text-slate-500">{s.groupName}</span>
+                          <span className="text-xs text-stone-500">{s.groupName}</span>
                         )}
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-slate-400 text-xs hidden md:table-cell">
+                    <td className="px-4 py-3 text-stone-400 text-xs hidden md:table-cell">
                       {formatDate(enrolledAt)}
                     </td>
                     <td className="px-4 py-3">
                       <MasteryBadge score={avgMastery} />
                     </td>
-                    <td className="px-4 py-3 text-slate-600 hidden md:table-cell">
+                    <td className="px-4 py-3 text-stone-600 hidden md:table-cell">
                       {s._count.attempts}
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center justify-center gap-0.5">
                         <Link href={`/professor/courses/${courseId}/students/${s.id}/report`}>
                           <Button variant="ghost" size="icon"
-                            className="text-slate-400 hover:text-[#B45309] hover:bg-[#FEF4E7]"
+                            className="text-stone-400 hover:text-[#B45309] hover:bg-[#FEF4E7]"
                             title="Hisobot">
                             <FileText className="h-4 w-4" />
                           </Button>
@@ -143,7 +143,7 @@ export function StudentsTable({
                 <tr>
                   <td colSpan={6} className="px-4 py-12 text-center">
                     <Users className="h-8 w-8 text-slate-300 mx-auto mb-2" />
-                    <p className="text-sm text-slate-400">
+                    <p className="text-sm text-stone-400">
                       {search ? `"${search}" bo'yicha talaba topilmadi` : "Hali talabalar yo'q"}
                     </p>
                   </td>
@@ -153,7 +153,7 @@ export function StudentsTable({
           </table>
         </div>
         {filtered.length > 0 && (
-          <div className="px-4 py-2.5 bg-slate-50 border-t border-slate-100 text-xs text-slate-400">
+          <div className="px-4 py-2.5 bg-stone-50 border-t border-slate-100 text-xs text-stone-400">
             {filtered.length} ta {search ? `(jami ${enrollments.length} dan)` : "talaba"}
           </div>
         )}

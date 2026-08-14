@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -131,8 +131,8 @@ export function GenerateQuestionsDialog({ topicId }: { topicId: string }) {
           {phase === "generating" && (
             <div className="flex flex-col items-center gap-4 py-10">
               <Loader2 className="h-8 w-8 animate-spin text-violet-500" />
-              <p className="text-sm text-slate-600">Claude AI savollar yaratmoqda...</p>
-              <p className="text-xs text-slate-400">Bu 10–20 soniya vaqt oladi</p>
+              <p className="text-sm text-stone-600">Claude AI savollar yaratmoqda...</p>
+              <p className="text-xs text-stone-400">Bu 10–20 soniya vaqt oladi</p>
             </div>
           )}
 
@@ -151,8 +151,8 @@ export function GenerateQuestionsDialog({ topicId }: { topicId: string }) {
           {phase === "done" && (
             <div className="flex flex-col items-center gap-3 py-8">
               <CheckCircle2 className="h-10 w-10 text-emerald-500" />
-              <p className="font-medium text-slate-800">{savedCount} ta savol saqlandi!</p>
-              <p className="text-sm text-slate-500">Talabalar endi bu savollarni mashq sifatida yechadi.</p>
+              <p className="font-medium text-[#1C1208]">{savedCount} ta savol saqlandi!</p>
+              <p className="text-sm text-stone-500">Talabalar endi bu savollarni mashq sifatida yechadi.</p>
               <Button onClick={() => setOpen(false)}>Yopish</Button>
             </div>
           )}
@@ -161,9 +161,9 @@ export function GenerateQuestionsDialog({ topicId }: { topicId: string }) {
           {(phase === "review" || phase === "saving") && (
             <>
               <div className="flex items-center justify-between">
-                <p className="text-sm text-slate-600">
+                <p className="text-sm text-stone-600">
                   {activeCount} ta savol tanlangan
-                  <span className="text-slate-400 ml-1">({questions.length} dan)</span>
+                  <span className="text-stone-400 ml-1">({questions.length} dan)</span>
                 </p>
                 <Button
                   variant="ghost" size="sm"
@@ -183,12 +183,12 @@ export function GenerateQuestionsDialog({ topicId }: { topicId: string }) {
                       key={idx}
                       className={cn(
                         "rounded-lg border p-4 space-y-3 transition-all",
-                        isRemoved ? "opacity-40 bg-slate-50" : "bg-white"
+                        isRemoved ? "opacity-40 bg-stone-50" : "bg-white"
                       )}
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-xs font-medium text-slate-400">{idx + 1}</span>
+                          <span className="text-xs font-medium text-stone-400">{idx + 1}</span>
                           <span className={cn(
                             "text-xs font-medium rounded-full px-2 py-0.5",
                             DIFF_COLOR[q.difficulty]
@@ -199,8 +199,8 @@ export function GenerateQuestionsDialog({ topicId }: { topicId: string }) {
                         <button
                           onClick={() => isRemoved ? setRemoved((p) => { const n = new Set(p); n.delete(idx); return n; }) : remove(idx)}
                           className={cn(
-                            "shrink-0 p-1 rounded hover:bg-slate-100 transition-colors",
-                            isRemoved ? "text-emerald-500" : "text-slate-400 hover:text-red-400"
+                            "shrink-0 p-1 rounded hover:bg-stone-100 transition-colors",
+                            isRemoved ? "text-emerald-500" : "text-stone-400 hover:text-red-400"
                           )}
                         >
                           {isRemoved
@@ -210,7 +210,7 @@ export function GenerateQuestionsDialog({ topicId }: { topicId: string }) {
                         </button>
                       </div>
 
-                      <p className="text-sm font-medium text-slate-800">{q.stem}</p>
+                      <p className="text-sm font-medium text-[#1C1208]">{q.stem}</p>
 
                       <div className="grid grid-cols-2 gap-1.5">
                         {q.options.map((opt, oi) => (
@@ -220,7 +220,7 @@ export function GenerateQuestionsDialog({ topicId }: { topicId: string }) {
                               "rounded-lg px-3 py-2 text-xs border",
                               opt === q.answer
                                 ? "border-emerald-300 bg-emerald-50 text-emerald-800 font-medium"
-                                : "border-slate-100 bg-slate-50 text-slate-600"
+                                : "border-slate-100 bg-stone-50 text-stone-600"
                             )}
                           >
                             <span className="font-bold mr-1">{String.fromCharCode(65 + oi)}.</span>
@@ -233,7 +233,7 @@ export function GenerateQuestionsDialog({ topicId }: { topicId: string }) {
                       </div>
 
                       {q.explanation && (
-                        <p className="text-xs text-slate-500 italic border-t border-slate-100 pt-2">
+                        <p className="text-xs text-stone-500 italic border-t border-slate-100 pt-2">
                           💡 {q.explanation}
                         </p>
                       )}

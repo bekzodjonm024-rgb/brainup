@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -112,7 +112,7 @@ export function ResetAssessmentButton({
     <>
       <Button
         variant="ghost" size="icon"
-        className="text-slate-400 hover:text-amber-600 hover:bg-amber-50"
+        className="text-stone-400 hover:text-amber-600 hover:bg-amber-50"
         onClick={() => setOpen(true)}
         title="Baholash natijasini o'chirish"
       >
@@ -160,7 +160,7 @@ export function RemoveStudentButton({
     <>
       <Button
         variant="ghost" size="icon"
-        className="text-slate-400 hover:text-red-600 hover:bg-red-50"
+        className="text-stone-400 hover:text-red-600 hover:bg-red-50"
         onClick={() => setOpen(true)}
         title="Kursdan chiqarish"
       >

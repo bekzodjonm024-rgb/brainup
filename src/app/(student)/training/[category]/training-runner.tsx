@@ -164,7 +164,7 @@ export function TrainingRunner({ category, difficulty, planId }: Props) {
         <BrainUPLogo size="sm" href="/training" />
         <div className="text-right">
           <p className={`font-semibold ${meta.color}`}>{meta.label}</p>
-          <p className="text-xs text-slate-400">{DIFF_LABEL[difficulty]}</p>
+          <p className="text-xs text-stone-400">{DIFF_LABEL[difficulty]}</p>
         </div>
       </div>
 
@@ -172,7 +172,7 @@ export function TrainingRunner({ category, difficulty, planId }: Props) {
         <div className="bg-slate-900 rounded-2xl border border-slate-800 p-8 text-center">
           <p className="text-slate-300 text-sm mb-2">Mashq tayyor</p>
           <h1 className={`text-2xl font-bold mb-6 ${meta.color}`}>{meta.label}</h1>
-          <p className="text-slate-400 text-sm mb-8">{item.prompt}</p>
+          <p className="text-stone-400 text-sm mb-8">{item.prompt}</p>
           <button
             onClick={() => setPhase("running")}
             className="w-full py-3 rounded-xl bg-[#B45309] hover:bg-[#92400E] text-white font-semibold transition-colors"
@@ -205,7 +205,7 @@ export function TrainingRunner({ category, difficulty, planId }: Props) {
             {score! >= 75 ? "🎉" : score! >= 50 ? "💪" : "📈"}
           </div>
           <h2 className="text-xl font-bold text-white mb-2">Mashq tugadi!</h2>
-          <p className="text-slate-400 text-sm mb-6">Sizning natijangiz</p>
+          <p className="text-stone-400 text-sm mb-6">Sizning natijangiz</p>
           <div className={`text-5xl font-bold mb-8 ${meta.color}`}>{score}%</div>
           <div className="flex gap-3">
             <button

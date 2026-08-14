@@ -67,39 +67,39 @@ export default async function AdminContentPage({
           <ContentFilter counts={counts} active={activeStatus} />
         </Suspense>
 
-        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] overflow-hidden">
+        <div className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-white/8">
+              <thead className="bg-slate-50 dark:bg-slate-950 border-b border-stone-200 dark:border-white/8">
                 <tr>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Kontent</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide hidden sm:table-cell">Mavzu / Kurs</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide hidden md:table-cell">Professor</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wide hidden md:table-cell">Sana</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-stone-500 uppercase tracking-wide">Kontent</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-stone-500 uppercase tracking-wide hidden sm:table-cell">Mavzu / Kurs</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-stone-500 uppercase tracking-wide hidden md:table-cell">Professor</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-stone-500 uppercase tracking-wide hidden md:table-cell">Sana</th>
                   {activeStatus === "PENDING_REVIEW" && <th className="px-4 py-3" />}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200 dark:divide-slate-800/60">
+              <tbody className="divide-y divide-stone-200 dark:divide-slate-800/60">
                 {items.map((item) => (
-                  <tr key={item.id} className="hover:bg-slate-50 dark:hover:bg-[#2a2720]/30 transition-colors">
+                  <tr key={item.id} className="hover:bg-stone-50 dark:hover:bg-[#2a2720]/30 transition-colors">
                     <td className="px-4 py-3">
                       <div>
-                        <p className="font-medium text-slate-700 dark:text-slate-200">{item.title}</p>
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400 mt-0.5 inline-block">
+                        <p className="font-medium text-stone-700 dark:text-slate-200">{item.title}</p>
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-stone-100 dark:bg-[#1C1710] border border-stone-200 dark:border-white/10 text-stone-500 dark:text-slate-400 mt-0.5 inline-block">
                           {TYPE_LABELS[item.type] ?? item.type}
                         </span>
                       </div>
                     </td>
                     <td className="px-4 py-3 hidden sm:table-cell">
                       <div>
-                        <p className="text-slate-600 dark:text-slate-300 text-xs font-medium">{item.topic.title}</p>
-                        <p className="text-xs text-slate-400 dark:text-slate-600">{item.topic.course.title}</p>
+                        <p className="text-stone-600 dark:text-slate-300 text-xs font-medium">{item.topic.title}</p>
+                        <p className="text-xs text-stone-400 dark:text-slate-600">{item.topic.course.title}</p>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-slate-500 hidden md:table-cell text-xs">
+                    <td className="px-4 py-3 text-stone-500 hidden md:table-cell text-xs">
                       {item.topic.course.professor.firstName} {item.topic.course.professor.lastName}
                     </td>
-                    <td className="px-4 py-3 text-slate-400 dark:text-slate-600 hidden md:table-cell text-xs">
+                    <td className="px-4 py-3 text-stone-400 dark:text-slate-600 hidden md:table-cell text-xs">
                       {formatDate(item.createdAt)}
                     </td>
                     {activeStatus === "PENDING_REVIEW" && (
@@ -111,7 +111,7 @@ export default async function AdminContentPage({
                 ))}
                 {items.length === 0 && (
                   <tr>
-                    <td colSpan={5} className="px-4 py-10 text-center text-slate-400 dark:text-slate-600">
+                    <td colSpan={5} className="px-4 py-10 text-center text-stone-400 dark:text-slate-600">
                       Bu bo&apos;limda kontent yo&apos;q
                     </td>
                   </tr>

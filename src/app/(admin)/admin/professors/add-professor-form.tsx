@@ -59,63 +59,63 @@ export function AddProfessorForm() {
   function fieldError(f: string) { return errors[f]?.[0]; }
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-6 max-w-lg">
-      <h3 className="text-base font-semibold text-slate-900 dark:text-white flex items-center gap-2 mb-5">
+    <div className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-6 max-w-lg">
+      <h3 className="text-base font-semibold text-[#1C1208] dark:text-white flex items-center gap-2 mb-5">
         <UserPlus className="h-4 w-4 text-violet-400" />
         Yangi professor
       </h3>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1.5">
-            <Label htmlFor="firstName" className="text-slate-500 dark:text-slate-400 text-xs uppercase tracking-wide">Ism</Label>
+            <Label htmlFor="firstName" className="text-stone-500 dark:text-slate-400 text-xs uppercase tracking-wide">Ism</Label>
             <input
               id="firstName"
               value={form.firstName}
               onChange={(e) => update("firstName", e.target.value)}
               required
-              className="w-full h-10 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
+              className="w-full h-10 px-3 rounded-lg border border-stone-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-[#1C1208] dark:text-slate-200 text-sm placeholder:text-stone-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
             />
             {fieldError("firstName") && <p className="text-xs text-red-400">{fieldError("firstName")}</p>}
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="lastName" className="text-slate-500 dark:text-slate-400 text-xs uppercase tracking-wide">Familiya</Label>
+            <Label htmlFor="lastName" className="text-stone-500 dark:text-slate-400 text-xs uppercase tracking-wide">Familiya</Label>
             <input
               id="lastName"
               value={form.lastName}
               onChange={(e) => update("lastName", e.target.value)}
               required
-              className="w-full h-10 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
+              className="w-full h-10 px-3 rounded-lg border border-stone-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-[#1C1208] dark:text-slate-200 text-sm placeholder:text-stone-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
             />
             {fieldError("lastName") && <p className="text-xs text-red-400">{fieldError("lastName")}</p>}
           </div>
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="title" className="text-slate-500 dark:text-slate-400 text-xs uppercase tracking-wide">Unvon (ixtiyoriy)</Label>
+          <Label htmlFor="title" className="text-stone-500 dark:text-slate-400 text-xs uppercase tracking-wide">Unvon (ixtiyoriy)</Label>
           <input
             id="title"
             placeholder="Prof. Dr., PhD, ..."
             value={form.title}
             onChange={(e) => update("title", e.target.value)}
-            className="w-full h-10 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
+            className="w-full h-10 px-3 rounded-lg border border-stone-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-[#1C1208] dark:text-slate-200 text-sm placeholder:text-stone-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
           />
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="prof-email" className="text-slate-500 dark:text-slate-400 text-xs uppercase tracking-wide">Email</Label>
+          <Label htmlFor="prof-email" className="text-stone-500 dark:text-slate-400 text-xs uppercase tracking-wide">Email</Label>
           <input
             id="prof-email"
             type="email"
             value={form.email}
             onChange={(e) => update("email", e.target.value)}
             required
-            className="w-full h-10 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
+            className="w-full h-10 px-3 rounded-lg border border-stone-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-[#1C1208] dark:text-slate-200 text-sm placeholder:text-stone-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
           />
           {fieldError("email") && <p className="text-xs text-red-400">{fieldError("email")}</p>}
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="prof-password" className="text-slate-500 dark:text-slate-400 text-xs uppercase tracking-wide">Parol</Label>
+          <Label htmlFor="prof-password" className="text-stone-500 dark:text-slate-400 text-xs uppercase tracking-wide">Parol</Label>
           <input
             id="prof-password"
             type="password"
@@ -123,7 +123,7 @@ export function AddProfessorForm() {
             value={form.password}
             onChange={(e) => update("password", e.target.value)}
             required
-            className="w-full h-10 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
+            className="w-full h-10 px-3 rounded-lg border border-stone-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-[#1C1208] dark:text-slate-200 text-sm placeholder:text-stone-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
           />
           {fieldError("password") && <p className="text-xs text-red-400">{fieldError("password")}</p>}
         </div>

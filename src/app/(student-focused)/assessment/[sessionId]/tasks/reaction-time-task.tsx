@@ -69,8 +69,8 @@ export function ReactionTimeTask({ item, onComplete, disabled }: Props) {
   }, [phase, reactionTime, onComplete]);
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-8 text-center space-y-8">
-      <p className="text-slate-500 dark:text-slate-400 text-sm">{item.prompt}</p>
+    <div className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-8 text-center space-y-8">
+      <p className="text-stone-500 dark:text-slate-400 text-sm">{item.prompt}</p>
 
       {phase === "ready" && (
         <Button
@@ -85,10 +85,10 @@ export function ReactionTimeTask({ item, onComplete, disabled }: Props) {
 
       {phase === "waiting" && (
         <div
-          className="mx-auto h-36 w-36 rounded-full bg-slate-200 dark:bg-[#1C1710] border-2 border-slate-300 dark:border-white/10 flex items-center justify-center cursor-pointer select-none"
+          className="mx-auto h-36 w-36 rounded-full bg-stone-200 dark:bg-[#1C1710] border-2 border-stone-300 dark:border-white/10 flex items-center justify-center cursor-pointer select-none"
           onClick={handleClick}
         >
-          <span className="text-slate-500 text-sm">Kuting...</span>
+          <span className="text-stone-500 text-sm">Kuting...</span>
         </div>
       )}
 
@@ -109,7 +109,7 @@ export function ReactionTimeTask({ item, onComplete, disabled }: Props) {
           <Button
             onClick={startTrial}
             variant="outline"
-            className="border-slate-300 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#2a2720] bg-transparent"
+            className="border-stone-300 dark:border-white/10 text-stone-600 dark:text-slate-300 hover:bg-stone-100 dark:hover:bg-[#2a2720] bg-transparent"
           >
             Qayta urinish
           </Button>
@@ -121,10 +121,10 @@ export function ReactionTimeTask({ item, onComplete, disabled }: Props) {
           {reactionTime ? (
             <div>
               <p className="text-3xl font-bold text-amber-400">{reactionTime}</p>
-              <p className="text-xs text-slate-500">ms</p>
+              <p className="text-xs text-stone-500">ms</p>
             </div>
           ) : (
-            <span className="text-slate-500 text-sm">Vaqt o&apos;tdi</span>
+            <span className="text-stone-500 text-sm">Vaqt o&apos;tdi</span>
           )}
         </div>
       )}

@@ -180,10 +180,10 @@ export default async function ProfessorAnalyticsPage() {
             { icon: <CheckCircle2 className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "O'zlashtirildi", value: mastered, iconBg: "bg-violet-50 dark:bg-violet-950/50" },
             { icon: <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "Qiynalyapti", value: struggling, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
           ].map((s) => (
-            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1C1710] p-5 shadow-sm">
+            <div key={s.label} className="stat-card rounded-xl border border-stone-200 dark:border-white/10 bg-white dark:bg-[#1C1710] p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
-              <p className="text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
+              <p className="text-2xl font-bold text-[#1C1208] dark:text-white leading-none">{s.value}</p>
+              <p className="text-xs text-stone-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
             </div>
           ))}
         </div>
@@ -193,9 +193,9 @@ export default async function ProfessorAnalyticsPage() {
 
             {/* Mastery distribution */}
             {total > 0 && (
-              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
-                <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
-                  <BarChart3 className="h-4 w-4 text-slate-500" />
+              <div className="card-lift rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
+                <h3 className="text-sm font-semibold text-stone-600 dark:text-slate-300 flex items-center gap-2 mb-4">
+                  <BarChart3 className="h-4 w-4 text-stone-500" />
                   O'zlashtirish taqsimoti
                 </h3>
                 <div className="space-y-4">
@@ -206,12 +206,12 @@ export default async function ProfessorAnalyticsPage() {
                   ].map((row) => (
                     <div key={row.label} className="space-y-1.5">
                       <div className="flex justify-between text-sm">
-                        <span className="text-slate-500 dark:text-slate-400">{row.label}</span>
-                        <span className="font-semibold text-slate-900 dark:text-white">
+                        <span className="text-stone-500 dark:text-slate-400">{row.label}</span>
+                        <span className="font-semibold text-[#1C1208] dark:text-white">
                           {row.count} ta ({row.pct}%)
                         </span>
                       </div>
-                      <div className="h-1.5 bg-slate-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
+                      <div className="h-1.5 bg-stone-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
                         <div className={`h-full rounded-full ${row.color}`} style={{ width: `${row.pct}%` }} />
                       </div>
                     </div>
@@ -221,36 +221,36 @@ export default async function ProfessorAnalyticsPage() {
             )}
 
             {/* Course summaries */}
-            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
-              <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
-                <BookOpen className="h-4 w-4 text-slate-500" />
+            <div className="card-lift rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
+              <h3 className="text-sm font-semibold text-stone-600 dark:text-slate-300 flex items-center gap-2 mb-4">
+                <BookOpen className="h-4 w-4 text-stone-500" />
                 Kurslar bo'yicha natijalar
               </h3>
               <div className="space-y-4">
                 {courseSummaries.length === 0 ? (
-                  <p className="text-sm text-slate-400 dark:text-slate-600 text-center py-4">Kurslar yo'q</p>
+                  <p className="text-sm text-stone-400 dark:text-slate-600 text-center py-4">Kurslar yo'q</p>
                 ) : (
                   courseSummaries.map((c) => (
                     <div key={c.id} className="space-y-2">
                       <div className="flex items-center justify-between gap-3">
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2">
-                            <span className="text-sm font-medium text-slate-700 dark:text-slate-200 truncate">{c.title}</span>
-                            <span className="text-xs text-slate-400 dark:text-slate-600 shrink-0">{c.students} talaba</span>
+                            <span className="text-sm font-medium text-stone-700 dark:text-slate-200 truncate">{c.title}</span>
+                            <span className="text-xs text-stone-400 dark:text-slate-600 shrink-0">{c.students} talaba</span>
                           </div>
-                          <div className="flex gap-3 text-xs text-slate-400 dark:text-slate-600 mt-0.5">
+                          <div className="flex gap-3 text-xs text-stone-400 dark:text-slate-600 mt-0.5">
                             <span>{c.topics} mavzu</span>
                             <span>O'rtacha: {Math.round(c.avgMastery * 100)}%</span>
                             <span>{c.masteredCount} ta o'zlashtirildi</span>
                           </div>
                         </div>
                         <Link href={`/professor/courses/${c.id}/analytics`}>
-                          <Button variant="outline" size="sm" className="border-slate-300 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#2a2720] bg-transparent text-xs shrink-0">
+                          <Button variant="outline" size="sm" className="border-stone-300 dark:border-white/10 text-stone-500 dark:text-slate-400 hover:bg-stone-100 dark:hover:bg-[#2a2720] bg-transparent text-xs shrink-0">
                             Batafsil <ArrowRight className="h-3 w-3 ml-1" />
                           </Button>
                         </Link>
                       </div>
-                      <div className="h-1 bg-slate-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
+                      <div className="h-1 bg-stone-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
                         <div className="h-full bg-[#B45309] rounded-full" style={{ width: `${c.avgMastery * 100}%` }} />
                       </div>
                     </div>
@@ -263,7 +263,7 @@ export default async function ProfessorAnalyticsPage() {
           <div className="space-y-4">
             {/* Difficult topics */}
             <div className="rounded-2xl border border-amber-500/20 bg-white dark:bg-[#17130E] p-5">
-              <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
+              <h3 className="text-sm font-semibold text-stone-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                 <AlertTriangle className="h-4 w-4 text-amber-400" />
                 Qiyin mavzular
               </h3>
@@ -272,20 +272,20 @@ export default async function ProfessorAnalyticsPage() {
                   <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mx-auto mb-3">
                     <CheckCircle2 className="h-5 w-5 text-emerald-400" />
                   </div>
-                  <p className="text-xs text-slate-500">Barcha mavzular yaxshi</p>
+                  <p className="text-xs text-stone-500">Barcha mavzular yaxshi</p>
                 </div>
               ) : (
                 <div className="space-y-4">
                   {difficultTopics.map((t) => (
                     <div key={t.id} className="space-y-1.5">
                       <div className="flex items-center justify-between gap-2">
-                        <span className="text-xs font-medium text-slate-600 dark:text-slate-300 truncate flex-1 line-clamp-1">{t.title}</span>
+                        <span className="text-xs font-medium text-stone-600 dark:text-slate-300 truncate flex-1 line-clamp-1">{t.title}</span>
                         <span className={`text-xs font-semibold rounded-full px-2 py-0.5 shrink-0 ${masteryLevel(t.avg ?? 0).color}`}>
                           {Math.round((t.avg ?? 0) * 100)}%
                         </span>
                       </div>
-                      <p className="text-xs text-slate-400 dark:text-slate-600">{t.courseName} • {t.tried} talaba</p>
-                      <div className="h-1 bg-slate-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
+                      <p className="text-xs text-stone-400 dark:text-slate-600">{t.courseName} • {t.tried} talaba</p>
+                      <div className="h-1 bg-stone-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
                         <div className="h-full bg-amber-500 rounded-full" style={{ width: `${(t.avg ?? 0) * 100}%` }} />
                       </div>
                     </div>
@@ -296,16 +296,16 @@ export default async function ProfessorAnalyticsPage() {
 
             {/* Adaptive interventions */}
             {interventionCounts.length > 0 && (
-              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
-                <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
+              <div className="card-lift rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
+                <h3 className="text-sm font-semibold text-stone-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                   <Zap className="h-4 w-4 text-amber-400" />
                   Adaptiv tavsiyalar
                 </h3>
                 <div className="space-y-2">
                   {interventionCounts.map((iv) => (
                     <div key={iv.action} className="flex items-center justify-between text-sm">
-                      <span className="text-slate-500 dark:text-slate-400">{ACTION_LABELS[iv.action] ?? iv.action}</span>
-                      <span className="font-semibold text-slate-900 dark:text-white">{iv._count.action}</span>
+                      <span className="text-stone-500 dark:text-slate-400">{ACTION_LABELS[iv.action] ?? iv.action}</span>
+                      <span className="font-semibold text-[#1C1208] dark:text-white">{iv._count.action}</span>
                     </div>
                   ))}
                 </div>
@@ -315,13 +315,13 @@ export default async function ProfessorAnalyticsPage() {
         </div>
 
         {/* Cognitive dynamics */}
-        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
+        <div className="card-lift rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
           <div className="flex flex-wrap items-start justify-between gap-4 mb-5">
             <div>
-              <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300">
+              <h3 className="text-sm font-semibold text-stone-600 dark:text-slate-300">
                 Talabalar kognitiv dinamikasi
               </h3>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <p className="text-xs text-stone-400 mt-0.5">
                 {cognitiveHistory.length} ta diagnostik test — {cognitiveProfiles.length} ta talaba profili
               </p>
             </div>

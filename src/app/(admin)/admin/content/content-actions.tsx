@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -44,7 +44,7 @@ export function ContentActions({
         <Button
           variant="ghost"
           size="icon"
-          className="text-slate-400 hover:text-emerald-600 hover:bg-emerald-50"
+          className="text-stone-400 hover:text-emerald-600 hover:bg-emerald-50"
           onClick={() => setDialog("approve")}
           title="Tasdiqlash"
         >
@@ -53,7 +53,7 @@ export function ContentActions({
         <Button
           variant="ghost"
           size="icon"
-          className="text-slate-400 hover:text-red-600 hover:bg-red-50"
+          className="text-stone-400 hover:text-red-600 hover:bg-red-50"
           onClick={() => setDialog("reject")}
           title="Rad etish"
         >

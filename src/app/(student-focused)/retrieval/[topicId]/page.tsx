@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+﻿import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect, notFound } from "next/navigation";
 import { RetrievalSession } from "./retrieval-session";
@@ -46,7 +46,7 @@ export default async function RetrievalTopicPage({
   const knowledge = topic.learnerKnowledge[0];
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="min-h-screen bg-stone-50 flex flex-col">
       <RetrievalSession
         topicId={topicId}
         topicTitle={topic.title}

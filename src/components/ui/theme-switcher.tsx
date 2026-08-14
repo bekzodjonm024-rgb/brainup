@@ -11,7 +11,7 @@ export function ThemeSwitcher() {
   useEffect(() => setMounted(true), []);
 
   if (!mounted) {
-    return <div className="h-8 w-8 rounded-full bg-slate-100 dark:bg-[#1C1710] animate-pulse" />;
+    return <div className="h-8 w-8 rounded-full bg-stone-100 dark:bg-[#1C1710] animate-pulse" />;
   }
 
   const isDark = theme === "dark";
@@ -30,12 +30,12 @@ export function ThemeSwitcher() {
       <span className="absolute inset-0 flex items-center justify-between px-1.5 pointer-events-none">
         <Sun
           className={`h-3.5 w-3.5 transition-all duration-300 ${
-            isDark ? "text-slate-600 scale-75 opacity-30" : "text-[#B45309] scale-100 opacity-100"
+            isDark ? "text-stone-600 scale-75 opacity-30" : "text-[#B45309] scale-100 opacity-100"
           }`}
         />
         <Moon
           className={`h-3.5 w-3.5 transition-all duration-300 ${
-            isDark ? "text-amber-400 scale-100 opacity-100" : "text-slate-400 scale-75 opacity-30"
+            isDark ? "text-amber-400 scale-100 opacity-100" : "text-stone-400 scale-75 opacity-30"
           }`}
         />
       </span>

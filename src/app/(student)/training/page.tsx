@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 export const metadata: Metadata = { title: "Kognitiv mashqlar" };
 
 import { auth } from "@/lib/auth";
@@ -42,7 +42,7 @@ export default async function TrainingPage() {
   ]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50">
+    <div className="flex flex-col min-h-screen bg-stone-50">
       <Header title="Kognitiv mashqlar" description="Kunlik trening va rivojlanish grafigi" />
       <main className="flex-1 p-4 sm:p-6 max-w-3xl mx-auto w-full">
         <TrainingHub

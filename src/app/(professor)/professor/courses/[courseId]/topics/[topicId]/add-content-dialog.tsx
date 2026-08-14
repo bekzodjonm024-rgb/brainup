@@ -208,7 +208,7 @@ export function AddContentDialog({ topicId, asButton }: AddContentDialogProps) {
                   <button
                     type="button"
                     onClick={() => setUploadedFile(null)}
-                    className="text-slate-400 hover:text-slate-600"
+                    className="text-stone-400 hover:text-slate-600"
                   >
                     <X className="h-4 w-4" />
                   </button>
@@ -218,7 +218,7 @@ export function AddContentDialog({ topicId, asButton }: AddContentDialogProps) {
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
                   disabled={uploading}
-                  className="w-full flex flex-col items-center gap-2 p-6 border-2 border-dashed border-slate-200 rounded-lg hover:border-blue-300 hover:bg-[#FEF4E7]/50 transition-colors text-slate-500 disabled:opacity-50"
+                  className="w-full flex flex-col items-center gap-2 p-6 border-2 border-dashed border-stone-200 rounded-lg hover:border-blue-300 hover:bg-[#FEF4E7]/50 transition-colors text-stone-500 disabled:opacity-50"
                 >
                   {uploading ? (
                     <Loader2 className="h-6 w-6 animate-spin text-[#B45309]" />
@@ -228,7 +228,7 @@ export function AddContentDialog({ topicId, asButton }: AddContentDialogProps) {
                   <span className="text-sm">
                     {uploading ? "Yuklanmoqda..." : "Fayl tanlash yoki shu yerga tashlang"}
                   </span>
-                  <span className="text-xs text-slate-400">Max 50MB</span>
+                  <span className="text-xs text-stone-400">Max 50MB</span>
                 </button>
               )}
               <input
