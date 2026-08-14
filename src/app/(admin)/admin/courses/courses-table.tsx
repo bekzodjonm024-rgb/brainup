@@ -1,7 +1,8 @@
 ﻿"use client";
 
 import { useState, useMemo } from "react";
-import { Search, BookOpen } from "lucide-react";
+import { Search, BookOpen, LayoutList } from "lucide-react";
+import Link from "next/link";
 import { CourseToggle } from "./course-toggle";
 import { formatDate } from "@/lib/utils";
 
@@ -137,7 +138,14 @@ export function CoursesTable({ courses }: { courses: Course[] }) {
                       </span>
                     </td>
                     <td className="px-4 py-3 text-center">
-                      <CourseToggle courseId={course.id} isActive={course.isActive} title={course.title} />
+                      <div className="flex items-center justify-center gap-2">
+                        <Link href={`/admin/courses/${course.id}`}>
+                          <button className="w-8 h-8 flex items-center justify-center rounded-lg text-stone-400 hover:text-[#B45309] hover:bg-[#FEF4E7] dark:hover:bg-amber-950/30 transition-colors" title="Mavzularni boshqarish">
+                            <LayoutList className="h-4 w-4" />
+                          </button>
+                        </Link>
+                        <CourseToggle courseId={course.id} isActive={course.isActive} title={course.title} />
+                      </div>
                     </td>
                   </tr>
                 );

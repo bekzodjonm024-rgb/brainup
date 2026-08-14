@@ -64,13 +64,27 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ topi
 export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ topicId: string }> }) {
   const { topicId } = await params;
   const session = await auth();
-  if (!session?.user?.profileId || session.user.role !== "PROFESSOR") {
-    return NextResponse.json({ error: "Ruxsat yo'q" }, { status: 401 });
+  if (!session?.user?.profileId) return NextResponse.json({ error: "Ruxsat yo'q" }, { status: 401 });
+
+  if (session.user.role === "PROFESSOR") {
+    const accessible = await assertTopicAccess(topicId, session.user.profileId);
+    if (!accessible) return NextResponse.json({ error: "Topilmadi" }, { status: 404 });
+  } else if (session.user.role === "ADMIN") {
+    const exists = await db.topic.findUnique({ where: { id: topicId }, select: { id: true } });
+    if (!exists) return NextResponse.json({ error: "Topilmadi" }, { status: 404 });
+  } else {
+    return NextResponse.json({ error: "Ruxsat yo'q" }, { status: 403 });
   }
 
-  const accessible = await assertTopicAccess(topicId, session.user.profileId);
-  if (!accessible) return NextResponse.json({ error: "Topilmadi" }, { status: 404 });
-
+  // Cascade delete related data in FK order
+  await db.retrievalRecord.deleteMany({ where: { topicId } });
+  await db.learningEvent.deleteMany({ where: { topicId } });
+  await db.recommendation.deleteMany({ where: { topicId } });
+  await db.attempt.deleteMany({ where: { question: { topicId } } });
+  await db.learnerKnowledge.deleteMany({ where: { topicId } });
+  await db.question.deleteMany({ where: { topicId } });
+  await db.contentItem.deleteMany({ where: { topicId } });
   await db.topic.delete({ where: { id: topicId } });
+
   return NextResponse.json({ success: true });
 }

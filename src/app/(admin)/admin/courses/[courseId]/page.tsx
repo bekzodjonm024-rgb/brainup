@@ -1,23 +1,24 @@
-﻿import { auth } from "@/lib/auth";
+import type { Metadata } from "next";
+export const metadata: Metadata = { title: "Kurs mavzulari" };
+
+import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect, notFound } from "next/navigation";
 import { Header } from "@/components/layout/header";
+import { DeleteTopicButton } from "@/components/shared/delete-topic-button";
 import Link from "next/link";
 import {
-  Plus, ArrowLeft, BookOpen, Users, LayoutList,
-  GripVertical, ChevronRight, CheckCircle2, Circle, BarChart3, UserCheck
+  ArrowLeft, BookOpen, Users, LayoutList, CheckCircle2, Circle, ChevronRight,
 } from "lucide-react";
-import { EditCourseDialog } from "./edit-course-dialog";
-import { DeleteTopicButton } from "@/components/shared/delete-topic-button";
 
-export default async function CourseDetailPage({
+export default async function AdminCourseDetailPage({
   params,
 }: {
   params: Promise<{ courseId: string }>;
 }) {
   const { courseId } = await params;
   const session = await auth();
-  if (!session?.user?.profileId) redirect("/login");
+  if (session?.user?.role !== "ADMIN") redirect("/login");
 
   const course = await db.course.findUnique({
     where: { id: courseId },
@@ -36,7 +37,6 @@ export default async function CourseDetailPage({
   });
 
   if (!course) notFound();
-  if (course.professorId !== session.user.profileId) redirect("/professor/dashboard");
 
   const totalContent = course.topics.reduce((s, t) => s + t.contentItems.length, 0);
   const approvedContent = course.topics.reduce(
@@ -45,33 +45,16 @@ export default async function CourseDetailPage({
 
   return (
     <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#100D09]">
-      <Header title={course.title} description={course.faculty?.name ?? ""} />
+      <Header
+        title={course.title}
+        description={`${course.professor.firstName} ${course.professor.lastName}${course.faculty ? ` · ${course.faculty.name}` : ""}`}
+      />
       <main className="flex-1 p-6 space-y-6">
-        <div className="flex items-center justify-between">
-          <Link href="/professor/courses">
-            <button className="flex items-center gap-1.5 text-sm text-stone-500 dark:text-slate-400 hover:text-stone-700 dark:hover:text-slate-200 hover:bg-stone-100 dark:hover:bg-[#2a2720] px-3 py-1.5 rounded-lg transition-colors">
-              <ArrowLeft className="h-4 w-4" /> Kurslar
-            </button>
-          </Link>
-          <div className="flex gap-2">
-            <EditCourseDialog
-              courseId={courseId}
-              currentTitle={course.title}
-              currentDescription={course.description}
-              currentSemester={course.semester}
-            />
-            <Link href={`/professor/courses/${courseId}/students`}>
-              <button className="flex items-center gap-1.5 text-sm text-stone-500 dark:text-slate-400 hover:text-stone-700 dark:hover:text-slate-200 hover:bg-stone-100 dark:hover:bg-[#2a2720] border border-stone-300 dark:border-white/10 px-3 py-1.5 rounded-lg transition-colors">
-                <UserCheck className="h-4 w-4" /> Talabalar
-              </button>
-            </Link>
-            <Link href={`/professor/courses/${courseId}/analytics`}>
-              <button className="flex items-center gap-1.5 text-sm text-stone-500 dark:text-slate-400 hover:text-stone-700 dark:hover:text-slate-200 hover:bg-stone-100 dark:hover:bg-[#2a2720] border border-stone-300 dark:border-white/10 px-3 py-1.5 rounded-lg transition-colors">
-                <BarChart3 className="h-4 w-4" /> Analitika
-              </button>
-            </Link>
-          </div>
-        </div>
+        <Link href="/admin/courses">
+          <button className="flex items-center gap-1.5 text-sm text-stone-500 dark:text-slate-400 hover:text-stone-700 dark:hover:text-slate-200 hover:bg-stone-100 dark:hover:bg-[#2a2720] px-3 py-1.5 rounded-lg transition-colors">
+            <ArrowLeft className="h-4 w-4" /> Kurslar
+          </button>
+        </Link>
 
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -91,27 +74,12 @@ export default async function CourseDetailPage({
 
         {/* Topics */}
         <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <h2 className="font-semibold text-stone-700 dark:text-slate-200">Mavzular ketma-ketligi</h2>
-            <Link href={`/professor/courses/${courseId}/topics/new`}>
-              <button className="flex items-center gap-1.5 text-sm bg-[#B45309] hover:bg-[#92400E] text-white px-3 py-1.5 rounded-lg transition-colors">
-                <Plus className="h-4 w-4" /> Mavzu qo&apos;shish
-              </button>
-            </Link>
-          </div>
+          <h2 className="font-semibold text-stone-700 dark:text-slate-200">Mavzular ketma-ketligi</h2>
 
           {course.topics.length === 0 ? (
             <div className="rounded-xl border border-dashed border-stone-200 dark:border-white/8 p-12 text-center">
-              <div className="w-14 h-14 rounded-2xl bg-stone-100 dark:bg-[#1C1710] border border-stone-200 dark:border-white/10 flex items-center justify-center mx-auto mb-3">
-                <BookOpen className="h-6 w-6 text-stone-400 dark:text-slate-600" />
-              </div>
-              <p className="font-medium text-stone-500 dark:text-slate-400 mb-1">Mavzular hali qo&apos;shilmagan</p>
-              <p className="text-sm text-stone-400 dark:text-slate-600 mb-4">Birinchi mavzuni qo&apos;shing</p>
-              <Link href={`/professor/courses/${courseId}/topics/new`}>
-                <button className="text-sm bg-[#B45309] hover:bg-[#92400E] text-white px-4 py-2 rounded-lg transition-colors">
-                  Mavzu qo&apos;shish
-                </button>
-              </Link>
+              <BookOpen className="h-8 w-8 text-stone-300 dark:text-slate-700 mx-auto mb-2" />
+              <p className="text-sm text-stone-400 dark:text-slate-600">Mavzular hali qo&apos;shilmagan</p>
             </div>
           ) : (
             <div className="space-y-2">
@@ -121,9 +89,11 @@ export default async function CourseDetailPage({
                 const isReady = total > 0 && approved === total;
 
                 return (
-                  <div key={topic.id} className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] hover:border-stone-300 dark:hover:border-stone-700 transition-colors p-4 flex items-center gap-3">
+                  <div
+                    key={topic.id}
+                    className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] hover:border-stone-300 dark:hover:border-stone-700 transition-colors p-4 flex items-center gap-3"
+                  >
                     <div className="flex items-center gap-2 shrink-0">
-                      <GripVertical className="h-4 w-4 text-stone-400 dark:text-slate-700" />
                       <span className="w-6 h-6 rounded-full bg-stone-100 dark:bg-[#1C1710] border border-stone-200 dark:border-white/10 flex items-center justify-center text-xs font-medium text-stone-500">
                         {idx + 1}
                       </span>
