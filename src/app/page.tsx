@@ -86,6 +86,31 @@ export default async function LandingPage() {
           box-shadow: 0 24px 48px rgba(28,18,8,0.13), 0 6px 16px rgba(28,18,8,0.07), 0 0 0 1px rgba(28,18,8,0.04) !important;
         }
 
+        /* ── 3D brand text (nav, footer, inline) ── */
+        .brand-3d {
+          background: linear-gradient(150deg, #FFD060 0%, #E8921C 42%, #B45309 72%, #92400E 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          filter:
+            drop-shadow(0 2px 0 rgba(100,38,5,0.85))
+            drop-shadow(0 4px 0 rgba(50,15,0,0.55))
+            drop-shadow(0 5px 12px rgba(0,0,0,0.55));
+        }
+
+        /* ── 3D hero display heading (large text) ── */
+        .hero-3d {
+          background: linear-gradient(155deg, #FFE566 0%, #F0A828 32%, #D47318 58%, #A84E08 82%, #8C3C06 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          filter:
+            drop-shadow(0 3px 0 rgba(90,35,3,1.0))
+            drop-shadow(0 6px 0 rgba(45,12,0,0.65))
+            drop-shadow(0 9px 0 rgba(15,3,0,0.35))
+            drop-shadow(0 12px 24px rgba(0,0,0,0.60));
+        }
+
         /* ── Nav button ── */
         .btn-amber {
           background: #B45309; color: #fff;
@@ -108,7 +133,7 @@ export default async function LandingPage() {
           <div className="mx-auto max-w-6xl px-6 h-[62px] flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2.5">
               <BrainUPLogo size="sm" />
-              <span className="font-extrabold text-[#F0EAE0] text-[1.05rem] tracking-tight">BrainUP</span>
+              <span className="brand-3d font-extrabold text-[1.05rem] tracking-tight">BrainUP</span>
             </Link>
 
             <div className="hidden md:flex items-center gap-8 text-[0.875rem] font-medium" style={{ color: "#A89078" }}>
@@ -151,7 +176,7 @@ export default async function LandingPage() {
               >
                 <div>
                   <div
-                    className="a1 font-black text-white uppercase leading-none tracking-tight"
+                    className="a1 hero-3d font-black uppercase leading-none tracking-tight"
                     style={{ fontSize: "clamp(2.6rem,5.2vw,3.75rem)" }}
                   >
                     AQLLI<br />O&apos;QISHNING
@@ -162,8 +187,12 @@ export default async function LandingPage() {
                       style={{
                         fontSize: "clamp(2.6rem,5.2vw,3.75rem)",
                         lineHeight: 1,
-                        background: "#B45309",
+                        background: "linear-gradient(135deg, #D4781A 0%, #B45309 55%, #92400E 100%)",
                         color: "#fff",
+                        boxShadow: "0 4px 0 #6B2A04, 0 8px 0 #3D1502, 0 10px 24px rgba(0,0,0,0.55)",
+                        transform: "translateY(-2px)",
+                        display: "inline-block",
+                        textShadow: "0 1px 3px rgba(0,0,0,0.35)",
                       }}
                     >
                       TIZIMI
@@ -171,7 +200,7 @@ export default async function LandingPage() {
                   </div>
                   <p className="a3 leading-relaxed max-w-xs text-[0.95rem]" style={{ color: "rgba(240,234,224,0.65)" }}>
                     Kognitiv profilingizga asoslanib — har bir talaba uchun
-                    alohida ta&apos;lim yo&apos;nalishi. NamDPI pilot, 2026.
+                    alohida ta&apos;lim yo&apos;nalishi. <span className="brand-3d font-bold">NamDPI</span> pilot, 2026.
                   </p>
                 </div>
 
@@ -581,8 +610,8 @@ export default async function LandingPage() {
 
               {/* Text */}
               <div>
-                <p className="text-xs font-bold tracking-[0.22em] uppercase mb-5" style={{ color: "#B45309" }}>
-                  Nima uchun BrainUP?
+                <p className="text-xs font-bold tracking-[0.22em] uppercase mb-5">
+                  Nima uchun <span className="brand-3d">BrainUP</span>?
                 </p>
                 <h2 className="font-black text-4xl mb-5 leading-tight tracking-tight" style={{ color: "#1C1208" }}>
                   Har bir talaba —<br />alohida yo&apos;l
@@ -640,7 +669,7 @@ export default async function LandingPage() {
               }}
             />
             <div className="relative">
-              <p className="text-xs font-bold tracking-widest uppercase mb-4" style={{ color: "rgba(180,83,9,0.7)" }}>
+              <p className="brand-3d text-xs font-bold tracking-widest uppercase mb-4">
                 NamDPI · 2026
               </p>
               <h2
@@ -673,14 +702,14 @@ export default async function LandingPage() {
           <div className="mx-auto max-w-6xl px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
             <Link href="/" className="flex items-center gap-2.5">
               <BrainUPLogo size="sm" />
-              <span className="font-bold" style={{ color: "#F0EAE0" }}>BrainUP</span>
+              <span className="brand-3d font-bold">BrainUP</span>
             </Link>
             <div className="flex items-center gap-6 text-sm" style={{ color: "#6B5540" }}>
               <Link href="/login" className="transition-colors hover:text-[#F0EAE0]">Kirish</Link>
               <Link href="/register" className="transition-colors hover:text-[#F0EAE0]">Ro&apos;yxat</Link>
               <Link href="#how" className="transition-colors hover:text-[#F0EAE0]">Jarayon</Link>
             </div>
-            <p className="text-sm" style={{ color: "#4A3520" }}>© 2026 BrainUP · NamDPI</p>
+            <p className="text-sm" style={{ color: "#4A3520" }}>© 2026 <span className="brand-3d font-semibold">BrainUP</span> · <span className="brand-3d font-semibold">NamDPI</span></p>
           </div>
         </footer>
 
