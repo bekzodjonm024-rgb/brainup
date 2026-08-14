@@ -194,7 +194,10 @@ export default async function LandingPage() {
               <Link href="/login" className="transition-colors hover:text-[#F0EAE0]">Kirish</Link>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
+              <Link href="/login" className="md:hidden text-[0.82rem] font-medium transition-colors hover:text-[#F0EAE0]" style={{ color: "#A89078" }}>
+                Kirish
+              </Link>
               <Link href="/register">
                 <span
                   className="btn-amber text-[0.8rem] font-extrabold px-5 py-2.5 rounded-full tracking-wider inline-block"
@@ -634,7 +637,7 @@ export default async function LandingPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
 
               {/* Stats grid */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
                   { v: "500+",  l: "Faol talaba",   bg: "#FEF4E7", color: "#B45309" },
                   { v: "12+",   l: "Kurslar",         bg: "#FEF4E7", color: "#B45309" },
