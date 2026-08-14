@@ -86,9 +86,35 @@ export default async function LandingPage() {
           box-shadow: 0 24px 48px rgba(28,18,8,0.13), 0 6px 16px rgba(28,18,8,0.07), 0 0 0 1px rgba(28,18,8,0.04) !important;
         }
 
-        /* ── 3D brand text (nav, footer, inline) ── */
+        /* ── Shimmer keyframes ── */
+        @keyframes shimmerSweep {
+          0%   { background-position: 0% 50%; }
+          100% { background-position: 200% 50%; }
+        }
+        @keyframes heroSweep {
+          0%   { background-position: 0% 50%; }
+          100% { background-position: 200% 50%; }
+        }
+        @keyframes blockFloat {
+          0%, 100% { transform: translateY(-2px); box-shadow: 0 4px 0 #6B2A04, 0 8px 0 #3D1502, 0 10px 24px rgba(0,0,0,0.55); }
+          50%       { transform: translateY(-7px); box-shadow: 0 8px 0 #6B2A04, 0 14px 0 #3D1502, 0 18px 36px rgba(0,0,0,0.40); }
+        }
+
+        /* ── 3D brand text with shimmer (nav, footer, inline) ── */
         .brand-3d {
-          background: linear-gradient(150deg, #FFD060 0%, #E8921C 42%, #B45309 72%, #92400E 100%);
+          background: linear-gradient(
+            90deg,
+            #92400E 0%,
+            #C47518 18%,
+            #F0A828 35%,
+            #FFE566 47%,
+            #FFFAB0 50%,
+            #FFE566 53%,
+            #F0A828 65%,
+            #C47518 82%,
+            #92400E 100%
+          );
+          background-size: 200% 100%;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
@@ -96,11 +122,24 @@ export default async function LandingPage() {
             drop-shadow(0 2px 0 rgba(100,38,5,0.85))
             drop-shadow(0 4px 0 rgba(50,15,0,0.55))
             drop-shadow(0 5px 12px rgba(0,0,0,0.55));
+          animation: shimmerSweep 3s linear infinite;
         }
 
-        /* ── 3D hero display heading (large text) ── */
+        /* ── 3D hero display heading with shimmer (large text) ── */
         .hero-3d {
-          background: linear-gradient(155deg, #FFE566 0%, #F0A828 32%, #D47318 58%, #A84E08 82%, #8C3C06 100%);
+          background: linear-gradient(
+            90deg,
+            #7C2D12 0%,
+            #B45309 15%,
+            #E8921C 30%,
+            #FFD060 43%,
+            #FFF4A0 50%,
+            #FFD060 57%,
+            #E8921C 70%,
+            #B45309 85%,
+            #7C2D12 100%
+          );
+          background-size: 200% 100%;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
@@ -109,6 +148,18 @@ export default async function LandingPage() {
             drop-shadow(0 6px 0 rgba(45,12,0,0.65))
             drop-shadow(0 9px 0 rgba(15,3,0,0.35))
             drop-shadow(0 12px 24px rgba(0,0,0,0.60));
+          animation: heroSweep 4s linear infinite;
+        }
+
+        /* ── TIZIMI floating block ── */
+        .tizimi-float {
+          animation: blockFloat 3.2s ease-in-out infinite;
+        }
+
+        /* ── Reduced motion ── */
+        @media (prefers-reduced-motion: reduce) {
+          .brand-3d, .hero-3d { animation: none; background-position: 0% 50%; }
+          .tizimi-float { animation: none; transform: translateY(-2px); }
         }
 
         /* ── Nav button ── */
@@ -183,15 +234,12 @@ export default async function LandingPage() {
                   </div>
                   <div className="a2 mt-2 mb-5">
                     <span
-                      className="font-black uppercase tracking-tight px-2 py-0.5 inline-block"
+                      className="tizimi-float font-black uppercase tracking-tight px-2 py-0.5 inline-block"
                       style={{
                         fontSize: "clamp(2.6rem,5.2vw,3.75rem)",
                         lineHeight: 1,
                         background: "linear-gradient(135deg, #D4781A 0%, #B45309 55%, #92400E 100%)",
                         color: "#fff",
-                        boxShadow: "0 4px 0 #6B2A04, 0 8px 0 #3D1502, 0 10px 24px rgba(0,0,0,0.55)",
-                        transform: "translateY(-2px)",
-                        display: "inline-block",
                         textShadow: "0 1px 3px rgba(0,0,0,0.35)",
                       }}
                     >
