@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 export const metadata: Metadata = { title: "Baholash" };
 
 import { auth } from "@/lib/auth";
@@ -27,7 +27,7 @@ export default async function AssessmentPage() {
   });
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
       <Header title="Kognitiv baholash" description="Boshlang'ich baholash natijalari" />
       <main className="flex-1 p-6 max-w-2xl mx-auto w-full space-y-5">
 
@@ -53,7 +53,7 @@ export default async function AssessmentPage() {
               memoryScore={student.cognitiveProfile!.memoryScore}
             />
 
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 flex items-start gap-3">
+            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-4 flex items-start gap-3">
               <AlertCircle className="h-4 w-4 text-slate-400 dark:text-slate-600 mt-0.5 shrink-0" />
               <p className="text-xs text-slate-500">
                 Bu natijalar sizning o&apos;quv yo&apos;nalishingizni moslashtirish uchun ishlatiladi.
@@ -67,7 +67,7 @@ export default async function AssessmentPage() {
           </>
         ) : (
           <>
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-6">
+            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-6 space-y-6">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
                   <Brain className="h-6 w-6 text-blue-400" />
@@ -83,7 +83,7 @@ export default async function AssessmentPage() {
                   { label: "Davomiyligi", value: "~12 daqiqa", icon: <Clock className="h-4 w-4 text-slate-500" /> },
                   { label: "Topshiriqlar", value: "4 xil turdagi", icon: <Brain className="h-4 w-4 text-slate-500" /> },
                 ].map((s) => (
-                  <div key={s.label} className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-4 flex items-center gap-3">
+                  <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/8 bg-slate-50 dark:bg-slate-950 p-4 flex items-center gap-3">
                     {s.icon}
                     <div>
                       <p className="text-xs text-slate-400 dark:text-slate-600">{s.label}</p>

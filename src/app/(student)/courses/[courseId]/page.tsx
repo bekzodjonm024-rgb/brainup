@@ -15,7 +15,7 @@ const ACTION_CHIP: Record<string, { label: string; border: string; bg: string; t
   PRACTICE:          { label: "Mashq kerak", border: "border-blue-500/20",    bg: "bg-blue-500/10",    text: "text-blue-400",    icon: <Zap className="h-3 w-3" /> },
   ADVANCED_PRACTICE: { label: "Murakkab",    border: "border-pink-500/20",    bg: "bg-pink-500/10",    text: "text-pink-400",    icon: <Zap className="h-3 w-3" /> },
   EXPLAIN_AGAIN:     { label: "Qayta o'qi",  border: "border-amber-500/20",   bg: "bg-amber-500/10",   text: "text-amber-400",   icon: <BookOpen className="h-3 w-3" /> },
-  PREREQUISITE:      { label: "Oldingi mavzu",border: "border-orange-500/20", bg: "bg-orange-500/10",  text: "text-orange-400",  icon: <Layers className="h-3 w-3" /> },
+  PREREQUISITE:      { label: "Oldingi mavzu",border: "border-blue-500/20", bg: "bg-blue-600/10",  text: "text-blue-400",  icon: <Layers className="h-3 w-3" /> },
   RETRIEVE:          { label: "Takrorlash",  border: "border-violet-500/20",  bg: "bg-violet-500/10",  text: "text-violet-400",  icon: <RotateCcw className="h-3 w-3" /> },
   CONTINUE:          { label: "Tayyor",      border: "border-emerald-500/20", bg: "bg-emerald-500/10", text: "text-emerald-400", icon: <CheckCircle2 className="h-3 w-3" /> },
 };
@@ -66,17 +66,17 @@ export default async function StudentCourseDetailPage({
   const progress = course.topics.length > 0 ? (masteredTopics / course.topics.length) * 100 : 0;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
       <Header title={course.title} description={`${course.professor.firstName} ${course.professor.lastName}`} />
       <main className="flex-1 p-6 space-y-5">
         <Link href="/courses">
-          <Button variant="ghost" size="sm" className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">
+          <Button variant="ghost" size="sm" className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#2a2720]">
             <ArrowLeft className="h-4 w-4 mr-1" /> Kurslar
           </Button>
         </Link>
 
         {/* Course progress */}
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
           <div className="flex items-center justify-between mb-3">
             <div>
               <p className="text-xs text-slate-500 uppercase tracking-wide font-medium">Umumiy progress</p>
@@ -87,8 +87,8 @@ export default async function StudentCourseDetailPage({
               <p className="text-xs text-slate-400 dark:text-slate-600">mavzu o'zlashtirildi</p>
             </div>
           </div>
-          <div className="h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-            <div className="h-full bg-blue-500 rounded-full transition-all" style={{ width: `${progress}%` }} />
+          <div className="h-2 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
+            <div className="h-full bg-blue-600 rounded-full transition-all" style={{ width: `${progress}%` }} />
           </div>
         </div>
 
@@ -122,10 +122,10 @@ export default async function StudentCourseDetailPage({
             return (
               <div
                 key={topic.id}
-                className={`rounded-xl border bg-white dark:bg-slate-900 p-4 flex items-center gap-3 transition-colors ${
+                className={`rounded-xl border bg-white dark:bg-[#151f35] p-4 flex items-center gap-3 transition-colors ${
                   isMastered ? "border-emerald-500/20 bg-emerald-500/5" :
-                  isLocked ? "border-slate-200 dark:border-slate-800 opacity-60" :
-                  "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700"
+                  isLocked ? "border-slate-200 dark:border-white/8 opacity-60" :
+                  "border-slate-200 dark:border-white/8 hover:border-slate-300 dark:hover:border-slate-700"
                 }`}
               >
                 <div className="shrink-0">
@@ -156,7 +156,7 @@ export default async function StudentCourseDetailPage({
                     <p className="text-xs text-slate-400 dark:text-slate-600 mt-0.5 line-clamp-1">{topic.learningObjective}</p>
                   )}
                   {prereqLocked && topic.prerequisiteTopic && (
-                    <p className="text-xs text-orange-400 mt-0.5">
+                    <p className="text-xs text-blue-400 mt-0.5">
                       Avval &quot;{topic.prerequisiteTopic.title}&quot; mavzusini bajaring (≥60%)
                     </p>
                   )}
@@ -171,7 +171,7 @@ export default async function StudentCourseDetailPage({
                     <Button
                       size="sm"
                       className={isMastered
-                        ? "border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 bg-transparent"
+                        ? "border-slate-300 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#2a2720] bg-transparent"
                         : "bg-blue-600 hover:bg-blue-500 text-white border-0"
                       }
                       variant={isMastered ? "outline" : "default"}

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -7,7 +7,7 @@ import { signIn, getSession } from "next-auth/react";
 import { Loader2, Eye, EyeOff, CheckCircle2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const inputCls = "w-full h-11 px-4 rounded-xl bg-slate-900 border border-slate-800 text-white text-sm outline-none transition-colors focus:border-blue-500 placeholder:text-slate-600";
+const inputCls = "w-full h-11 px-4 rounded-xl bg-white border text-slate-900 text-sm outline-none transition-colors focus:border-blue-500 placeholder:text-slate-400 shadow-sm";
 
 export function LoginForm() {
   const router = useRouter();
@@ -50,8 +50,8 @@ export function LoginForm() {
 
   return (
     <div>
-      <h2 className="f-syne text-2xl font-bold text-white mb-1">Xush kelibsiz</h2>
-      <p className="text-slate-500 text-sm mb-8">Hisobingizga kiring</p>
+      <h2 className="text-2xl font-black text-slate-900 mb-1">Xush kelibsiz</h2>
+      <p className="text-slate-400 text-sm mb-8">Hisobingizga kiring</p>
 
       {registered && (
         <div className="mb-6 flex items-center gap-2.5 rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-400">
@@ -68,7 +68,7 @@ export function LoginForm() {
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div className="space-y-2">
-          <label className="block text-sm font-medium text-slate-400">Email</label>
+          <label className="block text-sm font-medium text-slate-600">Email</label>
           <input
             type="email"
             value={email}
@@ -81,7 +81,7 @@ export function LoginForm() {
         </div>
 
         <div className="space-y-2">
-          <label className="block text-sm font-medium text-slate-400">Parol</label>
+          <label className="block text-sm font-medium text-slate-600">Parol</label>
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
@@ -95,7 +95,7 @@ export function LoginForm() {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600 hover:text-slate-400 transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
               tabIndex={-1}
             >
               {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -113,12 +113,9 @@ export function LoginForm() {
         </Button>
       </form>
 
-      <div className="mt-6 pt-6 border-t border-white/5 text-center text-sm text-slate-600">
+      <div className="mt-6 pt-6 text-center text-sm text-slate-400" style={{ borderTop: "1px solid rgba(0,0,0,0.07)" }}>
         Hisobingiz yo&apos;qmi?{" "}
-        <Link
-          href="/register"
-          className="text-blue-400 hover:text-blue-300 font-medium transition-colors"
-        >
+        <Link href="/register" className="text-blue-600 font-medium hover:text-blue-400 transition-colors">
           Ro&apos;yxatdan o&apos;ting
         </Link>
       </div>

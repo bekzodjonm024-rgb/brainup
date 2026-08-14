@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 export const metadata: Metadata = { title: "Professorlar" };
 
 import { auth } from "@/lib/auth";
@@ -32,7 +32,7 @@ export default async function AdminProfessorsPage() {
   });
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
       <Header title="Professorlar" description="Professor hisoblarini boshqarish" />
       <main className="flex-1 p-6 space-y-6">
         <AddProfessorForm />

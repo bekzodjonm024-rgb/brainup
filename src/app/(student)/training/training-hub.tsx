@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -191,7 +191,7 @@ export function TrainingHub({ profile, nextDiagnosticAt, history }: Props) {
           <div className="space-y-3">
             {[
               { key: "attentionScore", label: "Diqqat", score: profile.attentionScore, color: "bg-indigo-500" },
-              { key: "workingMemoryScore", label: "Ishchi xotira", score: profile.workingMemoryScore, color: "bg-blue-500" },
+              { key: "workingMemoryScore", label: "Ishchi xotira", score: profile.workingMemoryScore, color: "bg-blue-600" },
               { key: "processingSpeedScore", label: "Tezlik", score: profile.processingSpeedScore, color: "bg-amber-500" },
               { key: "memoryScore", label: "Xotira", score: profile.memoryScore, color: "bg-emerald-500" },
             ].map((item) => (

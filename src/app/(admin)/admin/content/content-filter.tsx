@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -27,7 +27,7 @@ export function ContentFilter({
   }
 
   return (
-    <div className="flex items-center gap-1 border-b border-slate-200 dark:border-slate-800 pb-0 overflow-x-auto">
+    <div className="flex items-center gap-1 border-b border-slate-200 dark:border-white/8 pb-0 overflow-x-auto">
       {TABS.map(({ key, label, activeColor }) => {
         const count = counts[key] ?? 0;
         const isActive = active === key;
@@ -47,8 +47,8 @@ export function ContentFilter({
               <span className={cn(
                 "inline-flex h-4.5 min-w-4 items-center justify-center rounded-full px-1.5 text-[11px] font-bold leading-none",
                 isActive
-                  ? "bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
-                  : "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-600"
+                  ? "bg-slate-200 dark:bg-[#1e2840] text-slate-600 dark:text-slate-300"
+                  : "bg-slate-100 dark:bg-[#1e2840] text-slate-500 dark:text-slate-600"
               )}>
                 {count}
               </span>

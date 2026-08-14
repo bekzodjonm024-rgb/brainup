@@ -132,7 +132,7 @@ export function AssessmentRunner({ sessionId, items, initialItemIndex, totalItem
           <div className="flex-1 relative">
             <div className="h-1 bg-slate-800 rounded-full overflow-hidden">
               <div
-                className="h-full bg-blue-500 rounded-full transition-all duration-500"
+                className="h-full bg-blue-600 rounded-full transition-all duration-500"
                 style={{ width: `${progress}%` }}
               />
             </div>

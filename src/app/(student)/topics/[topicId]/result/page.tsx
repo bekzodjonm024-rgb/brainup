@@ -41,9 +41,9 @@ const ACTION_CONFIG: Record<string, {
   PREREQUISITE: {
     title: "Avvalgi mavzuni mustahkamlang",
     description: "Bu mavzuni tushunish uchun avval oldingi mavzuni yaxshi o'zlashtirib oling.",
-    border: "border-orange-500/20",
-    iconBg: "bg-orange-500/10",
-    icon: <Layers className="h-6 w-6 text-orange-400" />,
+    border: "border-blue-500/20",
+    iconBg: "bg-blue-600/10",
+    icon: <Layers className="h-6 w-6 text-blue-400" />,
   },
   RETRIEVE: {
     title: "Takrorlash vaqti",
@@ -153,7 +153,7 @@ export default async function ResultPage({
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-950">
+    <div className="min-h-screen bg-[#f8faff] dark:bg-[#0e1117]">
       <div className="mx-auto max-w-xl px-4 py-8 space-y-6">
         {/* Back */}
         <Link
@@ -164,7 +164,7 @@ export default async function ResultPage({
         </Link>
 
         {/* Mastery card */}
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 flex flex-col items-center gap-4 text-center">
+        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-6 flex flex-col items-center gap-4 text-center">
           <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
             <CheckCircle2 className="h-8 w-8 text-emerald-400" />
           </div>
@@ -176,7 +176,7 @@ export default async function ResultPage({
         </div>
 
         {/* Adaptive recommendation */}
-        <div className={`rounded-2xl border ${cfg.border} bg-white dark:bg-slate-900 p-6 space-y-4`}>
+        <div className={`rounded-2xl border ${cfg.border} bg-white dark:bg-[#151f35] p-6 space-y-4`}>
           <div className="flex items-start gap-4">
             <div className={`w-12 h-12 rounded-xl ${cfg.iconBg} flex items-center justify-center shrink-0`}>
               {cfg.icon}
@@ -197,12 +197,12 @@ export default async function ResultPage({
         {/* Secondary actions */}
         <div className="flex gap-3">
           <Link href={`/courses/${topic.courseId}`} className="flex-1">
-            <Button variant="outline" className="w-full text-sm border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 bg-transparent">
+            <Button variant="outline" className="w-full text-sm border-slate-300 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#2a2720] bg-transparent">
               Kurs ro&apos;yxati
             </Button>
           </Link>
           <Link href="/dashboard" className="flex-1">
-            <Button variant="outline" className="w-full text-sm border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 bg-transparent">
+            <Button variant="outline" className="w-full text-sm border-slate-300 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#2a2720] bg-transparent">
               Dashboard
             </Button>
           </Link>

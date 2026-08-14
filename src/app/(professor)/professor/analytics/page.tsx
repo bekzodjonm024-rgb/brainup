@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 export const metadata: Metadata = { title: "Tahlil" };
 
 import { auth } from "@/lib/auth";
@@ -167,7 +167,7 @@ export default async function ProfessorAnalyticsPage() {
   const total = mastered + onTrack + struggling;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
       <Header title="Analitika" description="Barcha kurslar bo'yicha o'quv tahlili" />
 
       <main className="flex-1 p-6 space-y-6 max-w-5xl mx-auto w-full">
@@ -180,7 +180,7 @@ export default async function ProfessorAnalyticsPage() {
             { icon: <CheckCircle2 className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "O'zlashtirildi", value: mastered, iconBg: "bg-violet-50 dark:bg-violet-950/50" },
             { icon: <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "Qiynalyapti", value: struggling, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
           ].map((s) => (
-            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
+            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1e2840] p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
               <p className="text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
@@ -193,7 +193,7 @@ export default async function ProfessorAnalyticsPage() {
 
             {/* Mastery distribution */}
             {total > 0 && (
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
                 <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                   <BarChart3 className="h-4 w-4 text-slate-500" />
                   O'zlashtirish taqsimoti
@@ -201,7 +201,7 @@ export default async function ProfessorAnalyticsPage() {
                 <div className="space-y-4">
                   {[
                     { label: "O'zlashtirildi (≥85%)", count: mastered, color: "bg-emerald-500", pct: Math.round((mastered / total) * 100) },
-                    { label: "Jarayonda (50–84%)", count: onTrack, color: "bg-blue-500", pct: Math.round((onTrack / total) * 100) },
+                    { label: "Jarayonda (50–84%)", count: onTrack, color: "bg-blue-600", pct: Math.round((onTrack / total) * 100) },
                     { label: "Qiyin (<50%)", count: struggling, color: "bg-red-500", pct: Math.round((struggling / total) * 100) },
                   ].map((row) => (
                     <div key={row.label} className="space-y-1.5">
@@ -211,7 +211,7 @@ export default async function ProfessorAnalyticsPage() {
                           {row.count} ta ({row.pct}%)
                         </span>
                       </div>
-                      <div className="h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                      <div className="h-1.5 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
                         <div className={`h-full rounded-full ${row.color}`} style={{ width: `${row.pct}%` }} />
                       </div>
                     </div>
@@ -221,7 +221,7 @@ export default async function ProfessorAnalyticsPage() {
             )}
 
             {/* Course summaries */}
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                 <BookOpen className="h-4 w-4 text-slate-500" />
                 Kurslar bo'yicha natijalar
@@ -245,13 +245,13 @@ export default async function ProfessorAnalyticsPage() {
                           </div>
                         </div>
                         <Link href={`/professor/courses/${c.id}/analytics`}>
-                          <Button variant="outline" size="sm" className="border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 bg-transparent text-xs shrink-0">
+                          <Button variant="outline" size="sm" className="border-slate-300 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#2a2720] bg-transparent text-xs shrink-0">
                             Batafsil <ArrowRight className="h-3 w-3 ml-1" />
                           </Button>
                         </Link>
                       </div>
-                      <div className="h-1 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-                        <div className="h-full bg-blue-500 rounded-full" style={{ width: `${c.avgMastery * 100}%` }} />
+                      <div className="h-1 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
+                        <div className="h-full bg-blue-600 rounded-full" style={{ width: `${c.avgMastery * 100}%` }} />
                       </div>
                     </div>
                   ))
@@ -262,7 +262,7 @@ export default async function ProfessorAnalyticsPage() {
 
           <div className="space-y-4">
             {/* Difficult topics */}
-            <div className="rounded-2xl border border-amber-500/20 bg-white dark:bg-slate-900 p-5">
+            <div className="rounded-2xl border border-amber-500/20 bg-white dark:bg-[#151f35] p-5">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                 <AlertTriangle className="h-4 w-4 text-amber-400" />
                 Qiyin mavzular
@@ -285,7 +285,7 @@ export default async function ProfessorAnalyticsPage() {
                         </span>
                       </div>
                       <p className="text-xs text-slate-400 dark:text-slate-600">{t.courseName} • {t.tried} talaba</p>
-                      <div className="h-1 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                      <div className="h-1 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
                         <div className="h-full bg-amber-500 rounded-full" style={{ width: `${(t.avg ?? 0) * 100}%` }} />
                       </div>
                     </div>
@@ -296,7 +296,7 @@ export default async function ProfessorAnalyticsPage() {
 
             {/* Adaptive interventions */}
             {interventionCounts.length > 0 && (
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
                 <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                   <Zap className="h-4 w-4 text-blue-400" />
                   Adaptiv tavsiyalar
@@ -315,7 +315,7 @@ export default async function ProfessorAnalyticsPage() {
         </div>
 
         {/* Cognitive dynamics */}
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
           <div className="flex flex-wrap items-start justify-between gap-4 mb-5">
             <div>
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300">

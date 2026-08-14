@@ -1,18 +1,20 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import {
   Brain,
   TrendingUp,
   RefreshCw,
   ArrowRight,
   CheckCircle2,
+  Star,
+  Users,
+  BookOpen,
   Zap,
   Target,
-  BarChart3,
+  Play,
+  GraduationCap,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { BrainUPLogo } from "@/components/ui/brainup-logo";
 
 export default async function LandingPage() {
@@ -24,336 +26,306 @@ export default async function LandingPage() {
     redirect("/dashboard");
   }
 
-  const nodes = [
-    { angle: 0, colorClass: "bg-violet-500/20 border-violet-500/30", icon: <Zap className="h-4 w-4 text-violet-400" />, label: "Diqqat" },
-    { angle: 72, colorClass: "bg-blue-500/20 border-blue-500/30", icon: <Brain className="h-4 w-4 text-blue-400" />, label: "Xotira" },
-    { angle: 144, colorClass: "bg-emerald-500/20 border-emerald-500/30", icon: <RefreshCw className="h-4 w-4 text-emerald-400" />, label: "Retrieval" },
-    { angle: 216, colorClass: "bg-amber-500/20 border-amber-500/30", icon: <Target className="h-4 w-4 text-amber-400" />, label: "Mastery" },
-    { angle: 288, colorClass: "bg-pink-500/20 border-pink-500/30", icon: <BarChart3 className="h-4 w-4 text-pink-400" />, label: "Analytics" },
-  ];
-
-  const R = 180;
-  const CX = 240;
-  const CY = 240;
+  const partners = ["NamDPI", "TATU", "SamDU", "ToshDTU", "BuxDU", "FarDPI", "AndDU", "NamMQI"];
 
   return (
     <>
       <style>{`
-        @keyframes orb-float {
-          0%,100% { transform: translateY(0) scale(1); }
-          50%      { transform: translateY(-28px) scale(1.04); }
-        }
-        @keyframes fade-up {
-          from { opacity:0; transform:translateY(24px); }
-          to   { opacity:1; transform:translateY(0); }
-        }
-        @keyframes shimmer {
-          0%   { background-position: -200% center; }
-          100% { background-position:  200% center; }
-        }
-        @keyframes live-pulse {
-          0%,100% { transform:scale(1);   opacity:1; }
-          50%      { transform:scale(2.2); opacity:0; }
-        }
-        @keyframes slow-spin {
-          from { transform: rotate(0deg); }
-          to   { transform: rotate(360deg); }
-        }
+        @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+        .ticker-track { animation: ticker 28s linear infinite; }
 
-        .orb-a { animation: orb-float 8s  ease-in-out infinite; }
-        .orb-b { animation: orb-float 11s ease-in-out infinite 2s; }
-        .orb-c { animation: orb-float 14s ease-in-out infinite 4s; }
+        @keyframes floatUp { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
+        .fl-1 { animation: floatUp 4s ease-in-out infinite; }
+        .fl-2 { animation: floatUp 5s ease-in-out infinite .9s; }
+        .fl-3 { animation: floatUp 6s ease-in-out infinite 1.8s; }
 
-        .a1 { animation: fade-up .7s ease-out .0s both; }
-        .a2 { animation: fade-up .7s ease-out .15s both; }
-        .a3 { animation: fade-up .7s ease-out .30s both; }
-        .a4 { animation: fade-up .7s ease-out .45s both; }
-        .a5 { animation: fade-up .7s ease-out .60s both; }
+        @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+        .a1{animation:fadeUp .5s ease-out 0s both}
+        .a2{animation:fadeUp .5s ease-out .1s both}
+        .a3{animation:fadeUp .5s ease-out .2s both}
+        .a4{animation:fadeUp .5s ease-out .3s both}
 
-        .shimmer-text {
-          background: linear-gradient(90deg,#93c5fd 0%,#e0e7ff 30%,#818cf8 60%,#3b82f6 80%,#93c5fd 100%);
-          background-size: 200% auto;
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: shimmer 4s linear infinite;
+        @keyframes pulseRing {
+          0%{transform:scale(1);opacity:.25}
+          100%{transform:scale(1.7);opacity:0}
         }
+        .pulse-ring { animation: pulseRing 2.8s cubic-bezier(0,0,.2,1) infinite; }
 
-        .live-dot {
-          animation: live-pulse 2s cubic-bezier(0,0,.2,1) infinite;
-        }
+        @keyframes slowSpin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+        .slow-spin { animation: slowSpin 22s linear infinite; transform-origin: 50% 50%; }
 
-        .ring-spin {
-          transform-origin: 240px 240px;
-          animation: slow-spin 30s linear infinite;
-        }
-
-        .card-lift {
-          transition: transform .3s ease, box-shadow .3s ease;
-        }
-        .card-lift:hover {
-          transform: translateY(-6px);
-        }
-
-        .step-ghost {
-          font-family: 'Syne', sans-serif;
-          font-weight: 800;
-          font-size: 6rem;
-          line-height: 1;
-          background: linear-gradient(180deg,rgba(255,255,255,.1) 0%,rgba(255,255,255,.01) 100%);
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-          user-select: none;
-        }
+        .card-hover { transition: transform .25s ease, box-shadow .25s ease; }
+        .card-hover:hover { transform: translateY(-5px); }
       `}</style>
 
-      <div className="min-h-screen bg-slate-950">
+      <div className="min-h-screen" style={{ backgroundColor: "#f8faff" }}>
 
         {/* ── NAV ── */}
-        <nav className="fixed top-0 inset-x-0 z-50 border-b border-white/5 bg-slate-950/80 backdrop-blur-xl">
-          <div className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <BrainUPLogo size="md" href="/" />
-              <span className="f-syne font-bold text-white text-lg tracking-tight">BrainUP</span>
+        <nav
+          className="sticky top-0 z-50"
+          style={{ backgroundColor: "#f8faff", borderBottom: "1px solid rgba(0,0,0,0.06)" }}
+        >
+          <div className="mx-auto max-w-6xl px-6 h-[62px] flex items-center justify-between">
+            <Link href="/" className="flex items-center gap-2.5">
+              <BrainUPLogo size="sm" />
+              <span className="font-extrabold text-slate-900 text-[1.05rem] tracking-tight">BrainUP</span>
+            </Link>
+
+            <div className="hidden md:flex items-center gap-8 text-[0.875rem] text-slate-600 font-medium">
+              <Link href="/" className="hover:text-slate-900 transition-colors">Bosh sahifa</Link>
+              <Link href="#how" className="hover:text-slate-900 transition-colors">Jarayon</Link>
+              <Link href="#features" className="hover:text-slate-900 transition-colors">Imkoniyatlar</Link>
+              <Link href="/login" className="hover:text-slate-900 transition-colors">Kirish</Link>
             </div>
+
             <div className="flex items-center gap-2">
-              <Link href="/login">
-                <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white hover:bg-white/5">
-                  Kirish
-                </Button>
-              </Link>
+              <div className="w-9 h-9 rounded-full bg-slate-900 flex items-center justify-center hover:bg-slate-700 transition-colors cursor-pointer">
+                <ArrowRight className="h-4 w-4 text-white" />
+              </div>
               <Link href="/register">
-                <Button size="sm" className="bg-blue-600 hover:bg-blue-500 text-white border-0 shadow-lg shadow-blue-600/25">
-                  Boshlash
-                </Button>
+                <span className="bg-slate-900 text-white text-[0.8rem] font-extrabold px-5 py-2.5 rounded-full hover:bg-slate-700 transition-colors tracking-wider inline-block">
+                  BOSHLASH
+                </span>
               </Link>
             </div>
           </div>
         </nav>
 
         {/* ── HERO ── */}
-        <section className="relative min-h-screen flex items-center overflow-hidden pt-16">
-          {/* Background */}
-          <div className="absolute inset-0 pointer-events-none">
-            <div
-              className="absolute inset-0 opacity-[0.025]"
-              style={{
-                backgroundImage:
-                  "linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px)",
-                backgroundSize: "60px 60px",
-              }}
-            />
-            <div className="orb-a absolute -top-20 -left-40  w-[600px] h-[600px] rounded-full bg-blue-700/10   blur-[120px]" />
-            <div className="orb-b absolute bottom-0  -right-40 w-[500px] h-[500px] rounded-full bg-indigo-700/10 blur-[100px]" />
-            <div className="orb-c absolute top-2/3 left-1/3   w-[300px] h-[300px] rounded-full bg-violet-700/8  blur-[80px]" />
-          </div>
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-4">
+          <div className="relative rounded-3xl overflow-hidden bg-blue-600" style={{ minHeight: 560 }}>
 
-          <div className="relative mx-auto max-w-6xl px-6 py-28 w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="flex flex-col lg:flex-row" style={{ minHeight: 560 }}>
 
               {/* LEFT */}
-              <div>
-                <div className="a1 inline-flex items-center gap-2.5 rounded-full border border-blue-500/20 bg-blue-500/5 px-4 py-1.5 text-sm text-blue-400 mb-8">
-                  <span className="relative flex h-2 w-2">
-                    <span className="live-dot absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-400" />
-                  </span>
-                  NamDPI pilot &mdash; 2026
+              <div className="flex-1 flex flex-col justify-between p-8 sm:p-12 lg:p-14" style={{ minHeight: 560 }}>
+                <div>
+                  <div className="a1 font-black text-white uppercase leading-none tracking-tight" style={{ fontSize: "clamp(2.6rem,5.2vw,3.75rem)" }}>
+                    AQLLI<br />O&apos;QISHNING
+                  </div>
+                  <div className="a2 mt-2 mb-5">
+                    <span
+                      className="bg-white text-blue-600 font-black uppercase tracking-tight px-2 py-0.5 inline-block"
+                      style={{ fontSize: "clamp(2.6rem,5.2vw,3.75rem)", lineHeight: 1 }}
+                    >
+                      TIZIMI
+                    </span>
+                  </div>
+                  <p className="a3 text-white/70 leading-relaxed max-w-xs text-[0.95rem]">
+                    Kognitiv profilingizga asoslanib — har bir talaba uchun
+                    alohida ta&apos;lim yo&apos;nalishi. NamDPI pilot, 2026.
+                  </p>
                 </div>
 
-                <h1 className="a2 f-syne text-5xl lg:text-[3.75rem] font-bold text-white leading-[1.08] mb-6">
-                  Ko&apos;proq emas,{" "}
-                  <br />
-                  <span className="shimmer-text">to&apos;g&apos;riroq</span> o&apos;qing
-                </h1>
-
-                <p className="a3 text-slate-400 text-lg leading-relaxed mb-10 max-w-md">
-                  BrainUP kognitiv profilingiz, xatolaringiz va tempingizga
-                  asoslanib &mdash; har bir talaba uchun individual ta&apos;lim
-                  yo&apos;nalishi yaratadi.
-                </p>
-
-                <div className="a4 flex flex-wrap items-center gap-4">
-                  <Link href="/register">
-                    <Button
-                      size="lg"
-                      className="bg-blue-600 hover:bg-blue-500 text-white h-12 px-8 text-base gap-2 border-0 shadow-xl shadow-blue-600/20"
-                    >
-                      Bepul boshlash <ArrowRight className="h-4 w-4" />
-                    </Button>
-                  </Link>
-                  <Link href="/login">
-                    <Button
-                      size="lg"
-                      variant="outline"
-                      className="border-white/10 bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white h-12 px-8 text-base"
-                    >
-                      Kirish
-                    </Button>
-                  </Link>
-                </div>
-
-                <div className="a5 mt-12 flex items-center gap-8">
-                  {[
-                    { v: "500+", l: "Faol talaba" },
-                    { v: "98%",  l: "Qoniqish" },
-                    { v: "3×",   l: "Tezroq o'zlashtiruv" },
-                  ].map((s, i) => (
-                    <div key={s.l} className={i > 0 ? "border-l border-white/10 pl-8" : ""}>
-                      <p className="f-syne text-2xl font-bold text-white">{s.v}</p>
-                      <p className="text-sm text-slate-500 mt-0.5">{s.l}</p>
+                <div className="a4 mt-8 space-y-5">
+                  <Link href="/register" className="flex items-center gap-3 group w-fit">
+                    <div className="w-11 h-11 rounded-full bg-slate-900 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <ArrowRight className="h-4 w-4 text-white" />
                     </div>
-                  ))}
+                    <span className="text-white font-extrabold uppercase tracking-widest text-[0.8rem]">
+                      O&apos;QISHNI BOSHLASH
+                    </span>
+                  </Link>
+
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <div className="flex -space-x-2.5">
+                      {["AK", "BM", "ZT", "NK"].map((init, i) => (
+                        <div
+                          key={i}
+                          className="rounded-full bg-blue-800 border-2 border-blue-400 flex items-center justify-center text-white text-[11px] font-bold"
+                          style={{ width: 36, height: 36 }}
+                        >
+                          {init}
+                        </div>
+                      ))}
+                    </div>
+                    <div>
+                      <p className="text-white font-bold text-lg leading-none">460+</p>
+                      <p className="text-white/50 text-xs">faol talaba</p>
+                    </div>
+                    <button className="w-9 h-9 rounded-full flex items-center justify-center bg-black/20 hover:bg-black/30 transition-colors ml-1">
+                      <Play className="h-3.5 w-3.5 text-white fill-white ml-0.5" />
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              {/* RIGHT — neural network */}
-              <div className="hidden lg:flex items-center justify-center">
-                <div className="relative w-[480px] h-[480px]">
-                  {/* Ring decorations */}
-                  <div className="absolute inset-0   rounded-full border border-white/[0.04]" />
-                  <div className="absolute inset-8   rounded-full border border-white/[0.04]" />
-                  <div className="absolute inset-16  rounded-full border border-white/[0.04]" />
+              {/* RIGHT — Illustration */}
+              <div className="hidden lg:block relative flex-1" style={{ minHeight: 560 }}>
 
-                  {/* SVG lines */}
-                  <svg className="absolute inset-0 w-full h-full" viewBox="0 0 480 480" fill="none">
-                    <defs>
-                      <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%"   stopColor="#3b82f6" stopOpacity=".5" />
-                        <stop offset="100%" stopColor="#6366f1" stopOpacity=".05" />
-                      </linearGradient>
-                    </defs>
+                {/* Background rings */}
+                <div
+                  className="absolute rounded-full"
+                  style={{ width: 380, height: 380, top: "50%", left: "45%", transform: "translate(-50%,-56%)", background: "rgba(255,255,255,0.07)" }}
+                />
+                <div
+                  className="absolute rounded-full"
+                  style={{ width: 260, height: 260, top: "50%", left: "45%", transform: "translate(-50%,-56%)", background: "rgba(255,255,255,0.05)" }}
+                />
 
-                    {/* Spinning dashed ring */}
+                {/* Spinning SVG ring */}
+                <div className="absolute" style={{ width: 310, height: 310, top: "50%", left: "45%", transform: "translate(-50%,-56%)" }}>
+                  <svg className="w-full h-full" viewBox="0 0 310 310" fill="none">
                     <circle
-                      cx={CX} cy={CY} r={R}
-                      stroke="url(#ringGrad)"
-                      strokeWidth="1"
-                      strokeDasharray="6 14"
-                      className="ring-spin"
+                      className="slow-spin"
+                      cx="155" cy="155" r="150"
+                      stroke="rgba(255,255,255,0.22)"
+                      strokeWidth="1.5"
+                      strokeDasharray="8 14"
                     />
-
-                    {/* Spokes center → node */}
-                    {nodes.map((n) => {
-                      const rad = (n.angle * Math.PI) / 180;
-                      return (
-                        <line
-                          key={n.angle}
-                          x1={CX} y1={CY}
-                          x2={CX + R * Math.cos(rad)}
-                          y2={CY + R * Math.sin(rad)}
-                          stroke="rgba(99,102,241,.18)"
-                          strokeWidth="1"
-                          strokeDasharray="4 6"
-                        />
-                      );
-                    })}
-
-                    {/* Pentagon edges */}
-                    {nodes.map((n, i) => {
-                      const next = nodes[(i + 1) % nodes.length];
-                      const r1 = (n.angle    * Math.PI) / 180;
-                      const r2 = (next.angle * Math.PI) / 180;
-                      return (
-                        <line
-                          key={`e${i}`}
-                          x1={CX + R * Math.cos(r1)} y1={CY + R * Math.sin(r1)}
-                          x2={CX + R * Math.cos(r2)} y2={CY + R * Math.sin(r2)}
-                          stroke="rgba(59,130,246,.1)"
-                          strokeWidth="1"
-                        />
-                      );
-                    })}
                   </svg>
+                </div>
 
-                  {/* Center node */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="relative w-24 h-24 rounded-full bg-blue-600/20 border border-blue-500/40 flex items-center justify-center">
-                      <Brain className="h-10 w-10 text-blue-400" />
-                      <span
-                        className="absolute inset-0 rounded-full bg-blue-500/10 animate-ping"
-                        style={{ animationDuration: "3s" }}
-                      />
+                {/* Central brain */}
+                <div className="absolute" style={{ top: "50%", left: "45%", transform: "translate(-50%,-56%)" }}>
+                  <div className="relative">
+                    <div className="pulse-ring absolute -inset-5 rounded-3xl" style={{ background: "rgba(255,255,255,0.12)" }} />
+                    <div
+                      className="w-[130px] h-[130px] rounded-3xl flex items-center justify-center border border-white/20"
+                      style={{ background: "rgba(255,255,255,0.14)" }}
+                    >
+                      <Brain className="w-16 h-16 text-white" />
                     </div>
                   </div>
-
-                  {/* Orbital nodes */}
-                  {nodes.map((n, i) => {
-                    const rad = (n.angle * Math.PI) / 180;
-                    const nx  = CX + R * Math.cos(rad);
-                    const ny  = CY + R * Math.sin(rad);
-                    return (
-                      <div
-                        key={n.label}
-                        className="absolute flex flex-col items-center gap-1.5"
-                        style={{
-                          left: nx - 24,
-                          top:  ny - 24,
-                          animation: `fade-up .6s ease-out ${i * .15}s both`,
-                        }}
-                      >
-                        <div className={`w-12 h-12 rounded-xl border flex items-center justify-center ${n.colorClass}`}>
-                          {n.icon}
-                        </div>
-                        <span className="text-[11px] text-slate-600 whitespace-nowrap">{n.label}</span>
-                      </div>
-                    );
-                  })}
                 </div>
+
+                {/* Floating badge — Diqqat */}
+                <div className="fl-1 absolute bg-white rounded-2xl shadow-2xl px-4 py-3" style={{ top: 55, left: 20 }}>
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center">
+                      <Zap className="w-4 h-4 text-blue-600" />
+                    </div>
+                    <div>
+                      <p className="text-[11px] text-slate-400 leading-none mb-0.5">Diqqat skori</p>
+                      <p className="font-black text-slate-900 text-sm">87%</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Floating badge — O'sish */}
+                <div className="fl-2 absolute bg-slate-900 rounded-2xl shadow-2xl px-4 py-3" style={{ top: 140, right: 24 }}>
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-full bg-blue-950 flex items-center justify-center">
+                      <TrendingUp className="w-4 h-4 text-blue-400" />
+                    </div>
+                    <div>
+                      <p className="text-[11px] text-slate-500 leading-none mb-0.5">Mastery o&apos;sish</p>
+                      <p className="font-black text-white text-sm">+34%</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Floating badge — Retrieval */}
+                <div className="fl-3 absolute bg-white rounded-2xl shadow-2xl px-4 py-3" style={{ top: 260, left: 10 }}>
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center">
+                      <Target className="w-4 h-4 text-emerald-500" />
+                    </div>
+                    <div>
+                      <p className="text-[11px] text-slate-400 leading-none mb-0.5">Retrieval</p>
+                      <p className="font-black text-slate-900 text-sm">3→30 kun</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* GradCap decoration */}
+                <div className="absolute" style={{ bottom: 180, right: 30 }}>
+                  <div
+                    className="w-14 h-14 rounded-2xl flex items-center justify-center border border-white/20"
+                    style={{ background: "rgba(255,255,255,0.14)" }}
+                  >
+                    <GraduationCap className="w-7 h-7 text-white" />
+                  </div>
+                </div>
+
+                {/* Bottom stat cards */}
+                <div className="absolute bottom-5 right-4 flex gap-3">
+                  <div className="rounded-2xl p-4 shadow-xl" style={{ backgroundColor: "#f8faff", minWidth: 108 }}>
+                    <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center mb-2">
+                      <Star className="w-4 h-4 text-amber-500" />
+                    </div>
+                    <p className="text-2xl font-black text-slate-900">98%</p>
+                    <p className="text-[11px] text-slate-500 mt-0.5">muvaffaqiyat</p>
+                  </div>
+                  <div className="bg-slate-900 rounded-2xl p-4 shadow-xl" style={{ minWidth: 125 }}>
+                    <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center mb-2">
+                      <Users className="w-4 h-4 text-slate-400" />
+                    </div>
+                    <p className="text-2xl font-black text-white">100+</p>
+                    <p className="text-[11px] text-slate-500 mt-0.5">hamkor universitetlar</p>
+                  </div>
+                  <div className="rounded-2xl p-4 shadow-xl" style={{ backgroundColor: "#f8faff", minWidth: 108 }}>
+                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mb-2">
+                      <BookOpen className="w-4 h-4 text-blue-600" />
+                    </div>
+                    <p className="text-2xl font-black text-slate-900">20+</p>
+                    <p className="text-[11px] text-slate-500 mt-0.5">faol kurslar</p>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
-        </section>
+        </div>
+
+        {/* ── PARTNER TICKER ── */}
+        <div className="py-9 overflow-hidden" style={{ borderBottom: "1px solid rgba(0,0,0,0.06)" }}>
+          <div className="ticker-track flex gap-14 whitespace-nowrap">
+            {[...partners, ...partners].map((p, i) => (
+              <span key={i} className="text-slate-400 font-bold text-sm tracking-[0.18em] uppercase">
+                {p}
+              </span>
+            ))}
+          </div>
+        </div>
 
         {/* ── HOW IT WORKS ── */}
-        <section className="py-24 border-y border-white/5 bg-slate-900/40">
+        <section id="how" className="py-20">
           <div className="mx-auto max-w-6xl px-6">
-            <div className="text-center mb-16">
-              <p className="text-blue-400 text-xs font-medium tracking-[0.2em] uppercase mb-4">Jarayon</p>
-              <h2 className="f-syne text-4xl font-bold text-white mb-4">Qanday ishlaydi?</h2>
-              <p className="text-slate-500 max-w-sm mx-auto">
+            <div className="text-center mb-14">
+              <p className="text-blue-600 font-bold text-xs tracking-[0.22em] uppercase mb-3">Jarayon</p>
+              <h2 className="font-black text-slate-900 text-4xl tracking-tight">Qanday ishlaydi?</h2>
+              <p className="text-slate-500 mt-3 max-w-sm mx-auto text-sm leading-relaxed">
                 Uch bosqichda — baholash, moslashish, mustahkamlash.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {[
                 {
                   step: "01",
-                  icon: <Brain className="h-6 w-6 text-violet-400" />,
-                  border: "border-violet-500/20",
-                  glow: "0 0 40px rgba(139,92,246,.08)",
+                  icon: <Brain className="h-6 w-6 text-blue-600" />,
+                  bg: "bg-blue-50",
                   title: "Kognitiv baholash",
                   desc: "10–15 daqiqa. Diqqat, xotira, qayta ishlash tezligi — shaxsiy kognitiv profil yaratiladi.",
                 },
                 {
                   step: "02",
-                  icon: <TrendingUp className="h-6 w-6 text-blue-400" />,
-                  border: "border-blue-500/20",
-                  glow: "0 0 40px rgba(59,130,246,.08)",
+                  icon: <TrendingUp className="h-6 w-6 text-blue-500" />,
+                  bg: "bg-blue-50",
                   title: "Adaptiv yo'nalish",
                   desc: "Har bir mashqdan keyin tizim keyingi eng foydali qadamni avtomatik aniqlaydi.",
                 },
                 {
                   step: "03",
-                  icon: <RefreshCw className="h-6 w-6 text-emerald-400" />,
-                  border: "border-emerald-500/20",
-                  glow: "0 0 40px rgba(16,185,129,.08)",
+                  icon: <RefreshCw className="h-6 w-6 text-emerald-500" />,
+                  bg: "bg-emerald-50",
                   title: "Spaced repetition",
                   desc: "Bilimni eslab qolishni kuzatadi. Ilmiy asoslangan: 3→7→14→30 kun intervallar.",
                 },
               ].map((item) => (
                 <div
                   key={item.step}
-                  className={`card-lift relative rounded-2xl border ${item.border} bg-slate-950/90 p-8`}
-                  style={{ boxShadow: item.glow }}
+                  className="card-hover bg-white rounded-3xl p-8 shadow-sm"
+                  style={{ border: "1px solid rgba(0,0,0,0.05)" }}
                 >
-                  <div className="step-ghost absolute top-4 right-5 select-none">{item.step}</div>
-                  <div className="mb-5 w-13 h-13 w-[52px] h-[52px] rounded-xl bg-slate-900 border border-white/5 flex items-center justify-center">
-                    {item.icon}
+                  <div className="flex items-start justify-between mb-6">
+                    <div className={`w-12 h-12 rounded-2xl ${item.bg} flex items-center justify-center`}>
+                      {item.icon}
+                    </div>
+                    <span className="font-black text-slate-100 text-5xl leading-none select-none">{item.step}</span>
                   </div>
-                  <h3 className="f-syne text-xl font-bold text-white mb-3">{item.title}</h3>
+                  <h3 className="font-black text-slate-900 text-lg mb-2">{item.title}</h3>
                   <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
                 </div>
               ))}
@@ -361,24 +333,21 @@ export default async function LandingPage() {
           </div>
         </section>
 
-        {/* ── BENEFITS ── */}
-        <section className="py-24 bg-slate-950">
+        {/* ── FEATURES ── */}
+        <section id="features" className="py-20">
           <div className="mx-auto max-w-6xl px-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
               {/* Stats grid */}
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { v: "500+",  l: "Faol talaba",     border: "border-blue-500/20",   grad: "from-blue-600/10 to-transparent",    text: "text-blue-400" },
-                  { v: "12+",   l: "Kurslar",          border: "border-emerald-500/20", grad: "from-emerald-600/10 to-transparent",  text: "text-emerald-400" },
-                  { v: "1200+", l: "Baholashlar",      border: "border-violet-500/20", grad: "from-violet-600/10 to-transparent",   text: "text-violet-400" },
-                  { v: "+34%",  l: "O'rtacha o'sish",  border: "border-amber-500/20",  grad: "from-amber-600/10 to-transparent",    text: "text-amber-400" },
+                  { v: "500+",  l: "Faol talaba",    bg: "bg-blue-50", text: "text-blue-600" },
+                  { v: "12+",   l: "Kurslar",          bg: "bg-blue-50",   text: "text-blue-500" },
+                  { v: "1200+", l: "Baholashlar",      bg: "bg-violet-50", text: "text-violet-500" },
+                  { v: "+34%",  l: "O'rtacha o'sish",  bg: "bg-emerald-50",text: "text-emerald-500" },
                 ].map((s) => (
-                  <div
-                    key={s.l}
-                    className={`card-lift rounded-2xl border ${s.border} bg-gradient-to-br ${s.grad} p-8`}
-                  >
-                    <p className={`f-syne text-4xl font-bold ${s.text} mb-1`}>{s.v}</p>
+                  <div key={s.l} className={`card-hover ${s.bg} rounded-3xl p-8`}>
+                    <p className={`font-black text-4xl ${s.text} mb-1`}>{s.v}</p>
                     <p className="text-slate-600 text-sm">{s.l}</p>
                   </div>
                 ))}
@@ -386,16 +355,18 @@ export default async function LandingPage() {
 
               {/* Text */}
               <div>
-                <p className="text-blue-400 text-xs font-medium tracking-[0.2em] uppercase mb-5">Nima uchun BrainUP?</p>
-                <h2 className="f-syne text-4xl font-bold text-white mb-6 leading-tight">
-                  Har bir talaba &mdash; alohida yo&apos;l
+                <p className="text-blue-600 text-xs font-bold tracking-[0.22em] uppercase mb-5">
+                  Nima uchun BrainUP?
+                </p>
+                <h2 className="font-black text-slate-900 text-4xl mb-5 leading-tight tracking-tight">
+                  Har bir talaba —<br />alohida yo&apos;l
                 </h2>
-                <p className="text-slate-500 mb-8 leading-relaxed">
+                <p className="text-slate-500 mb-8 leading-relaxed text-sm">
                   An&apos;anaviy o&apos;qitish barcha talabalarga bir xil materiallarni beradi.
                   BrainUP esa har bir talaba uchun individual yo&apos;l quradi —
                   zaif joylarni topib, kuchlilarini yanada mustahkamlaydi.
                 </p>
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {[
                     "Kognitiv profil asosida shaxsiy dars rejasi",
                     "Xatolar tahlili va zaif joylarni aniqlash",
@@ -403,10 +374,10 @@ export default async function LandingPage() {
                     "Ilmiy asoslangan spaced repetition algoritmi",
                   ].map((item) => (
                     <div key={item} className="flex items-start gap-3">
-                      <div className="mt-0.5 w-5 h-5 rounded-full bg-blue-500/15 border border-blue-500/25 flex items-center justify-center shrink-0">
-                        <CheckCircle2 className="h-3 w-3 text-blue-400" />
+                      <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center shrink-0 mt-0.5">
+                        <CheckCircle2 className="h-3 w-3 text-blue-600" />
                       </div>
-                      <span className="text-slate-300 text-sm leading-relaxed">{item}</span>
+                      <span className="text-slate-700 text-sm leading-relaxed">{item}</span>
                     </div>
                   ))}
                 </div>
@@ -416,74 +387,45 @@ export default async function LandingPage() {
         </section>
 
         {/* ── CTA ── */}
-        <section className="relative py-28 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-slate-950 to-indigo-950" />
-          <div
-            className="absolute inset-0 opacity-[0.025]"
-            style={{
-              backgroundImage: "radial-gradient(circle at 1px 1px,rgba(255,255,255,.8) 1px,transparent 0)",
-              backgroundSize: "20px 20px",
-            }}
-          />
-          <div className="orb-a absolute -top-16 left-1/4 w-[450px] h-[450px] rounded-full bg-blue-600/12 blur-[90px] pointer-events-none" />
-
-          <div className="relative mx-auto max-w-2xl px-6 text-center">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-white/5 border border-white/10 mb-8 mx-auto">
-              <Image
-                src="/namdpi-logo.jpg"
-                alt="NamDPI"
-                width={56}
-                height={56}
-                className="rounded-xl object-cover"
-                unoptimized
-              />
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 pb-8">
+          <div className="bg-blue-600 rounded-3xl p-10 sm:p-16 text-center relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-72 h-72 rounded-full bg-blue-500/25 translate-x-1/3 -translate-y-1/3 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-56 h-56 rounded-full bg-blue-700/20 -translate-x-1/4 translate-y-1/4 pointer-events-none" />
+            <div className="relative">
+              <p className="text-white/50 text-xs font-bold tracking-widest uppercase mb-4">NamDPI · 2026</p>
+              <h2 className="font-black text-white text-4xl sm:text-5xl mb-5 tracking-tight">
+                Bugundan boshlang
+              </h2>
+              <p className="text-white/65 mb-8 max-w-sm mx-auto text-sm leading-relaxed">
+                NamDPI pilotiga qo&apos;shiling. Ro&apos;yxatdan o&apos;tish bepul —
+                bir daqiqada tayyor.
+              </p>
+              <Link href="/register" className="inline-flex items-center gap-3 bg-slate-900 text-white px-8 py-4 rounded-full font-extrabold text-sm tracking-wider hover:bg-slate-700 transition-colors">
+                <span>RO&apos;YXATDAN O&apos;TISH</span>
+                <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center">
+                  <ArrowRight className="h-4 w-4" />
+                </div>
+              </Link>
             </div>
-            <h2 className="f-syne text-4xl lg:text-5xl font-bold text-white mb-5">
-              Bugundan boshlang
-            </h2>
-            <p className="text-slate-400 text-lg mb-10 max-w-md mx-auto leading-relaxed">
-              NamDPI pilotiga qo&apos;shiling. Ro&apos;yxatdan o&apos;tish bepul —
-              bir daqiqada tayyor.
-            </p>
-            <Link href="/register">
-              <Button
-                size="lg"
-                className="f-syne font-bold bg-blue-500 hover:bg-blue-400 text-white h-14 px-12 text-lg gap-2 border-0 shadow-2xl shadow-blue-500/20"
-              >
-                Ro&apos;yxatdan o&apos;tish <ArrowRight className="h-5 w-5" />
-              </Button>
-            </Link>
           </div>
-        </section>
+        </div>
 
         {/* ── FOOTER ── */}
-        <footer className="border-t border-white/5 bg-slate-950 py-10">
-          <div className="mx-auto max-w-6xl px-6">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-              <div className="flex items-center gap-3">
-                <BrainUPLogo size="sm" href="/" />
-                <span className="f-syne font-bold text-white">BrainUP</span>
-              </div>
-
-              <div className="flex items-center gap-3 rounded-xl border border-white/5 bg-white/[0.02] px-4 py-2.5">
-                <Image
-                  src="/namdpi-logo.jpg"
-                  alt="NamDPI"
-                  width={36}
-                  height={36}
-                  className="rounded-full object-cover"
-                  unoptimized
-                />
-                <div>
-                  <p className="text-xs font-semibold text-slate-300">NamDPI</p>
-                  <p className="text-[11px] text-slate-600">Namangan Davlat Pedagogika Instituti</p>
-                </div>
-              </div>
-
-              <span className="text-sm text-slate-700">&copy; 2026 BrainUP</span>
+        <footer style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }} className="py-10">
+          <div className="mx-auto max-w-6xl px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <Link href="/" className="flex items-center gap-2.5">
+              <BrainUPLogo size="sm" />
+              <span className="font-bold text-slate-900">BrainUP</span>
+            </Link>
+            <div className="flex items-center gap-6 text-sm text-slate-500">
+              <Link href="/login" className="hover:text-slate-900 transition-colors">Kirish</Link>
+              <Link href="/register" className="hover:text-slate-900 transition-colors">Ro&apos;yxat</Link>
+              <Link href="#how" className="hover:text-slate-900 transition-colors">Jarayon</Link>
             </div>
+            <p className="text-slate-400 text-sm">© 2026 BrainUP · NamDPI</p>
           </div>
         </footer>
+
       </div>
     </>
   );

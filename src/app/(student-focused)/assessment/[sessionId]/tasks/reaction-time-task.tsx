@@ -69,7 +69,7 @@ export function ReactionTimeTask({ item, onComplete, disabled }: Props) {
   }, [phase, reactionTime, onComplete]);
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center space-y-8">
+    <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-8 text-center space-y-8">
       <p className="text-slate-500 dark:text-slate-400 text-sm">{item.prompt}</p>
 
       {phase === "ready" && (
@@ -85,7 +85,7 @@ export function ReactionTimeTask({ item, onComplete, disabled }: Props) {
 
       {phase === "waiting" && (
         <div
-          className="mx-auto h-36 w-36 rounded-full bg-slate-200 dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 flex items-center justify-center cursor-pointer select-none"
+          className="mx-auto h-36 w-36 rounded-full bg-slate-200 dark:bg-[#1e2840] border-2 border-slate-300 dark:border-white/10 flex items-center justify-center cursor-pointer select-none"
           onClick={handleClick}
         >
           <span className="text-slate-500 text-sm">Kuting...</span>
@@ -109,7 +109,7 @@ export function ReactionTimeTask({ item, onComplete, disabled }: Props) {
           <Button
             onClick={startTrial}
             variant="outline"
-            className="border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 bg-transparent"
+            className="border-slate-300 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#2a2720] bg-transparent"
           >
             Qayta urinish
           </Button>

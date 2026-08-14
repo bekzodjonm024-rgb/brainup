@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 export const metadata: Metadata = { title: "Admin" };
 
 import { auth } from "@/lib/auth";
@@ -86,7 +86,7 @@ export default async function AdminDashboardPage() {
   const hasAlerts = pendingContent > 0 || blockedUsers > 0;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
       <Header title="Admin panel" description="BrainUP tizimini boshqarish" />
       <main className="flex-1 p-6 space-y-6">
 
@@ -119,7 +119,7 @@ export default async function AdminDashboardPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {stats.map((s) => (
-            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
+            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1e2840] p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
               <p className="text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
@@ -137,9 +137,9 @@ export default async function AdminDashboardPage() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all group"
+                  className="flex items-center gap-3 rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-4 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-[#2a2720]/60 transition-all group"
                 >
-                  <div className="rounded-lg bg-slate-100 dark:bg-slate-800 p-2 group-hover:bg-blue-500/10 transition-colors shrink-0">
+                  <div className="rounded-lg bg-slate-100 dark:bg-[#1e2840] p-2 group-hover:bg-blue-500/10 transition-colors shrink-0">
                     <Icon className="h-4 w-4 text-slate-500 group-hover:text-blue-400 transition-colors" />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -164,8 +164,8 @@ export default async function AdminDashboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
 
           {/* Recent users */}
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
-            <div className="p-5 border-b border-slate-200 dark:border-slate-800">
+          <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] overflow-hidden">
+            <div className="p-5 border-b border-slate-200 dark:border-white/8">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
                 <Clock className="h-4 w-4 text-slate-500" />
                 So&apos;nggi ro&apos;yxatdan o&apos;tganlar (7 kun)
@@ -198,8 +198,8 @@ export default async function AdminDashboardPage() {
           </div>
 
           {/* Pending content */}
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
-            <div className="p-5 border-b border-slate-200 dark:border-slate-800">
+          <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] overflow-hidden">
+            <div className="p-5 border-b border-slate-200 dark:border-white/8">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
                 <FileText className="h-4 w-4 text-slate-500" />
                 Tasdiqlash kutayotgan kontent
@@ -224,7 +224,7 @@ export default async function AdminDashboardPage() {
                     );
                   })}
                 </div>
-                <div className="px-5 py-3 border-t border-slate-200 dark:border-slate-800">
+                <div className="px-5 py-3 border-t border-slate-200 dark:border-white/8">
                   <Link href="/admin/content" className="text-xs text-blue-400 hover:text-blue-300 transition-colors">
                     Hammasini ko&apos;rish →
                   </Link>

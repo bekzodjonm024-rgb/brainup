@@ -65,7 +65,7 @@ export function WordRecognitionTask({ item, onComplete, disabled }: Props) {
   }
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-6">
+    <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-6 space-y-6">
       <p className="text-slate-500 dark:text-slate-400 text-sm text-center">{item.prompt}</p>
 
       {phase === "study" && (
@@ -86,7 +86,7 @@ export function WordRecognitionTask({ item, onComplete, disabled }: Props) {
 
       {phase === "delay" && (
         <div className="py-12 text-center">
-          <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 mb-4">
+          <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10 mb-4">
             <div className="h-5 w-5 rounded-full border-2 border-blue-500 border-t-transparent animate-spin" />
           </div>
           <p className="text-sm text-slate-500">Tayyor bo&apos;ling...</p>
@@ -98,7 +98,7 @@ export function WordRecognitionTask({ item, onComplete, disabled }: Props) {
           <p className="text-sm text-slate-500 text-center">
             Oldin ko&apos;rgan so&apos;zlaringizni tanlang ({selected.size} ta tanlandi):
           </p>
-          <div className="grid grid-cols-2 gap-2 max-h-64 overflow-y-auto rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2">
+          <div className="grid grid-cols-2 gap-2 max-h-64 overflow-y-auto rounded-xl border border-slate-200 dark:border-white/8 bg-slate-50 dark:bg-slate-950 p-2">
             {allOptions.map((word) => (
               <button
                 key={word}
@@ -108,7 +108,7 @@ export function WordRecognitionTask({ item, onComplete, disabled }: Props) {
                   "rounded-xl border px-3 py-2.5 text-sm font-medium transition-all text-left flex items-center gap-2",
                   selected.has(word)
                     ? "border-blue-500/40 bg-blue-500/15 text-blue-300"
-                    : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-700 dark:hover:text-slate-300"
+                    : "border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#2a2720] hover:text-slate-700 dark:hover:text-slate-300"
                 )}
               >
                 {selected.has(word) && <Check className="h-3.5 w-3.5 shrink-0 text-blue-400" />}

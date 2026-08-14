@@ -21,7 +21,7 @@ function masteryBadge(score: number) {
   if (score >= 0.65) return "text-blue-400 bg-blue-500/10 border border-blue-500/20";
   if (score >= 0.50) return "text-amber-400 bg-amber-500/10 border border-amber-500/20";
   if (score > 0) return "text-red-400 bg-red-500/10 border border-red-500/20";
-  return "text-slate-500 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700";
+  return "text-slate-500 bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10";
 }
 
 function timeAgo(date: Date | null): string {
@@ -160,7 +160,7 @@ export default async function CourseAnalyticsPage({
     : 0;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
       <Header title={`${course.title} — Analitika`} description="Kurs bo'yicha batafsil tahlil" />
 
       <main className="flex-1 p-6 space-y-6 max-w-5xl mx-auto w-full">
@@ -168,12 +168,12 @@ export default async function CourseAnalyticsPage({
         {/* Nav */}
         <div className="flex items-center gap-2">
           <Link href={`/professor/courses/${courseId}`}>
-            <Button variant="ghost" size="sm" className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">
+            <Button variant="ghost" size="sm" className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#2a2720]">
               <ArrowLeft className="h-4 w-4 mr-1" /> Kursga qaytish
             </Button>
           </Link>
           <Link href="/professor/analytics">
-            <Button variant="ghost" size="sm" className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">
+            <Button variant="ghost" size="sm" className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#2a2720]">
               <BarChart3 className="h-4 w-4 mr-1" /> Umumiy analitika
             </Button>
           </Link>
@@ -187,7 +187,7 @@ export default async function CourseAnalyticsPage({
             { icon: <CheckCircle2 className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "O'zlashtirildi", value: masteredStudents, iconBg: "bg-violet-50 dark:bg-violet-950/50" },
             { icon: <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "O'rtacha mastery", value: `${Math.round(avgMastery * 100)}%`, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
           ].map((s) => (
-            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
+            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1e2840] p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
               <p className="text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
@@ -196,8 +196,8 @@ export default async function CourseAnalyticsPage({
         </div>
 
         {/* Topic performance table */}
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
-          <div className="p-5 border-b border-slate-200 dark:border-slate-800">
+        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] overflow-hidden">
+          <div className="p-5 border-b border-slate-200 dark:border-white/8">
             <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
               <BarChart3 className="h-4 w-4 text-slate-500" />
               Mavzular bo&apos;yicha natijalar
@@ -206,7 +206,7 @@ export default async function CourseAnalyticsPage({
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-slate-200 dark:border-slate-800">
+                <tr className="border-b border-slate-200 dark:border-white/8">
                   <th className="text-left px-4 py-3 text-xs font-medium text-slate-400 dark:text-slate-600 uppercase tracking-wide w-8">#</th>
                   <th className="text-left px-4 py-3 text-xs font-medium text-slate-400 dark:text-slate-600 uppercase tracking-wide">Mavzu</th>
                   <th className="text-center px-3 py-3 text-xs font-medium text-slate-400 dark:text-slate-600 uppercase tracking-wide hidden sm:table-cell">Uringanlar</th>
@@ -218,7 +218,7 @@ export default async function CourseAnalyticsPage({
               </thead>
               <tbody className="divide-y divide-slate-200 dark:divide-slate-800/60">
                 {topicStats.map((t, idx) => (
-                  <tr key={t.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                  <tr key={t.id} className="hover:bg-slate-50 dark:hover:bg-[#2a2720]/30 transition-colors">
                     <td className="px-4 py-3 text-slate-400 dark:text-slate-600 text-xs">{idx + 1}</td>
                     <td className="px-4 py-3">
                       <span className="text-slate-600 dark:text-slate-300 font-medium line-clamp-1">{t.title}</span>
@@ -232,7 +232,7 @@ export default async function CourseAnalyticsPage({
                           {t.tried > 0 ? `${Math.round(t.avg * 100)}%` : "—"}
                         </span>
                         {t.tried > 0 && (
-                          <div className="h-1 w-16 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                          <div className="h-1 w-16 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
                             <div className={`h-full rounded-full ${masteryColor(t.avg)}`} style={{ width: `${t.avg * 100}%` }} />
                           </div>
                         )}
@@ -243,7 +243,7 @@ export default async function CourseAnalyticsPage({
                       {t.avgAttempts > 0 ? t.avgAttempts.toFixed(1) : "—"}
                     </td>
                     <td className="px-3 py-3 text-center hidden lg:table-cell">
-                      <span className={`text-xs px-2 py-0.5 rounded-full ${t.questions > 0 ? "text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800" : "text-slate-400 dark:text-slate-600 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800"}`}>
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${t.questions > 0 ? "text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-[#1e2840]" : "text-slate-400 dark:text-slate-600 bg-white dark:bg-[#151f35] border border-slate-200 dark:border-white/8"}`}>
                         {t.questions}
                       </span>
                     </td>
@@ -255,8 +255,8 @@ export default async function CourseAnalyticsPage({
         </div>
 
         {/* Student progress table */}
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
-          <div className="p-5 border-b border-slate-200 dark:border-slate-800">
+        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] overflow-hidden">
+          <div className="p-5 border-b border-slate-200 dark:border-white/8">
             <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
               <Users className="h-4 w-4 text-slate-500" />
               Talabalar progressi
@@ -271,7 +271,7 @@ export default async function CourseAnalyticsPage({
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-slate-200 dark:border-slate-800">
+                  <tr className="border-b border-slate-200 dark:border-white/8">
                     <th className="text-left px-4 py-3 text-xs font-medium text-slate-400 dark:text-slate-600 uppercase tracking-wide">Talaba</th>
                     <th className="text-center px-3 py-3 text-xs font-medium text-slate-400 dark:text-slate-600 uppercase tracking-wide">Mastery</th>
                     <th className="text-center px-3 py-3 text-xs font-medium text-slate-400 dark:text-slate-600 uppercase tracking-wide hidden sm:table-cell">Boshladi</th>
@@ -287,7 +287,7 @@ export default async function CourseAnalyticsPage({
                     const initials = parts.length >= 2 ? parts[0][0] + parts[1][0] : name.slice(0, 2);
                     const isInactive = s.lastActive && (Date.now() - s.lastActive.getTime()) > 7 * 24 * 60 * 60 * 1000;
                     return (
-                      <tr key={s.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                      <tr key={s.id} className="hover:bg-slate-50 dark:hover:bg-[#2a2720]/30 transition-colors">
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-3">
                             <div className="h-8 w-8 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold shrink-0 uppercase select-none">
@@ -328,8 +328,8 @@ export default async function CourseAnalyticsPage({
 
         {/* Hard questions */}
         {questionStats.length > 0 && (
-          <div className="rounded-2xl border border-red-500/20 bg-white dark:bg-slate-900 overflow-hidden">
-            <div className="p-5 border-b border-slate-200 dark:border-slate-800">
+          <div className="rounded-2xl border border-red-500/20 bg-white dark:bg-[#151f35] overflow-hidden">
+            <div className="p-5 border-b border-slate-200 dark:border-white/8">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
                 <HelpCircle className="h-4 w-4 text-red-400" />
                 Eng qiyin savollar

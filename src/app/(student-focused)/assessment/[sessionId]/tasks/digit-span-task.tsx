@@ -51,7 +51,7 @@ export function DigitSpanTask({ item, onComplete, disabled }: Props) {
   }
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center space-y-8">
+    <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-8 text-center space-y-8">
       <p className="text-slate-500 dark:text-slate-400 text-sm">{item.prompt}</p>
 
       {phase === "intro" && (
@@ -90,7 +90,7 @@ export function DigitSpanTask({ item, onComplete, disabled }: Props) {
                   "h-12 w-10 rounded-xl border-2 flex items-center justify-center text-xl font-bold transition-colors",
                   input[i]
                     ? "border-blue-500 bg-blue-500/10 text-blue-400"
-                    : "border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-600"
+                    : "border-slate-300 dark:border-white/10 bg-slate-100 dark:bg-[#1e2840] text-slate-400 dark:text-slate-600"
                 )}
               >
                 {input[i] ?? "·"}
@@ -104,14 +104,14 @@ export function DigitSpanTask({ item, onComplete, disabled }: Props) {
                 key={n}
                 disabled={input.length >= data.sequence.length}
                 onClick={() => setInput((s) => s.length < data.sequence.length ? s + n : s)}
-                className="h-11 w-11 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold hover:bg-slate-200 dark:hover:bg-slate-700 hover:border-slate-400 dark:hover:border-slate-600 disabled:opacity-30 transition-colors text-sm"
+                className="h-11 w-11 rounded-xl border border-slate-300 dark:border-white/10 bg-slate-100 dark:bg-[#1e2840] text-slate-700 dark:text-slate-200 font-bold hover:bg-slate-200 dark:hover:bg-slate-700 hover:border-slate-400 dark:hover:border-slate-600 disabled:opacity-30 transition-colors text-sm"
               >
                 {n}
               </button>
             ))}
             <button
               onClick={() => setInput((s) => s.slice(0, -1))}
-              className="h-11 px-4 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+              className="h-11 px-4 rounded-xl border border-slate-300 dark:border-white/10 bg-slate-100 dark:bg-[#1e2840] text-slate-500 dark:text-slate-400 text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
             >
               ←
             </button>

@@ -18,16 +18,16 @@ export function SidebarLayout({ role, userName, avatarUrl, children, badges }: S
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="flex h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="flex h-screen bg-[#f8faff] dark:bg-[#0e1117]">
       {/* Mobile overlay */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 bg-black/40 z-20 lg:hidden"
+          className="fixed inset-0 bg-black/30 backdrop-blur-sm z-20 lg:hidden"
           onClick={() => setMobileOpen(false)}
         />
       )}
 
-      {/* Sidebar — fixed drawer on mobile, static on desktop */}
+      {/* Sidebar */}
       <div
         className={cn(
           "fixed lg:static inset-y-0 left-0 z-30 transition-transform duration-200 lg:translate-x-0",
@@ -46,10 +46,13 @@ export function SidebarLayout({ role, userName, avatarUrl, children, badges }: S
       {/* Main content */}
       <div className="flex flex-1 flex-col overflow-hidden min-w-0">
         {/* Mobile top bar */}
-        <div className="lg:hidden sticky top-0 z-10 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 px-4 h-14 flex items-center gap-3 shrink-0">
+        <div
+          className="lg:hidden sticky top-0 z-10 px-4 h-14 flex items-center gap-3 shrink-0 bg-white dark:bg-[#141b2d]"
+          style={{ borderBottom: "1px solid rgba(0,0,0,0.07)" }}
+        >
           <button
             onClick={() => setMobileOpen(true)}
-            className="p-1.5 rounded-md text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="p-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-950/20 hover:text-blue-600 transition-colors"
             aria-label="Menyuni ochish"
           >
             <Menu className="h-5 w-5" />

@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+﻿import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { Header } from "@/components/layout/header";
@@ -44,11 +44,11 @@ export default async function PilotPage() {
 
   if (courseIds.length === 0) {
     return (
-      <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
+      <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
         <Header title="Pilot monitoring" description="Tadqiqot va pilot nazorat paneli" />
         <main className="flex-1 p-6">
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-14 text-center">
-            <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center mx-auto mb-3">
+          <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] py-14 text-center">
+            <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10 flex items-center justify-center mx-auto mb-3">
               <FlaskConical className="h-6 w-6 text-slate-400 dark:text-slate-600" />
             </div>
             <p className="text-slate-500">Kurslar yo&apos;q — avval kurs yarating</p>
@@ -136,7 +136,7 @@ export default async function PilotPage() {
     : new Map<string, string>();
 
   const funnelSteps = [
-    { label: "Yozilgan", count: totalEnrolled, pct: 100, color: "bg-blue-500" },
+    { label: "Yozilgan", count: totalEnrolled, pct: 100, color: "bg-blue-600" },
     { label: "Baholangan", count: assessedCount, pct: totalEnrolled ? Math.round((assessedCount / totalEnrolled) * 100) : 0, color: "bg-violet-500" },
     { label: "Mashq qilgan", count: practicedCount, pct: totalEnrolled ? Math.round((practicedCount / totalEnrolled) * 100) : 0, color: "bg-amber-500" },
     { label: "O'zlashtirildi ≥1", count: masteredCount, pct: totalEnrolled ? Math.round((masteredCount / totalEnrolled) * 100) : 0, color: "bg-emerald-500" },
@@ -149,7 +149,7 @@ export default async function PilotPage() {
   };
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
       <Header title="Pilot Monitoring" description="NamDPI tadqiqot va pilot nazorat paneli" />
 
       <main className="flex-1 p-6 space-y-6 max-w-5xl mx-auto w-full">
@@ -180,7 +180,7 @@ export default async function PilotPage() {
             { icon: <Zap className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "Bugun eventlar", value: todayEventCount, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
             { icon: <TrendingUp className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "Jami urinishlar", value: totalAttempts.toLocaleString(), iconBg: "bg-violet-50 dark:bg-violet-950/50" },
           ].map((s) => (
-            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
+            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1e2840] p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
               <p className="text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
@@ -192,7 +192,7 @@ export default async function PilotPage() {
           <div className="lg:col-span-2 space-y-5">
 
             {/* Engagement funnel */}
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                 <Users className="h-4 w-4 text-slate-500" />
                 O&apos;quv funnel
@@ -207,7 +207,7 @@ export default async function PilotPage() {
                         <span className="text-slate-400 dark:text-slate-600 font-normal ml-1">({step.pct}%)</span>
                       </span>
                     </div>
-                    <div className="h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                    <div className="h-2 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
                       <div className={`h-full rounded-full transition-all ${step.color}`} style={{ width: `${step.pct}%` }} />
                     </div>
                   </div>
@@ -216,7 +216,7 @@ export default async function PilotPage() {
             </div>
 
             {/* Recent activity log */}
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                 <Clock className="h-4 w-4 text-slate-500" />
                 So&apos;nggi faollik (anonim)
@@ -228,9 +228,9 @@ export default async function PilotPage() {
                   {recentEvents.map((ev) => {
                     const rid = ev.student.researchId ?? `ANON-${ev.studentId.slice(0, 6)}`;
                     return (
-                      <div key={ev.id} className="flex items-center justify-between py-2 border-b border-slate-200 dark:border-slate-800/60 last:border-0">
+                      <div key={ev.id} className="flex items-center justify-between py-2 border-b border-slate-200 dark:border-white/8/60 last:border-0">
                         <div className="flex items-center gap-2 min-w-0">
-                          <code className="text-xs font-mono bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-slate-500 dark:text-slate-400 shrink-0">
+                          <code className="text-xs font-mono bg-slate-100 dark:bg-[#1e2840] px-1.5 py-0.5 rounded text-slate-500 dark:text-slate-400 shrink-0">
                             {rid}
                           </code>
                           <span className="text-xs text-slate-500 truncate">
@@ -254,7 +254,7 @@ export default async function PilotPage() {
           <div className="space-y-4">
             {/* Event distribution */}
             {eventTypeCounts.length > 0 && (
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
                 <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-3">
                   <Activity className="h-4 w-4 text-slate-500" />
                   7 kunlik eventlar
@@ -272,7 +272,7 @@ export default async function PilotPage() {
 
             {/* Intervention distribution */}
             {interventionCounts.length > 0 && (
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
                 <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-3">
                   <Zap className="h-4 w-4 text-slate-500" />
                   Adaptiv tavsiyalar
@@ -289,7 +289,7 @@ export default async function PilotPage() {
             )}
 
             {/* Export */}
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-3">
                 <CheckCircle2 className="h-4 w-4 text-slate-500" />
                 Ma&apos;lumotlarni eksport qilish
@@ -312,8 +312,8 @@ export default async function PilotPage() {
         </div>
 
         {/* Per-course breakdown */}
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
-          <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-800">
+        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] overflow-hidden">
+          <div className="px-5 py-4 border-b border-slate-200 dark:border-white/8">
             <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
               <Brain className="h-4 w-4 text-slate-500" />
               Kurslar bo&apos;yicha taqsimot
@@ -321,7 +321,7 @@ export default async function PilotPage() {
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
+              <thead className="bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-white/8">
                 <tr>
                   <th className="text-left py-2.5 pr-4 px-3 text-xs font-semibold text-slate-500 uppercase tracking-wide">Kurs</th>
                   <th className="text-center py-2.5 px-2 text-xs font-semibold text-slate-500 uppercase tracking-wide">Yozilgan</th>
@@ -330,7 +330,7 @@ export default async function PilotPage() {
               </thead>
               <tbody className="divide-y divide-slate-200 dark:divide-slate-800/60">
                 {courses.map((c) => (
-                  <tr key={c.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                  <tr key={c.id} className="hover:bg-slate-50 dark:hover:bg-[#2a2720]/30 transition-colors">
                     <td className="py-2.5 px-3 font-medium text-slate-600 dark:text-slate-300">{c.title}</td>
                     <td className="py-2.5 px-2 text-center text-slate-500">{c._count.enrollments}</td>
                     <td className="py-2.5 px-2 text-center">

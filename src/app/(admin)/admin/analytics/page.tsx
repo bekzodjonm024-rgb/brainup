@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 export const metadata: Metadata = { title: "Statistika" };
 
 import { auth } from "@/lib/auth";
@@ -12,7 +12,7 @@ function MiniBar({ value, max, color }: { value: number; max: number; color: str
   const pct = max === 0 ? 0 : Math.round((value / max) * 100);
   return (
     <div className="flex items-center gap-2">
-      <div className="flex-1 h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+      <div className="flex-1 h-1.5 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
         <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
       </div>
       <span className="text-xs text-slate-500 w-6 text-right">{value}</span>
@@ -152,7 +152,7 @@ export default async function AdminAnalyticsPage() {
   };
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
       <Header title="Statistika" description="Platforma bo'yicha umumiy tahlil" />
       <main className="flex-1 p-6 space-y-6">
 
@@ -163,7 +163,7 @@ export default async function AdminAnalyticsPage() {
             { icon: <TrendingUp className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />, label: "So'nggi 30 kun", value: `+${newStudents30d}`, sub: "yangi talaba", iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
             { icon: <Zap className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "So'nggi 7 kun", value: `+${newStudents7d}`, sub: "yangi talaba", iconBg: "bg-violet-50 dark:bg-violet-950/50" },
           ].map((s) => (
-            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
+            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1e2840] p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
               <p className="text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
@@ -174,7 +174,7 @@ export default async function AdminAnalyticsPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Mastery distribution */}
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
             <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 mb-4">Mastery taqsimoti</h3>
             <div className="space-y-3">
               {Object.entries(buckets).map(([label, count]) => (
@@ -183,7 +183,7 @@ export default async function AdminAnalyticsPage() {
                     <span className="text-xs text-slate-500 dark:text-slate-400">{label}</span>
                     <span className="text-xs text-slate-400 dark:text-slate-600">{totalMastery > 0 ? Math.round((count / totalMastery) * 100) : 0}%</span>
                   </div>
-                  <MiniBar value={count} max={totalMastery} color="bg-blue-500" />
+                  <MiniBar value={count} max={totalMastery} color="bg-blue-600" />
                 </div>
               ))}
               <p className="text-xs text-slate-400 dark:text-slate-600 pt-1">Jami {totalMastery} ta bilim yozuvi</p>
@@ -191,7 +191,7 @@ export default async function AdminAnalyticsPage() {
           </div>
 
           {/* Content by status */}
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
             <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 mb-4">Kontent holati</h3>
             <div className="space-y-3">
               {[
@@ -216,7 +216,7 @@ export default async function AdminAnalyticsPage() {
           </div>
 
           {/* Top courses */}
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
             <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 mb-4">Eng mashhur kurslar</h3>
             <div className="space-y-3">
               {topCourses.map((course) => (
@@ -226,7 +226,7 @@ export default async function AdminAnalyticsPage() {
                       <p className="text-xs text-slate-600 dark:text-slate-300 truncate max-w-[180px]">{course.title}</p>
                       <p className="text-[11px] text-slate-400 dark:text-slate-600">{course.professor.firstName} {course.professor.lastName}</p>
                     </div>
-                    <span className="text-xs font-semibold text-slate-600 dark:text-slate-300 ml-2 shrink-0 px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                    <span className="text-xs font-semibold text-slate-600 dark:text-slate-300 ml-2 shrink-0 px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10">
                       {course._count.enrollments} ta
                     </span>
                   </div>
@@ -240,7 +240,7 @@ export default async function AdminAnalyticsPage() {
           </div>
 
           {/* Activity events */}
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
             <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 mb-3">Faollik turlari</h3>
             <div className="flex items-center gap-3 text-xs text-slate-500 mb-4">
               <span>Jami: <strong className="text-slate-600 dark:text-slate-300">{totalEvents}</strong></span>
@@ -264,7 +264,7 @@ export default async function AdminAnalyticsPage() {
         </div>
 
         {/* Cognitive dynamics */}
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
           <div className="flex flex-wrap items-start justify-between gap-4 mb-5">
             <div>
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300">

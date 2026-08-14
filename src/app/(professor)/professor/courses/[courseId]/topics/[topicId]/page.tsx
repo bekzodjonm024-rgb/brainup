@@ -46,12 +46,12 @@ export default async function TopicDetailPage({
   const questionCount = topic._count.questions;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
       <Header title={topic.title} description={topic.course.title} />
       <main className="flex-1 p-6 space-y-5">
         <div className="flex items-center justify-between">
           <Link href={`/professor/courses/${courseId}`}>
-            <button className="flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 px-3 py-1.5 rounded-lg transition-colors">
+            <button className="flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#2a2720] px-3 py-1.5 rounded-lg transition-colors">
               <ArrowLeft className="h-4 w-4" /> {topic.course.title}
             </button>
           </Link>
@@ -62,7 +62,7 @@ export default async function TopicDetailPage({
               currentObjective={topic.learningObjective}
             />
             <Link href={`/professor/courses/${courseId}/topics/${topicId}/questions`}>
-              <button className="flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700 px-3 py-1.5 rounded-lg transition-colors">
+              <button className="flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#2a2720] border border-slate-300 dark:border-white/10 px-3 py-1.5 rounded-lg transition-colors">
                 <HelpCircle className="h-4 w-4" /> Savollar banki
               </button>
             </Link>
@@ -78,7 +78,7 @@ export default async function TopicDetailPage({
         )}
 
         {/* Question count banner */}
-        <div className="flex items-center justify-between rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-3">
+        <div className="flex items-center justify-between rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] px-4 py-3">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-sm text-slate-500 dark:text-slate-400">
               Savollar banki:
@@ -108,8 +108,8 @@ export default async function TopicDetailPage({
           </div>
 
           {topic.contentItems.length === 0 ? (
-            <div className="rounded-xl border border-dashed border-slate-200 dark:border-slate-800 p-10 text-center">
-              <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center mx-auto mb-3">
+            <div className="rounded-xl border border-dashed border-slate-200 dark:border-white/8 p-10 text-center">
+              <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10 flex items-center justify-center mx-auto mb-3">
                 <FileText className="h-6 w-6 text-slate-400 dark:text-slate-600" />
               </div>
               <p className="text-sm text-slate-500 mb-3">Hali material qo&apos;shilmagan</p>
@@ -121,9 +121,9 @@ export default async function TopicDetailPage({
                 const Icon = contentTypeIcon[item.type] ?? FileText;
                 const isApproved = item.status === "APPROVED";
                 return (
-                  <div key={item.id} className={`rounded-xl border ${isApproved ? "border-emerald-500/20 bg-emerald-500/5" : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"} p-4`}>
+                  <div key={item.id} className={`rounded-xl border ${isApproved ? "border-emerald-500/20 bg-emerald-500/5" : "border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35]"} p-4`}>
                     <div className="flex items-start gap-3">
-                      <div className={`rounded-lg p-2 shrink-0 ${isApproved ? "bg-emerald-500/10" : "bg-slate-100 dark:bg-slate-800"}`}>
+                      <div className={`rounded-lg p-2 shrink-0 ${isApproved ? "bg-emerald-500/10" : "bg-slate-100 dark:bg-[#1e2840]"}`}>
                         <Icon className={`h-4 w-4 ${isApproved ? "text-emerald-400" : "text-slate-400 dark:text-slate-500"}`} />
                       </div>
                       <div className="flex-1 min-w-0">

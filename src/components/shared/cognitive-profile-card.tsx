@@ -45,7 +45,7 @@ const metrics = [
 
 export function CognitiveProfileCard(props: CognitiveProfileCardProps) {
   return (
-    <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+    <div className="rounded-2xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
       <div className="flex items-center gap-2 mb-4">
         <div className="w-7 h-7 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center">
           <Brain className="h-3.5 w-3.5 text-violet-400" />
@@ -74,7 +74,7 @@ export function CognitiveProfileCard(props: CognitiveProfileCardProps) {
                   {value !== null && <span className="text-xs font-normal text-slate-400 dark:text-slate-600">/100</span>}
                 </span>
               </div>
-              <Progress value={value ?? 0} className={`h-1.5 bg-slate-200 dark:bg-slate-800 ${barClass}`} />
+              <Progress value={value ?? 0} className={`h-1.5 bg-slate-200 dark:bg-[#1e2840] ${barClass}`} />
             </div>
           );
         })}

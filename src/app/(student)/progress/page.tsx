@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 export const metadata: Metadata = { title: "Progressim" };
 
 import { auth } from "@/lib/auth";
@@ -11,7 +11,7 @@ import { formatDate } from "@/lib/utils";
 import { TrendingUp, BookOpen, Zap, RefreshCw, Brain, CheckCircle2, Clock } from "lucide-react";
 
 function masteryBadge(score: number | null) {
-  if (score === null) return "text-slate-500 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700";
+  if (score === null) return "text-slate-500 bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10";
   if (score >= 0.85) return "text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20";
   if (score >= 0.6) return "text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20";
   if (score >= 0.4) return "text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20";
@@ -93,7 +93,7 @@ export default async function ProgressPage() {
   ).length;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
       <Header
         title="Progressim"
         description={`${student.firstName} ${student.lastName} — o'quv ko'rsatkichlari`}
@@ -108,7 +108,7 @@ export default async function ProgressPage() {
             { icon: <Zap className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "Aniqlik", value: totalAttempts > 0 ? `${Math.round(accuracy * 100)}%` : "—", iconBg: "bg-amber-50 dark:bg-amber-950/50" },
             { icon: <RefreshCw className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "Takrorlash", value: `${retrievalDone} bajarildi`, iconBg: "bg-violet-50 dark:bg-violet-950/50", sub: retrievalPending > 0 ? `${retrievalPending} muddati o'tgan` : undefined },
           ].map((s) => (
-            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
+            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1e2840] p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
               <p className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
@@ -120,8 +120,8 @@ export default async function ProgressPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-5">
             {student.enrollments.length === 0 ? (
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-12 flex flex-col items-center gap-3 text-center">
-                <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center">
+              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] py-12 flex flex-col items-center gap-3 text-center">
+                <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10 flex items-center justify-center">
                   <BookOpen className="h-6 w-6 text-slate-400 dark:text-slate-600" />
                 </div>
                 <p className="text-sm text-slate-500">Hali kurslarga yozilmadingiz</p>
@@ -142,8 +142,8 @@ export default async function ProgressPage() {
                     : 0;
 
                 return (
-                  <div key={enrollment.course.id} className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
-                    <div className="p-5 border-b border-slate-200 dark:border-slate-800">
+                  <div key={enrollment.course.id} className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] overflow-hidden">
+                    <div className="p-5 border-b border-slate-200 dark:border-white/8">
                       <div className="flex items-start justify-between gap-4 mb-3">
                         <div>
                           <h3 className="font-semibold text-slate-700 dark:text-slate-200">{enrollment.course.title}</h3>
@@ -155,9 +155,9 @@ export default async function ProgressPage() {
                           {masteryLabel(started > 0 ? courseMastery : null)}
                         </span>
                       </div>
-                      <div className="h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                      <div className="h-1.5 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
                         <div
-                          className={`h-full rounded-full ${courseMastery >= 0.85 ? "bg-emerald-500" : courseMastery >= 0.6 ? "bg-blue-500" : courseMastery >= 0.4 ? "bg-amber-500" : "bg-red-500"}`}
+                          className={`h-full rounded-full ${courseMastery >= 0.85 ? "bg-emerald-500" : courseMastery >= 0.6 ? "bg-blue-600" : courseMastery >= 0.4 ? "bg-amber-500" : "bg-red-500"}`}
                           style={{ width: `${topics.length > 0 ? (mastered / topics.length) * 100 : 0}%` }}
                         />
                       </div>
@@ -169,7 +169,7 @@ export default async function ProgressPage() {
                         return (
                           <div
                             key={topic.id}
-                            className="flex items-center gap-3 px-5 py-2.5 text-sm hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors"
+                            className="flex items-center gap-3 px-5 py-2.5 text-sm hover:bg-slate-50 dark:hover:bg-[#2a2720]/30 transition-colors"
                           >
                             <span className="text-slate-400 dark:text-slate-700 text-xs w-5 text-right shrink-0">
                               {topic.orderIndex + 1}
@@ -203,7 +203,7 @@ export default async function ProgressPage() {
           {/* Right panel */}
           <div className="space-y-4">
             {/* Practice stats */}
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                 <Zap className="h-4 w-4 text-amber-400" />
                 Amaliyot statistikasi
@@ -238,8 +238,8 @@ export default async function ProgressPage() {
                 memoryScore={student.cognitiveProfile.memoryScore}
               />
             ) : (
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-8 flex flex-col items-center gap-3 text-center">
-                <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center">
+              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] py-8 flex flex-col items-center gap-3 text-center">
+                <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10 flex items-center justify-center">
                   <Brain className="h-6 w-6 text-slate-400 dark:text-slate-600" />
                 </div>
                 <p className="text-sm text-slate-500">Kognitiv baholash bajarilmagan</p>
@@ -248,7 +248,7 @@ export default async function ProgressPage() {
 
             {/* Cognitive history chart */}
             {cognitiveHistory.length > 0 && (
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
                 <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-1">
                   <Brain className="h-4 w-4 text-slate-500" />
                   Kognitiv rivojlanish

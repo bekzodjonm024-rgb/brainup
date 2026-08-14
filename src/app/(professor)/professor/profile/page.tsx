@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 export const metadata: Metadata = { title: "Profil sozlamalari" };
 
 import { auth } from "@/lib/auth";
@@ -26,12 +26,12 @@ export default async function ProfessorProfilePage() {
   const initials = `${professor.firstName[0]}${professor.lastName[0]}`;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
       <Header title="Profil sozlamalari" description="Shaxsiy ma'lumotlar va xavfsizlik" />
       <main className="flex-1 p-6 space-y-6 max-w-2xl mx-auto w-full">
 
         {/* Info card */}
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
           <div className="flex items-start gap-4">
             <AvatarUpload
               currentUrl={professor.user.avatarUrl}

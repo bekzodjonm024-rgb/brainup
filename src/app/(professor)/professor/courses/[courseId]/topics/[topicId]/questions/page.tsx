@@ -33,19 +33,19 @@ export default async function QuestionsPage({
   const totalCount = topic.questions.length;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
       <Header title="Savollar banki" description={`${topic.course.title} — ${topic.title}`} />
       <main className="flex-1 p-6 space-y-5">
         <div className="flex items-center justify-between">
           <Link href={`/professor/courses/${courseId}/topics/${topicId}`}>
-            <button className="flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 px-3 py-1.5 rounded-lg transition-colors">
+            <button className="flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#2a2720] px-3 py-1.5 rounded-lg transition-colors">
               <ArrowLeft className="h-4 w-4" /> {topic.title}
             </button>
           </Link>
           <AddQuestionDialog topicId={topicId} />
         </div>
 
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-3 text-sm text-slate-500 dark:text-slate-400">
+        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] px-4 py-3 text-sm text-slate-500 dark:text-slate-400">
           Jami <strong className="text-slate-700 dark:text-slate-200">{totalCount} ta savol</strong>
           {totalCount > 0 && (
             <span className="ml-2 text-slate-400 dark:text-slate-600">({activeCount} ta faol)</span>

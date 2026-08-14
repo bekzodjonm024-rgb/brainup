@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 export const metadata: Metadata = { title: "Kurslarim" };
 
 import { auth } from "@/lib/auth";
@@ -52,7 +52,7 @@ export default async function CoursesPage() {
   ]);
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
       <Header title="Kurslar" description="Mening kurslarim va mavjud kurslar" />
 
       <main className="flex-1 p-6 space-y-8">
@@ -60,8 +60,8 @@ export default async function CoursesPage() {
         <section>
           <h2 className="text-base font-semibold text-slate-600 dark:text-slate-300 mb-4">Mening kurslarim</h2>
           {enrollments.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-slate-200 dark:border-slate-800 p-10 text-center">
-              <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center mx-auto mb-3">
+            <div className="rounded-2xl border border-dashed border-slate-200 dark:border-white/8 p-10 text-center">
+              <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10 flex items-center justify-center mx-auto mb-3">
                 <BookOpen className="h-6 w-6 text-slate-400 dark:text-slate-600" />
               </div>
               <p className="text-slate-500 text-sm">Hali kurslarga yozilmadingiz</p>
@@ -77,7 +77,7 @@ export default async function CoursesPage() {
                   : 0;
 
                 return (
-                  <div key={course.id} className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-300 dark:hover:border-slate-700 transition-colors p-5 space-y-4">
+                  <div key={course.id} className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] hover:border-slate-300 dark:hover:border-slate-700 transition-colors p-5 space-y-4">
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex-1 min-w-0">
                         <h3 className="font-semibold text-slate-700 dark:text-slate-200 truncate">{course.title}</h3>
@@ -92,9 +92,9 @@ export default async function CoursesPage() {
                         <span>{mastered}/{topics.length} mavzu</span>
                         <span>{Math.round(progress)}%</span>
                       </div>
-                      <div className="h-1 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                      <div className="h-1 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
                         <div
-                          className={`h-full rounded-full ${avgMastery >= 0.85 ? "bg-emerald-500" : avgMastery >= 0.6 ? "bg-blue-500" : avgMastery >= 0.4 ? "bg-amber-500" : "bg-red-500"}`}
+                          className={`h-full rounded-full ${avgMastery >= 0.85 ? "bg-emerald-500" : avgMastery >= 0.6 ? "bg-blue-600" : avgMastery >= 0.4 ? "bg-amber-500" : "bg-red-500"}`}
                           style={{ width: `${progress}%` }}
                         />
                       </div>
@@ -117,7 +117,7 @@ export default async function CoursesPage() {
             <h2 className="text-base font-semibold text-slate-600 dark:text-slate-300 mb-4">Mavjud kurslar</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {availableCourses.map((course) => (
-                <div key={course.id} className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-300 dark:hover:border-slate-700 transition-colors p-5 space-y-4">
+                <div key={course.id} className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] hover:border-slate-300 dark:hover:border-slate-700 transition-colors p-5 space-y-4">
                   <div>
                     <h3 className="font-semibold text-slate-700 dark:text-slate-200">{course.title}</h3>
                     <p className="text-sm text-slate-500 mt-0.5">

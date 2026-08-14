@@ -93,7 +93,7 @@ export function AttentionCPTTask({ item, onComplete, disabled }: Props) {
   const targets = data.letters.filter((l) => l === data.targetLetter).length;
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center space-y-8">
+    <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-8 text-center space-y-8">
       <p className="text-slate-500 dark:text-slate-400 text-sm">{item.prompt}</p>
 
       {phase === "intro" && (
@@ -106,7 +106,7 @@ export function AttentionCPTTask({ item, onComplete, disabled }: Props) {
                 {data.targetLetter}
               </span>{" "}
               ko&apos;rganda ekranni bosing yoki{" "}
-              <kbd className="rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 px-2 py-0.5 font-mono text-xs text-slate-600 dark:text-slate-300">Space</kbd>{" "}
+              <kbd className="rounded-lg bg-slate-100 dark:bg-[#1e2840] border border-slate-300 dark:border-white/10 px-2 py-0.5 font-mono text-xs text-slate-600 dark:text-slate-300">Space</kbd>{" "}
               tugmasini bosing.
             </p>
           </div>
@@ -126,8 +126,8 @@ export function AttentionCPTTask({ item, onComplete, disabled }: Props) {
           className={cn(
             "mx-auto h-40 w-40 rounded-2xl flex items-center justify-center cursor-pointer select-none transition-all border-2",
             showLetter
-              ? "bg-slate-200 dark:bg-slate-800 border-slate-400 dark:border-slate-600"
-              : "bg-slate-100 dark:bg-slate-900 border-slate-200 dark:border-slate-800"
+              ? "bg-slate-200 dark:bg-[#1e2840] border-slate-400 dark:border-white/12"
+              : "bg-slate-100 dark:bg-[#151f35] border-slate-200 dark:border-white/8"
           )}
           onClick={handleResponse}
         >
@@ -141,7 +141,7 @@ export function AttentionCPTTask({ item, onComplete, disabled }: Props) {
 
       {phase === "done" && (
         <div className="space-y-5">
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-4 text-sm text-slate-500">
+          <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-slate-50 dark:bg-slate-950 p-4 text-sm text-slate-500">
             {data.letters.length} ta harf ko&apos;rsatildi, {targets} ta maqsadli
           </div>
           <Button

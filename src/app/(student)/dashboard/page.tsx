@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 export const metadata: Metadata = { title: "Dashboard" };
 
 import { auth } from "@/lib/auth";
@@ -26,13 +26,13 @@ const ACTION_CONFIG: Record<string, {
   borderCls: string;
   icon: React.ReactNode;
 }> = {
-  PREREQUISITE:     { label: "Oldingi mavzu", iconCls: "text-orange-400", bgCls: "bg-orange-500/10", borderCls: "border-orange-500/20", icon: <Layers className="h-4 w-4" /> },
+  PREREQUISITE:     { label: "Oldingi mavzu", iconCls: "text-blue-400", bgCls: "bg-blue-600/10", borderCls: "border-blue-500/20", icon: <Layers className="h-4 w-4" /> },
   RETRIEVE:         { label: "Takrorlash",    iconCls: "text-violet-400", bgCls: "bg-violet-500/10", borderCls: "border-violet-500/20", icon: <RotateCcw className="h-4 w-4" /> },
   EXPLAIN_AGAIN:    { label: "Qayta o'qish",  iconCls: "text-amber-400",  bgCls: "bg-amber-500/10",  borderCls: "border-amber-500/20",  icon: <BookOpen className="h-4 w-4" /> },
   PRACTICE:         { label: "Mashq",         iconCls: "text-blue-400",   bgCls: "bg-blue-500/10",   borderCls: "border-blue-500/20",   icon: <Zap className="h-4 w-4" /> },
   ADVANCED_PRACTICE:{ label: "Murakkab",      iconCls: "text-pink-400",   bgCls: "bg-pink-500/10",   borderCls: "border-pink-500/20",   icon: <Zap className="h-4 w-4" /> },
   CONTINUE:         { label: "Davom et",      iconCls: "text-emerald-400",bgCls: "bg-emerald-500/10",borderCls: "border-emerald-500/20",icon: <ArrowRight className="h-4 w-4" /> },
-  START:            { label: "Boshlash",      iconCls: "text-slate-500 dark:text-slate-400", bgCls: "bg-slate-100 dark:bg-slate-800", borderCls: "border-slate-200 dark:border-slate-700", icon: <PlayCircle className="h-4 w-4" /> },
+  START:            { label: "Boshlash",      iconCls: "text-slate-500 dark:text-slate-400", bgCls: "bg-slate-100 dark:bg-[#1e2840]", borderCls: "border-slate-200 dark:border-white/10", icon: <PlayCircle className="h-4 w-4" /> },
 };
 
 function getActionHref(topicId: string, action: string) {
@@ -124,7 +124,7 @@ export default async function DashboardPage() {
   const topRecs = recommendations.slice(0, 3);
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-white dark:bg-slate-950">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
       <Header
         title={`Salom, ${student.firstName}!`}
         description="BrainUP — sizning adaptiv o'quv platformangiz"
@@ -180,7 +180,7 @@ export default async function DashboardPage() {
               iconBg: "bg-violet-50 dark:bg-violet-950/50",
             },
           ].map((s) => (
-            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
+            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1e2840] p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>
                 {s.icon}
               </div>
@@ -205,7 +205,7 @@ export default async function DashboardPage() {
                     const cfg = ACTION_CONFIG[rec.action] ?? ACTION_CONFIG.PRACTICE;
                     return (
                       <Link key={rec.topicId} href={getActionHref(rec.topicId, rec.action)}>
-                        <div className="group rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 flex items-center gap-4 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all cursor-pointer">
+                        <div className="group rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-4 flex items-center gap-4 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-[#2a2720]/60 transition-all cursor-pointer">
                           <div className={`w-10 h-10 rounded-xl border flex items-center justify-center shrink-0 ${cfg.bgCls} ${cfg.borderCls}`}>
                             <span className={cfg.iconCls}>{cfg.icon}</span>
                           </div>
@@ -237,15 +237,15 @@ export default async function DashboardPage() {
               <div className="flex items-center justify-between">
                 <h2 className="text-base font-semibold text-slate-900 dark:text-white">Kurslarim</h2>
                 <Link href="/courses">
-                  <Button variant="ghost" size="sm" className="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs gap-1">
+                  <Button variant="ghost" size="sm" className="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#2a2720] text-xs gap-1">
                     Barchasini ko&apos;rish <ArrowRight className="h-3 w-3" />
                   </Button>
                 </Link>
               </div>
 
               {student.enrollments.length === 0 ? (
-                <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-10 flex flex-col items-center gap-3 text-center">
-                  <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center">
+                <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-10 flex flex-col items-center gap-3 text-center">
+                  <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10 flex items-center justify-center">
                     <BookOpen className="h-6 w-6 text-slate-400 dark:text-slate-600" />
                   </div>
                   <p className="text-sm text-slate-500">Hali kurslarga yozilmadingiz</p>
@@ -298,7 +298,7 @@ export default async function DashboardPage() {
 
             {/* No assessment notice */}
             {!hasAssessment && (
-              <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 flex items-center gap-3">
+              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5 flex items-center gap-3">
                 <AlertCircle className="h-4 w-4 text-slate-400 dark:text-slate-600 shrink-0" />
                 <p className="text-xs text-slate-500">Kognitiv profil baholash o&apos;tgandan so&apos;ng ko&apos;rinadi</p>
               </div>
@@ -332,21 +332,21 @@ function CourseCard({ course }: {
   const progress           = totalTopics > 0 ? (completedTopics / totalTopics) * 100 : 0;
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+    <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
       <div className="flex items-start justify-between gap-4 mb-4">
         <div className="min-w-0">
           <h3 className="font-medium text-slate-700 dark:text-slate-200 truncate">{course.title}</h3>
           <p className="text-xs text-slate-400 dark:text-slate-600 mt-1">{completedTopics}/{totalTopics} mavzu yakunlandi</p>
         </div>
         <Link href={`/courses/${course.id}`}>
-          <Button size="sm" variant="outline" className="border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-700 dark:hover:text-slate-200 shrink-0 text-xs bg-transparent">
+          <Button size="sm" variant="outline" className="border-slate-300 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#2a2720] hover:text-slate-700 dark:hover:text-slate-200 shrink-0 text-xs bg-transparent">
             Davom etish
           </Button>
         </Link>
       </div>
-      <div className="h-1 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+      <div className="h-1 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
         <div
-          className="h-full bg-blue-500 rounded-full transition-all"
+          className="h-full bg-blue-600 rounded-full transition-all"
           style={{ width: `${progress}%` }}
         />
       </div>
