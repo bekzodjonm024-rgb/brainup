@@ -98,30 +98,30 @@ export default async function LandingPage() {
         }
       `}</style>
 
-      <div className="min-h-screen" style={{ backgroundColor: "#F8F5EF" }}>
+      <div className="min-h-screen" style={{ backgroundColor: "#0E0A06" }}>
 
         {/* ── NAV ── */}
         <nav
           className="sticky top-0 z-50"
-          style={{ backgroundColor: "rgba(248,245,239,0.92)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(28,18,8,0.07)" }}
+          style={{ backgroundColor: "rgba(14,10,6,0.94)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}
         >
           <div className="mx-auto max-w-6xl px-6 h-[62px] flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2.5">
               <BrainUPLogo size="sm" />
-              <span className="font-extrabold text-[#1C1208] text-[1.05rem] tracking-tight">BrainUP</span>
+              <span className="font-extrabold text-[#F0EAE0] text-[1.05rem] tracking-tight">BrainUP</span>
             </Link>
 
-            <div className="hidden md:flex items-center gap-8 text-[0.875rem] font-medium" style={{ color: "#7D6855" }}>
-              <Link href="/" className="transition-colors hover:text-[#1C1208]">Bosh sahifa</Link>
-              <Link href="#how" className="transition-colors hover:text-[#1C1208]">Jarayon</Link>
-              <Link href="#features" className="transition-colors hover:text-[#1C1208]">Imkoniyatlar</Link>
-              <Link href="/login" className="transition-colors hover:text-[#1C1208]">Kirish</Link>
+            <div className="hidden md:flex items-center gap-8 text-[0.875rem] font-medium" style={{ color: "#A89078" }}>
+              <Link href="/" className="transition-colors hover:text-[#F0EAE0]">Bosh sahifa</Link>
+              <Link href="#how" className="transition-colors hover:text-[#F0EAE0]">Jarayon</Link>
+              <Link href="#features" className="transition-colors hover:text-[#F0EAE0]">Imkoniyatlar</Link>
+              <Link href="/login" className="transition-colors hover:text-[#F0EAE0]">Kirish</Link>
             </div>
 
             <div className="flex items-center gap-2">
               <div
                 className="w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-colors"
-                style={{ background: "#1C1208" }}
+                style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.06)" }}
               >
                 <ArrowRight className="h-4 w-4 text-white" />
               </div>
@@ -459,20 +459,23 @@ export default async function LandingPage() {
         {/* ── PARTNER TICKER ── */}
         <div
           className="py-8 overflow-hidden"
-          style={{ borderBottom: "1px solid rgba(28,18,8,0.07)" }}
+          style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}
         >
           <div className="ticker-track flex gap-14 whitespace-nowrap">
             {[...partners, ...partners].map((p, i) => (
               <span
                 key={i}
                 className="font-bold text-sm tracking-[0.18em] uppercase"
-                style={{ color: "#C4A882" }}
+                style={{ color: "#6B5540" }}
               >
                 {p}
               </span>
             ))}
           </div>
         </div>
+
+        {/* ── LIGHT CONTENT ISLAND (How It Works + Features) ── */}
+        <div style={{ background: "#F8F5EF", borderRadius: "40px 40px 0 0" }}>
 
         {/* ── HOW IT WORKS ── */}
         <section id="how" className="py-20">
@@ -614,11 +617,13 @@ export default async function LandingPage() {
           </div>
         </section>
 
+        </div>{/* end light island */}
+
         {/* ── CTA ── */}
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 pb-8">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 pb-8 pt-12">
           <div
             className="rounded-3xl p-10 sm:p-16 text-center relative overflow-hidden"
-            style={{ background: "#1C1208" }}
+            style={{ background: "#1C1208", border: "1px solid rgba(180,83,9,0.18)" }}
           >
             <div
               className="absolute top-0 right-0 w-72 h-72 rounded-full pointer-events-none"
@@ -664,18 +669,18 @@ export default async function LandingPage() {
         </div>
 
         {/* ── FOOTER ── */}
-        <footer style={{ borderTop: "1px solid rgba(28,18,8,0.07)" }} className="py-10">
+        <footer style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }} className="py-10">
           <div className="mx-auto max-w-6xl px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
             <Link href="/" className="flex items-center gap-2.5">
               <BrainUPLogo size="sm" />
-              <span className="font-bold" style={{ color: "#1C1208" }}>BrainUP</span>
+              <span className="font-bold" style={{ color: "#F0EAE0" }}>BrainUP</span>
             </Link>
-            <div className="flex items-center gap-6 text-sm" style={{ color: "#9C8272" }}>
-              <Link href="/login" className="transition-colors hover:text-[#1C1208]">Kirish</Link>
-              <Link href="/register" className="transition-colors hover:text-[#1C1208]">Ro&apos;yxat</Link>
-              <Link href="#how" className="transition-colors hover:text-[#1C1208]">Jarayon</Link>
+            <div className="flex items-center gap-6 text-sm" style={{ color: "#6B5540" }}>
+              <Link href="/login" className="transition-colors hover:text-[#F0EAE0]">Kirish</Link>
+              <Link href="/register" className="transition-colors hover:text-[#F0EAE0]">Ro&apos;yxat</Link>
+              <Link href="#how" className="transition-colors hover:text-[#F0EAE0]">Jarayon</Link>
             </div>
-            <p className="text-sm" style={{ color: "#C4A882" }}>© 2026 BrainUP · NamDPI</p>
+            <p className="text-sm" style={{ color: "#4A3520" }}>© 2026 BrainUP · NamDPI</p>
           </div>
         </footer>
 
