@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
@@ -38,37 +39,61 @@ export default async function LandingPage() {
   return (
     <>
       <style>{`
+        /* ── Ticker ── */
         @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
         .ticker-track { animation: ticker 30s linear infinite; }
 
-        @keyframes floatUp { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-        .fl-1 { animation: floatUp 4.2s ease-in-out infinite; }
-        .fl-2 { animation: floatUp 5.5s ease-in-out infinite 1s; }
-        .fl-3 { animation: floatUp 4.8s ease-in-out infinite 2s; }
+        /* ── Hero left text ── */
+        @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+        .a1{animation:fadeUp .55s ease-out 0s both}
+        .a2{animation:fadeUp .55s ease-out .12s both}
+        .a3{animation:fadeUp .55s ease-out .22s both}
+        .a4{animation:fadeUp .55s ease-out .34s both}
 
-        @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
-        .a1{animation:fadeUp .5s ease-out 0s both}
-        .a2{animation:fadeUp .5s ease-out .12s both}
-        .a3{animation:fadeUp .5s ease-out .22s both}
-        .a4{animation:fadeUp .5s ease-out .32s both}
-
-        .card-3d {
-          transition: transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s ease;
+        /* ── Card reveal ── */
+        @keyframes cardReveal {
+          from { opacity:0; transform:rotate(-1.5deg) translateY(20px) }
+          to   { opacity:1; transform:rotate(-1.5deg) translateY(0) }
         }
+        .card-main { animation: cardReveal .7s ease-out .2s both; }
+
+        /* ── Badge stagger ── */
+        @keyframes badgeFade {
+          from { opacity:0; transform:translateY(10px) }
+          to   { opacity:1; transform:translateY(0) }
+        }
+        .bg-a { animation: badgeFade .5s ease-out .38s both; }
+        .bg-b { animation: badgeFade .5s ease-out .50s both; }
+        .bg-c { animation: badgeFade .5s ease-out .62s both; }
+        .bg-d { animation: badgeFade .5s ease-out .74s both; }
+        .st-row { animation: badgeFade .5s ease-out .82s both; }
+
+        /* ── Progress bar fill ── */
+        @keyframes barFill { from{width:0} to{width:var(--bw)} }
+        .bar-fill { animation: barFill 1s ease-out var(--bd,0.5s) both; }
+
+        /* ── Reduced motion ── */
+        @media (prefers-reduced-motion: reduce) {
+          .card-main,.bg-a,.bg-b,.bg-c,.bg-d,.st-row { animation: none; }
+          .card-main { transform: rotate(-1.5deg); }
+          .bar-fill   { animation: none; width: var(--bw); }
+        }
+
+        /* ── "How it works" card hover ── */
+        .card-3d { transition: transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s ease; }
         .card-3d:hover {
           transform: translateY(-6px) !important;
           box-shadow: 0 24px 48px rgba(28,18,8,0.13), 0 6px 16px rgba(28,18,8,0.07), 0 0 0 1px rgba(28,18,8,0.04) !important;
         }
 
+        /* ── Nav button ── */
         .btn-amber {
-          background: #B45309;
-          color: #fff;
+          background: #B45309; color: #fff;
           box-shadow: 0 4px 14px rgba(180,83,9,0.35);
           transition: all .2s ease;
         }
         .btn-amber:hover {
-          background: #92400E;
-          transform: translateY(-1px);
+          background: #92400E; transform: translateY(-1px);
           box-shadow: 0 8px 24px rgba(180,83,9,0.40);
         }
       `}</style>
@@ -188,143 +213,144 @@ export default async function LandingPage() {
                 </div>
               </div>
 
-              {/* RIGHT — Hero Visual (fixed layout, no overlap) */}
+              {/* RIGHT — 3-column layout: no overlap guaranteed by structure */}
               <div
                 className="hidden lg:flex flex-col flex-1 select-none"
-                style={{ minHeight: 560, padding: "28px 40px 24px 0" }}
+                style={{ minHeight: 560, padding: "20px 40px 20px 8px" }}
               >
-                {/* ── SCENE (flex-1, badges + card live here) ── */}
-                <div className="relative flex-1 flex items-center justify-center" style={{ minHeight: 0 }}>
+                {/* ── 3-col scene: [left badges] [card] [right badges] ── */}
+                <div className="flex-1 flex items-center gap-3" style={{ minHeight: 0 }}>
 
-                  {/* Ambient glow */}
-                  <div style={{
-                    position: "absolute", inset: 0, pointerEvents: "none",
-                    background: "radial-gradient(ellipse 60% 55% at 55% 50%, rgba(180,83,9,0.14) 0%, transparent 70%)",
-                  }} />
+                  {/* COL 1 — left badges (fixed 122px, can't reach card) */}
+                  <div style={{ width: 122, flexShrink: 0, display: "flex", flexDirection: "column", gap: 16, justifyContent: "center" }}>
 
-                  {/* ── Score pill (top-right corner of scene) ── */}
-                  <div style={{
-                    position: "absolute", top: 4, right: 0,
-                    background: "#B45309", borderRadius: 18,
-                    padding: "10px 20px 8px",
-                    boxShadow: "0 16px 44px rgba(180,83,9,0.50), 0 4px 12px rgba(180,83,9,0.28)",
-                    zIndex: 20, textAlign: "center",
-                  }}>
-                    <div style={{ fontSize: 34, fontWeight: 900, color: "#fff", lineHeight: 1, letterSpacing: "-0.03em" }}>78</div>
-                    <div style={{ fontSize: 9, color: "rgba(255,255,255,0.60)", marginTop: 2, letterSpacing: "0.10em", fontWeight: 600 }}>/ 100 BALL</div>
-                  </div>
-
-                  {/* ── Diqqat badge (top-left) ── */}
-                  <div style={{
-                    position: "absolute", top: 16, left: 0,
-                    background: "#fff", borderRadius: 14,
-                    padding: "9px 13px",
-                    boxShadow: "0 12px 28px rgba(28,18,8,0.11), 0 0 0 1px rgba(28,18,8,0.05)",
-                    zIndex: 20,
-                  }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-                      <div style={{ width: 30, height: 30, borderRadius: "50%", background: "#FEF4E7", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                        <Zap className="w-3.5 h-3.5" style={{ color: "#B45309" }} />
-                      </div>
-                      <div>
-                        <p style={{ fontSize: 9, color: "#9C8272", fontWeight: 500, letterSpacing: "0.04em", marginBottom: 1 }}>Diqqat skori</p>
-                        <p style={{ fontSize: 14, fontWeight: 800, color: "#1C1208", lineHeight: 1 }}>87%</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* ── Mastery badge (right, vertically centered) ── */}
-                  <div style={{
-                    position: "absolute", right: 0, top: "50%", transform: "translateY(-70%)",
-                    background: "#17130E", border: "1px solid rgba(180,83,9,0.20)",
-                    borderRadius: 14, padding: "9px 14px",
-                    boxShadow: "0 12px 32px rgba(0,0,0,0.28)",
-                    zIndex: 20,
-                  }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-                      <div style={{ width: 30, height: 30, borderRadius: "50%", background: "rgba(180,83,9,0.15)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                        <TrendingUp className="w-3.5 h-3.5" style={{ color: "#D4973A" }} />
-                      </div>
-                      <div>
-                        <p style={{ fontSize: 9, color: "#7A6252", letterSpacing: "0.07em", fontWeight: 600, marginBottom: 1 }}>MASTERY O&apos;SISH</p>
-                        <p style={{ fontSize: 14, fontWeight: 800, color: "#fff", lineHeight: 1 }}>+34%</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* ── Retrieval badge (bottom-left) ── */}
-                  <div style={{
-                    position: "absolute", bottom: 8, left: 0,
-                    background: "#fff", borderRadius: 14,
-                    padding: "9px 13px",
-                    boxShadow: "0 12px 28px rgba(28,18,8,0.09), 0 0 0 1px rgba(28,18,8,0.05)",
-                    zIndex: 20,
-                  }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-                      <div style={{ width: 30, height: 30, borderRadius: "50%", background: "#ECFDF5", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                        <Target className="w-3.5 h-3.5 text-emerald-500" />
-                      </div>
-                      <div>
-                        <p style={{ fontSize: 9, color: "#9C8272", fontWeight: 500, letterSpacing: "0.04em", marginBottom: 1 }}>Retrieval</p>
-                        <p style={{ fontSize: 14, fontWeight: 800, color: "#1C1208", lineHeight: 1 }}>3 → 30 kun</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* ── 3D Card (centered in scene, horizontally shifted right) ── */}
-                  <div style={{ perspective: "960px", perspectiveOrigin: "30% 50%", position: "relative", zIndex: 10, marginLeft: 48 }}>
-                    <div style={{
-                      width: 286,
-                      background: "#fff",
-                      borderRadius: 20,
-                      padding: "20px 22px 16px",
-                      transform: "rotateY(-18deg) rotateX(6deg)",
-                      transformStyle: "preserve-3d",
-                      boxShadow: "50px 50px 100px rgba(0,0,0,0.36), 16px 16px 40px rgba(0,0,0,0.20), 0 0 0 1px rgba(0,0,0,0.05)",
+                    <div className="bg-a" style={{
+                      background: "#fff", borderRadius: 16, padding: "10px 12px",
+                      boxShadow: "0 8px 24px rgba(28,18,8,0.10), 0 0 0 1px rgba(28,18,8,0.05)",
                     }}>
-                      {/* Header */}
-                      <div style={{ marginBottom: 14 }}>
-                        <p style={{ fontSize: 8, color: "#B45309", letterSpacing: "0.15em", fontWeight: 700, textTransform: "uppercase", marginBottom: 4 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                        <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#FEF4E7", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                          <Zap className="w-3 h-3" style={{ color: "#B45309" }} />
+                        </div>
+                        <div>
+                          <p style={{ fontSize: 8, color: "#9C8272", fontWeight: 600, letterSpacing: "0.04em", marginBottom: 2 }}>DIQQAT SKORI</p>
+                          <p style={{ fontSize: 15, fontWeight: 800, color: "#1C1208", lineHeight: 1 }}>87%</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-c" style={{
+                      background: "#fff", borderRadius: 16, padding: "10px 12px",
+                      boxShadow: "0 8px 24px rgba(28,18,8,0.08), 0 0 0 1px rgba(28,18,8,0.05)",
+                    }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                        <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#ECFDF5", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                          <Target className="w-3 h-3 text-emerald-500" />
+                        </div>
+                        <div>
+                          <p style={{ fontSize: 8, color: "#9C8272", fontWeight: 600, letterSpacing: "0.04em", marginBottom: 2 }}>RETRIEVAL</p>
+                          <p style={{ fontSize: 14, fontWeight: 800, color: "#1C1208", lineHeight: 1 }}>3 → 30 kun</p>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  {/* COL 2 — main card (flex-1, centers itself) */}
+                  <div className="flex-1 relative flex items-center justify-center" style={{ minWidth: 0 }}>
+
+                    <div style={{
+                      position: "absolute", inset: 0, pointerEvents: "none",
+                      background: "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(180,83,9,0.08) 0%, transparent 68%)",
+                    }} />
+
+                    <div
+                      className="card-main"
+                      style={{
+                        width: "100%", maxWidth: 276,
+                        background: "#fff", borderRadius: 24,
+                        padding: "28px 26px 22px",
+                        boxShadow: "0 20px 56px rgba(0,0,0,0.20), 0 6px 20px rgba(0,0,0,0.10), 0 0 0 1px rgba(0,0,0,0.04)",
+                        position: "relative", zIndex: 10,
+                      }}
+                    >
+                      <div style={{ marginBottom: 20 }}>
+                        <p style={{ fontSize: 8, color: "#B45309", letterSpacing: "0.14em", fontWeight: 700, textTransform: "uppercase", marginBottom: 5 }}>
                           Kognitiv Profil
                         </p>
-                        <p style={{ fontSize: 12, fontWeight: 700, color: "#1C1208" }}>
-                          Sardor R. <span style={{ color: "#C4A882" }}>·</span> NamDPI <span style={{ color: "#C4A882" }}>·</span> 2-kurs
+                        <p style={{ fontSize: 13, fontWeight: 700, color: "#1C1208", lineHeight: 1.3 }}>
+                          Sardor R. <span style={{ color: "#D4B896" }}>·</span> NamDPI <span style={{ color: "#D4B896" }}>·</span> 2-kurs
                         </p>
                       </div>
 
-                      {/* Bars — compact */}
-                      <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
-                        {cogBars.map((item) => (
+                      <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
+                        {cogBars.map((item, idx) => (
                           <div key={item.n}>
-                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
-                              <span style={{ fontSize: 10, color: "#9C8272", fontWeight: 500 }}>{item.n}</span>
-                              <span style={{ fontSize: 10, fontWeight: 800, color: "#1C1208", fontVariantNumeric: "tabular-nums" }}>{item.v}</span>
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 5 }}>
+                              <span style={{ fontSize: 11, color: "#7A6557", fontWeight: 500 }}>{item.n}</span>
+                              <span style={{ fontSize: 11, fontWeight: 700, color: "#1C1208", fontVariantNumeric: "tabular-nums" }}>{item.v}</span>
                             </div>
-                            <div style={{ height: 4, background: "#F0EAE0", borderRadius: 2, overflow: "hidden" }}>
-                              <div style={{
-                                width: `${item.v}%`, height: "100%", borderRadius: 2,
-                                background: item.v >= 80 ? "linear-gradient(90deg,#B45309,#D4973A)" : item.v >= 65 ? "#B45309" : "#C4A882",
-                              }} />
+                            <div style={{ height: 4, background: "#F0EAE0", borderRadius: 99, overflow: "hidden" }}>
+                              <div
+                                className="bar-fill"
+                                style={{
+                                  "--bw": `${item.v}%`,
+                                  "--bd": `${0.52 + idx * 0.07}s`,
+                                  height: "100%", borderRadius: 99,
+                                  background: item.v >= 85 ? "linear-gradient(90deg,#92400E,#B45309)" : item.v >= 70 ? "#B45309" : "#C4A882",
+                                } as CSSProperties}
+                              />
                             </div>
                           </div>
                         ))}
                       </div>
 
-                      {/* Footer */}
                       <div style={{
-                        marginTop: 13, paddingTop: 11,
+                        marginTop: 18, paddingTop: 13,
                         borderTop: "1px solid rgba(28,18,8,0.06)",
                         display: "flex", alignItems: "center", justifyContent: "space-between",
                       }}>
-                        <span style={{ fontSize: 9, color: "#9C8272", fontWeight: 500 }}>Keyingi sessiya</span>
-                        <span style={{ fontSize: 9, fontWeight: 700, color: "#B45309", background: "#FEF4E7", padding: "3px 9px", borderRadius: 20 }}>3 kun</span>
+                        <span style={{ fontSize: 10, color: "#9C8272" }}>Keyingi sessiya</span>
+                        <span style={{ fontSize: 10, fontWeight: 700, color: "#B45309", background: "#FEF4E7", padding: "3px 10px", borderRadius: 99 }}>3 kun</span>
                       </div>
                     </div>
                   </div>
+
+                  {/* COL 3 — right badges (fixed 130px, can't reach card) */}
+                  <div style={{ width: 130, flexShrink: 0, display: "flex", flexDirection: "column", gap: 12, paddingTop: 20 }}>
+
+                    <div className="bg-b" style={{
+                      background: "#B45309", borderRadius: 18,
+                      padding: "12px 16px 10px",
+                      boxShadow: "0 12px 36px rgba(180,83,9,0.44), 0 4px 12px rgba(180,83,9,0.22)",
+                      textAlign: "center",
+                    }}>
+                      <div style={{ fontSize: 36, fontWeight: 900, color: "#fff", lineHeight: 1, letterSpacing: "-0.03em" }}>78</div>
+                      <div style={{ fontSize: 9, color: "rgba(255,255,255,0.58)", marginTop: 3, letterSpacing: "0.08em", fontWeight: 600 }}>/ 100 BALL</div>
+                    </div>
+
+                    <div className="bg-d" style={{
+                      background: "#17130E",
+                      border: "1px solid rgba(180,83,9,0.18)",
+                      borderRadius: 16, padding: "10px 12px",
+                      boxShadow: "0 8px 24px rgba(0,0,0,0.24)",
+                    }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                        <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(180,83,9,0.15)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                          <TrendingUp className="w-3 h-3" style={{ color: "#D4973A" }} />
+                        </div>
+                        <div>
+                          <p style={{ fontSize: 8, color: "#7A6252", letterSpacing: "0.07em", fontWeight: 600, marginBottom: 2 }}>MASTERY O&apos;SISH</p>
+                          <p style={{ fontSize: 15, fontWeight: 800, color: "#fff", lineHeight: 1 }}>+34%</p>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
                 </div>
 
-                {/* ── STAT ROW — always below scene, never overlaps ── */}
-                <div style={{ display: "flex", gap: 10, marginTop: 14, paddingLeft: 8 }}>
+                {/* ── STAT ROW ── */}
+                <div className="st-row" style={{ display: "flex", gap: 8, marginTop: 16 }}>
                   {([
                     { icon: <GraduationCap className="w-3 h-3" style={{ color: "#B45309" }} />, iconBg: "#FEF4E7", value: "98%",  label: "muvaffaqiyat", dark: false },
                     { icon: <Users         className="w-3 h-3" style={{ color: "#D4973A" }} />, iconBg: "rgba(255,255,255,0.09)", value: "100+", label: "hamkor univ.",  dark: true  },
@@ -342,6 +368,86 @@ export default async function LandingPage() {
                       </div>
                       <p style={{ fontSize: 18, fontWeight: 900, color: s.dark ? "#fff" : "#1C1208", lineHeight: 1, letterSpacing: "-0.02em" }}>{s.value}</p>
                       <p style={{ fontSize: 9, marginTop: 3, color: s.dark ? "rgba(240,234,224,0.45)" : "#9C8272", fontWeight: 500 }}>{s.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* MOBILE visual — stacked below left content */}
+              <div className="lg:hidden px-8 pb-8">
+                <div style={{
+                  background: "#fff", borderRadius: 20,
+                  padding: "22px 22px 18px",
+                  boxShadow: "0 16px 48px rgba(0,0,0,0.22), 0 0 0 1px rgba(0,0,0,0.04)",
+                  marginBottom: 12,
+                }}>
+                  <div style={{ marginBottom: 14 }}>
+                    <p style={{ fontSize: 8, color: "#B45309", letterSpacing: "0.14em", fontWeight: 700, textTransform: "uppercase", marginBottom: 4 }}>Kognitiv Profil</p>
+                    <p style={{ fontSize: 13, fontWeight: 700, color: "#1C1208" }}>Sardor R. · NamDPI · 2-kurs</p>
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
+                    {cogBars.map((item) => (
+                      <div key={item.n}>
+                        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+                          <span style={{ fontSize: 11, color: "#7A6557", fontWeight: 500 }}>{item.n}</span>
+                          <span style={{ fontSize: 11, fontWeight: 700, color: "#1C1208" }}>{item.v}</span>
+                        </div>
+                        <div style={{ height: 4, background: "#F0EAE0", borderRadius: 99, overflow: "hidden" }}>
+                          <div style={{
+                            width: `${item.v}%`, height: "100%", borderRadius: 99,
+                            background: item.v >= 85 ? "linear-gradient(90deg,#92400E,#B45309)" : item.v >= 70 ? "#B45309" : "#C4A882",
+                          }} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div style={{ marginTop: 14, paddingTop: 12, borderTop: "1px solid rgba(28,18,8,0.06)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <span style={{ fontSize: 10, color: "#9C8272" }}>Keyingi sessiya</span>
+                    <span style={{ fontSize: 10, fontWeight: 700, color: "#B45309", background: "#FEF4E7", padding: "3px 10px", borderRadius: 99 }}>3 kun</span>
+                  </div>
+                </div>
+
+                <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
+                  <div style={{ flex: 1, background: "#fff", borderRadius: 14, padding: "9px 11px", boxShadow: "0 4px 14px rgba(28,18,8,0.08), 0 0 0 1px rgba(28,18,8,0.04)", display: "flex", alignItems: "center", gap: 7 }}>
+                    <div style={{ width: 24, height: 24, borderRadius: "50%", background: "#FEF4E7", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                      <Zap className="w-2.5 h-2.5" style={{ color: "#B45309" }} />
+                    </div>
+                    <div>
+                      <p style={{ fontSize: 7, color: "#9C8272", fontWeight: 600 }}>DIQQAT</p>
+                      <p style={{ fontSize: 13, fontWeight: 800, color: "#1C1208", lineHeight: 1 }}>87%</p>
+                    </div>
+                  </div>
+                  <div style={{ flex: 1, background: "#B45309", borderRadius: 14, padding: "9px 11px", boxShadow: "0 8px 20px rgba(180,83,9,0.42)", textAlign: "center" }}>
+                    <p style={{ fontSize: 24, fontWeight: 900, color: "#fff", lineHeight: 1, letterSpacing: "-0.03em" }}>78</p>
+                    <p style={{ fontSize: 8, color: "rgba(255,255,255,0.60)", marginTop: 1 }}>/ 100 BALL</p>
+                  </div>
+                  <div style={{ flex: 1, background: "#17130E", borderRadius: 14, padding: "9px 11px", border: "1px solid rgba(180,83,9,0.18)", display: "flex", alignItems: "center", gap: 7 }}>
+                    <div style={{ width: 24, height: 24, borderRadius: "50%", background: "rgba(180,83,9,0.15)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                      <TrendingUp className="w-2.5 h-2.5" style={{ color: "#D4973A" }} />
+                    </div>
+                    <div>
+                      <p style={{ fontSize: 7, color: "#7A6252", fontWeight: 600 }}>MASTERY</p>
+                      <p style={{ fontSize: 13, fontWeight: 800, color: "#fff", lineHeight: 1 }}>+34%</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ display: "flex", gap: 8 }}>
+                  {([
+                    { icon: <GraduationCap className="w-2.5 h-2.5" style={{ color: "#B45309" }} />, iconBg: "#FEF4E7", value: "98%",  label: "muvaffaqiyat", dark: false },
+                    { icon: <Users         className="w-2.5 h-2.5" style={{ color: "#D4973A" }} />, iconBg: "rgba(255,255,255,0.09)", value: "100+", label: "hamkor univ.",  dark: true  },
+                    { icon: <BookOpen      className="w-2.5 h-2.5" style={{ color: "#B45309" }} />, iconBg: "#FEF4E7", value: "20+",  label: "faol kurslar", dark: false },
+                  ] as const).map((s, i) => (
+                    <div key={i} style={{
+                      flex: 1, borderRadius: 12, padding: "10px 12px",
+                      background: s.dark ? "#1C1208" : "rgba(255,255,255,0.88)",
+                      boxShadow: s.dark ? "0 6px 18px rgba(0,0,0,0.22)" : "0 4px 14px rgba(28,18,8,0.08), 0 0 0 1px rgba(28,18,8,0.04)",
+                    }}>
+                      <div style={{ width: 22, height: 22, borderRadius: "50%", background: s.iconBg, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 6 }}>
+                        {s.icon}
+                      </div>
+                      <p style={{ fontSize: 16, fontWeight: 900, color: s.dark ? "#fff" : "#1C1208", lineHeight: 1 }}>{s.value}</p>
+                      <p style={{ fontSize: 8, marginTop: 2, color: s.dark ? "rgba(240,234,224,0.45)" : "#9C8272", fontWeight: 500 }}>{s.label}</p>
                     </div>
                   ))}
                 </div>
