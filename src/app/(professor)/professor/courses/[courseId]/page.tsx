@@ -43,7 +43,7 @@ export default async function CourseDetailPage({
   );
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#100D09]">
       <Header title={course.title} description={course.faculty?.name ?? ""} />
       <main className="flex-1 p-6 space-y-6">
         <div className="flex items-center justify-between">
@@ -75,12 +75,12 @@ export default async function CourseDetailPage({
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { icon: <LayoutList className="h-5 w-5 text-[#B45309] dark:text-amber-400" />, label: "Mavzular", value: course.topics.length, iconBg: "bg-[#FEF4E7] dark:bg-blue-950/50" },
+            { icon: <LayoutList className="h-5 w-5 text-[#B45309] dark:text-amber-400" />, label: "Mavzular", value: course.topics.length, iconBg: "bg-[#FEF4E7] dark:bg-amber-950/30" },
             { icon: <Users className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />, label: "Talabalar", value: course._count.enrollments, iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
             { icon: <BookOpen className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "Materiallar", value: totalContent, iconBg: "bg-violet-50 dark:bg-violet-950/50" },
             { icon: <CheckCircle2 className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "Tasdiqlangan", value: approvedContent, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
           ].map((s) => (
-            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1e2840] p-5 shadow-sm">
+            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1C1710] p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
               <p className="text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
@@ -101,7 +101,7 @@ export default async function CourseDetailPage({
 
           {course.topics.length === 0 ? (
             <div className="rounded-xl border border-dashed border-slate-200 dark:border-white/8 p-12 text-center">
-              <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10 flex items-center justify-center mx-auto mb-3">
+              <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 flex items-center justify-center mx-auto mb-3">
                 <BookOpen className="h-6 w-6 text-slate-400 dark:text-slate-600" />
               </div>
               <p className="font-medium text-slate-500 dark:text-slate-400 mb-1">Mavzular hali qo&apos;shilmagan</p>
@@ -120,10 +120,10 @@ export default async function CourseDetailPage({
                 const isReady = total > 0 && approved === total;
 
                 return (
-                  <div key={topic.id} className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] hover:border-slate-300 dark:hover:border-slate-700 transition-colors p-4 flex items-center gap-3">
+                  <div key={topic.id} className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] hover:border-slate-300 dark:hover:border-slate-700 transition-colors p-4 flex items-center gap-3">
                     <div className="flex items-center gap-2 shrink-0">
                       <GripVertical className="h-4 w-4 text-slate-400 dark:text-slate-700" />
-                      <span className="w-6 h-6 rounded-full bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10 flex items-center justify-center text-xs font-medium text-slate-500">
+                      <span className="w-6 h-6 rounded-full bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 flex items-center justify-center text-xs font-medium text-slate-500">
                         {idx + 1}
                       </span>
                     </div>

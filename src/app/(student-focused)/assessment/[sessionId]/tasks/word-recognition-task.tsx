@@ -65,7 +65,7 @@ export function WordRecognitionTask({ item, onComplete, disabled }: Props) {
   }
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-6 space-y-6">
+    <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-6 space-y-6">
       <p className="text-slate-500 dark:text-slate-400 text-sm text-center">{item.prompt}</p>
 
       {phase === "study" && (
@@ -76,7 +76,7 @@ export function WordRecognitionTask({ item, onComplete, disabled }: Props) {
           </div>
           <div className="grid grid-cols-2 gap-2">
             {data.studyWords.map((word) => (
-              <div key={word} className="rounded-xl border border-[#B45309]/20 bg-[#FEF4E7]0/10 px-3 py-2.5 text-center text-sm font-medium text-blue-300">
+              <div key={word} className="rounded-xl border border-[#B45309]/20 bg-[#FEF4E7]/10 px-3 py-2.5 text-center text-sm font-medium text-amber-300">
                 {word}
               </div>
             ))}
@@ -86,7 +86,7 @@ export function WordRecognitionTask({ item, onComplete, disabled }: Props) {
 
       {phase === "delay" && (
         <div className="py-12 text-center">
-          <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10 mb-4">
+          <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 mb-4">
             <div className="h-5 w-5 rounded-full border-2 border-[#B45309] border-t-transparent animate-spin" />
           </div>
           <p className="text-sm text-slate-500">Tayyor bo&apos;ling...</p>
@@ -107,8 +107,8 @@ export function WordRecognitionTask({ item, onComplete, disabled }: Props) {
                 className={cn(
                   "rounded-xl border px-3 py-2.5 text-sm font-medium transition-all text-left flex items-center gap-2",
                   selected.has(word)
-                    ? "border-[#B45309]/40 bg-[#FEF4E7]0/15 text-blue-300"
-                    : "border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#2a2720] hover:text-slate-700 dark:hover:text-slate-300"
+                    ? "border-[#B45309]/40 bg-[#FEF4E7]/15 text-amber-300"
+                    : "border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#2a2720] hover:text-slate-700 dark:hover:text-slate-300"
                 )}
               >
                 {selected.has(word) && <Check className="h-3.5 w-3.5 shrink-0 text-amber-400" />}

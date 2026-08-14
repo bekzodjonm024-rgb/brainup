@@ -27,7 +27,7 @@ export default async function AssessmentPage() {
   });
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#100D09]">
       <Header title="Kognitiv baholash" description="Boshlang'ich baholash natijalari" />
       <main className="flex-1 p-6 max-w-2xl mx-auto w-full space-y-5">
 
@@ -53,7 +53,7 @@ export default async function AssessmentPage() {
               memoryScore={student.cognitiveProfile!.memoryScore}
             />
 
-            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-4 flex items-start gap-3">
+            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-4 flex items-start gap-3">
               <AlertCircle className="h-4 w-4 text-slate-400 dark:text-slate-600 mt-0.5 shrink-0" />
               <p className="text-xs text-slate-500">
                 Bu natijalar sizning o&apos;quv yo&apos;nalishingizni moslashtirish uchun ishlatiladi.
@@ -67,9 +67,9 @@ export default async function AssessmentPage() {
           </>
         ) : (
           <>
-            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-6 space-y-6">
+            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-6 space-y-6">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-[#FEF4E7]0/10 border border-[#B45309]/20 flex items-center justify-center shrink-0">
+                <div className="w-12 h-12 rounded-2xl bg-[#FEF4E7]/10 border border-[#B45309]/20 flex items-center justify-center shrink-0">
                   <Brain className="h-6 w-6 text-amber-400" />
                 </div>
                 <div>
@@ -98,7 +98,7 @@ export default async function AssessmentPage() {
                 <div className="grid grid-cols-2 gap-2">
                   {[
                     { icon: <Eye className="h-3.5 w-3.5 text-violet-400" />,   text: "Diqqat topshiriqlari",   bg: "bg-violet-500/10 border-violet-500/20" },
-                    { icon: <Brain className="h-3.5 w-3.5 text-amber-400" />,   text: "Ishchi xotira",           bg: "bg-[#FEF4E7]0/10   border-[#B45309]/20" },
+                    { icon: <Brain className="h-3.5 w-3.5 text-amber-400" />,   text: "Ishchi xotira",           bg: "bg-[#FEF4E7]/10   border-[#B45309]/20" },
                     { icon: <Zap className="h-3.5 w-3.5 text-amber-400" />,    text: "Qayta ishlash tezligi",   bg: "bg-amber-500/10  border-amber-500/20" },
                     { icon: <RefreshCw className="h-3.5 w-3.5 text-emerald-400" />, text: "Xotira ko'rsatkichi", bg: "bg-emerald-500/10 border-emerald-500/20" },
                   ].map((m) => (

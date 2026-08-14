@@ -47,8 +47,8 @@ export function ContentFilter({
               <span className={cn(
                 "inline-flex h-4.5 min-w-4 items-center justify-center rounded-full px-1.5 text-[11px] font-bold leading-none",
                 isActive
-                  ? "bg-slate-200 dark:bg-[#1e2840] text-slate-600 dark:text-slate-300"
-                  : "bg-slate-100 dark:bg-[#1e2840] text-slate-500 dark:text-slate-600"
+                  ? "bg-slate-200 dark:bg-[#1C1710] text-slate-600 dark:text-slate-300"
+                  : "bg-slate-100 dark:bg-[#1C1710] text-slate-500 dark:text-slate-600"
               )}>
                 {count}
               </span>

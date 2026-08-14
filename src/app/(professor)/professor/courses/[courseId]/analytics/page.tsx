@@ -18,10 +18,10 @@ function masteryColor(score: number) {
 
 function masteryBadge(score: number) {
   if (score >= 0.85) return "text-emerald-400 bg-emerald-500/10 border border-emerald-500/20";
-  if (score >= 0.65) return "text-amber-400 bg-[#FEF4E7]0/10 border border-[#B45309]/20";
+  if (score >= 0.65) return "text-amber-400 bg-[#FEF4E7]/10 border border-[#B45309]/20";
   if (score >= 0.50) return "text-amber-400 bg-amber-500/10 border border-amber-500/20";
   if (score > 0) return "text-red-400 bg-red-500/10 border border-red-500/20";
-  return "text-slate-500 bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10";
+  return "text-slate-500 bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10";
 }
 
 function timeAgo(date: Date | null): string {
@@ -160,7 +160,7 @@ export default async function CourseAnalyticsPage({
     : 0;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#100D09]">
       <Header title={`${course.title} — Analitika`} description="Kurs bo'yicha batafsil tahlil" />
 
       <main className="flex-1 p-6 space-y-6 max-w-5xl mx-auto w-full">
@@ -182,12 +182,12 @@ export default async function CourseAnalyticsPage({
         {/* Summary stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { icon: <Users className="h-5 w-5 text-[#B45309] dark:text-amber-400" />, label: "Jami talabalar", value: totalStudents, iconBg: "bg-[#FEF4E7] dark:bg-blue-950/50" },
+            { icon: <Users className="h-5 w-5 text-[#B45309] dark:text-amber-400" />, label: "Jami talabalar", value: totalStudents, iconBg: "bg-[#FEF4E7] dark:bg-amber-950/30" },
             { icon: <TrendingUp className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />, label: "Faol talabalar", value: activeStudents, iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
             { icon: <CheckCircle2 className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "O'zlashtirildi", value: masteredStudents, iconBg: "bg-violet-50 dark:bg-violet-950/50" },
             { icon: <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "O'rtacha mastery", value: `${Math.round(avgMastery * 100)}%`, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
           ].map((s) => (
-            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1e2840] p-5 shadow-sm">
+            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1C1710] p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
               <p className="text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
@@ -196,7 +196,7 @@ export default async function CourseAnalyticsPage({
         </div>
 
         {/* Topic performance table */}
-        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] overflow-hidden">
+        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] overflow-hidden">
           <div className="p-5 border-b border-slate-200 dark:border-white/8">
             <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
               <BarChart3 className="h-4 w-4 text-slate-500" />
@@ -232,7 +232,7 @@ export default async function CourseAnalyticsPage({
                           {t.tried > 0 ? `${Math.round(t.avg * 100)}%` : "—"}
                         </span>
                         {t.tried > 0 && (
-                          <div className="h-1 w-16 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
+                          <div className="h-1 w-16 bg-slate-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
                             <div className={`h-full rounded-full ${masteryColor(t.avg)}`} style={{ width: `${t.avg * 100}%` }} />
                           </div>
                         )}
@@ -243,7 +243,7 @@ export default async function CourseAnalyticsPage({
                       {t.avgAttempts > 0 ? t.avgAttempts.toFixed(1) : "—"}
                     </td>
                     <td className="px-3 py-3 text-center hidden lg:table-cell">
-                      <span className={`text-xs px-2 py-0.5 rounded-full ${t.questions > 0 ? "text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-[#1e2840]" : "text-slate-400 dark:text-slate-600 bg-white dark:bg-[#151f35] border border-slate-200 dark:border-white/8"}`}>
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${t.questions > 0 ? "text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-[#1C1710]" : "text-slate-400 dark:text-slate-600 bg-white dark:bg-[#17130E] border border-slate-200 dark:border-white/8"}`}>
                         {t.questions}
                       </span>
                     </td>
@@ -255,7 +255,7 @@ export default async function CourseAnalyticsPage({
         </div>
 
         {/* Student progress table */}
-        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] overflow-hidden">
+        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] overflow-hidden">
           <div className="p-5 border-b border-slate-200 dark:border-white/8">
             <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
               <Users className="h-4 w-4 text-slate-500" />
@@ -328,7 +328,7 @@ export default async function CourseAnalyticsPage({
 
         {/* Hard questions */}
         {questionStats.length > 0 && (
-          <div className="rounded-2xl border border-red-500/20 bg-white dark:bg-[#151f35] overflow-hidden">
+          <div className="rounded-2xl border border-red-500/20 bg-white dark:bg-[#17130E] overflow-hidden">
             <div className="p-5 border-b border-slate-200 dark:border-white/8">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
                 <HelpCircle className="h-4 w-4 text-red-400" />

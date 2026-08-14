@@ -15,7 +15,7 @@ import {
 
 function masteryLevel(score: number) {
   if (score >= 0.85) return { color: "text-emerald-400 bg-emerald-500/10 border border-emerald-500/20" };
-  if (score >= 0.50) return { color: "text-amber-400 bg-[#FEF4E7]0/10 border border-[#B45309]/20" };
+  if (score >= 0.50) return { color: "text-amber-400 bg-[#FEF4E7]/10 border border-[#B45309]/20" };
   return { color: "text-red-400 bg-red-500/10 border border-red-500/20" };
 }
 
@@ -167,7 +167,7 @@ export default async function ProfessorAnalyticsPage() {
   const total = mastered + onTrack + struggling;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#100D09]">
       <Header title="Analitika" description="Barcha kurslar bo'yicha o'quv tahlili" />
 
       <main className="flex-1 p-6 space-y-6 max-w-5xl mx-auto w-full">
@@ -175,12 +175,12 @@ export default async function ProfessorAnalyticsPage() {
         {/* Top stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { icon: <Users className="h-5 w-5 text-[#B45309] dark:text-amber-400" />, label: "Jami talabalar", value: totalStudents, iconBg: "bg-[#FEF4E7] dark:bg-blue-950/50" },
+            { icon: <Users className="h-5 w-5 text-[#B45309] dark:text-amber-400" />, label: "Jami talabalar", value: totalStudents, iconBg: "bg-[#FEF4E7] dark:bg-amber-950/30" },
             { icon: <TrendingUp className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />, label: "Jami urinishlar", value: totalAttempts.toLocaleString(), iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
             { icon: <CheckCircle2 className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "O'zlashtirildi", value: mastered, iconBg: "bg-violet-50 dark:bg-violet-950/50" },
             { icon: <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "Qiynalyapti", value: struggling, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
           ].map((s) => (
-            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1e2840] p-5 shadow-sm">
+            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1C1710] p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
               <p className="text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
@@ -193,7 +193,7 @@ export default async function ProfessorAnalyticsPage() {
 
             {/* Mastery distribution */}
             {total > 0 && (
-              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
                 <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                   <BarChart3 className="h-4 w-4 text-slate-500" />
                   O'zlashtirish taqsimoti
@@ -211,7 +211,7 @@ export default async function ProfessorAnalyticsPage() {
                           {row.count} ta ({row.pct}%)
                         </span>
                       </div>
-                      <div className="h-1.5 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
+                      <div className="h-1.5 bg-slate-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
                         <div className={`h-full rounded-full ${row.color}`} style={{ width: `${row.pct}%` }} />
                       </div>
                     </div>
@@ -221,7 +221,7 @@ export default async function ProfessorAnalyticsPage() {
             )}
 
             {/* Course summaries */}
-            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                 <BookOpen className="h-4 w-4 text-slate-500" />
                 Kurslar bo'yicha natijalar
@@ -250,7 +250,7 @@ export default async function ProfessorAnalyticsPage() {
                           </Button>
                         </Link>
                       </div>
-                      <div className="h-1 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
+                      <div className="h-1 bg-slate-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
                         <div className="h-full bg-[#B45309] rounded-full" style={{ width: `${c.avgMastery * 100}%` }} />
                       </div>
                     </div>
@@ -262,7 +262,7 @@ export default async function ProfessorAnalyticsPage() {
 
           <div className="space-y-4">
             {/* Difficult topics */}
-            <div className="rounded-2xl border border-amber-500/20 bg-white dark:bg-[#151f35] p-5">
+            <div className="rounded-2xl border border-amber-500/20 bg-white dark:bg-[#17130E] p-5">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                 <AlertTriangle className="h-4 w-4 text-amber-400" />
                 Qiyin mavzular
@@ -285,7 +285,7 @@ export default async function ProfessorAnalyticsPage() {
                         </span>
                       </div>
                       <p className="text-xs text-slate-400 dark:text-slate-600">{t.courseName} • {t.tried} talaba</p>
-                      <div className="h-1 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
+                      <div className="h-1 bg-slate-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
                         <div className="h-full bg-amber-500 rounded-full" style={{ width: `${(t.avg ?? 0) * 100}%` }} />
                       </div>
                     </div>
@@ -296,7 +296,7 @@ export default async function ProfessorAnalyticsPage() {
 
             {/* Adaptive interventions */}
             {interventionCounts.length > 0 && (
-              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
                 <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                   <Zap className="h-4 w-4 text-amber-400" />
                   Adaptiv tavsiyalar
@@ -315,7 +315,7 @@ export default async function ProfessorAnalyticsPage() {
         </div>
 
         {/* Cognitive dynamics */}
-        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
+        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
           <div className="flex flex-wrap items-start justify-between gap-4 mb-5">
             <div>
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300">
@@ -329,7 +329,7 @@ export default async function ProfessorAnalyticsPage() {
               <div className="flex flex-wrap gap-3">
                 {[
                   { label: "Diqqat",        value: cogAvg.attention,    color: "text-indigo-600 bg-indigo-50 dark:bg-indigo-950/40 border-indigo-200 dark:border-indigo-800" },
-                  { label: "Ishchi xotira", value: cogAvg.workingMemory, color: "text-[#B45309] bg-[#FEF4E7] dark:bg-blue-950/40 border-blue-200 dark:border-blue-800" },
+                  { label: "Ishchi xotira", value: cogAvg.workingMemory, color: "text-[#B45309] bg-[#FEF4E7] dark:bg-blue-950/40 border-[#FDE8C8] dark:border-blue-800" },
                   { label: "Tezlik",        value: cogAvg.speed,         color: "text-amber-600 bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800" },
                   { label: "Xotira",        value: cogAvg.memory,        color: "text-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800" },
                 ].map((m) => (

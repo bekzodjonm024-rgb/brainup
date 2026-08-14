@@ -44,11 +44,11 @@ export default async function PilotPage() {
 
   if (courseIds.length === 0) {
     return (
-      <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
+      <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#100D09]">
         <Header title="Pilot monitoring" description="Tadqiqot va pilot nazorat paneli" />
         <main className="flex-1 p-6">
-          <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] py-14 text-center">
-            <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10 flex items-center justify-center mx-auto mb-3">
+          <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] py-14 text-center">
+            <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 flex items-center justify-center mx-auto mb-3">
               <FlaskConical className="h-6 w-6 text-slate-400 dark:text-slate-600" />
             </div>
             <p className="text-slate-500">Kurslar yo&apos;q — avval kurs yarating</p>
@@ -149,7 +149,7 @@ export default async function PilotPage() {
   };
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#100D09]">
       <Header title="Pilot Monitoring" description="NamDPI tadqiqot va pilot nazorat paneli" />
 
       <main className="flex-1 p-6 space-y-6 max-w-5xl mx-auto w-full">
@@ -175,12 +175,12 @@ export default async function PilotPage() {
         {/* Live stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { icon: <Users className="h-5 w-5 text-[#B45309] dark:text-amber-400" />, label: "Jami talabalar", value: totalEnrolled, iconBg: "bg-[#FEF4E7] dark:bg-blue-950/50" },
+            { icon: <Users className="h-5 w-5 text-[#B45309] dark:text-amber-400" />, label: "Jami talabalar", value: totalEnrolled, iconBg: "bg-[#FEF4E7] dark:bg-amber-950/30" },
             { icon: <Activity className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />, label: "Bugun faol", value: activeStudentsToday, iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
             { icon: <Zap className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "Bugun eventlar", value: todayEventCount, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
             { icon: <TrendingUp className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "Jami urinishlar", value: totalAttempts.toLocaleString(), iconBg: "bg-violet-50 dark:bg-violet-950/50" },
           ].map((s) => (
-            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1e2840] p-5 shadow-sm">
+            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1C1710] p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
               <p className="text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
@@ -192,7 +192,7 @@ export default async function PilotPage() {
           <div className="lg:col-span-2 space-y-5">
 
             {/* Engagement funnel */}
-            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                 <Users className="h-4 w-4 text-slate-500" />
                 O&apos;quv funnel
@@ -207,7 +207,7 @@ export default async function PilotPage() {
                         <span className="text-slate-400 dark:text-slate-600 font-normal ml-1">({step.pct}%)</span>
                       </span>
                     </div>
-                    <div className="h-2 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
+                    <div className="h-2 bg-slate-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
                       <div className={`h-full rounded-full transition-all ${step.color}`} style={{ width: `${step.pct}%` }} />
                     </div>
                   </div>
@@ -216,7 +216,7 @@ export default async function PilotPage() {
             </div>
 
             {/* Recent activity log */}
-            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
                 <Clock className="h-4 w-4 text-slate-500" />
                 So&apos;nggi faollik (anonim)
@@ -230,7 +230,7 @@ export default async function PilotPage() {
                     return (
                       <div key={ev.id} className="flex items-center justify-between py-2 border-b border-slate-200 dark:border-white/8/60 last:border-0">
                         <div className="flex items-center gap-2 min-w-0">
-                          <code className="text-xs font-mono bg-slate-100 dark:bg-[#1e2840] px-1.5 py-0.5 rounded text-slate-500 dark:text-slate-400 shrink-0">
+                          <code className="text-xs font-mono bg-slate-100 dark:bg-[#1C1710] px-1.5 py-0.5 rounded text-slate-500 dark:text-slate-400 shrink-0">
                             {rid}
                           </code>
                           <span className="text-xs text-slate-500 truncate">
@@ -254,7 +254,7 @@ export default async function PilotPage() {
           <div className="space-y-4">
             {/* Event distribution */}
             {eventTypeCounts.length > 0 && (
-              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
                 <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-3">
                   <Activity className="h-4 w-4 text-slate-500" />
                   7 kunlik eventlar
@@ -272,7 +272,7 @@ export default async function PilotPage() {
 
             {/* Intervention distribution */}
             {interventionCounts.length > 0 && (
-              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
+              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
                 <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-3">
                   <Zap className="h-4 w-4 text-slate-500" />
                   Adaptiv tavsiyalar
@@ -289,7 +289,7 @@ export default async function PilotPage() {
             )}
 
             {/* Export */}
-            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
+            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-3">
                 <CheckCircle2 className="h-4 w-4 text-slate-500" />
                 Ma&apos;lumotlarni eksport qilish
@@ -312,7 +312,7 @@ export default async function PilotPage() {
         </div>
 
         {/* Per-course breakdown */}
-        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] overflow-hidden">
+        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] overflow-hidden">
           <div className="px-5 py-4 border-b border-slate-200 dark:border-white/8">
             <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
               <Brain className="h-4 w-4 text-slate-500" />

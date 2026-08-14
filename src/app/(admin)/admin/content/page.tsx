@@ -60,14 +60,14 @@ export default async function AdminContentPage({
   const counts = Object.fromEntries(byStatus.map((r) => [r.status, r._count.id]));
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#100D09]">
       <Header title="Kontent" description="Materiallar boshqaruvi" />
       <main className="flex-1 p-6 space-y-4">
         <Suspense>
           <ContentFilter counts={counts} active={activeStatus} />
         </Suspense>
 
-        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] overflow-hidden">
+        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-white/8">
@@ -85,7 +85,7 @@ export default async function AdminContentPage({
                     <td className="px-4 py-3">
                       <div>
                         <p className="font-medium text-slate-700 dark:text-slate-200">{item.title}</p>
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400 mt-0.5 inline-block">
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400 mt-0.5 inline-block">
                           {TYPE_LABELS[item.type] ?? item.type}
                         </span>
                       </div>

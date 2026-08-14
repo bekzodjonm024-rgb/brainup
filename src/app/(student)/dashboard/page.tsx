@@ -29,10 +29,10 @@ const ACTION_CONFIG: Record<string, {
   PREREQUISITE:     { label: "Oldingi mavzu", iconCls: "text-amber-400", bgCls: "bg-[#B45309]/10", borderCls: "border-[#B45309]/20", icon: <Layers className="h-4 w-4" /> },
   RETRIEVE:         { label: "Takrorlash",    iconCls: "text-violet-400", bgCls: "bg-violet-500/10", borderCls: "border-violet-500/20", icon: <RotateCcw className="h-4 w-4" /> },
   EXPLAIN_AGAIN:    { label: "Qayta o'qish",  iconCls: "text-amber-400",  bgCls: "bg-amber-500/10",  borderCls: "border-amber-500/20",  icon: <BookOpen className="h-4 w-4" /> },
-  PRACTICE:         { label: "Mashq",         iconCls: "text-amber-400",   bgCls: "bg-[#FEF4E7]0/10",   borderCls: "border-[#B45309]/20",   icon: <Zap className="h-4 w-4" /> },
+  PRACTICE:         { label: "Mashq",         iconCls: "text-amber-400",   bgCls: "bg-[#FEF4E7]/10",   borderCls: "border-[#B45309]/20",   icon: <Zap className="h-4 w-4" /> },
   ADVANCED_PRACTICE:{ label: "Murakkab",      iconCls: "text-pink-400",   bgCls: "bg-pink-500/10",   borderCls: "border-pink-500/20",   icon: <Zap className="h-4 w-4" /> },
   CONTINUE:         { label: "Davom et",      iconCls: "text-emerald-400",bgCls: "bg-emerald-500/10",borderCls: "border-emerald-500/20",icon: <ArrowRight className="h-4 w-4" /> },
-  START:            { label: "Boshlash",      iconCls: "text-slate-500 dark:text-slate-400", bgCls: "bg-slate-100 dark:bg-[#1e2840]", borderCls: "border-slate-200 dark:border-white/10", icon: <PlayCircle className="h-4 w-4" /> },
+  START:            { label: "Boshlash",      iconCls: "text-slate-500 dark:text-slate-400", bgCls: "bg-slate-100 dark:bg-[#1C1710]", borderCls: "border-slate-200 dark:border-white/10", icon: <PlayCircle className="h-4 w-4" /> },
 };
 
 function getActionHref(topicId: string, action: string) {
@@ -124,7 +124,7 @@ export default async function DashboardPage() {
   const topRecs = recommendations.slice(0, 3);
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#100D09]">
       <Header
         title={`Salom, ${student.firstName}!`}
         description="BrainUP — sizning adaptiv o'quv platformangiz"
@@ -134,8 +134,8 @@ export default async function DashboardPage() {
 
         {/* Assessment CTA */}
         {!hasAssessment && (
-          <div className="rounded-2xl border border-[#B45309]/20 bg-[#FEF4E7]0/5 p-5 flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-[#FEF4E7]0/15 border border-[#B45309]/20 flex items-center justify-center shrink-0 mt-0.5">
+          <div className="rounded-2xl border border-[#B45309]/20 bg-[#FEF4E7]/5 p-5 flex items-start gap-4">
+            <div className="w-10 h-10 rounded-xl bg-[#FEF4E7]/15 border border-[#B45309]/20 flex items-center justify-center shrink-0 mt-0.5">
               <Brain className="h-5 w-5 text-amber-400" />
             </div>
             <div className="flex-1">
@@ -159,7 +159,7 @@ export default async function DashboardPage() {
               icon: <BookOpen className="h-5 w-5 text-[#B45309] dark:text-amber-400" />,
               label: "Kurslar",
               value: student.enrollments.length,
-              iconBg: "bg-[#FEF4E7] dark:bg-blue-950/50",
+              iconBg: "bg-[#FEF4E7] dark:bg-amber-950/30",
             },
             {
               icon: <TrendingUp className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />,
@@ -180,7 +180,7 @@ export default async function DashboardPage() {
               iconBg: "bg-violet-50 dark:bg-violet-950/50",
             },
           ].map((s) => (
-            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1e2840] p-5 shadow-sm">
+            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1C1710] p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>
                 {s.icon}
               </div>
@@ -205,7 +205,7 @@ export default async function DashboardPage() {
                     const cfg = ACTION_CONFIG[rec.action] ?? ACTION_CONFIG.PRACTICE;
                     return (
                       <Link key={rec.topicId} href={getActionHref(rec.topicId, rec.action)}>
-                        <div className="group rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-4 flex items-center gap-4 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-[#2a2720]/60 transition-all cursor-pointer">
+                        <div className="group rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-4 flex items-center gap-4 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-[#2a2720]/60 transition-all cursor-pointer">
                           <div className={`w-10 h-10 rounded-xl border flex items-center justify-center shrink-0 ${cfg.bgCls} ${cfg.borderCls}`}>
                             <span className={cfg.iconCls}>{cfg.icon}</span>
                           </div>
@@ -244,8 +244,8 @@ export default async function DashboardPage() {
               </div>
 
               {student.enrollments.length === 0 ? (
-                <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-10 flex flex-col items-center gap-3 text-center">
-                  <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10 flex items-center justify-center">
+                <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-10 flex flex-col items-center gap-3 text-center">
+                  <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 flex items-center justify-center">
                     <BookOpen className="h-6 w-6 text-slate-400 dark:text-slate-600" />
                   </div>
                   <p className="text-sm text-slate-500">Hali kurslarga yozilmadingiz</p>
@@ -298,7 +298,7 @@ export default async function DashboardPage() {
 
             {/* No assessment notice */}
             {!hasAssessment && (
-              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5 flex items-center gap-3">
+              <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5 flex items-center gap-3">
                 <AlertCircle className="h-4 w-4 text-slate-400 dark:text-slate-600 shrink-0" />
                 <p className="text-xs text-slate-500">Kognitiv profil baholash o&apos;tgandan so&apos;ng ko&apos;rinadi</p>
               </div>
@@ -332,7 +332,7 @@ function CourseCard({ course }: {
   const progress           = totalTopics > 0 ? (completedTopics / totalTopics) * 100 : 0;
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
+    <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
       <div className="flex items-start justify-between gap-4 mb-4">
         <div className="min-w-0">
           <h3 className="font-medium text-slate-700 dark:text-slate-200 truncate">{course.title}</h3>
@@ -344,7 +344,7 @@ function CourseCard({ course }: {
           </Button>
         </Link>
       </div>
-      <div className="h-1 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
+      <div className="h-1 bg-slate-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
         <div
           className="h-full bg-[#B45309] rounded-full transition-all"
           style={{ width: `${progress}%` }}

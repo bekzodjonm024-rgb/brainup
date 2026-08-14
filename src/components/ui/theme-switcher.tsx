@@ -11,7 +11,7 @@ export function ThemeSwitcher() {
   useEffect(() => setMounted(true), []);
 
   if (!mounted) {
-    return <div className="h-8 w-8 rounded-full bg-slate-100 dark:bg-[#1e2840] animate-pulse" />;
+    return <div className="h-8 w-8 rounded-full bg-slate-100 dark:bg-[#1C1710] animate-pulse" />;
   }
 
   const isDark = theme === "dark";
@@ -45,7 +45,7 @@ export function ThemeSwitcher() {
         className={`absolute top-1 h-5 w-5 rounded-full shadow-sm transition-all duration-300 ${
           isDark
             ? "left-[calc(100%-1.5rem)] bg-[#141b2d] border border-blue-400/40"
-            : "left-1 bg-white border border-blue-200"
+            : "left-1 bg-white border border-[#FDE8C8]"
         }`}
       />
     </button>

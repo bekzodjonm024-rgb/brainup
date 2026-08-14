@@ -46,7 +46,7 @@ export default async function TopicDetailPage({
   const questionCount = topic._count.questions;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#100D09]">
       <Header title={topic.title} description={topic.course.title} />
       <main className="flex-1 p-6 space-y-5">
         <div className="flex items-center justify-between">
@@ -71,14 +71,14 @@ export default async function TopicDetailPage({
 
         {/* Learning objective */}
         {topic.learningObjective && (
-          <div className="rounded-xl border border-[#B45309]/20 bg-[#FEF4E7]0/5 px-4 py-3">
+          <div className="rounded-xl border border-[#B45309]/20 bg-[#FEF4E7]/5 px-4 py-3">
             <p className="text-xs font-medium text-amber-400 mb-0.5">O&apos;quv maqsadi</p>
             <p className="text-sm text-slate-600 dark:text-slate-300">{topic.learningObjective}</p>
           </div>
         )}
 
         {/* Question count banner */}
-        <div className="flex items-center justify-between rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] px-4 py-3">
+        <div className="flex items-center justify-between rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] px-4 py-3">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-sm text-slate-500 dark:text-slate-400">
               Savollar banki:
@@ -109,7 +109,7 @@ export default async function TopicDetailPage({
 
           {topic.contentItems.length === 0 ? (
             <div className="rounded-xl border border-dashed border-slate-200 dark:border-white/8 p-10 text-center">
-              <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10 flex items-center justify-center mx-auto mb-3">
+              <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 flex items-center justify-center mx-auto mb-3">
                 <FileText className="h-6 w-6 text-slate-400 dark:text-slate-600" />
               </div>
               <p className="text-sm text-slate-500 mb-3">Hali material qo&apos;shilmagan</p>
@@ -121,9 +121,9 @@ export default async function TopicDetailPage({
                 const Icon = contentTypeIcon[item.type] ?? FileText;
                 const isApproved = item.status === "APPROVED";
                 return (
-                  <div key={item.id} className={`rounded-xl border ${isApproved ? "border-emerald-500/20 bg-emerald-500/5" : "border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35]"} p-4`}>
+                  <div key={item.id} className={`rounded-xl border ${isApproved ? "border-emerald-500/20 bg-emerald-500/5" : "border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E]"} p-4`}>
                     <div className="flex items-start gap-3">
-                      <div className={`rounded-lg p-2 shrink-0 ${isApproved ? "bg-emerald-500/10" : "bg-slate-100 dark:bg-[#1e2840]"}`}>
+                      <div className={`rounded-lg p-2 shrink-0 ${isApproved ? "bg-emerald-500/10" : "bg-slate-100 dark:bg-[#1C1710]"}`}>
                         <Icon className={`h-4 w-4 ${isApproved ? "text-emerald-400" : "text-slate-400 dark:text-slate-500"}`} />
                       </div>
                       <div className="flex-1 min-w-0">

@@ -46,14 +46,14 @@ export default function NewTopicPage() {
   }
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#100D09]">
       <Header title="Yangi mavzu qo'shish" />
       <main className="flex-1 p-6 max-w-2xl mx-auto w-full">
         <Link href={`/professor/courses/${courseId}`} className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 mb-6 transition-colors">
           <ArrowLeft className="h-4 w-4" /> Kursga qaytish
         </Link>
 
-        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-6">
+        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-6">
           <div className="mb-6">
             <h2 className="font-semibold text-slate-700 dark:text-slate-200 text-lg">Mavzu ma&apos;lumotlari</h2>
             <p className="text-sm text-slate-500 mt-1">
@@ -71,7 +71,7 @@ export default function NewTopicPage() {
                 onChange={(e) => update("title", e.target.value)}
                 placeholder="Pedagogik mahorat tushunchasi"
                 required
-                className="w-full h-10 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
+                className="w-full h-10 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
               />
               {errors.title && <p className="text-xs text-red-400">{errors.title[0]}</p>}
             </div>
@@ -83,7 +83,7 @@ export default function NewTopicPage() {
                 value={form.learningObjective}
                 onChange={(e) => update("learningObjective", e.target.value)}
                 placeholder="Dars oxirida talaba... qila oladi"
-                className="w-full h-10 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
+                className="w-full h-10 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
               />
               <p className="text-xs text-slate-400 dark:text-slate-600">Misol: &quot;Pedagogik mahorat tushunchasini ta&apos;riflay oladi&quot;</p>
             </div>
@@ -96,7 +96,7 @@ export default function NewTopicPage() {
                 onChange={(e) => update("description", e.target.value)}
                 placeholder="Mavzu haqida qo'shimcha ma'lumot..."
                 rows={3}
-                className="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors resize-none"
+                className="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors resize-none"
               />
             </div>
 

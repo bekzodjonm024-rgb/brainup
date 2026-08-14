@@ -50,7 +50,7 @@ export default async function CourseStudentsPage({
   });
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#100D09]">
       <Header title="Talabalar" description={course.title} />
       <main className="flex-1 p-6 space-y-5">
         <div className="flex items-center justify-between flex-wrap gap-3">

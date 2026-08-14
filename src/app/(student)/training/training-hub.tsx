@@ -44,7 +44,7 @@ interface Props {
 
 const CATEGORY_META: Record<string, { label: string; icon: string; color: string; bg: string }> = {
   ATTENTION:        { label: "Diqqat",       icon: "🎯", color: "text-indigo-600", bg: "bg-indigo-50 border-indigo-200" },
-  WORKING_MEMORY:   { label: "Ishchi xotira", icon: "🧠", color: "text-[#B45309]",   bg: "bg-[#FEF4E7] border-blue-200" },
+  WORKING_MEMORY:   { label: "Ishchi xotira", icon: "🧠", color: "text-[#B45309]",   bg: "bg-[#FEF4E7] border-[#FDE8C8]" },
   PROCESSING_SPEED: { label: "Tezlik",        icon: "⚡", color: "text-amber-600",  bg: "bg-amber-50 border-amber-200" },
   MEMORY:           { label: "Xotira",        icon: "💡", color: "text-emerald-600", bg: "bg-emerald-50 border-emerald-200" },
 };
@@ -97,7 +97,7 @@ export function TrainingHub({ profile, nextDiagnosticAt, history }: Props) {
 
   if (status === "DIAGNOSTIC_DUE") {
     return (
-      <div className="rounded-2xl border border-blue-200 bg-[#FEF4E7] p-8 text-center">
+      <div className="rounded-2xl border border-[#FDE8C8] bg-[#FEF4E7] p-8 text-center">
         <AlertTriangle className="h-12 w-12 text-[#B45309] mx-auto mb-3" />
         <h2 className="text-lg font-semibold text-slate-800 mb-2">Diagnostik test vaqti keldi!</h2>
         <p className="text-slate-500 mb-6 text-sm">

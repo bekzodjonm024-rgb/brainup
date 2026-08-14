@@ -69,7 +69,7 @@ export function ReactionTimeTask({ item, onComplete, disabled }: Props) {
   }, [phase, reactionTime, onComplete]);
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-8 text-center space-y-8">
+    <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-8 text-center space-y-8">
       <p className="text-slate-500 dark:text-slate-400 text-sm">{item.prompt}</p>
 
       {phase === "ready" && (
@@ -85,7 +85,7 @@ export function ReactionTimeTask({ item, onComplete, disabled }: Props) {
 
       {phase === "waiting" && (
         <div
-          className="mx-auto h-36 w-36 rounded-full bg-slate-200 dark:bg-[#1e2840] border-2 border-slate-300 dark:border-white/10 flex items-center justify-center cursor-pointer select-none"
+          className="mx-auto h-36 w-36 rounded-full bg-slate-200 dark:bg-[#1C1710] border-2 border-slate-300 dark:border-white/10 flex items-center justify-center cursor-pointer select-none"
           onClick={handleClick}
         >
           <span className="text-slate-500 text-sm">Kuting...</span>
@@ -117,7 +117,7 @@ export function ReactionTimeTask({ item, onComplete, disabled }: Props) {
       )}
 
       {phase === "done" && (
-        <div className="mx-auto h-36 w-36 rounded-full bg-[#FEF4E7]0/10 border-2 border-[#B45309]/20 flex items-center justify-center">
+        <div className="mx-auto h-36 w-36 rounded-full bg-[#FEF4E7]/10 border-2 border-[#B45309]/20 flex items-center justify-center">
           {reactionTime ? (
             <div>
               <p className="text-3xl font-bold text-amber-400">{reactionTime}</p>

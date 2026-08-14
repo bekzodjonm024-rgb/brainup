@@ -59,7 +59,7 @@ export function CoursesGrid({ courses }: { courses: Course[] }) {
       {/* Controls */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
         {/* Tabs */}
-        <div className="flex items-center gap-1 p-1 bg-slate-100 dark:bg-[#1e2840] rounded-lg">
+        <div className="flex items-center gap-1 p-1 bg-slate-100 dark:bg-[#1C1710] rounded-lg">
           {TABS.map((t) => (
             <button
               key={t.value}
@@ -85,7 +85,7 @@ export function CoursesGrid({ courses }: { courses: Course[] }) {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Kurs nomi, semester..."
-            className="w-full pl-9 pr-3 h-9 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
+            className="w-full pl-9 pr-3 h-9 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
           />
         </div>
       </div>
@@ -93,7 +93,7 @@ export function CoursesGrid({ courses }: { courses: Course[] }) {
       {/* Grid */}
       {filtered.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-slate-200 dark:border-white/8 p-14 text-center">
-          <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10 flex items-center justify-center mx-auto mb-3">
+          <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 flex items-center justify-center mx-auto mb-3">
             <BookOpen className="h-6 w-6 text-slate-400 dark:text-slate-600" />
           </div>
           {search ? (
@@ -110,12 +110,12 @@ export function CoursesGrid({ courses }: { courses: Course[] }) {
       ) : (
         <div className="grid gap-3">
           {filtered.map((course) => (
-            <div key={course.id} className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] hover:border-slate-300 dark:hover:border-slate-700 transition-colors p-5 flex items-center justify-between gap-4">
+            <div key={course.id} className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] hover:border-slate-300 dark:hover:border-slate-700 transition-colors p-5 flex items-center justify-between gap-4">
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
                   <h3 className="font-semibold text-slate-700 dark:text-slate-200">{course.title}</h3>
                   {!course.isActive && (
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10 text-slate-500">Nofaol</span>
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 text-slate-500">Nofaol</span>
                   )}
                 </div>
                 <div className="flex items-center gap-4 text-xs text-slate-400 dark:text-slate-600">

@@ -18,7 +18,7 @@ export function MasteryBadge({ score, className }: MasteryBadgeProps) {
     color = "bg-amber-100 text-amber-700";
     label = "Rivojlanmoqda";
   } else if (pct < 85) {
-    color = "bg-[#FDE8C8] text-blue-700";
+    color = "bg-[#FDE8C8] text-[#B45309]";
     label = "Yaxshi";
   } else {
     color = "bg-emerald-100 text-emerald-700";

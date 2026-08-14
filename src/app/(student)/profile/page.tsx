@@ -65,12 +65,12 @@ export default async function ProfilePage() {
   const initials = `${student.firstName[0]}${student.lastName[0]}`;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#100D09]">
       <Header title="Mening profilim" description="Shaxsiy o'quv profili" />
       <main className="flex-1 p-6 space-y-6 max-w-3xl mx-auto w-full">
 
         {/* Student info */}
-        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
+        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
           <div className="flex items-start gap-4">
             <AvatarUpload
               currentUrl={student.user.avatarUrl}
@@ -84,7 +84,7 @@ export default async function ProfilePage() {
               <p className="text-sm text-slate-500">{student.user.email}</p>
               <div className="flex flex-wrap gap-2 mt-2">
                 {[student.university.name, student.faculty.name, `${student.yearLevel}-kurs`, student.groupName].filter(Boolean).map((tag) => (
-                  <span key={tag} className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400">{tag}</span>
+                  <span key={tag} className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400">{tag}</span>
                 ))}
               </div>
             </div>
@@ -101,12 +101,12 @@ export default async function ProfilePage() {
         {/* Learning stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { icon: <BookOpen className="h-5 w-5 text-[#B45309] dark:text-amber-400" />, label: "Kurslar", value: student.enrollments.length, iconBg: "bg-[#FEF4E7] dark:bg-blue-950/50" },
+            { icon: <BookOpen className="h-5 w-5 text-[#B45309] dark:text-amber-400" />, label: "Kurslar", value: student.enrollments.length, iconBg: "bg-[#FEF4E7] dark:bg-amber-950/30" },
             { icon: <TrendingUp className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />, label: "O'zlashtirildi", value: masteredTopics, iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
             { icon: <GraduationCap className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "Urinishlar", value: student._count.attempts, iconBg: "bg-violet-50 dark:bg-violet-950/50" },
             { icon: <TrendingUp className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "O'rtacha mastery", value: `${Math.round(avgMastery * 100)}%`, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
           ].map((s) => (
-            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1e2840] p-5 shadow-sm">
+            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1C1710] p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
               <p className="text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
@@ -123,8 +123,8 @@ export default async function ProfilePage() {
             memoryScore={student.cognitiveProfile.memoryScore}
           />
         ) : (
-          <div className="rounded-2xl border border-[#B45309]/20 bg-[#FEF4E7]0/5 p-5 flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-[#FEF4E7]0/10 flex items-center justify-center shrink-0">
+          <div className="rounded-2xl border border-[#B45309]/20 bg-[#FEF4E7]/5 p-5 flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-[#FEF4E7]/10 flex items-center justify-center shrink-0">
               <Brain className="h-6 w-6 text-amber-400" />
             </div>
             <div>
@@ -138,7 +138,7 @@ export default async function ProfilePage() {
 
         {/* Cognitive history chart */}
         {cognitiveHistory.length > 0 && (
-          <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
             <h3 className="font-semibold text-slate-700 dark:text-slate-200 mb-1">Kognitiv rivojlanish</h3>
             <p className="text-xs text-slate-400 mb-4">{cognitiveHistory.length} ta diagnostik test natijasi</p>
             <CognitiveHistoryChart
@@ -164,7 +164,7 @@ export default async function ProfilePage() {
           const topics = enrollment.course.topics;
           if (topics.length === 0) return null;
           return (
-            <div key={enrollment.courseId} className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] overflow-hidden">
+            <div key={enrollment.courseId} className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] overflow-hidden">
               <div className="px-5 py-4 border-b border-slate-200 dark:border-white/8">
                 <h3 className="font-semibold text-slate-700 dark:text-slate-200">{enrollment.course.title}</h3>
               </div>
@@ -182,7 +182,7 @@ export default async function ProfilePage() {
                           <span className="text-xs text-slate-400 dark:text-slate-700">Boshlanmagan</span>
                         )}
                       </div>
-                      <div className="h-1 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
+                      <div className="h-1 bg-slate-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
                         <div className="h-full bg-[#B45309] rounded-full" style={{ width: `${mastery * 100}%` }} />
                       </div>
                     </div>

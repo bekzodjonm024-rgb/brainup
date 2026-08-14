@@ -33,7 +33,7 @@ export default async function QuestionsPage({
   const totalCount = topic.questions.length;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#100D09]">
       <Header title="Savollar banki" description={`${topic.course.title} — ${topic.title}`} />
       <main className="flex-1 p-6 space-y-5">
         <div className="flex items-center justify-between">
@@ -45,7 +45,7 @@ export default async function QuestionsPage({
           <AddQuestionDialog topicId={topicId} />
         </div>
 
-        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] px-4 py-3 text-sm text-slate-500 dark:text-slate-400">
+        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] px-4 py-3 text-sm text-slate-500 dark:text-slate-400">
           Jami <strong className="text-slate-700 dark:text-slate-200">{totalCount} ta savol</strong>
           {totalCount > 0 && (
             <span className="ml-2 text-slate-400 dark:text-slate-600">({activeCount} ta faol)</span>

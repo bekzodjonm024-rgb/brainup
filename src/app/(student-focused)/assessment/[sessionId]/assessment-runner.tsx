@@ -26,7 +26,7 @@ interface AssessmentRunnerProps {
 
 const CATEGORY_LABELS: Record<string, { label: string; color: string }> = {
   ATTENTION:       { label: "Diqqat",         color: "bg-violet-500/15 text-violet-400 border-violet-500/25" },
-  WORKING_MEMORY:  { label: "Ishchi xotira",  color: "bg-[#FEF4E7]0/15   text-amber-400   border-[#B45309]/25" },
+  WORKING_MEMORY:  { label: "Ishchi xotira",  color: "bg-[#FEF4E7]/15   text-amber-400   border-[#B45309]/25" },
   PROCESSING_SPEED:{ label: "Tezlik",         color: "bg-amber-500/15  text-amber-400  border-amber-500/25" },
   MEMORY:          { label: "Xotira",         color: "bg-emerald-500/15 text-emerald-400 border-emerald-500/25" },
 };
@@ -102,7 +102,7 @@ export function AssessmentRunner({ sessionId, items, initialItemIndex, totalItem
           <p className="text-slate-300 text-sm">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="text-sm text-amber-400 hover:text-blue-300 underline transition-colors"
+            className="text-sm text-amber-400 hover:text-amber-400 underline transition-colors"
           >
             Sahifani yangilash
           </button>

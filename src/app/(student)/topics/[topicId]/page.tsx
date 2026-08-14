@@ -27,7 +27,7 @@ const typeLabel: Record<ContentType, string> = {
 
 const ADAPTIVE_UI: Record<string, { label: string; desc: string; border: string; iconBg: string; icon: React.ReactNode }> = {
   CONTINUE:          { label: "Keyingi mavzuga o'ting",       desc: "Yaxshi natija! Davom eting.",                        border: "border-emerald-500/20", iconBg: "bg-emerald-500/10", icon: <ArrowRight className="h-4 w-4 text-emerald-400" /> },
-  PRACTICE:          { label: "Mashq qiling",                  desc: "Bilimlarni mustahkamlash uchun mashq kerak.",         border: "border-[#B45309]/20",    iconBg: "bg-[#FEF4E7]0/10",    icon: <Zap className="h-4 w-4 text-amber-400" /> },
+  PRACTICE:          { label: "Mashq qiling",                  desc: "Bilimlarni mustahkamlash uchun mashq kerak.",         border: "border-[#B45309]/20",    iconBg: "bg-[#FEF4E7]/10",    icon: <Zap className="h-4 w-4 text-amber-400" /> },
   EXPLAIN_AGAIN:     { label: "Qayta o'qing",                  desc: "Materialni yana bir bor diqqat bilan o'qib chiqing.", border: "border-amber-500/20",   iconBg: "bg-amber-500/10",   icon: <BookOpen className="h-4 w-4 text-amber-400" /> },
   PREREQUISITE:      { label: "Oldingi mavzuni kuchaytiring",  desc: "Avval oldingi mavzuni yaxshilang.",                  border: "border-[#B45309]/20",  iconBg: "bg-[#B45309]/10",  icon: <Layers className="h-4 w-4 text-amber-400" /> },
   RETRIEVE:          { label: "Takrorlash vaqti",              desc: "Bu mavzuni eslash vaqti keldi.",                     border: "border-violet-500/20",  iconBg: "bg-violet-500/10",  icon: <RotateCcw className="h-4 w-4 text-violet-400" /> },
@@ -69,7 +69,7 @@ export default async function TopicLearningPage({
     const prereqMastery = prereqKnowledge?.masteryScore ?? 0;
     if (prereqMastery < 0.6) {
       return (
-        <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
+        <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#100D09]">
           <Header title={topic.title} description={topic.course.title} />
           <main className="flex-1 p-6 max-w-3xl mx-auto w-full">
             <Link href={`/courses/${topic.courseId}`}>
@@ -119,7 +119,7 @@ export default async function TopicLearningPage({
   const adaptiveUI = adaptiveDecision ? ADAPTIVE_UI[adaptiveDecision.action] : null;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#100D09]">
       <Header title={topic.title} description={topic.course.title} />
       <main className="flex-1 p-6 max-w-3xl mx-auto w-full space-y-5">
         <Link href={`/courses/${topic.courseId}`}>
@@ -130,8 +130,8 @@ export default async function TopicLearningPage({
 
         {/* Learning objective */}
         {topic.learningObjective && (
-          <div className="rounded-xl border border-[#B45309]/20 bg-[#FEF4E7]0/5 p-4 flex gap-3">
-            <div className="w-8 h-8 rounded-lg bg-[#FEF4E7]0/10 flex items-center justify-center shrink-0">
+          <div className="rounded-xl border border-[#B45309]/20 bg-[#FEF4E7]/5 p-4 flex gap-3">
+            <div className="w-8 h-8 rounded-lg bg-[#FEF4E7]/10 flex items-center justify-center shrink-0">
               <Target className="h-4 w-4 text-amber-400" />
             </div>
             <div>
@@ -143,7 +143,7 @@ export default async function TopicLearningPage({
 
         {/* Mastery panel */}
         {hasStarted && knowledge && (
-          <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
+          <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
                 <TrendingUp className="h-4 w-4 text-slate-500" />
@@ -165,7 +165,7 @@ export default async function TopicLearningPage({
 
         {/* Adaptive recommendation */}
         {adaptiveUI && (
-          <div className={`rounded-xl border ${adaptiveUI.border} bg-white dark:bg-[#151f35] p-4 flex items-start gap-3`}>
+          <div className={`rounded-xl border ${adaptiveUI.border} bg-white dark:bg-[#17130E] p-4 flex items-start gap-3`}>
             <div className={`w-8 h-8 rounded-lg ${adaptiveUI.iconBg} flex items-center justify-center shrink-0`}>
               {adaptiveUI.icon}
             </div>
@@ -178,8 +178,8 @@ export default async function TopicLearningPage({
 
         {/* Content items */}
         {topic.contentItems.length === 0 ? (
-          <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] py-10 flex flex-col items-center gap-3 text-center">
-            <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10 flex items-center justify-center">
+          <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] py-10 flex flex-col items-center gap-3 text-center">
+            <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 flex items-center justify-center">
               <BookOpen className="h-6 w-6 text-slate-400 dark:text-slate-600" />
             </div>
             <p className="text-sm text-slate-500">Material hali qo&apos;shilmagan</p>
@@ -191,12 +191,12 @@ export default async function TopicLearningPage({
               const isLink = item.externalUrl && ["LINK", "VIDEO", "ARTICLE"].includes(item.type);
 
               return (
-                <div key={item.id} className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5 space-y-3">
+                <div key={item.id} className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5 space-y-3">
                   <div className="flex items-center gap-2">
-                    <div className="rounded-lg bg-slate-100 dark:bg-[#1e2840] p-1.5">
+                    <div className="rounded-lg bg-slate-100 dark:bg-[#1C1710] p-1.5">
                       <Icon className="h-4 w-4 text-slate-500 dark:text-slate-400" />
                     </div>
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400">
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400">
                       {typeLabel[item.type]}
                     </span>
                     <h3 className="text-base font-semibold text-slate-700 dark:text-slate-200">{item.title}</h3>
@@ -212,7 +212,7 @@ export default async function TopicLearningPage({
                       target="_blank"
                       rel="noopener noreferrer"
                       download
-                      className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-[#B45309]/20 bg-[#FEF4E7]0/5 text-sm font-medium text-amber-400 hover:bg-[#92400E]/10 transition-colors"
+                      className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-[#B45309]/20 bg-[#FEF4E7]/5 text-sm font-medium text-amber-400 hover:bg-[#92400E]/10 transition-colors"
                     >
                       <Download className="h-4 w-4" />
                       Faylni yuklab olish
@@ -223,7 +223,7 @@ export default async function TopicLearningPage({
                       href={item.externalUrl!}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-sm text-amber-400 hover:text-blue-300 transition-colors"
+                      className="inline-flex items-center gap-1.5 text-sm text-amber-400 hover:text-amber-400 transition-colors"
                     >
                       <LinkIcon className="h-3.5 w-3.5" />
                       Manbani ochish
@@ -237,7 +237,7 @@ export default async function TopicLearningPage({
                           <li key={s.id} className="text-xs text-slate-500">
                             {s.url ? (
                               <a href={s.url} target="_blank" rel="noopener noreferrer"
-                                 className="text-amber-400 hover:text-blue-300">{s.title}</a>
+                                 className="text-amber-400 hover:text-amber-400">{s.title}</a>
                             ) : (
                               s.title
                             )}

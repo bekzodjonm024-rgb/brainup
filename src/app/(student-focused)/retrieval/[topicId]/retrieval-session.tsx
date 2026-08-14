@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
@@ -142,26 +142,26 @@ export function RetrievalSession({
       const isSelected = selectedAnswer === option;
       if (isCorrect)   return "border-emerald-500/40 bg-emerald-500/10 text-emerald-300";
       if (isSelected)  return "border-red-500/40    bg-red-500/10    text-red-300";
-      return "border-slate-200 dark:border-white/8 bg-slate-50/50 dark:bg-[#151f35]/50 text-slate-400 dark:text-slate-600";
+      return "border-slate-200 dark:border-white/8 bg-slate-50/50 dark:bg-[#17130E]/50 text-slate-400 dark:text-slate-600";
     }
     if (selectedAnswer === option) return "border-violet-500/40 bg-violet-500/10 text-violet-300";
-    return "border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[#2a2720] hover:border-slate-300 dark:hover:border-slate-700";
+    return "border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[#2a2720] hover:border-slate-300 dark:hover:border-slate-700";
   }
 
   function getTFStyle(val: string) {
     if (phase === "feedback") {
       if (val === String(feedback?.correctAnswer)) return "border-emerald-500/40 bg-emerald-500/10 text-emerald-300";
       if (selectedAnswer === val)                  return "border-red-500/40    bg-red-500/10    text-red-300";
-      return "border-slate-200 dark:border-white/8 bg-slate-50/50 dark:bg-[#151f35]/50 text-slate-400 dark:text-slate-600";
+      return "border-slate-200 dark:border-white/8 bg-slate-50/50 dark:bg-[#17130E]/50 text-slate-400 dark:text-slate-600";
     }
     if (selectedAnswer === val) return "border-violet-500/40 bg-violet-500/10 text-violet-300";
-    return "border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[#2a2720] hover:border-slate-300 dark:hover:border-slate-700";
+    return "border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[#2a2720] hover:border-slate-300 dark:hover:border-slate-700";
   }
 
   void initialMastery;
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col min-h-screen bg-[#f8faff] dark:bg-[#100D09]">
       {/* Sticky header */}
       <div className="sticky top-0 z-10 bg-white/95 dark:bg-slate-950/95 backdrop-blur border-b border-slate-200 dark:border-white/8 px-5 py-3.5">
         <div className="mx-auto max-w-xl flex items-center gap-4">
@@ -173,7 +173,7 @@ export function RetrievalSession({
               <RotateCcw className="h-3 w-3 text-violet-400" />
               <p className="text-xs text-violet-400 font-medium">Takrorlash sessiyasi</p>
             </div>
-            <div className="h-1 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
+            <div className="h-1 bg-slate-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
               <div className="h-full bg-violet-500 rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
             </div>
           </div>
@@ -205,7 +205,7 @@ export function RetrievalSession({
 
           {/* Loading */}
           {(phase === "loading" || phase === "completing") && (
-            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] py-16 flex flex-col items-center gap-3">
+            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] py-16 flex flex-col items-center gap-3">
               <Loader2 className={cn("h-6 w-6 animate-spin", phase === "completing" ? "text-violet-400" : "text-slate-400 dark:text-slate-600")} />
               {phase === "completing" && <p className="text-sm text-slate-500">Natijalar saqlanmoqda...</p>}
             </div>
@@ -213,8 +213,8 @@ export function RetrievalSession({
 
           {/* No questions */}
           {phase === "no-questions" && (
-            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] py-12 text-center space-y-4">
-              <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10 flex items-center justify-center mx-auto">
+            <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] py-12 text-center space-y-4">
+              <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 flex items-center justify-center mx-auto">
                 <AlertCircle className="h-6 w-6 text-slate-400 dark:text-slate-600" />
               </div>
               <p className="text-slate-500 text-sm">Bu mavzu uchun savollar topilmadi</p>
@@ -227,7 +227,7 @@ export function RetrievalSession({
           {/* Question + Feedback */}
           {(phase === "question" || phase === "feedback") && currentQuestion && (
             <div className={cn(
-              "rounded-2xl border bg-white dark:bg-[#151f35] p-6 space-y-5 transition-all",
+              "rounded-2xl border bg-white dark:bg-[#17130E] p-6 space-y-5 transition-all",
               phase === "feedback" && feedback?.isCorrect  ? "border-emerald-500/30" :
               phase === "feedback" && feedback             ? "border-red-500/30"     : "border-slate-200 dark:border-white/8"
             )}>
@@ -300,7 +300,7 @@ export function RetrievalSession({
               )}
 
               {phase === "feedback" && (
-                <Button onClick={handleNext} className="w-full h-11 bg-slate-100 dark:bg-[#1e2840] hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-200 border-0">
+                <Button onClick={handleNext} className="w-full h-11 bg-slate-100 dark:bg-[#1C1710] hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-200 border-0">
                   {total + 1 >= sessionTarget ? "Takrorlashni yakunlash" : "Keyingi savol"}
                   <ChevronRight className="h-4 w-4 ml-1" />
                 </Button>
@@ -310,7 +310,7 @@ export function RetrievalSession({
 
           {/* Done */}
           {phase === "done" && result && (
-            <div className="rounded-2xl border border-violet-500/20 bg-white dark:bg-[#151f35] p-8 text-center space-y-5">
+            <div className="rounded-2xl border border-violet-500/20 bg-white dark:bg-[#17130E] p-8 text-center space-y-5">
               <div className="w-16 h-16 rounded-2xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center mx-auto">
                 <RotateCcw className="h-8 w-8 text-violet-400" />
               </div>

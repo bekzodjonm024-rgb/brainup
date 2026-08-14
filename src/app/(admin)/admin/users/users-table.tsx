@@ -30,7 +30,7 @@ function Initials({ name }: { name: string }) {
     ? parts[0][0] + parts[1][0]
     : name.slice(0, 2);
   return (
-    <div className="h-8 w-8 rounded-full bg-[#FEF4E7]0/10 border border-[#B45309]/20 text-amber-400 flex items-center justify-center text-xs font-bold shrink-0 select-none uppercase">
+    <div className="h-8 w-8 rounded-full bg-[#FEF4E7]/10 border border-[#B45309]/20 text-amber-400 flex items-center justify-center text-xs font-bold shrink-0 select-none uppercase">
       {letters}
     </div>
   );
@@ -78,7 +78,7 @@ export function UsersTable({ users }: { users: User[] }) {
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                 filter === f.key
                   ? "bg-[#B45309] text-white"
-                  : "bg-slate-100 dark:bg-[#1e2840] text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-700 dark:hover:text-slate-200"
+                  : "bg-slate-100 dark:bg-[#1C1710] text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-700 dark:hover:text-slate-200"
               }`}
             >
               {f.label}
@@ -94,7 +94,7 @@ export function UsersTable({ users }: { users: User[] }) {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Ism, email, guruh..."
-            className="w-full pl-9 pr-3 h-9 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
+            className="w-full pl-9 pr-3 h-9 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1C1710] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
           />
         </div>
       </div>
@@ -103,7 +103,7 @@ export function UsersTable({ users }: { users: User[] }) {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 dark:bg-[#151f35] border-b border-slate-200 dark:border-white/8">
+              <tr className="bg-slate-50 dark:bg-[#17130E] border-b border-slate-200 dark:border-white/8">
                 <th className="text-left px-4 py-3 font-medium text-slate-500 dark:text-slate-600 text-xs uppercase tracking-wide">Talaba</th>
                 <th className="text-left px-4 py-3 font-medium text-slate-500 dark:text-slate-600 text-xs uppercase tracking-wide hidden sm:table-cell">Guruh</th>
                 <th className="text-left px-4 py-3 font-medium text-slate-500 dark:text-slate-600 text-xs uppercase tracking-wide hidden md:table-cell">Kurslar</th>
@@ -113,7 +113,7 @@ export function UsersTable({ users }: { users: User[] }) {
                 <th className="px-4 py-3 text-xs font-medium text-slate-500 dark:text-slate-600 uppercase tracking-wide text-center">Amallar</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200 dark:divide-slate-800/60 bg-[#f8faff] dark:bg-[#0e1117]">
+            <tbody className="divide-y divide-slate-200 dark:divide-slate-800/60 bg-[#f8faff] dark:bg-[#100D09]">
               {filtered.map((user) => {
                 const s = user.student;
                 const name = s ? `${s.firstName} ${s.lastName}` : user.email;
@@ -138,10 +138,10 @@ export function UsersTable({ users }: { users: User[] }) {
                     <td className="px-4 py-3 hidden sm:table-cell">
                       <div className="flex items-center gap-1.5 flex-wrap">
                         {s?.university?.shortName && (
-                          <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400">{s.university.shortName}</span>
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400">{s.university.shortName}</span>
                         )}
                         {s?.yearLevel && (
-                          <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400">{s.yearLevel}-kurs</span>
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[#1C1710] border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400">{s.yearLevel}-kurs</span>
                         )}
                         {s?.groupName && (
                           <span className="text-xs text-slate-400 dark:text-slate-600">{s.groupName}</span>
@@ -189,7 +189,7 @@ export function UsersTable({ users }: { users: User[] }) {
           </table>
         </div>
         {filtered.length > 0 && (
-          <div className="px-4 py-2.5 bg-slate-50 dark:bg-[#151f35] border-t border-slate-200 dark:border-white/8 text-xs text-slate-400 dark:text-slate-600">
+          <div className="px-4 py-2.5 bg-slate-50 dark:bg-[#17130E] border-t border-slate-200 dark:border-white/8 text-xs text-slate-400 dark:text-slate-600">
             {filtered.length} ta {search || filter !== "all" ? `(jami ${users.length} dan)` : "talaba"}
           </div>
         )}

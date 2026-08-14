@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 
 const ACTION_CHIP: Record<string, { label: string; border: string; bg: string; text: string; icon: React.ReactNode }> = {
-  PRACTICE:          { label: "Mashq kerak", border: "border-[#B45309]/20",    bg: "bg-[#FEF4E7]0/10",    text: "text-amber-400",    icon: <Zap className="h-3 w-3" /> },
+  PRACTICE:          { label: "Mashq kerak", border: "border-[#B45309]/20",    bg: "bg-[#FEF4E7]/10",    text: "text-amber-400",    icon: <Zap className="h-3 w-3" /> },
   ADVANCED_PRACTICE: { label: "Murakkab",    border: "border-pink-500/20",    bg: "bg-pink-500/10",    text: "text-pink-400",    icon: <Zap className="h-3 w-3" /> },
   EXPLAIN_AGAIN:     { label: "Qayta o'qi",  border: "border-amber-500/20",   bg: "bg-amber-500/10",   text: "text-amber-400",   icon: <BookOpen className="h-3 w-3" /> },
   PREREQUISITE:      { label: "Oldingi mavzu",border: "border-[#B45309]/20", bg: "bg-[#B45309]/10",  text: "text-amber-400",  icon: <Layers className="h-3 w-3" /> },
@@ -66,7 +66,7 @@ export default async function StudentCourseDetailPage({
   const progress = course.topics.length > 0 ? (masteredTopics / course.topics.length) * 100 : 0;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#100D09]">
       <Header title={course.title} description={`${course.professor.firstName} ${course.professor.lastName}`} />
       <main className="flex-1 p-6 space-y-5">
         <Link href="/courses">
@@ -76,7 +76,7 @@ export default async function StudentCourseDetailPage({
         </Link>
 
         {/* Course progress */}
-        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
+        <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5">
           <div className="flex items-center justify-between mb-3">
             <div>
               <p className="text-xs text-slate-500 uppercase tracking-wide font-medium">Umumiy progress</p>
@@ -87,7 +87,7 @@ export default async function StudentCourseDetailPage({
               <p className="text-xs text-slate-400 dark:text-slate-600">mavzu o'zlashtirildi</p>
             </div>
           </div>
-          <div className="h-2 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
+          <div className="h-2 bg-slate-200 dark:bg-[#1C1710] rounded-full overflow-hidden">
             <div className="h-full bg-[#B45309] rounded-full transition-all" style={{ width: `${progress}%` }} />
           </div>
         </div>
@@ -122,7 +122,7 @@ export default async function StudentCourseDetailPage({
             return (
               <div
                 key={topic.id}
-                className={`rounded-xl border bg-white dark:bg-[#151f35] p-4 flex items-center gap-3 transition-colors ${
+                className={`rounded-xl border bg-white dark:bg-[#17130E] p-4 flex items-center gap-3 transition-colors ${
                   isMastered ? "border-emerald-500/20 bg-emerald-500/5" :
                   isLocked ? "border-slate-200 dark:border-white/8 opacity-60" :
                   "border-slate-200 dark:border-white/8 hover:border-slate-300 dark:hover:border-slate-700"

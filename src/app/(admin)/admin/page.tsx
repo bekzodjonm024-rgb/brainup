@@ -61,7 +61,7 @@ export default async function AdminDashboardPage() {
   ]);
 
   const stats = [
-    { icon: <Users className="h-5 w-5 text-[#B45309] dark:text-amber-400" />, label: "Jami talabalar", value: totalStudents, iconBg: "bg-[#FEF4E7] dark:bg-blue-950/50" },
+    { icon: <Users className="h-5 w-5 text-[#B45309] dark:text-amber-400" />, label: "Jami talabalar", value: totalStudents, iconBg: "bg-[#FEF4E7] dark:bg-amber-950/30" },
     { icon: <UserCheck className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />, label: "Faol talabalar", value: activeStudents, iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
     { icon: <GraduationCap className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "Professorlar", value: totalProfessors, iconBg: "bg-violet-50 dark:bg-violet-950/50" },
     { icon: <BookOpen className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "Faol kurslar", value: totalCourses, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
@@ -86,7 +86,7 @@ export default async function AdminDashboardPage() {
   const hasAlerts = pendingContent > 0 || blockedUsers > 0;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#100D09]">
       <Header title="Admin panel" description="BrainUP tizimini boshqarish" />
       <main className="flex-1 p-6 space-y-6">
 
@@ -119,7 +119,7 @@ export default async function AdminDashboardPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {stats.map((s) => (
-            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1e2840] p-5 shadow-sm">
+            <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1C1710] p-5 shadow-sm">
               <div className={`w-10 h-10 rounded-xl ${s.iconBg} flex items-center justify-center mb-4`}>{s.icon}</div>
               <p className="text-2xl font-bold text-slate-900 dark:text-white leading-none">{s.value}</p>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-medium">{s.label}</p>
@@ -137,9 +137,9 @@ export default async function AdminDashboardPage() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="flex items-center gap-3 rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-4 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-[#2a2720]/60 transition-all group"
+                  className="flex items-center gap-3 rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-4 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-[#2a2720]/60 transition-all group"
                 >
-                  <div className="rounded-lg bg-slate-100 dark:bg-[#1e2840] p-2 group-hover:bg-[#92400E]/10 transition-colors shrink-0">
+                  <div className="rounded-lg bg-slate-100 dark:bg-[#1C1710] p-2 group-hover:bg-[#92400E]/10 transition-colors shrink-0">
                     <Icon className="h-4 w-4 text-slate-500 group-hover:text-amber-400 transition-colors" />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -164,7 +164,7 @@ export default async function AdminDashboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
 
           {/* Recent users */}
-          <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] overflow-hidden">
+          <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] overflow-hidden">
             <div className="p-5 border-b border-slate-200 dark:border-white/8">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
                 <Clock className="h-4 w-4 text-slate-500" />
@@ -180,7 +180,7 @@ export default async function AdminDashboardPage() {
                   const name = s ? `${s.firstName} ${s.lastName}` : u.email;
                   return (
                     <div key={u.id} className="flex items-center gap-3 px-5 py-3">
-                      <div className="h-8 w-8 rounded-full bg-[#FEF4E7]0/10 border border-[#B45309]/20 text-amber-400 flex items-center justify-center text-xs font-bold shrink-0 uppercase">
+                      <div className="h-8 w-8 rounded-full bg-[#FEF4E7]/10 border border-[#B45309]/20 text-amber-400 flex items-center justify-center text-xs font-bold shrink-0 uppercase">
                         {name.split(/\s+/).filter(Boolean).slice(0, 2).map(n => n[0]).join("").toUpperCase() || "?"}
                       </div>
                       <div className="flex-1 min-w-0">
@@ -198,7 +198,7 @@ export default async function AdminDashboardPage() {
           </div>
 
           {/* Pending content */}
-          <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] overflow-hidden">
+          <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#17130E] overflow-hidden">
             <div className="p-5 border-b border-slate-200 dark:border-white/8">
               <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
                 <FileText className="h-4 w-4 text-slate-500" />
@@ -225,7 +225,7 @@ export default async function AdminDashboardPage() {
                   })}
                 </div>
                 <div className="px-5 py-3 border-t border-slate-200 dark:border-white/8">
-                  <Link href="/admin/content" className="text-xs text-amber-400 hover:text-blue-300 transition-colors">
+                  <Link href="/admin/content" className="text-xs text-amber-400 hover:text-amber-400 transition-colors">
                     Hammasini ko&apos;rish →
                   </Link>
                 </div>
