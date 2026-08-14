@@ -62,13 +62,33 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ cour
 export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ courseId: string }> }) {
   const { courseId } = await params;
   const session = await auth();
-  if (!session?.user?.profileId || session.user.role !== "PROFESSOR") {
-    return NextResponse.json({ error: "Ruxsat yo'q" }, { status: 401 });
+  if (!session?.user?.profileId) return NextResponse.json({ error: "Ruxsat yo'q" }, { status: 401 });
+
+  if (session.user.role === "PROFESSOR") {
+    const owned = await assertOwner(courseId, session.user.profileId);
+    if (!owned) return NextResponse.json({ error: "Topilmadi" }, { status: 404 });
+  } else if (session.user.role === "ADMIN") {
+    const exists = await db.course.findUnique({ where: { id: courseId }, select: { id: true } });
+    if (!exists) return NextResponse.json({ error: "Topilmadi" }, { status: 404 });
+  } else {
+    return NextResponse.json({ error: "Ruxsat yo'q" }, { status: 403 });
   }
 
-  const owned = await assertOwner(courseId, session.user.profileId);
-  if (!owned) return NextResponse.json({ error: "Topilmadi" }, { status: 404 });
+  // Cascade delete in FK order
+  const topicIds = (await db.topic.findMany({ where: { courseId }, select: { id: true } })).map((t) => t.id);
+  if (topicIds.length > 0) {
+    await db.retrievalRecord.deleteMany({ where: { topicId: { in: topicIds } } });
+    await db.learningEvent.deleteMany({ where: { topicId: { in: topicIds } } });
+    await db.recommendation.deleteMany({ where: { topicId: { in: topicIds } } });
+    await db.attempt.deleteMany({ where: { question: { topicId: { in: topicIds } } } });
+    await db.learnerKnowledge.deleteMany({ where: { topicId: { in: topicIds } } });
+    await db.question.deleteMany({ where: { topicId: { in: topicIds } } });
+    await db.contentItem.deleteMany({ where: { topicId: { in: topicIds } } });
+    await db.topic.deleteMany({ where: { courseId } });
+  }
+  await db.learningEvent.deleteMany({ where: { courseId } });
+  await db.enrollment.deleteMany({ where: { courseId } });
+  await db.course.delete({ where: { id: courseId } });
 
-  await db.course.update({ where: { id: courseId }, data: { isActive: false } });
   return NextResponse.json({ success: true });
 }

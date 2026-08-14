@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { BookOpen, Users, LayoutList, ArrowRight, Search } from "lucide-react";
+import { DeleteCourseButton } from "@/components/shared/delete-course-button";
 
 type Course = {
   id: string;
@@ -134,11 +135,14 @@ export function CoursesGrid({ courses }: { courses: Course[] }) {
                   <p className="text-sm text-stone-400 dark:text-slate-600 mt-1 line-clamp-1">{course.description}</p>
                 )}
               </div>
-              <Link href={`/professor/courses/${course.id}`}>
-                <Button variant="outline" size="sm" className="border-stone-300 dark:border-white/10 text-stone-500 dark:text-slate-400 hover:bg-stone-100 dark:hover:bg-[#2a2720] bg-transparent">
-                  Boshqarish <ArrowRight className="h-3 w-3 ml-1" />
-                </Button>
-              </Link>
+              <div className="flex items-center gap-2 shrink-0">
+                <DeleteCourseButton courseId={course.id} courseTitle={course.title} />
+                <Link href={`/professor/courses/${course.id}`}>
+                  <Button variant="outline" size="sm" className="border-stone-300 dark:border-white/10 text-stone-500 dark:text-slate-400 hover:bg-stone-100 dark:hover:bg-[#2a2720] bg-transparent">
+                    Boshqarish <ArrowRight className="h-3 w-3 ml-1" />
+                  </Button>
+                </Link>
+              </div>
             </div>
           ))}
         </div>
