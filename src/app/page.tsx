@@ -96,8 +96,8 @@ export default async function LandingPage() {
           100% { background-position: 200% 50%; }
         }
         @keyframes blockFloat {
-          0%, 100% { transform: translateY(-2px); box-shadow: 0 4px 0 #6B2A04, 0 8px 0 #3D1502, 0 10px 24px rgba(0,0,0,0.55); }
-          50%       { transform: translateY(-7px); box-shadow: 0 8px 0 #6B2A04, 0 14px 0 #3D1502, 0 18px 36px rgba(0,0,0,0.40); }
+          0%, 100% { transform: translateY(-2px); box-shadow: 0 4px 0 #6B2A04, 0 7px 0 #3D1502, 0 10px 20px rgba(0,0,0,0.55); }
+          50%       { transform: translateY(-5px); box-shadow: 0 6px 0 #6B2A04, 0 10px 0 #3D1502, 0 14px 26px rgba(0,0,0,0.45); }
         }
 
         /* ── 3D brand text with shimmer (nav, footer, inline) ── */
@@ -195,12 +195,6 @@ export default async function LandingPage() {
             </div>
 
             <div className="flex items-center gap-2">
-              <div
-                className="w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-colors"
-                style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.06)" }}
-              >
-                <ArrowRight className="h-4 w-4 text-white" />
-              </div>
               <Link href="/register">
                 <span
                   className="btn-amber text-[0.8rem] font-extrabold px-5 py-2.5 rounded-full tracking-wider inline-block"
@@ -216,14 +210,13 @@ export default async function LandingPage() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-5">
           <div
             className="relative rounded-3xl overflow-hidden"
-            style={{ background: "#1C1208", minHeight: 560 }}
+            style={{ background: "#1C1208", minHeight: 560, border: "1px solid rgba(180,83,9,0.10)" }}
           >
             <div className="flex flex-col lg:flex-row" style={{ minHeight: 560 }}>
 
               {/* LEFT */}
               <div
                 className="flex-1 flex flex-col justify-between p-8 sm:p-12 lg:p-14"
-                style={{ minHeight: 560 }}
               >
                 <div>
                   <div
@@ -535,24 +528,29 @@ export default async function LandingPage() {
 
         {/* ── PARTNER TICKER ── */}
         <div
-          className="py-8 overflow-hidden"
+          className="pt-6 pb-7"
           style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}
         >
-          <div className="ticker-track flex gap-14 whitespace-nowrap">
-            {[...partners, ...partners].map((p, i) => (
-              <span
-                key={i}
-                className="font-bold text-sm tracking-[0.18em] uppercase"
-                style={{ color: "#6B5540" }}
-              >
-                {p}
-              </span>
-            ))}
+          <p className="text-center text-[10px] font-bold tracking-[0.22em] uppercase mb-5" style={{ color: "#4A3520" }}>
+            Hamkor universitetlar
+          </p>
+          <div className="overflow-hidden">
+            <div className="ticker-track flex gap-14 whitespace-nowrap">
+              {[...partners, ...partners].map((p, i) => (
+                <span
+                  key={i}
+                  className="font-bold text-sm tracking-[0.18em] uppercase"
+                  style={{ color: "#9C7E60" }}
+                >
+                  {p}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
 
         {/* ── LIGHT CONTENT ISLAND (How It Works + Features) ── */}
-        <div style={{ background: "#F8F5EF", borderRadius: "40px 40px 0 0" }}>
+        <div style={{ background: "#F8F5EF", borderRadius: "40px 40px 40px 40px", margin: "0 0 0 0" }}>
 
         {/* ── HOW IT WORKS ── */}
         <section id="how" className="py-20">
@@ -610,7 +608,7 @@ export default async function LandingPage() {
                     </div>
                     <span
                       className="font-black text-5xl leading-none select-none"
-                      style={{ color: "rgba(28,18,8,0.06)" }}
+                      style={{ color: "rgba(180,83,9,0.10)" }}
                     >
                       {item.step}
                     </span>
@@ -630,14 +628,14 @@ export default async function LandingPage() {
         {/* ── FEATURES ── */}
         <section id="features" className="py-20">
           <div className="mx-auto max-w-6xl px-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
 
               {/* Stats grid */}
               <div className="grid grid-cols-2 gap-4">
                 {[
                   { v: "500+",  l: "Faol talaba",   bg: "#FEF4E7", color: "#B45309" },
                   { v: "12+",   l: "Kurslar",         bg: "#FEF4E7", color: "#B45309" },
-                  { v: "1200+", l: "Baholashlar",     bg: "#F5F3FF", color: "#7C3AED" },
+                  { v: "1200+", l: "Baholashlar",     bg: "#FFF7ED", color: "#C2651A" },
                   { v: "+34%",  l: "O'rtacha o'sish", bg: "#ECFDF5", color: "#059669" },
                 ].map((s) => (
                   <div
@@ -658,7 +656,7 @@ export default async function LandingPage() {
 
               {/* Text */}
               <div>
-                <p className="text-xs font-bold tracking-[0.22em] uppercase mb-5">
+                <p className="text-xs font-bold tracking-[0.22em] uppercase mb-5" style={{ color: "#B45309" }}>
                   Nima uchun <span className="brand-3d">BrainUP</span>?
                 </p>
                 <h2 className="font-black text-4xl mb-5 leading-tight tracking-tight" style={{ color: "#1C1208" }}>
@@ -752,12 +750,12 @@ export default async function LandingPage() {
               <BrainUPLogo size="sm" />
               <span className="brand-3d font-bold">BrainUP</span>
             </Link>
-            <div className="flex items-center gap-6 text-sm" style={{ color: "#6B5540" }}>
+            <div className="flex items-center gap-6 text-sm" style={{ color: "#8A7060" }}>
               <Link href="/login" className="transition-colors hover:text-[#F0EAE0]">Kirish</Link>
               <Link href="/register" className="transition-colors hover:text-[#F0EAE0]">Ro&apos;yxat</Link>
               <Link href="#how" className="transition-colors hover:text-[#F0EAE0]">Jarayon</Link>
             </div>
-            <p className="text-sm" style={{ color: "#4A3520" }}>© 2026 <span className="brand-3d font-semibold">BrainUP</span> · <span className="brand-3d font-semibold">NamDPI</span></p>
+            <p className="text-sm" style={{ color: "#5C4530" }}>© 2026 <span style={{ color: "#B45309", fontWeight: 600 }}>BrainUP</span> · <span style={{ color: "#B45309", fontWeight: 600 }}>NamDPI</span></p>
           </div>
         </footer>
 
