@@ -29,7 +29,7 @@ export default async function AdminUniversitiesPage() {
   });
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
       <Header title="Universitetlar" description="Universitetlar va fakultetlarni boshqarish" />
       <main className="flex-1 p-6 space-y-6">
         <AddUniversityForm />
@@ -39,8 +39,8 @@ export default async function AdminUniversitiesPage() {
             <div key={uni.id} className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] overflow-hidden">
               {/* University header */}
               <div className="flex items-center gap-3 px-5 py-4 border-b border-slate-200 dark:border-white/8">
-                <div className="rounded-xl bg-blue-500/10 border border-blue-500/20 p-2.5 shrink-0">
-                  <University className="h-5 w-5 text-blue-400" />
+                <div className="rounded-xl bg-[#FEF4E7]0/10 border border-[#B45309]/20 p-2.5 shrink-0">
+                  <University className="h-5 w-5 text-amber-400" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">

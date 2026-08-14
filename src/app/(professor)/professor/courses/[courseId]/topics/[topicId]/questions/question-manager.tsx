@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
@@ -508,7 +508,7 @@ export function QuestionList({
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8 text-slate-400 hover:text-blue-600 hover:bg-blue-50"
+                    className="h-8 w-8 text-slate-400 hover:text-[#B45309] hover:bg-[#FEF4E7]"
                     onClick={() => setEditQuestion(q)}
                     disabled={loadingId !== null}
                     title="Tahrirlash"

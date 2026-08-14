@@ -13,7 +13,7 @@ import { TrendingUp, BookOpen, Zap, RefreshCw, Brain, CheckCircle2, Clock } from
 function masteryBadge(score: number | null) {
   if (score === null) return "text-slate-500 bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10";
   if (score >= 0.85) return "text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20";
-  if (score >= 0.6) return "text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20";
+  if (score >= 0.6) return "text-blue-700 dark:text-amber-400 bg-[#FEF4E7] dark:bg-[#FEF4E7]0/10 border border-blue-200 dark:border-[#B45309]/20";
   if (score >= 0.4) return "text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20";
   return "text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20";
 }
@@ -93,7 +93,7 @@ export default async function ProgressPage() {
   ).length;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
       <Header
         title="Progressim"
         description={`${student.firstName} ${student.lastName} — o'quv ko'rsatkichlari`}
@@ -104,7 +104,7 @@ export default async function ProgressPage() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {[
             { icon: <TrendingUp className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />, label: "O'rtacha mastery", value: `${Math.round(avgMastery * 100)}%`, iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
-            { icon: <CheckCircle2 className="h-5 w-5 text-blue-600 dark:text-blue-400" />, label: "O'zlashtirilgan", value: `${masteredTopics} / ${allKnowledge.length}`, iconBg: "bg-blue-50 dark:bg-blue-950/50" },
+            { icon: <CheckCircle2 className="h-5 w-5 text-[#B45309] dark:text-amber-400" />, label: "O'zlashtirilgan", value: `${masteredTopics} / ${allKnowledge.length}`, iconBg: "bg-[#FEF4E7] dark:bg-blue-950/50" },
             { icon: <Zap className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "Aniqlik", value: totalAttempts > 0 ? `${Math.round(accuracy * 100)}%` : "—", iconBg: "bg-amber-50 dark:bg-amber-950/50" },
             { icon: <RefreshCw className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "Takrorlash", value: `${retrievalDone} bajarildi`, iconBg: "bg-violet-50 dark:bg-violet-950/50", sub: retrievalPending > 0 ? `${retrievalPending} muddati o'tgan` : undefined },
           ].map((s) => (
@@ -157,7 +157,7 @@ export default async function ProgressPage() {
                       </div>
                       <div className="h-1.5 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
                         <div
-                          className={`h-full rounded-full ${courseMastery >= 0.85 ? "bg-emerald-500" : courseMastery >= 0.6 ? "bg-blue-600" : courseMastery >= 0.4 ? "bg-amber-500" : "bg-red-500"}`}
+                          className={`h-full rounded-full ${courseMastery >= 0.85 ? "bg-emerald-500" : courseMastery >= 0.6 ? "bg-[#B45309]" : courseMastery >= 0.4 ? "bg-amber-500" : "bg-red-500"}`}
                           style={{ width: `${topics.length > 0 ? (mastered / topics.length) * 100 : 0}%` }}
                         />
                       </div>

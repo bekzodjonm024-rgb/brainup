@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
@@ -61,7 +61,7 @@ export function DigitSpanTask({ item, onComplete, disabled }: Props) {
             onClick={startTask}
             disabled={disabled}
             size="lg"
-            className="bg-blue-600 hover:bg-blue-500 text-white border-0 shadow-lg shadow-blue-600/20 px-10"
+            className="bg-[#B45309] hover:bg-[#92400E] text-white border-0 shadow-lg shadow-[#1C1208]/12 px-10"
           >
             Boshlash
           </Button>
@@ -89,7 +89,7 @@ export function DigitSpanTask({ item, onComplete, disabled }: Props) {
                 className={cn(
                   "h-12 w-10 rounded-xl border-2 flex items-center justify-center text-xl font-bold transition-colors",
                   input[i]
-                    ? "border-blue-500 bg-blue-500/10 text-blue-400"
+                    ? "border-[#B45309] bg-[#FEF4E7]0/10 text-amber-400"
                     : "border-slate-300 dark:border-white/10 bg-slate-100 dark:bg-[#1e2840] text-slate-400 dark:text-slate-600"
                 )}
               >
@@ -120,7 +120,7 @@ export function DigitSpanTask({ item, onComplete, disabled }: Props) {
           <Button
             onClick={handleSubmit}
             disabled={disabled || input.length === 0}
-            className="bg-blue-600 hover:bg-blue-500 text-white border-0 px-10"
+            className="bg-[#B45309] hover:bg-[#92400E] text-white border-0 px-10"
           >
             Tasdiqlash →
           </Button>

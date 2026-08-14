@@ -24,13 +24,13 @@ export default async function ProfessorCoursesPage() {
   });
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
       <Header title="Kurslarim" description="Kurslarni boshqarish va tahlil" />
       <main className="flex-1 p-6 space-y-4">
         <div className="flex items-center justify-between">
           <p className="text-sm text-slate-500">{courses.length} ta kurs</p>
           <Link href="/professor/courses/new">
-            <Button size="sm" className="bg-blue-600 hover:bg-blue-500 text-white border-0">
+            <Button size="sm" className="bg-[#B45309] hover:bg-[#92400E] text-white border-0">
               <Plus className="h-4 w-4 mr-1" /> Yangi kurs
             </Button>
           </Link>
@@ -44,7 +44,7 @@ export default async function ProfessorCoursesPage() {
             <p className="font-medium text-slate-500 dark:text-slate-400 mb-1">Hali kurs yaratilmagan</p>
             <p className="text-sm text-slate-400 dark:text-slate-600 mb-4">Birinchi kursni yarating va mavzularni qo&apos;shing</p>
             <Link href="/professor/courses/new">
-              <Button size="sm" className="bg-blue-600 hover:bg-blue-500 text-white border-0">Kurs yaratish</Button>
+              <Button size="sm" className="bg-[#B45309] hover:bg-[#92400E] text-white border-0">Kurs yaratish</Button>
             </Link>
           </div>
         ) : (

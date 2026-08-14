@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useMemo } from "react";
 import { Badge } from "@/components/ui/badge";
@@ -127,7 +127,7 @@ export function StudentsTable({
                       <div className="flex items-center justify-center gap-0.5">
                         <Link href={`/professor/courses/${courseId}/students/${s.id}/report`}>
                           <Button variant="ghost" size="icon"
-                            className="text-slate-400 hover:text-blue-600 hover:bg-blue-50"
+                            className="text-slate-400 hover:text-[#B45309] hover:bg-[#FEF4E7]"
                             title="Hisobot">
                             <FileText className="h-4 w-4" />
                           </Button>

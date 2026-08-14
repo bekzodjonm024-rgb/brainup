@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useRef, useCallback, KeyboardEvent } from "react";
 import { Button } from "@/components/ui/button";
@@ -77,7 +77,7 @@ export function ReactionTimeTask({ item, onComplete, disabled }: Props) {
           onClick={startTrial}
           disabled={disabled}
           size="lg"
-          className="bg-blue-600 hover:bg-blue-500 text-white border-0 shadow-lg shadow-blue-600/20 px-10"
+          className="bg-[#B45309] hover:bg-[#92400E] text-white border-0 shadow-lg shadow-[#1C1208]/12 px-10"
         >
           Boshlash
         </Button>
@@ -117,10 +117,10 @@ export function ReactionTimeTask({ item, onComplete, disabled }: Props) {
       )}
 
       {phase === "done" && (
-        <div className="mx-auto h-36 w-36 rounded-full bg-blue-500/10 border-2 border-blue-500/20 flex items-center justify-center">
+        <div className="mx-auto h-36 w-36 rounded-full bg-[#FEF4E7]0/10 border-2 border-[#B45309]/20 flex items-center justify-center">
           {reactionTime ? (
             <div>
-              <p className="text-3xl font-bold text-blue-400">{reactionTime}</p>
+              <p className="text-3xl font-bold text-amber-400">{reactionTime}</p>
               <p className="text-xs text-slate-500">ms</p>
             </div>
           ) : (

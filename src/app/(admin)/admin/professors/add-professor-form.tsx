@@ -73,7 +73,7 @@ export function AddProfessorForm() {
               value={form.firstName}
               onChange={(e) => update("firstName", e.target.value)}
               required
-              className="w-full h-10 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+              className="w-full h-10 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
             />
             {fieldError("firstName") && <p className="text-xs text-red-400">{fieldError("firstName")}</p>}
           </div>
@@ -84,7 +84,7 @@ export function AddProfessorForm() {
               value={form.lastName}
               onChange={(e) => update("lastName", e.target.value)}
               required
-              className="w-full h-10 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+              className="w-full h-10 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
             />
             {fieldError("lastName") && <p className="text-xs text-red-400">{fieldError("lastName")}</p>}
           </div>
@@ -97,7 +97,7 @@ export function AddProfessorForm() {
             placeholder="Prof. Dr., PhD, ..."
             value={form.title}
             onChange={(e) => update("title", e.target.value)}
-            className="w-full h-10 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+            className="w-full h-10 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
           />
         </div>
 
@@ -109,7 +109,7 @@ export function AddProfessorForm() {
             value={form.email}
             onChange={(e) => update("email", e.target.value)}
             required
-            className="w-full h-10 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+            className="w-full h-10 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
           />
           {fieldError("email") && <p className="text-xs text-red-400">{fieldError("email")}</p>}
         </div>
@@ -123,7 +123,7 @@ export function AddProfessorForm() {
             value={form.password}
             onChange={(e) => update("password", e.target.value)}
             required
-            className="w-full h-10 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+            className="w-full h-10 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
           />
           {fieldError("password") && <p className="text-xs text-red-400">{fieldError("password")}</p>}
         </div>
@@ -131,7 +131,7 @@ export function AddProfessorForm() {
         <Button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 hover:bg-blue-500 text-white border-0"
+          className="w-full bg-[#B45309] hover:bg-[#92400E] text-white border-0"
         >
           {loading && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
           Professor qo'shish

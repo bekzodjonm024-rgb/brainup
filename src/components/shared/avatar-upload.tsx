@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef, useState } from "react";
 import Image from "next/image";
@@ -69,14 +69,14 @@ export function AvatarUpload({ currentUrl, initials, size = "md" }: AvatarUpload
         type="button"
         onClick={() => inputRef.current?.click()}
         disabled={uploading}
-        className={`relative ${s.outer} rounded-full overflow-hidden group cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500`}
+        className={`relative ${s.outer} rounded-full overflow-hidden group cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B45309]`}
         title="Rasm yuklash"
       >
         {url ? (
           <Image src={url} alt="Avatar" fill className="object-cover" unoptimized />
         ) : (
-          <div className="w-full h-full bg-blue-100 flex items-center justify-center">
-            <span className={`${s.text} font-bold text-blue-600`}>{initials}</span>
+          <div className="w-full h-full bg-[#FDE8C8] flex items-center justify-center">
+            <span className={`${s.text} font-bold text-[#B45309]`}>{initials}</span>
           </div>
         )}
 

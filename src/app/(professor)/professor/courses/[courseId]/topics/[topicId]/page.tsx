@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+﻿import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect, notFound } from "next/navigation";
 import { Header } from "@/components/layout/header";
@@ -46,7 +46,7 @@ export default async function TopicDetailPage({
   const questionCount = topic._count.questions;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
       <Header title={topic.title} description={topic.course.title} />
       <main className="flex-1 p-6 space-y-5">
         <div className="flex items-center justify-between">
@@ -71,8 +71,8 @@ export default async function TopicDetailPage({
 
         {/* Learning objective */}
         {topic.learningObjective && (
-          <div className="rounded-xl border border-blue-500/20 bg-blue-500/5 px-4 py-3">
-            <p className="text-xs font-medium text-blue-400 mb-0.5">O&apos;quv maqsadi</p>
+          <div className="rounded-xl border border-[#B45309]/20 bg-[#FEF4E7]0/5 px-4 py-3">
+            <p className="text-xs font-medium text-amber-400 mb-0.5">O&apos;quv maqsadi</p>
             <p className="text-sm text-slate-600 dark:text-slate-300">{topic.learningObjective}</p>
           </div>
         )}
@@ -136,7 +136,7 @@ export default async function TopicDetailPage({
                         )}
                         {item.externalUrl && (
                           <a href={item.externalUrl} target="_blank" rel="noopener noreferrer"
-                             className="text-xs text-blue-400 hover:underline mt-1 block truncate">
+                             className="text-xs text-amber-400 hover:underline mt-1 block truncate">
                             {item.externalUrl}
                           </a>
                         )}

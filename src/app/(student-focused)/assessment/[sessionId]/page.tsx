@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+﻿import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { AssessmentRunner } from "./assessment-runner";
@@ -40,7 +40,7 @@ export default async function AssessmentSessionPage({
   const overrides = (assessmentSession.itemOverrides ?? {}) as Record<string, unknown>;
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col min-h-screen bg-[#F8F5EF] dark:bg-[#0e1117]">
       <AssessmentRunner
         sessionId={sessionId}
         items={items.map((item) => ({

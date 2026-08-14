@@ -15,7 +15,7 @@ import {
 
 function masteryLevel(score: number) {
   if (score >= 0.85) return { color: "text-emerald-400 bg-emerald-500/10 border border-emerald-500/20" };
-  if (score >= 0.50) return { color: "text-blue-400 bg-blue-500/10 border border-blue-500/20" };
+  if (score >= 0.50) return { color: "text-amber-400 bg-[#FEF4E7]0/10 border border-[#B45309]/20" };
   return { color: "text-red-400 bg-red-500/10 border border-red-500/20" };
 }
 
@@ -167,7 +167,7 @@ export default async function ProfessorAnalyticsPage() {
   const total = mastered + onTrack + struggling;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
       <Header title="Analitika" description="Barcha kurslar bo'yicha o'quv tahlili" />
 
       <main className="flex-1 p-6 space-y-6 max-w-5xl mx-auto w-full">
@@ -175,7 +175,7 @@ export default async function ProfessorAnalyticsPage() {
         {/* Top stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { icon: <Users className="h-5 w-5 text-blue-600 dark:text-blue-400" />, label: "Jami talabalar", value: totalStudents, iconBg: "bg-blue-50 dark:bg-blue-950/50" },
+            { icon: <Users className="h-5 w-5 text-[#B45309] dark:text-amber-400" />, label: "Jami talabalar", value: totalStudents, iconBg: "bg-[#FEF4E7] dark:bg-blue-950/50" },
             { icon: <TrendingUp className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />, label: "Jami urinishlar", value: totalAttempts.toLocaleString(), iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
             { icon: <CheckCircle2 className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "O'zlashtirildi", value: mastered, iconBg: "bg-violet-50 dark:bg-violet-950/50" },
             { icon: <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "Qiynalyapti", value: struggling, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
@@ -201,7 +201,7 @@ export default async function ProfessorAnalyticsPage() {
                 <div className="space-y-4">
                   {[
                     { label: "O'zlashtirildi (≥85%)", count: mastered, color: "bg-emerald-500", pct: Math.round((mastered / total) * 100) },
-                    { label: "Jarayonda (50–84%)", count: onTrack, color: "bg-blue-600", pct: Math.round((onTrack / total) * 100) },
+                    { label: "Jarayonda (50–84%)", count: onTrack, color: "bg-[#B45309]", pct: Math.round((onTrack / total) * 100) },
                     { label: "Qiyin (<50%)", count: struggling, color: "bg-red-500", pct: Math.round((struggling / total) * 100) },
                   ].map((row) => (
                     <div key={row.label} className="space-y-1.5">
@@ -251,7 +251,7 @@ export default async function ProfessorAnalyticsPage() {
                         </Link>
                       </div>
                       <div className="h-1 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
-                        <div className="h-full bg-blue-600 rounded-full" style={{ width: `${c.avgMastery * 100}%` }} />
+                        <div className="h-full bg-[#B45309] rounded-full" style={{ width: `${c.avgMastery * 100}%` }} />
                       </div>
                     </div>
                   ))
@@ -298,7 +298,7 @@ export default async function ProfessorAnalyticsPage() {
             {interventionCounts.length > 0 && (
               <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-5">
                 <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2 mb-4">
-                  <Zap className="h-4 w-4 text-blue-400" />
+                  <Zap className="h-4 w-4 text-amber-400" />
                   Adaptiv tavsiyalar
                 </h3>
                 <div className="space-y-2">
@@ -329,7 +329,7 @@ export default async function ProfessorAnalyticsPage() {
               <div className="flex flex-wrap gap-3">
                 {[
                   { label: "Diqqat",        value: cogAvg.attention,    color: "text-indigo-600 bg-indigo-50 dark:bg-indigo-950/40 border-indigo-200 dark:border-indigo-800" },
-                  { label: "Ishchi xotira", value: cogAvg.workingMemory, color: "text-blue-600 bg-blue-50 dark:bg-blue-950/40 border-blue-200 dark:border-blue-800" },
+                  { label: "Ishchi xotira", value: cogAvg.workingMemory, color: "text-[#B45309] bg-[#FEF4E7] dark:bg-blue-950/40 border-blue-200 dark:border-blue-800" },
                   { label: "Tezlik",        value: cogAvg.speed,         color: "text-amber-600 bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800" },
                   { label: "Xotira",        value: cogAvg.memory,        color: "text-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800" },
                 ].map((m) => (

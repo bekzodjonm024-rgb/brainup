@@ -61,7 +61,7 @@ export default async function RetrievalPage() {
   ]);
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
       <Header
         title="Takrorlash"
         description="Spaced repetition — bilimlarni uzoq muddatga saqlash"
@@ -73,7 +73,7 @@ export default async function RetrievalPage() {
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {[
             { icon: <RotateCcw className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "Bugun muddati o'tgan", value: dueRecords.length, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
-            { icon: <Clock className="h-5 w-5 text-blue-600 dark:text-blue-400" />, label: "Kelayotgan (14 kun)", value: upcomingRecords.length, iconBg: "bg-blue-50 dark:bg-blue-950/50" },
+            { icon: <Clock className="h-5 w-5 text-[#B45309] dark:text-amber-400" />, label: "Kelayotgan (14 kun)", value: upcomingRecords.length, iconBg: "bg-[#FEF4E7] dark:bg-blue-950/50" },
             { icon: <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />, label: "Bu oy bajarildi", value: completedCount, iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
           ].map((s) => (
             <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1e2840] p-4 shadow-sm">
@@ -132,7 +132,7 @@ export default async function RetrievalPage() {
                       </div>
                     </div>
                     <Link href={`/retrieval/${rec.topic.id}?recordId=${rec.id}`}>
-                      <Button size="sm" className="bg-blue-600 hover:bg-blue-500 text-white border-0">
+                      <Button size="sm" className="bg-[#B45309] hover:bg-[#92400E] text-white border-0">
                         Boshlash <ArrowRight className="h-3 w-3 ml-1" />
                       </Button>
                     </Link>
@@ -147,7 +147,7 @@ export default async function RetrievalPage() {
         {upcomingRecords.length > 0 && (
           <section className="space-y-3">
             <h2 className="text-base font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-2">
-              <Clock className="h-4 w-4 text-blue-500" />
+              <Clock className="h-4 w-4 text-[#B45309]" />
               Kelayotgan takrorlashlar
             </h2>
             <div className="space-y-2">
@@ -171,12 +171,12 @@ export default async function RetrievalPage() {
         )}
 
         {/* Explanation */}
-        <div className="rounded-2xl border border-blue-500/15 bg-blue-500/5 p-4 flex gap-3">
-          <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center shrink-0">
-            <BookOpen className="h-4 w-4 text-blue-400" />
+        <div className="rounded-2xl border border-[#B45309]/15 bg-[#FEF4E7]0/5 p-4 flex gap-3">
+          <div className="w-8 h-8 rounded-lg bg-[#FEF4E7]0/10 flex items-center justify-center shrink-0">
+            <BookOpen className="h-4 w-4 text-amber-400" />
           </div>
           <div className="text-sm space-y-1">
-            <p className="font-medium text-blue-400">Spaced Repetition nima?</p>
+            <p className="font-medium text-amber-400">Spaced Repetition nima?</p>
             <p className="text-slate-500 text-xs leading-relaxed">
               Mavzuni o'zlashtirganingizdan so'ng, uni to'g'ri vaqtda takrorlash
               uzoq muddatli xotirani mustahkamlaydi. Intervalar: 3 → 7 → 14 → 30 kun.

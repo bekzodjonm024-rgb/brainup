@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
@@ -20,7 +20,7 @@ export function ThemeSwitcher() {
     <button
       onClick={() => setTheme(isDark ? "light" : "dark")}
       aria-label={isDark ? "Kunduzgi rejim" : "Tungi rejim"}
-      className="relative h-8 w-14 rounded-full transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+      className="relative h-8 w-14 rounded-full transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B45309] focus-visible:ring-offset-2"
       style={{
         backgroundColor: isDark ? "#141b2d" : "#f8faff",
         border: isDark ? "1px solid rgba(255,255,255,0.1)" : "1px solid rgba(0,0,0,0.1)",
@@ -30,12 +30,12 @@ export function ThemeSwitcher() {
       <span className="absolute inset-0 flex items-center justify-between px-1.5 pointer-events-none">
         <Sun
           className={`h-3.5 w-3.5 transition-all duration-300 ${
-            isDark ? "text-slate-600 scale-75 opacity-30" : "text-blue-600 scale-100 opacity-100"
+            isDark ? "text-slate-600 scale-75 opacity-30" : "text-[#B45309] scale-100 opacity-100"
           }`}
         />
         <Moon
           className={`h-3.5 w-3.5 transition-all duration-300 ${
-            isDark ? "text-blue-400 scale-100 opacity-100" : "text-slate-400 scale-75 opacity-30"
+            isDark ? "text-amber-400 scale-100 opacity-100" : "text-slate-400 scale-75 opacity-30"
           }`}
         />
       </span>

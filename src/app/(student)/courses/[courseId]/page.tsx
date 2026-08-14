@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+﻿import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect, notFound } from "next/navigation";
 import { Header } from "@/components/layout/header";
@@ -12,10 +12,10 @@ import {
 } from "lucide-react";
 
 const ACTION_CHIP: Record<string, { label: string; border: string; bg: string; text: string; icon: React.ReactNode }> = {
-  PRACTICE:          { label: "Mashq kerak", border: "border-blue-500/20",    bg: "bg-blue-500/10",    text: "text-blue-400",    icon: <Zap className="h-3 w-3" /> },
+  PRACTICE:          { label: "Mashq kerak", border: "border-[#B45309]/20",    bg: "bg-[#FEF4E7]0/10",    text: "text-amber-400",    icon: <Zap className="h-3 w-3" /> },
   ADVANCED_PRACTICE: { label: "Murakkab",    border: "border-pink-500/20",    bg: "bg-pink-500/10",    text: "text-pink-400",    icon: <Zap className="h-3 w-3" /> },
   EXPLAIN_AGAIN:     { label: "Qayta o'qi",  border: "border-amber-500/20",   bg: "bg-amber-500/10",   text: "text-amber-400",   icon: <BookOpen className="h-3 w-3" /> },
-  PREREQUISITE:      { label: "Oldingi mavzu",border: "border-blue-500/20", bg: "bg-blue-600/10",  text: "text-blue-400",  icon: <Layers className="h-3 w-3" /> },
+  PREREQUISITE:      { label: "Oldingi mavzu",border: "border-[#B45309]/20", bg: "bg-[#B45309]/10",  text: "text-amber-400",  icon: <Layers className="h-3 w-3" /> },
   RETRIEVE:          { label: "Takrorlash",  border: "border-violet-500/20",  bg: "bg-violet-500/10",  text: "text-violet-400",  icon: <RotateCcw className="h-3 w-3" /> },
   CONTINUE:          { label: "Tayyor",      border: "border-emerald-500/20", bg: "bg-emerald-500/10", text: "text-emerald-400", icon: <CheckCircle2 className="h-3 w-3" /> },
 };
@@ -66,7 +66,7 @@ export default async function StudentCourseDetailPage({
   const progress = course.topics.length > 0 ? (masteredTopics / course.topics.length) * 100 : 0;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
       <Header title={course.title} description={`${course.professor.firstName} ${course.professor.lastName}`} />
       <main className="flex-1 p-6 space-y-5">
         <Link href="/courses">
@@ -88,7 +88,7 @@ export default async function StudentCourseDetailPage({
             </div>
           </div>
           <div className="h-2 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
-            <div className="h-full bg-blue-600 rounded-full transition-all" style={{ width: `${progress}%` }} />
+            <div className="h-full bg-[#B45309] rounded-full transition-all" style={{ width: `${progress}%` }} />
           </div>
         </div>
 
@@ -132,7 +132,7 @@ export default async function StudentCourseDetailPage({
                   {isMastered ? (
                     <CheckCircle2 className="h-5 w-5 text-emerald-400" />
                   ) : isStarted ? (
-                    <PlayCircle className="h-5 w-5 text-blue-400" />
+                    <PlayCircle className="h-5 w-5 text-amber-400" />
                   ) : isLocked ? (
                     <Lock className="h-5 w-5 text-slate-300 dark:text-slate-700" />
                   ) : (
@@ -156,7 +156,7 @@ export default async function StudentCourseDetailPage({
                     <p className="text-xs text-slate-400 dark:text-slate-600 mt-0.5 line-clamp-1">{topic.learningObjective}</p>
                   )}
                   {prereqLocked && topic.prerequisiteTopic && (
-                    <p className="text-xs text-blue-400 mt-0.5">
+                    <p className="text-xs text-amber-400 mt-0.5">
                       Avval &quot;{topic.prerequisiteTopic.title}&quot; mavzusini bajaring (≥60%)
                     </p>
                   )}
@@ -172,7 +172,7 @@ export default async function StudentCourseDetailPage({
                       size="sm"
                       className={isMastered
                         ? "border-slate-300 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#2a2720] bg-transparent"
-                        : "bg-blue-600 hover:bg-blue-500 text-white border-0"
+                        : "bg-[#B45309] hover:bg-[#92400E] text-white border-0"
                       }
                       variant={isMastered ? "outline" : "default"}
                     >

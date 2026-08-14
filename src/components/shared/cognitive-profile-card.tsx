@@ -1,4 +1,4 @@
-import { Brain } from "lucide-react";
+﻿import { Brain } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 
 interface CognitiveProfileCardProps {
@@ -21,9 +21,9 @@ const metrics = [
     key: "workingMemoryScore" as const,
     label: "Ishchi xotira",
     sublabel: "Ishchi xotira",
-    barClass: "[&>div]:bg-blue-500",
-    textClass: "text-blue-400",
-    bgClass: "bg-blue-500/10",
+    barClass: "[&>div]:bg-[#FEF4E7]0",
+    textClass: "text-amber-400",
+    bgClass: "bg-[#FEF4E7]0/10",
   },
   {
     key: "processingSpeedScore" as const,

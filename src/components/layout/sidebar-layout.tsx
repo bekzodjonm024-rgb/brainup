@@ -18,7 +18,7 @@ export function SidebarLayout({ role, userName, avatarUrl, children, badges }: S
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="flex h-screen bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex h-screen bg-[#F8F5EF] dark:bg-[#100D09]">
       {/* Mobile overlay */}
       {mobileOpen && (
         <div
@@ -47,19 +47,19 @@ export function SidebarLayout({ role, userName, avatarUrl, children, badges }: S
       <div className="flex flex-1 flex-col overflow-hidden min-w-0">
         {/* Mobile top bar */}
         <div
-          className="lg:hidden sticky top-0 z-10 px-4 h-14 flex items-center gap-3 shrink-0 bg-white dark:bg-[#141b2d]"
-          style={{ borderBottom: "1px solid rgba(0,0,0,0.07)" }}
+          className="lg:hidden sticky top-0 z-10 px-4 h-14 flex items-center gap-3 shrink-0 bg-white dark:bg-[#17130E]"
+          style={{ borderBottom: "1px solid rgba(28,18,8,0.07)" }}
         >
           <button
             onClick={() => setMobileOpen(true)}
-            className="p-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-950/20 hover:text-blue-600 transition-colors"
+            className="p-1.5 rounded-lg text-stone-500 dark:text-stone-400 hover:bg-[#F8F5EF] hover:text-[#1C1208] dark:hover:bg-amber-900/15 dark:hover:text-amber-400 transition-colors"
             aria-label="Menyuni ochish"
           >
             <Menu className="h-5 w-5" />
           </button>
           <div className="flex items-center gap-2">
             <BrainUPLogo size="sm" href="/" />
-            <span className="font-bold text-slate-900 dark:text-white">BrainUP</span>
+            <span className="font-bold text-[#1C1208] dark:text-white">BrainUP</span>
           </div>
         </div>
 

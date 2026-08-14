@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import {
   LineChart,
@@ -48,7 +48,7 @@ export function CognitiveHistoryChart({ history }: Props) {
     const h = history[0];
     const metrics = [
       { label: "Diqqat",        score: h.attentionScore,        color: "bg-indigo-500", textColor: "text-indigo-600" },
-      { label: "Ishchi xotira", score: h.workingMemoryScore,    color: "bg-blue-500",   textColor: "text-blue-600" },
+      { label: "Ishchi xotira", score: h.workingMemoryScore,    color: "bg-[#FEF4E7]0",   textColor: "text-[#B45309]" },
       { label: "Tezlik",        score: h.processingSpeedScore,  color: "bg-amber-500",  textColor: "text-amber-600" },
       { label: "Xotira",        score: h.memoryScore,           color: "bg-emerald-500", textColor: "text-emerald-600" },
     ];

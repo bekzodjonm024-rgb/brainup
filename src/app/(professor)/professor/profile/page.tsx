@@ -26,7 +26,7 @@ export default async function ProfessorProfilePage() {
   const initials = `${professor.firstName[0]}${professor.lastName[0]}`;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
       <Header title="Profil sozlamalari" description="Shaxsiy ma'lumotlar va xavfsizlik" />
       <main className="flex-1 p-6 space-y-6 max-w-2xl mx-auto w-full">
 

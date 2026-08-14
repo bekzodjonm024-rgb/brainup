@@ -27,7 +27,7 @@ export default async function AssessmentPage() {
   });
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
       <Header title="Kognitiv baholash" description="Boshlang'ich baholash natijalari" />
       <main className="flex-1 p-6 max-w-2xl mx-auto w-full space-y-5">
 
@@ -69,8 +69,8 @@ export default async function AssessmentPage() {
           <>
             <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-6 space-y-6">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
-                  <Brain className="h-6 w-6 text-blue-400" />
+                <div className="w-12 h-12 rounded-2xl bg-[#FEF4E7]0/10 border border-[#B45309]/20 flex items-center justify-center shrink-0">
+                  <Brain className="h-6 w-6 text-amber-400" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-slate-800 dark:text-white">Boshlang&apos;ich baholash</h3>
@@ -98,7 +98,7 @@ export default async function AssessmentPage() {
                 <div className="grid grid-cols-2 gap-2">
                   {[
                     { icon: <Eye className="h-3.5 w-3.5 text-violet-400" />,   text: "Diqqat topshiriqlari",   bg: "bg-violet-500/10 border-violet-500/20" },
-                    { icon: <Brain className="h-3.5 w-3.5 text-blue-400" />,   text: "Ishchi xotira",           bg: "bg-blue-500/10   border-blue-500/20" },
+                    { icon: <Brain className="h-3.5 w-3.5 text-amber-400" />,   text: "Ishchi xotira",           bg: "bg-[#FEF4E7]0/10   border-[#B45309]/20" },
                     { icon: <Zap className="h-3.5 w-3.5 text-amber-400" />,    text: "Qayta ishlash tezligi",   bg: "bg-amber-500/10  border-amber-500/20" },
                     { icon: <RefreshCw className="h-3.5 w-3.5 text-emerald-400" />, text: "Xotira ko'rsatkichi", bg: "bg-emerald-500/10 border-emerald-500/20" },
                   ].map((m) => (
@@ -119,7 +119,7 @@ export default async function AssessmentPage() {
             {inProgress ? (
               <Button
                 asChild
-                className="w-full h-11 bg-blue-600 hover:bg-blue-500 border-0 text-white shadow-lg shadow-blue-600/20"
+                className="w-full h-11 bg-[#B45309] hover:bg-[#92400E] border-0 text-white shadow-lg shadow-[#1C1208]/12"
               >
                 <a href={`/assessment/${inProgress.id}`}>Davom etish →</a>
               </Button>

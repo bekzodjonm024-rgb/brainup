@@ -65,7 +65,7 @@ export default async function ProfilePage() {
   const initials = `${student.firstName[0]}${student.lastName[0]}`;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
       <Header title="Mening profilim" description="Shaxsiy o'quv profili" />
       <main className="flex-1 p-6 space-y-6 max-w-3xl mx-auto w-full">
 
@@ -101,7 +101,7 @@ export default async function ProfilePage() {
         {/* Learning stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { icon: <BookOpen className="h-5 w-5 text-blue-600 dark:text-blue-400" />, label: "Kurslar", value: student.enrollments.length, iconBg: "bg-blue-50 dark:bg-blue-950/50" },
+            { icon: <BookOpen className="h-5 w-5 text-[#B45309] dark:text-amber-400" />, label: "Kurslar", value: student.enrollments.length, iconBg: "bg-[#FEF4E7] dark:bg-blue-950/50" },
             { icon: <TrendingUp className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />, label: "O'zlashtirildi", value: masteredTopics, iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
             { icon: <GraduationCap className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "Urinishlar", value: student._count.attempts, iconBg: "bg-violet-50 dark:bg-violet-950/50" },
             { icon: <TrendingUp className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "O'rtacha mastery", value: `${Math.round(avgMastery * 100)}%`, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
@@ -123,9 +123,9 @@ export default async function ProfilePage() {
             memoryScore={student.cognitiveProfile.memoryScore}
           />
         ) : (
-          <div className="rounded-2xl border border-blue-500/20 bg-blue-500/5 p-5 flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center shrink-0">
-              <Brain className="h-6 w-6 text-blue-400" />
+          <div className="rounded-2xl border border-[#B45309]/20 bg-[#FEF4E7]0/5 p-5 flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-[#FEF4E7]0/10 flex items-center justify-center shrink-0">
+              <Brain className="h-6 w-6 text-amber-400" />
             </div>
             <div>
               <p className="font-medium text-slate-700 dark:text-slate-200">Baholash hali bajarilmagan</p>
@@ -183,7 +183,7 @@ export default async function ProfilePage() {
                         )}
                       </div>
                       <div className="h-1 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
-                        <div className="h-full bg-blue-600 rounded-full" style={{ width: `${mastery * 100}%` }} />
+                        <div className="h-full bg-[#B45309] rounded-full" style={{ width: `${mastery * 100}%` }} />
                       </div>
                     </div>
                   );

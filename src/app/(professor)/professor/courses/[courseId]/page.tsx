@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+﻿import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect, notFound } from "next/navigation";
 import { Header } from "@/components/layout/header";
@@ -43,7 +43,7 @@ export default async function CourseDetailPage({
   );
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
       <Header title={course.title} description={course.faculty?.name ?? ""} />
       <main className="flex-1 p-6 space-y-6">
         <div className="flex items-center justify-between">
@@ -75,7 +75,7 @@ export default async function CourseDetailPage({
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { icon: <LayoutList className="h-5 w-5 text-blue-600 dark:text-blue-400" />, label: "Mavzular", value: course.topics.length, iconBg: "bg-blue-50 dark:bg-blue-950/50" },
+            { icon: <LayoutList className="h-5 w-5 text-[#B45309] dark:text-amber-400" />, label: "Mavzular", value: course.topics.length, iconBg: "bg-[#FEF4E7] dark:bg-blue-950/50" },
             { icon: <Users className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />, label: "Talabalar", value: course._count.enrollments, iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
             { icon: <BookOpen className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "Materiallar", value: totalContent, iconBg: "bg-violet-50 dark:bg-violet-950/50" },
             { icon: <CheckCircle2 className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "Tasdiqlangan", value: approvedContent, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
@@ -93,7 +93,7 @@ export default async function CourseDetailPage({
           <div className="flex items-center justify-between">
             <h2 className="font-semibold text-slate-700 dark:text-slate-200">Mavzular ketma-ketligi</h2>
             <Link href={`/professor/courses/${courseId}/topics/new`}>
-              <button className="flex items-center gap-1.5 text-sm bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg transition-colors">
+              <button className="flex items-center gap-1.5 text-sm bg-[#B45309] hover:bg-[#92400E] text-white px-3 py-1.5 rounded-lg transition-colors">
                 <Plus className="h-4 w-4" /> Mavzu qo&apos;shish
               </button>
             </Link>
@@ -107,7 +107,7 @@ export default async function CourseDetailPage({
               <p className="font-medium text-slate-500 dark:text-slate-400 mb-1">Mavzular hali qo&apos;shilmagan</p>
               <p className="text-sm text-slate-400 dark:text-slate-600 mb-4">Birinchi mavzuni qo&apos;shing</p>
               <Link href={`/professor/courses/${courseId}/topics/new`}>
-                <button className="text-sm bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg transition-colors">
+                <button className="text-sm bg-[#B45309] hover:bg-[#92400E] text-white px-4 py-2 rounded-lg transition-colors">
                   Mavzu qo&apos;shish
                 </button>
               </Link>

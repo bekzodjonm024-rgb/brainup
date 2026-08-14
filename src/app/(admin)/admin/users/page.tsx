@@ -35,7 +35,7 @@ export default async function AdminUsersPage() {
   });
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
       <Header title="Talabalar" description="Barcha talabalar ro'yxati va boshqaruvi" />
       <main className="flex-1 p-6">
         <UsersTable users={users} />

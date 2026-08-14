@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
@@ -46,7 +46,7 @@ export default function NewTopicPage() {
   }
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
       <Header title="Yangi mavzu qo'shish" />
       <main className="flex-1 p-6 max-w-2xl mx-auto w-full">
         <Link href={`/professor/courses/${courseId}`} className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 mb-6 transition-colors">
@@ -71,7 +71,7 @@ export default function NewTopicPage() {
                 onChange={(e) => update("title", e.target.value)}
                 placeholder="Pedagogik mahorat tushunchasi"
                 required
-                className="w-full h-10 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+                className="w-full h-10 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
               />
               {errors.title && <p className="text-xs text-red-400">{errors.title[0]}</p>}
             </div>
@@ -83,7 +83,7 @@ export default function NewTopicPage() {
                 value={form.learningObjective}
                 onChange={(e) => update("learningObjective", e.target.value)}
                 placeholder="Dars oxirida talaba... qila oladi"
-                className="w-full h-10 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+                className="w-full h-10 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
               />
               <p className="text-xs text-slate-400 dark:text-slate-600">Misol: &quot;Pedagogik mahorat tushunchasini ta&apos;riflay oladi&quot;</p>
             </div>
@@ -96,7 +96,7 @@ export default function NewTopicPage() {
                 onChange={(e) => update("description", e.target.value)}
                 placeholder="Mavzu haqida qo'shimcha ma'lumot..."
                 rows={3}
-                className="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors resize-none"
+                className="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors resize-none"
               />
             </div>
 
@@ -104,7 +104,7 @@ export default function NewTopicPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="flex items-center gap-2 px-5 py-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white text-sm font-medium rounded-lg transition-colors"
+                className="flex items-center gap-2 px-5 py-2 bg-[#B45309] hover:bg-[#92400E] disabled:opacity-50 text-white text-sm font-medium rounded-lg transition-colors"
               >
                 {loading && <Loader2 className="h-4 w-4 animate-spin" />}
                 Mavzu yaratish

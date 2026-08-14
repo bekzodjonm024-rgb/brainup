@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
@@ -139,7 +139,7 @@ export function PracticeSession({
       if (isSelected)      return "border-red-500/40    bg-red-500/10    text-red-300";
       return "border-slate-200 dark:border-white/8 bg-slate-50/50 dark:bg-[#151f35]/50 text-slate-400 dark:text-slate-600";
     }
-    if (selectedAnswer === option) return "border-blue-500/40 bg-blue-500/10 text-blue-300";
+    if (selectedAnswer === option) return "border-[#B45309]/40 bg-[#FEF4E7]0/10 text-blue-300";
     return "border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[#2a2720] hover:border-slate-300 dark:hover:border-slate-700";
   }
 
@@ -149,7 +149,7 @@ export function PracticeSession({
       if (selectedAnswer === val)                  return "border-red-500/40    bg-red-500/10    text-red-300";
       return "border-slate-200 dark:border-white/8 bg-slate-50/50 dark:bg-[#151f35]/50 text-slate-400 dark:text-slate-600";
     }
-    if (selectedAnswer === val) return "border-blue-500/40 bg-blue-500/10 text-blue-300";
+    if (selectedAnswer === val) return "border-[#B45309]/40 bg-[#FEF4E7]0/10 text-blue-300";
     return "border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[#2a2720] hover:border-slate-300 dark:hover:border-slate-700";
   }
 
@@ -169,7 +169,7 @@ export function PracticeSession({
           <div className="flex-1">
             <p className="text-xs text-slate-400 dark:text-slate-600 truncate mb-1">{topicTitle}</p>
             <div className="h-1 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
-              <div className="h-full bg-blue-600 rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
+              <div className="h-full bg-[#B45309] rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
             </div>
           </div>
           <span className="text-xs text-slate-400 dark:text-slate-600 shrink-0 tabular-nums">{stats.total}/{sessionTarget}</span>
@@ -307,7 +307,7 @@ export function PracticeSession({
                   <Button
                     onClick={handleSubmit}
                     disabled={!selectedAnswer || submitting}
-                    className="w-full h-11 bg-blue-600 hover:bg-blue-500 text-white border-0"
+                    className="w-full h-11 bg-[#B45309] hover:bg-[#92400E] text-white border-0"
                   >
                     {submitting && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
                     Tasdiqlash
@@ -346,7 +346,7 @@ export function PracticeSession({
               <div className="flex gap-3">
                 <Button
                   onClick={() => router.push(`/topics/${topicId}/result?topicId=${topicId}`)}
-                  className="flex-1 h-11 bg-blue-600 hover:bg-blue-500 text-white border-0"
+                  className="flex-1 h-11 bg-[#B45309] hover:bg-[#92400E] text-white border-0"
                 >
                   Keyingi qadam <ChevronRight className="h-4 w-4 ml-1" />
                 </Button>

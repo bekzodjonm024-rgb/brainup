@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -218,10 +218,10 @@ export function AddContentDialog({ topicId, asButton }: AddContentDialogProps) {
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
                   disabled={uploading}
-                  className="w-full flex flex-col items-center gap-2 p-6 border-2 border-dashed border-slate-200 rounded-lg hover:border-blue-300 hover:bg-blue-50/50 transition-colors text-slate-500 disabled:opacity-50"
+                  className="w-full flex flex-col items-center gap-2 p-6 border-2 border-dashed border-slate-200 rounded-lg hover:border-blue-300 hover:bg-[#FEF4E7]/50 transition-colors text-slate-500 disabled:opacity-50"
                 >
                   {uploading ? (
-                    <Loader2 className="h-6 w-6 animate-spin text-blue-500" />
+                    <Loader2 className="h-6 w-6 animate-spin text-[#B45309]" />
                   ) : (
                     <UploadCloud className="h-6 w-6" />
                   )}

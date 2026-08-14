@@ -55,19 +55,19 @@ export default async function ProfessorDashboard() {
     .slice(0, 5);
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
       <Header title={`Salom, ${professor.firstName}!`} description="Professor boshqaruv paneli" />
 
       <main className="flex-1 p-6 space-y-6">
 
         {/* Profile row */}
         <div className="flex items-center gap-4 rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] p-4">
-          <div className="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-950/50 border border-slate-200 dark:border-white/10 flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-full bg-[#FEF4E7] dark:bg-blue-950/50 border border-slate-200 dark:border-white/10 flex items-center justify-center shrink-0">
             {professor.user.avatarUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={professor.user.avatarUrl} alt="" className="w-10 h-10 rounded-full object-cover" />
             ) : (
-              <span className="text-sm font-bold text-blue-600 dark:text-blue-400 uppercase">
+              <span className="text-sm font-bold text-[#B45309] dark:text-amber-400 uppercase">
                 {professor.firstName[0]}{professor.lastName[0]}
               </span>
             )}
@@ -88,7 +88,7 @@ export default async function ProfessorDashboard() {
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[
-            { icon: <BookOpen className="h-5 w-5 text-blue-600 dark:text-blue-400" />,      label: "Kurslar",        value: totalCourses,          iconBg: "bg-blue-50 dark:bg-blue-950/50" },
+            { icon: <BookOpen className="h-5 w-5 text-[#B45309] dark:text-amber-400" />,      label: "Kurslar",        value: totalCourses,          iconBg: "bg-[#FEF4E7] dark:bg-blue-950/50" },
             { icon: <Users className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />,   label: "Talabalar",      value: totalStudents,          iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
             { icon: <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "Qiyin mavzular", value: difficultTopics.length, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
           ].map((s) => (
@@ -118,7 +118,7 @@ export default async function ProfessorDashboard() {
             <div className="flex items-center justify-between">
               <h2 className="text-base font-semibold text-slate-900 dark:text-white">Mening kurslarim</h2>
               <Link href="/professor/courses/new">
-                <Button size="sm" className="bg-blue-600 hover:bg-blue-500 border-0 text-white gap-1">
+                <Button size="sm" className="bg-[#B45309] hover:bg-[#92400E] border-0 text-white gap-1">
                   <Plus className="h-3.5 w-3.5" /> Yangi kurs
                 </Button>
               </Link>
@@ -131,7 +131,7 @@ export default async function ProfessorDashboard() {
                 </div>
                 <p className="text-sm text-slate-500">Hali kurs yaratilinmadi</p>
                 <Link href="/professor/courses/new">
-                  <Button size="sm" className="bg-blue-600 hover:bg-blue-500 border-0 text-white">Kurs yaratish</Button>
+                  <Button size="sm" className="bg-[#B45309] hover:bg-[#92400E] border-0 text-white">Kurs yaratish</Button>
                 </Link>
               </div>
             ) : (
@@ -159,7 +159,7 @@ export default async function ProfessorDashboard() {
                       </Link>
                     </div>
                     <div className="h-1 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
-                      <div className="h-full bg-blue-600 rounded-full" style={{ width: `${avgMastery * 100}%` }} />
+                      <div className="h-full bg-[#B45309] rounded-full" style={{ width: `${avgMastery * 100}%` }} />
                     </div>
                   </div>
                 );

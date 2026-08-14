@@ -30,7 +30,7 @@ function Initials({ name }: { name: string }) {
     ? parts[0][0] + parts[1][0]
     : name.slice(0, 2);
   return (
-    <div className="h-8 w-8 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center text-xs font-bold shrink-0 select-none uppercase">
+    <div className="h-8 w-8 rounded-full bg-[#FEF4E7]0/10 border border-[#B45309]/20 text-amber-400 flex items-center justify-center text-xs font-bold shrink-0 select-none uppercase">
       {letters}
     </div>
   );
@@ -77,7 +77,7 @@ export function UsersTable({ users }: { users: User[] }) {
               onClick={() => setFilter(f.key)}
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                 filter === f.key
-                  ? "bg-blue-600 text-white"
+                  ? "bg-[#B45309] text-white"
                   : "bg-slate-100 dark:bg-[#1e2840] text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-700 dark:hover:text-slate-200"
               }`}
             >
@@ -94,7 +94,7 @@ export function UsersTable({ users }: { users: User[] }) {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Ism, email, guruh..."
-            className="w-full pl-9 pr-3 h-9 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+            className="w-full pl-9 pr-3 h-9 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
           />
         </div>
       </div>

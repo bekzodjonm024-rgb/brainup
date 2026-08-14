@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+﻿import { cn } from "@/lib/utils";
 
 interface MasteryBreakdownProps {
   recentAccuracy: number;
@@ -9,7 +9,7 @@ interface MasteryBreakdownProps {
 }
 
 const COMPONENTS = [
-  { key: "recentAccuracy", label: "So'nggi aniqlik", weight: "40%", color: "bg-blue-500" },
+  { key: "recentAccuracy", label: "So'nggi aniqlik", weight: "40%", color: "bg-[#FEF4E7]0" },
   { key: "historicalAccuracy", label: "Umumiy aniqlik", weight: "25%", color: "bg-emerald-500" },
   { key: "retrievalScore", label: "Eslab qolish", weight: "20%", color: "bg-violet-500" },
   { key: "consistencyScore", label: "Izchillik", weight: "15%", color: "bg-amber-500" },

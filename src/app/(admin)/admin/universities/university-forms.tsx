@@ -38,7 +38,7 @@ export function AddUniversityForm() {
             value={form.name}
             onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
             placeholder="To'liq nomi"
-            className="h-9 w-64 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+            className="h-9 w-64 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
             required
           />
         </div>
@@ -48,7 +48,7 @@ export function AddUniversityForm() {
             value={form.shortName}
             onChange={(e) => setForm((p) => ({ ...p, shortName: e.target.value }))}
             placeholder="NamDPI"
-            className="h-9 w-28 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+            className="h-9 w-28 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
           />
         </div>
         <div className="space-y-1">
@@ -57,13 +57,13 @@ export function AddUniversityForm() {
             value={form.city}
             onChange={(e) => setForm((p) => ({ ...p, city: e.target.value }))}
             placeholder="Namangan"
-            className="h-9 w-32 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+            className="h-9 w-32 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
           />
         </div>
         <button
           type="submit"
           disabled={loading}
-          className="h-9 px-4 flex items-center gap-1.5 text-sm bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white rounded-lg transition-colors"
+          className="h-9 px-4 flex items-center gap-1.5 text-sm bg-[#B45309] hover:bg-[#92400E] disabled:opacity-50 text-white rounded-lg transition-colors"
         >
           <Plus className="h-4 w-4" />
           Qo&apos;shish
@@ -104,7 +104,7 @@ export function AddFacultyForm({ universityId, universityName }: { universityId:
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder={`${universityName} — yangi fakultet`}
-        className="h-8 flex-1 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-xs placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+        className="h-8 flex-1 px-3 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-xs placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
         required
       />
       <button

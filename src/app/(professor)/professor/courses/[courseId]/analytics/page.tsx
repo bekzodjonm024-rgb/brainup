@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+﻿import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect, notFound } from "next/navigation";
 import { Header } from "@/components/layout/header";
@@ -18,7 +18,7 @@ function masteryColor(score: number) {
 
 function masteryBadge(score: number) {
   if (score >= 0.85) return "text-emerald-400 bg-emerald-500/10 border border-emerald-500/20";
-  if (score >= 0.65) return "text-blue-400 bg-blue-500/10 border border-blue-500/20";
+  if (score >= 0.65) return "text-amber-400 bg-[#FEF4E7]0/10 border border-[#B45309]/20";
   if (score >= 0.50) return "text-amber-400 bg-amber-500/10 border border-amber-500/20";
   if (score > 0) return "text-red-400 bg-red-500/10 border border-red-500/20";
   return "text-slate-500 bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10";
@@ -160,7 +160,7 @@ export default async function CourseAnalyticsPage({
     : 0;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
       <Header title={`${course.title} — Analitika`} description="Kurs bo'yicha batafsil tahlil" />
 
       <main className="flex-1 p-6 space-y-6 max-w-5xl mx-auto w-full">
@@ -182,7 +182,7 @@ export default async function CourseAnalyticsPage({
         {/* Summary stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { icon: <Users className="h-5 w-5 text-blue-600 dark:text-blue-400" />, label: "Jami talabalar", value: totalStudents, iconBg: "bg-blue-50 dark:bg-blue-950/50" },
+            { icon: <Users className="h-5 w-5 text-[#B45309] dark:text-amber-400" />, label: "Jami talabalar", value: totalStudents, iconBg: "bg-[#FEF4E7] dark:bg-blue-950/50" },
             { icon: <TrendingUp className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />, label: "Faol talabalar", value: activeStudents, iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
             { icon: <CheckCircle2 className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "O'zlashtirildi", value: masteredStudents, iconBg: "bg-violet-50 dark:bg-violet-950/50" },
             { icon: <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "O'rtacha mastery", value: `${Math.round(avgMastery * 100)}%`, iconBg: "bg-amber-50 dark:bg-amber-950/50" },

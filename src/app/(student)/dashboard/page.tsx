@@ -26,10 +26,10 @@ const ACTION_CONFIG: Record<string, {
   borderCls: string;
   icon: React.ReactNode;
 }> = {
-  PREREQUISITE:     { label: "Oldingi mavzu", iconCls: "text-blue-400", bgCls: "bg-blue-600/10", borderCls: "border-blue-500/20", icon: <Layers className="h-4 w-4" /> },
+  PREREQUISITE:     { label: "Oldingi mavzu", iconCls: "text-amber-400", bgCls: "bg-[#B45309]/10", borderCls: "border-[#B45309]/20", icon: <Layers className="h-4 w-4" /> },
   RETRIEVE:         { label: "Takrorlash",    iconCls: "text-violet-400", bgCls: "bg-violet-500/10", borderCls: "border-violet-500/20", icon: <RotateCcw className="h-4 w-4" /> },
   EXPLAIN_AGAIN:    { label: "Qayta o'qish",  iconCls: "text-amber-400",  bgCls: "bg-amber-500/10",  borderCls: "border-amber-500/20",  icon: <BookOpen className="h-4 w-4" /> },
-  PRACTICE:         { label: "Mashq",         iconCls: "text-blue-400",   bgCls: "bg-blue-500/10",   borderCls: "border-blue-500/20",   icon: <Zap className="h-4 w-4" /> },
+  PRACTICE:         { label: "Mashq",         iconCls: "text-amber-400",   bgCls: "bg-[#FEF4E7]0/10",   borderCls: "border-[#B45309]/20",   icon: <Zap className="h-4 w-4" /> },
   ADVANCED_PRACTICE:{ label: "Murakkab",      iconCls: "text-pink-400",   bgCls: "bg-pink-500/10",   borderCls: "border-pink-500/20",   icon: <Zap className="h-4 w-4" /> },
   CONTINUE:         { label: "Davom et",      iconCls: "text-emerald-400",bgCls: "bg-emerald-500/10",borderCls: "border-emerald-500/20",icon: <ArrowRight className="h-4 w-4" /> },
   START:            { label: "Boshlash",      iconCls: "text-slate-500 dark:text-slate-400", bgCls: "bg-slate-100 dark:bg-[#1e2840]", borderCls: "border-slate-200 dark:border-white/10", icon: <PlayCircle className="h-4 w-4" /> },
@@ -124,7 +124,7 @@ export default async function DashboardPage() {
   const topRecs = recommendations.slice(0, 3);
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
       <Header
         title={`Salom, ${student.firstName}!`}
         description="BrainUP — sizning adaptiv o'quv platformangiz"
@@ -134,9 +134,9 @@ export default async function DashboardPage() {
 
         {/* Assessment CTA */}
         {!hasAssessment && (
-          <div className="rounded-2xl border border-blue-500/20 bg-blue-500/5 p-5 flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-blue-500/15 border border-blue-500/20 flex items-center justify-center shrink-0 mt-0.5">
-              <Brain className="h-5 w-5 text-blue-400" />
+          <div className="rounded-2xl border border-[#B45309]/20 bg-[#FEF4E7]0/5 p-5 flex items-start gap-4">
+            <div className="w-10 h-10 rounded-xl bg-[#FEF4E7]0/15 border border-[#B45309]/20 flex items-center justify-center shrink-0 mt-0.5">
+              <Brain className="h-5 w-5 text-amber-400" />
             </div>
             <div className="flex-1">
               <h3 className="font-semibold text-slate-900 dark:text-white text-sm">Boshlang&apos;ich baholashni o&apos;ting</h3>
@@ -145,7 +145,7 @@ export default async function DashboardPage() {
               </p>
             </div>
             <Link href="/assessment">
-              <Button size="sm" className="shrink-0 bg-blue-600 hover:bg-blue-500 border-0 text-white">
+              <Button size="sm" className="shrink-0 bg-[#B45309] hover:bg-[#92400E] border-0 text-white">
                 Boshlash <ArrowRight className="h-3.5 w-3.5 ml-1" />
               </Button>
             </Link>
@@ -156,10 +156,10 @@ export default async function DashboardPage() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {[
             {
-              icon: <BookOpen className="h-5 w-5 text-blue-600 dark:text-blue-400" />,
+              icon: <BookOpen className="h-5 w-5 text-[#B45309] dark:text-amber-400" />,
               label: "Kurslar",
               value: student.enrollments.length,
-              iconBg: "bg-blue-50 dark:bg-blue-950/50",
+              iconBg: "bg-[#FEF4E7] dark:bg-blue-950/50",
             },
             {
               icon: <TrendingUp className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />,
@@ -250,7 +250,7 @@ export default async function DashboardPage() {
                   </div>
                   <p className="text-sm text-slate-500">Hali kurslarga yozilmadingiz</p>
                   <Link href="/courses">
-                    <Button size="sm" className="bg-blue-600 hover:bg-blue-500 border-0 text-white">
+                    <Button size="sm" className="bg-[#B45309] hover:bg-[#92400E] border-0 text-white">
                       Kurs topish
                     </Button>
                   </Link>
@@ -346,7 +346,7 @@ function CourseCard({ course }: {
       </div>
       <div className="h-1 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
         <div
-          className="h-full bg-blue-600 rounded-full transition-all"
+          className="h-full bg-[#B45309] rounded-full transition-all"
           style={{ width: `${progress}%` }}
         />
       </div>

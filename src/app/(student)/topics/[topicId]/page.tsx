@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+﻿import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect, notFound } from "next/navigation";
 import { Header } from "@/components/layout/header";
@@ -27,9 +27,9 @@ const typeLabel: Record<ContentType, string> = {
 
 const ADAPTIVE_UI: Record<string, { label: string; desc: string; border: string; iconBg: string; icon: React.ReactNode }> = {
   CONTINUE:          { label: "Keyingi mavzuga o'ting",       desc: "Yaxshi natija! Davom eting.",                        border: "border-emerald-500/20", iconBg: "bg-emerald-500/10", icon: <ArrowRight className="h-4 w-4 text-emerald-400" /> },
-  PRACTICE:          { label: "Mashq qiling",                  desc: "Bilimlarni mustahkamlash uchun mashq kerak.",         border: "border-blue-500/20",    iconBg: "bg-blue-500/10",    icon: <Zap className="h-4 w-4 text-blue-400" /> },
+  PRACTICE:          { label: "Mashq qiling",                  desc: "Bilimlarni mustahkamlash uchun mashq kerak.",         border: "border-[#B45309]/20",    iconBg: "bg-[#FEF4E7]0/10",    icon: <Zap className="h-4 w-4 text-amber-400" /> },
   EXPLAIN_AGAIN:     { label: "Qayta o'qing",                  desc: "Materialni yana bir bor diqqat bilan o'qib chiqing.", border: "border-amber-500/20",   iconBg: "bg-amber-500/10",   icon: <BookOpen className="h-4 w-4 text-amber-400" /> },
-  PREREQUISITE:      { label: "Oldingi mavzuni kuchaytiring",  desc: "Avval oldingi mavzuni yaxshilang.",                  border: "border-blue-500/20",  iconBg: "bg-blue-600/10",  icon: <Layers className="h-4 w-4 text-blue-400" /> },
+  PREREQUISITE:      { label: "Oldingi mavzuni kuchaytiring",  desc: "Avval oldingi mavzuni yaxshilang.",                  border: "border-[#B45309]/20",  iconBg: "bg-[#B45309]/10",  icon: <Layers className="h-4 w-4 text-amber-400" /> },
   RETRIEVE:          { label: "Takrorlash vaqti",              desc: "Bu mavzuni eslash vaqti keldi.",                     border: "border-violet-500/20",  iconBg: "bg-violet-500/10",  icon: <RotateCcw className="h-4 w-4 text-violet-400" /> },
   ADVANCED_PRACTICE: { label: "Murakkab mashq",                desc: "Siz mukammal! Yuqori darajaga o'ting.",              border: "border-pink-500/20",    iconBg: "bg-pink-500/10",    icon: <BookMarked className="h-4 w-4 text-pink-400" /> },
 };
@@ -69,7 +69,7 @@ export default async function TopicLearningPage({
     const prereqMastery = prereqKnowledge?.masteryScore ?? 0;
     if (prereqMastery < 0.6) {
       return (
-        <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+        <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
           <Header title={topic.title} description={topic.course.title} />
           <main className="flex-1 p-6 max-w-3xl mx-auto w-full">
             <Link href={`/courses/${topic.courseId}`}>
@@ -77,12 +77,12 @@ export default async function TopicLearningPage({
                 <ArrowLeft className="h-4 w-4 mr-1" /> {topic.course.title}
               </Button>
             </Link>
-            <div className="rounded-2xl border border-blue-500/20 bg-blue-600/5 p-6 flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-blue-600/10 flex items-center justify-center shrink-0">
-                <Layers className="h-5 w-5 text-blue-400" />
+            <div className="rounded-2xl border border-[#B45309]/20 bg-[#B45309]/5 p-6 flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-[#B45309]/10 flex items-center justify-center shrink-0">
+                <Layers className="h-5 w-5 text-amber-400" />
               </div>
               <div>
-                <h3 className="font-semibold text-blue-400">Bu mavzu qulflangan</h3>
+                <h3 className="font-semibold text-amber-400">Bu mavzu qulflangan</h3>
                 <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
                   Avval <strong className="text-slate-600 dark:text-slate-300">&quot;{topic.prerequisiteTopic.title}&quot;</strong> mavzusini{" "}
                   kamida 60% o&apos;zlashtiring.
@@ -119,7 +119,7 @@ export default async function TopicLearningPage({
   const adaptiveUI = adaptiveDecision ? ADAPTIVE_UI[adaptiveDecision.action] : null;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
       <Header title={topic.title} description={topic.course.title} />
       <main className="flex-1 p-6 max-w-3xl mx-auto w-full space-y-5">
         <Link href={`/courses/${topic.courseId}`}>
@@ -130,12 +130,12 @@ export default async function TopicLearningPage({
 
         {/* Learning objective */}
         {topic.learningObjective && (
-          <div className="rounded-xl border border-blue-500/20 bg-blue-500/5 p-4 flex gap-3">
-            <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center shrink-0">
-              <Target className="h-4 w-4 text-blue-400" />
+          <div className="rounded-xl border border-[#B45309]/20 bg-[#FEF4E7]0/5 p-4 flex gap-3">
+            <div className="w-8 h-8 rounded-lg bg-[#FEF4E7]0/10 flex items-center justify-center shrink-0">
+              <Target className="h-4 w-4 text-amber-400" />
             </div>
             <div>
-              <p className="text-xs font-semibold text-blue-400 mb-1 uppercase tracking-wide">O&apos;quv maqsadi</p>
+              <p className="text-xs font-semibold text-amber-400 mb-1 uppercase tracking-wide">O&apos;quv maqsadi</p>
               <p className="text-sm text-slate-600 dark:text-slate-300">{topic.learningObjective}</p>
             </div>
           </div>
@@ -212,7 +212,7 @@ export default async function TopicLearningPage({
                       target="_blank"
                       rel="noopener noreferrer"
                       download
-                      className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-blue-500/20 bg-blue-500/5 text-sm font-medium text-blue-400 hover:bg-blue-500/10 transition-colors"
+                      className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-[#B45309]/20 bg-[#FEF4E7]0/5 text-sm font-medium text-amber-400 hover:bg-[#92400E]/10 transition-colors"
                     >
                       <Download className="h-4 w-4" />
                       Faylni yuklab olish
@@ -223,7 +223,7 @@ export default async function TopicLearningPage({
                       href={item.externalUrl!}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-sm text-blue-400 hover:text-blue-300 transition-colors"
+                      className="inline-flex items-center gap-1.5 text-sm text-amber-400 hover:text-blue-300 transition-colors"
                     >
                       <LinkIcon className="h-3.5 w-3.5" />
                       Manbani ochish
@@ -237,7 +237,7 @@ export default async function TopicLearningPage({
                           <li key={s.id} className="text-xs text-slate-500">
                             {s.url ? (
                               <a href={s.url} target="_blank" rel="noopener noreferrer"
-                                 className="text-blue-400 hover:text-blue-300">{s.title}</a>
+                                 className="text-amber-400 hover:text-blue-300">{s.title}</a>
                             ) : (
                               s.title
                             )}
@@ -258,7 +258,7 @@ export default async function TopicLearningPage({
         {topic.contentItems.length > 0 && (
           <div className="flex justify-end pt-2">
             <Link href={`/topics/${topicId}/practice`}>
-              <Button className="bg-blue-600 hover:bg-blue-500 text-white border-0 gap-2">
+              <Button className="bg-[#B45309] hover:bg-[#92400E] text-white border-0 gap-2">
                 Mashqga o&apos;tish <ChevronRight className="h-4 w-4" />
               </Button>
             </Link>

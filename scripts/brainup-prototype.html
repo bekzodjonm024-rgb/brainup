@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrainUP — Kognitiv Rivojlanish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --p: #6366F1;
+  --ph: #4F46E5;
+  --pl: #EEF2FF;
+  --pd: #C7D2FE;
+  --bg: #F8F7FF;
+  --card: #FFFFFF;
+  --t1: #0F0F1A;
+  --t2: #374151;
+  --tm: #6B7280;
+  --b: #E5E7EB;
+  --s1: 0 1px 3px rgba(0,0,0,.07),0 4px 16px rgba(99,102,241,.06);
+  --s2: 0 4px 12px rgba(0,0,0,.08),0 8px 32px rgba(99,102,241,.08);
+  --r: 16px;
+  --rs: 10px;
+  --ok: #10B981;
+  --warn: #F59E0B;
+  --err: #EF4444;
+  --fd: 'DM Serif Display', Georgia, serif;
+  --fb: 'Outfit', system-ui, sans-serif;
+  --fm: 'JetBrains Mono', monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--bg);color:var(--t1);min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(248,247,255,.93);backdrop-filter:blur(12px);border-bottom:1px solid rgba(99,102,241,.08);padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--t1);cursor:pointer}
+.logo-m{width:36px;height:36px;background:var(--p);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px}
+.logo-t{font-weight:700;font-size:18px}
+.nav-acts{display:flex;align-items:center;gap:10px}
+
+/* BTNS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 22px;border-radius:50px;font-family:var(--fb);font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all .2s;text-decoration:none;white-space:nowrap}
+.btn-p{background:var(--p);color:#fff;box-shadow:0 2px 8px rgba(99,102,241,.28)}
+.btn-p:hover{background:var(--ph);transform:translateY(-1px);box-shadow:0 4px 16px rgba(99,102,241,.34)}
+.btn-g{background:transparent;color:var(--tm);border:1.5px solid var(--b)}
+.btn-g:hover{background:#fff;color:var(--t1)}
+.btn-w{background:#fff;color:var(--p)}
+.btn-w:hover{background:var(--bg)}
+.btn-lg{padding:15px 34px;font-size:16px}
+.btn-full{width:100%}
+
+/* SCREENS */
+.scr{display:none;min-height:100vh;padding-top:64px}
+.scr.on{display:block}
+.fade{animation:fi .28s ease}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== LANDING ===== */
+#s-land{padding-top:64px}
+.hero{max-width:1100px;margin:0 auto;padding:72px 24px 56px;display:grid;grid-template-columns:1fr 420px;gap:56px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--pl);color:var(--p);padding:5px 14px;border-radius:50px;font-size:12px;font-weight:600;margin-bottom:22px}
+.badge-dot{width:6px;height:6px;background:var(--p);border-radius:50%}
+.hero h1{font-family:var(--fd);font-size:clamp(38px,5vw,58px);line-height:1.1;letter-spacing:-1px;margin-bottom:18px}
+.hero h1 em{font-style:italic;color:var(--p)}
+.hero-desc{font-size:16px;color:var(--tm);line-height:1.7;max-width:460px;margin-bottom:32px}
+.hero-acts{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.trust{display:flex;align-items:center;gap:10px;color:var(--tm);font-size:13px;margin-top:18px}
+.avatars{display:flex}
+.av{width:28px;height:28px;border-radius:50%;border:2px solid #fff;margin-right:-8px;font-size:11px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff}
+
+.hero-card{background:#fff;border-radius:22px;padding:26px;box-shadow:var(--s2);border:1px solid rgba(99,102,241,.08);position:relative}
+.score-pill{position:absolute;top:-14px;right:-14px;background:var(--p);color:#fff;padding:10px 14px;border-radius:14px;font-family:var(--fm);font-size:22px;font-weight:600;box-shadow:0 4px 14px rgba(99,102,241,.3);line-height:1}
+.score-pill small{font-size:12px;font-family:var(--fb);opacity:.75;display:block}
+.card-title{font-weight:700;font-size:15px;margin-bottom:3px}
+.card-sub{font-size:12px;color:var(--tm);margin-bottom:18px}
+.mbars{display:flex;flex-direction:column;gap:9px}
+.mbar{display:flex;align-items:center;gap:9px}
+.mbar-l{font-size:12px;color:var(--tm);width:88px;flex-shrink:0}
+.mbar-t{flex:1;height:6px;background:var(--bg);border-radius:3px;overflow:hidden}
+.mbar-f{height:100%;background:var(--p);border-radius:3px}
+.mbar-v{font-family:var(--fm);font-size:11px;font-weight:600;color:var(--t2);width:24px;text-align:right}
+
+.feat{max-width:1100px;margin:0 auto;padding:36px 24px 72px}
+.feat-lbl{text-align:center;font-size:12px;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px}
+.feat-title{font-family:var(--fd);font-size:clamp(26px,4vw,38px);text-align:center;margin-bottom:44px;letter-spacing:-.5px}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.fc{background:#fff;border-radius:var(--r);padding:26px;border:1px solid var(--b);transition:all .2s}
+.fc:hover{border-color:var(--pd);box-shadow:var(--s1);transform:translateY(-2px)}
+.fc-icon{width:42px;height:42px;background:var(--pl);border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:20px}
+.fc h3{font-size:15px;font-weight:700;margin-bottom:7px}
+.fc p{font-size:13px;color:var(--tm);line-height:1.6}
+
+.land-cta{background:var(--p);padding:56px 24px;text-align:center}
+.land-cta h2{font-family:var(--fd);font-size:clamp(26px,4vw,42px);color:#fff;margin-bottom:14px;letter-spacing:-.5px}
+.land-cta p{color:rgba(255,255,255,.72);font-size:15px;margin-bottom:28px}
+
+/* ===== ONBOARDING ===== */
+#s-onb{display:none}
+#s-onb.on{display:flex;flex-direction:column;align-items:center}
+.onb-wrap{max-width:500px;width:100%;padding:48px 24px}
+.steps{display:flex;align-items:center;justify-content:center;margin-bottom:44px}
+.sc{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;transition:all .3s;z-index:1}
+.sc.done{background:var(--p);color:#fff}
+.sc.act{background:var(--p);color:#fff;box-shadow:0 0 0 4px var(--pl)}
+.sc.off{background:var(--b);color:var(--tm)}
+.sl{width:56px;height:2px;background:var(--b);transition:background .3s}
+.sl.done{background:var(--p)}
+.onb-h{font-family:var(--fd);font-size:30px;letter-spacing:-.4px;margin-bottom:6px}
+.onb-s{color:var(--tm);font-size:14px;margin-bottom:28px}
+.fg{margin-bottom:18px}
+.fl{display:block;font-size:12px;font-weight:600;color:var(--t2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.fi{width:100%;padding:13px 15px;border:1.5px solid var(--b);border-radius:var(--rs);font-family:var(--fb);font-size:14px;color:var(--t1);background:#fff;transition:all .2s;outline:none}
+.fi:focus{border-color:var(--p);box-shadow:0 0 0 3px var(--pl)}
+.fsel{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px}
+.goals{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.go{padding:12px 14px;border:1.5px solid var(--b);border-radius:var(--rs);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:9px;font-size:13px;font-weight:500}
+.go:hover{border-color:var(--pd);background:var(--pl)}
+.go.sel{border-color:var(--p);background:var(--pl);color:var(--p)}
+.gck{width:16px;height:16px;border:2px solid var(--b);border-radius:50%;flex-shrink:0;transition:all .2s;display:flex;align-items:center;justify-content:center;font-size:9px}
+.go.sel .gck{background:var(--p);border-color:var(--p);color:#fff}
+.row2{display:flex;gap:11px}
+
+/* ===== TEST ===== */
+#s-test{display:none;flex-direction:column}
+#s-test.on{display:flex}
+.th{background:#fff;border-bottom:1px solid var(--b);padding:14px 24px;position:sticky;top:64px;z-index:50}
+.tm{max-width:780px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:10px}
+.t-cat{font-size:12px;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:.5px}
+.t-cnt{font-family:var(--fm);font-size:12px;color:var(--tm)}
+.t-timer{display:flex;align-items:center;gap:5px;font-family:var(--fm);font-size:14px;font-weight:600;background:var(--bg);padding:5px 11px;border-radius:7px}
+.t-timer.warn{color:var(--warn)}
+.t-timer.err{color:var(--err)}
+.tp{max-width:780px;margin:0 auto;height:3px;background:var(--bg);border-radius:2px;overflow:hidden}
+.tpf{height:100%;background:var(--p);border-radius:2px;transition:width .4s ease}
+.tb{flex:1;max-width:780px;width:100%;margin:0 auto;padding:44px 24px}
+.tq{font-family:var(--fd);font-size:clamp(19px,3vw,26px);line-height:1.45;margin-bottom:36px;letter-spacing:-.2px}
+.topts{display:flex;flex-direction:column;gap:11px}
+.to{padding:16px 18px;border:1.5px solid var(--b);border-radius:var(--rs);cursor:pointer;transition:all .14s;display:flex;align-items:center;gap:13px;background:#fff;font-size:14px}
+.to:hover{border-color:var(--p);background:var(--pl)}
+.to.sel{border-color:var(--p);background:var(--pl);color:var(--p)}
+.to.ok{border-color:var(--ok);background:#F0FDF4;color:#065F46}
+.to.no{border-color:var(--err);background:#FEF2F2;color:#991B1B}
+.ok-k{width:26px;height:26px;border:1.5px solid currentColor;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;font-family:var(--fm)}
+
+/* ===== RESULTS ===== */
+.rc{max-width:880px;margin:0 auto;padding:44px 24px}
+.rh{text-align:center;margin-bottom:44px}
+.sr{position:relative;width:130px;height:130px;margin:0 auto 22px}
+.sr canvas{position:absolute;top:0;left:0}
+.sr-val{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.sr-val .big{font-family:var(--fm);font-size:34px;font-weight:600;line-height:1}
+.sr-val .sm{font-size:12px;color:var(--tm)}
+.r-title{font-family:var(--fd);font-size:34px;letter-spacing:-.5px;margin-bottom:6px}
+.r-sub{color:var(--tm);font-size:15px}
+.rg{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:28px}
+.rcard{background:#fff;border-radius:var(--r);padding:22px;border:1px solid var(--b)}
+.rcard-t{font-size:12px;font-weight:600;color:var(--tm);text-transform:uppercase;letter-spacing:.5px;margin-bottom:18px}
+.cbars{display:flex;flex-direction:column;gap:13px}
+.cbr{display:flex;flex-direction:column;gap:5px}
+.cbr-h{display:flex;justify-content:space-between;align-items:center}
+.cbr-n{font-size:13px;font-weight:500}
+.cbr-s{font-family:var(--fm);font-size:13px;font-weight:600;color:var(--p)}
+.ct{height:7px;background:var(--bg);border-radius:4px;overflow:hidden}
+.cf{height:100%;border-radius:4px;transition:width 1s ease}
+
+/* ===== ANALYSIS ===== */
+.ac{max-width:840px;margin:0 auto;padding:44px 24px}
+.sec-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--p);margin-bottom:7px}
+.sec-t{font-family:var(--fd);font-size:clamp(24px,4vw,34px);letter-spacing:-.5px;margin-bottom:28px}
+.ai-tag{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#6366F1,#818CF8);color:#fff;padding:5px 12px;border-radius:50px;font-size:11px;font-weight:600;margin-bottom:22px}
+.ag{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px}
+.acard{background:#fff;border-radius:var(--r);padding:22px;border:1px solid var(--b)}
+.acard-ico{font-size:22px;margin-bottom:10px}
+.acard h3{font-size:15px;font-weight:700;margin-bottom:11px}
+.alist{list-style:none;display:flex;flex-direction:column;gap:7px}
+.alist li{display:flex;align-items:flex-start;gap:7px;font-size:13px;color:var(--t2);line-height:1.5}
+.alist li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--p);margin-top:6px;flex-shrink:0}
+.recc{background:#fff;border-radius:var(--r);padding:22px;border:1px solid var(--b);margin-bottom:18px}
+.ri{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--b)}
+.ri:last-child{border-bottom:none}
+.rn{width:30px;height:30px;background:var(--pl);color:var(--p);border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0}
+.rc-body h4{font-size:14px;font-weight:600;margin-bottom:3px}
+.rc-body p{font-size:12px;color:var(--tm);line-height:1.5}
+.tag{display:inline-flex;align-items:center;padding:2px 9px;border-radius:50px;font-size:10px;font-weight:600;margin-top:5px;margin-right:4px}
+.tp-{background:var(--pl);color:var(--p)}
+.tok{background:#ECFDF5;color:#065F46}
+.twarn{background:#FFFBEB;color:#92400E}
+
+/* ===== DEV PLAN ===== */
+.pc{max-width:840px;margin:0 auto;padding:44px 24px}
+.weeks{display:flex;flex-direction:column;gap:18px;margin-bottom:28px}
+.wk{background:#fff;border-radius:var(--r);border:1px solid var(--b);overflow:hidden}
+.wk-h{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--b)}
+.wk-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--tm)}
+.wk-title{font-size:15px;font-weight:700}
+.wb{padding:4px 10px;border-radius:50px;font-size:11px;font-weight:600}
+.w-act{background:var(--p);color:#fff}
+.w-up{background:var(--bg);color:var(--tm);border:1px solid var(--b)}
+.wk-tasks{padding:14px 18px;display:flex;flex-direction:column;gap:9px}
+.tk{display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:8px;background:var(--bg);font-size:13px}
+.tk-ico{font-size:15px;flex-shrink:0}
+.tk-n{flex:1}
+.tk-d{font-family:var(--fm);font-size:11px;color:var(--tm)}
+
+/* ===== DASHBOARD ===== */
+.dc{max-width:1080px;margin:0 auto;padding:28px 24px}
+.dh{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px}
+.dg{font-family:var(--fd);font-size:26px;letter-spacing:-.3px;margin-bottom:3px}
+.dd{font-size:13px;color:var(--tm)}
+.ds-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.sc-card{background:#fff;border-radius:var(--rs);padding:18px;border:1px solid var(--b)}
+.sc-lbl{font-size:11px;font-weight:600;color:var(--tm);text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px}
+.sc-val{font-family:var(--fm);font-size:26px;font-weight:600;line-height:1;margin-bottom:3px}
+.sc-ch{font-size:11px}
+.ch-up{color:var(--ok)}
+.ch-dn{color:var(--err)}
+.dm{display:grid;grid-template-columns:2fr 1fr;gap:18px}
+.dcard{background:#fff;border-radius:var(--r);padding:22px;border:1px solid var(--b)}
+.dcard-t{font-size:14px;font-weight:700;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between}
+.dcard-t a{font-size:12px;font-weight:500;color:var(--p);text-decoration:none}
+.wchart{display:flex;align-items:flex-end;gap:7px;height:96px}
+.wbar-w{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;height:100%;justify-content:flex-end}
+.wbar{width:100%;background:var(--pl);border-radius:4px 4px 0 0;cursor:pointer;min-height:4px}
+.wbar.tod{background:var(--p)}
+.wday{font-size:10px;color:var(--tm);font-weight:500}
+.wday.tod{color:var(--p);font-weight:700}
+.ttasks{display:flex;flex-direction:column;gap:10px}
+.tt{display:flex;align-items:center;gap:11px;padding:11px;border-radius:9px;background:var(--bg);cursor:pointer;transition:all .2s}
+.tt:hover{background:var(--pl)}
+.tt.done .ttn{text-decoration:line-through;opacity:.6}
+.tck{width:19px;height:19px;border:2px solid var(--b);border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;font-size:10px}
+.tck.on{background:var(--p);border-color:var(--p);color:#fff}
+.tti{flex:1}
+.ttn{font-size:13px;font-weight:500}
+.tts{font-size:11px;color:var(--tm)}
+.tpt{font-family:var(--fm);font-size:11px;font-weight:600;color:var(--p);background:var(--pl);padding:2px 7px;border-radius:4px}
+.goals-list{display:flex;flex-direction:column;gap:14px}
+.gi-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+.gi-n{font-size:13px;font-weight:500}
+.gi-p{font-family:var(--fm);font-size:12px;font-weight:600;color:var(--p)}
+.gt{height:5px;background:var(--bg);border-radius:3px;overflow:hidden}
+.gf{height:100%;background:var(--p);border-radius:3px}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .hero{grid-template-columns:1fr;gap:36px;padding:36px 20px 36px}
+  .hero-vis{order:-1}
+  .feat-grid,.rg,.ag,.dm{grid-template-columns:1fr}
+  .ds-grid{grid-template-columns:1fr 1fr}
+  .nav-acts .btn-g{display:none}
+}
+@media(max-width:480px){
+  .ds-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .goals{grid-template-columns:1fr}
+}
+
+/* SHARED */
+.ctr{text-align:center}
+.divider{height:1px;background:var(--b);margin:22px 0}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo" onclick="go('land')">
+    <div class="logo-m">B</div>
+    <span class="logo-t">BrainUP</span>
+  </div>
+  <div class="nav-acts">
+    <button class="btn btn-g" style="font-size:13px;padding:8px 16px" onclick="go('land')">Bosh sahifa</button>
+    <button class="btn btn-p" style="font-size:13px;padding:8px 16px" onclick="go('onb')">Boshlash</button>
+  </div>
+</nav>
+
+<!-- ========== LANDING ========== -->
+<div id="s-land" class="scr on">
+  <div class="hero">
+    <div>
+      <div class="hero-badge"><span class="badge-dot"></span>NamDPI bilan hamkorlikda</div>
+      <h1>Miyangizni <em>Kashf Eting</em>,<br>Potentsialini Oching</h1>
+      <p class="hero-desc">Kognitiv test orqali o'z kuchli tomonlaringizni aniqlang. AI tahlil asosida shaxsiy rivojlanish rejasi oling.</p>
+      <div class="hero-acts">
+        <button class="btn btn-p btn-lg" onclick="go('onb')">Bepul testdan o'tish <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        <button class="btn btn-g btn-lg">Qanday ishlaydi?</button>
+      </div>
+      <div class="trust">
+        <div class="avatars">
+          <div class="av" style="background:#6366F1">S</div>
+          <div class="av" style="background:#8B5CF6">A</div>
+          <div class="av" style="background:#EC4899">Z</div>
+          <div class="av" style="background:#3B82F6">M</div>
+        </div>
+        <span style="margin-left:14px">460+ talaba allaqachon boshlagan</span>
+      </div>
+    </div>
+    <div class="hero-vis">
+      <div class="hero-card">
+        <div class="score-pill">78<small>/ 100</small></div>
+        <div class="card-title">Kognitiv Profil</div>
+        <div class="card-sub">Sardor Rahimov · NamDPI · 2-kurs</div>
+        <div class="mbars">
+          <div class="mbar"><div class="mbar-l">Xotira</div><div class="mbar-t"><div class="mbar-f" style="width:82%"></div></div><div class="mbar-v">82</div></div>
+          <div class="mbar"><div class="mbar-l">Diqqat</div><div class="mbar-t"><div class="mbar-f" style="width:71%"></div></div><div class="mbar-v">71</div></div>
+          <div class="mbar"><div class="mbar-l">Mantiq</div><div class="mbar-t"><div class="mbar-f" style="width:90%"></div></div><div class="mbar-v">90</div></div>
+          <div class="mbar"><div class="mbar-l">Tezkorlik</div><div class="mbar-t"><div class="mbar-f" style="width:65%"></div></div><div class="mbar-v">65</div></div>
+          <div class="mbar"><div class="mbar-l">Ijodkorlik</div><div class="mbar-t"><div class="mbar-f" style="width:78%"></div></div><div class="mbar-v">78</div></div>
+          <div class="mbar"><div class="mbar-l">Motivatsiya</div><div class="mbar-t"><div class="mbar-f" style="width:88%"></div></div><div class="mbar-v">88</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feat">
+    <div class="feat-lbl">Qanday ishlaydi?</div>
+    <h2 class="feat-title">Kashf et → Tushunarli qil → Rivojlan</h2>
+    <div class="feat-grid">
+      <div class="fc"><div class="fc-icon">🧠</div><h3>Kognitiv Test</h3><p>15 daqiqalik test 6 ta soha bo'yicha — xotira, diqqat, mantiq, tezkorlik, ijodkorlik, motivatsiya — barchasini o'lchaydi.</p></div>
+      <div class="fc"><div class="fc-icon">✨</div><h3>AI Tahlil</h3><p>Natijalaringiz asosida sun'iy intellekt kuchli va rivojlantiriladigan tomonlaringizni aniqlaydi, aniq tavsiyalar beradi.</p></div>
+      <div class="fc"><div class="fc-icon">🎯</div><h3>Shaxsiy Reja</h3><p>Har bir talaba uchun individual 4 haftalik rivojlanish rejasi va kundalik mashqlar tizimi yaratiladi.</p></div>
+    </div>
+  </div>
+
+  <div class="land-cta">
+    <h2>Bugun boshlang — 15 daqiqa yetarli</h2>
+    <p>Ro'yxatdan o'tishingiz shart emas. Darhol bepul testdan o'ting.</p>
+    <button class="btn btn-w btn-lg" onclick="go('onb')">Bepul testdan o'tish <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+  </div>
+</div>
+
+<!-- ========== ONBOARDING ========== -->
+<div id="s-onb" class="scr">
+  <div class="onb-wrap">
+    <div class="steps">
+      <div class="sc act" id="oc1">1</div>
+      <div class="sl" id="ol1"></div>
+      <div class="sc off" id="oc2">2</div>
+      <div class="sl" id="ol2"></div>
+      <div class="sc off" id="oc3">3</div>
+    </div>
+
+    <div id="os1">
+      <div class="onb-h">Ismingiz nima?</div>
+      <div class="onb-s">Test natijalaringiz shaxsiylashtiriladi</div>
+      <div class="fg"><label class="fl">Ism</label><input class="fi" placeholder="Sardor" id="inp-name"></div>
+      <div class="fg"><label class="fl">Familiya</label><input class="fi" placeholder="Rahimov" id="inp-lname"></div>
+      <button class="btn btn-p btn-full" style="margin-top:6px" onclick="onbStep(2)">Davom etish →</button>
+    </div>
+
+    <div id="os2" style="display:none">
+      <div class="onb-h">O'quv ma'lumotlari</div>
+      <div class="onb-s">Natijalar sizning kontekstingizda tahlil qilinadi</div>
+      <div class="fg">
+        <label class="fl">Universitet</label>
+        <select class="fi fsel">
+          <option value="">Tanlang...</option>
+          <option selected>NamDPI — Namangan Davlat Pedagogika Instituti</option>
+          <option>TATU — Toshkent Axborot Texnologiyalari Universiteti</option>
+          <option>SamDU — Samarqand Davlat Universiteti</option>
+          <option>ToshDTU — Toshkent Davlat Texnika Universiteti</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label class="fl">Kurs</label>
+        <select class="fi fsel"><option>1-kurs</option><option selected>2-kurs</option><option>3-kurs</option><option>4-kurs</option></select>
+      </div>
+      <div class="fg"><label class="fl">Mutaxassislik</label><input class="fi" placeholder="Kompyuter ilmlari"></div>
+      <div class="row2" style="margin-top:6px">
+        <button class="btn btn-g" style="padding:11px 18px" onclick="onbStep(1)">← Orqaga</button>
+        <button class="btn btn-p" style="flex:1" onclick="onbStep(3)">Davom etish →</button>
+      </div>
+    </div>
+
+    <div id="os3" style="display:none">
+      <div class="onb-h">Maqsadingiz nima?</div>
+      <div class="onb-s">Bir yoki bir nechtasini tanlang</div>
+      <div class="goals">
+        <div class="go" onclick="tg(this)"><div class="gck"></div>📚 Yaxshi o'qish</div>
+        <div class="go" onclick="tg(this)"><div class="gck"></div>🧪 Imtihonlarga tayyorlanish</div>
+        <div class="go sel" onclick="tg(this)"><div class="gck">✓</div>🎯 Diqqatni oshirish</div>
+        <div class="go" onclick="tg(this)"><div class="gck"></div>💡 Ijodkorlikni rivojlantirish</div>
+        <div class="go" onclick="tg(this)"><div class="gck"></div>🚀 Tezkor o'rganish</div>
+        <div class="go sel" onclick="tg(this)"><div class="gck">✓</div>🧠 Xotirani kuchaytirish</div>
+      </div>
+      <div class="row2" style="margin-top:22px">
+        <button class="btn btn-g" style="padding:11px 18px" onclick="onbStep(2)">← Orqaga</button>
+        <button class="btn btn-p" style="flex:1" onclick="startTest()">Testni boshlash 🧠</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== TEST ========== -->
+<div id="s-test" class="scr">
+  <div class="th">
+    <div class="tm">
+      <div class="t-cat" id="tcat">Xotira</div>
+      <div class="t-cnt" id="tcnt">1 / 18</div>
+      <div class="t-timer" id="ttimer">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <span id="tdisp">15:00</span>
+      </div>
+    </div>
+    <div class="tp"><div class="tpf" id="tpf" style="width:5%"></div></div>
+  </div>
+  <div class="tb">
+    <div class="tq" id="tq"></div>
+    <div class="topts" id="topts"></div>
+  </div>
+</div>
+
+<!-- ========== RESULTS ========== -->
+<div id="s-res" class="scr">
+  <div class="rc">
+    <div class="rh">
+      <div class="sr">
+        <canvas id="srCanvas" width="130" height="130"></canvas>
+        <div class="sr-val"><div class="big" id="rScore">78</div><div class="sm">/ 100</div></div>
+      </div>
+      <h1 class="r-title">Sizning Kognitiv Profilingiz</h1>
+      <p class="r-sub" id="rName">Sardor Rahimov · NamDPI · 2-kurs</p>
+    </div>
+    <div class="rg">
+      <div class="rcard">
+        <div class="rcard-t">Ko'rsatkichlar</div>
+        <div class="cbars" id="cogBars"></div>
+      </div>
+      <div class="rcard">
+        <div class="rcard-t">Radar tahlil</div>
+        <canvas id="radar" width="256" height="240" style="width:100%"></canvas>
+      </div>
+    </div>
+    <div class="ctr"><button class="btn btn-p btn-lg" onclick="go('ana')">AI tahlilni ko'rish ✨</button></div>
+  </div>
+</div>
+
+<!-- ========== ANALYSIS ========== -->
+<div id="s-ana" class="scr">
+  <div class="ac">
+    <div class="sec-lbl">Natijalar Tahlili</div>
+    <h1 class="sec-t">Sizning Kognitiv<br>Kuchlaringiz</h1>
+    <div class="ai-tag">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      AI tahlil · Shaxsiylashtirilgan
+    </div>
+    <div class="ag">
+      <div class="acard">
+        <div class="acard-ico">💪</div>
+        <h3>Kuchli tomonlaringiz</h3>
+        <ul class="alist">
+          <li>Mantiqiy fikrlash (90/100) — murakkab muammolarni tizimli hal qilasiz</li>
+          <li>Motivatsiya darajasi juda yuqori (88/100) — uzoq muddatli maqsadlarga ega bo'lib ishlaysiz</li>
+          <li>Xotira samaradorligi (82/100) — yangi ma'lumotni tez yodlab olasiz</li>
+          <li>Ijodiy fikrlash (78/100) — noodatiy yechimlar topishga moyilsiz</li>
+        </ul>
+      </div>
+      <div class="acard">
+        <div class="acard-ico">🎯</div>
+        <h3>Rivojlantirish kerak</h3>
+        <ul class="alist">
+          <li>Tezkorlik (65/100) — ma'lumot qayta ishlash tezligini oshirish tavsiya etiladi</li>
+          <li>Diqqat barqarorligi (71/100) — uzoq vaqt diqqatni jamlash qiyinligi kuzatilmoqda</li>
+          <li>Kognitiv moslashuvchanlik — bir vazifadan ikkinchisiga tez o'tish mashqi kerak</li>
+        </ul>
+      </div>
+    </div>
+    <div class="recc">
+      <div class="rcard-t">Aniq Tavsiyalar</div>
+      <div class="ri">
+        <div class="rn">1</div>
+        <div class="rc-body">
+          <h4>Kundalik Pomodoro texnikasi</h4>
+          <p>25 daqiqa diqqat + 5 daqiqa dam. Kuniga kamida 4 sessiya tavsiya etiladi. Tezkorlik va diqqat uchun eng samarali usul.</p>
+          <span class="tag tp-">Diqqat</span><span class="tag tok">Tezkorlik</span>
+        </div>
+      </div>
+      <div class="ri">
+        <div class="rn">2</div>
+        <div class="rc-body">
+          <h4>Spaced Repetition orqali o'rganish</h4>
+          <p>BrainUP kartochka tizimidan foydalaning. Har kuni 15–20 daqiqa — xotiraning mustahkamlanishi 3x tezlashadi.</p>
+          <span class="tag tp-">Xotira</span>
+        </div>
+      </div>
+      <div class="ri">
+        <div class="rn">3</div>
+        <div class="rc-body">
+          <h4>Dual N-Back aqliy mashqlar</h4>
+          <p>Kognitiv tezkorlikni oshirish uchun kengaytirilgan xotira mashqlari. Haftasiga 3 marta, 20 daqiqa.</p>
+          <span class="tag twarn">Tezkorlik</span>
+        </div>
+      </div>
+      <div class="ri">
+        <div class="rn">4</div>
+        <div class="rc-body">
+          <h4>Mindfulness meditatsiyasi</h4>
+          <p>Ertalab 10 daqiqa meditatsiya diqqat qobiliyatini 23% ga oshirishi ilmiy isbotlangan.</p>
+          <span class="tag tok">Diqqat</span>
+        </div>
+      </div>
+    </div>
+    <div class="ctr"><button class="btn btn-p btn-lg" onclick="go('plan')">Shaxsiy reja ko'rish 📋</button></div>
+  </div>
+</div>
+
+<!-- ========== DEV PLAN ========== -->
+<div id="s-plan" class="scr">
+  <div class="pc">
+    <div class="sec-lbl">4 Haftalik Reja</div>
+    <h1 class="sec-t">Sizning Shaxsiy<br>Rivojlanish Rejangiz</h1>
+    <div class="weeks">
+      <div class="wk">
+        <div class="wk-h">
+          <div><div class="wk-lbl">1-hafta · Joriy</div><div class="wk-title">Asoslar va Diqqat</div></div>
+          <div class="wb w-act">Faol</div>
+        </div>
+        <div class="wk-tasks">
+          <div class="tk"><div class="tk-ico">⏱️</div><div class="tk-n">Pomodoro texnikasi — kuniga 4 sessiya</div><div class="tk-d">25min × 4</div></div>
+          <div class="tk"><div class="tk-ico">🧘</div><div class="tk-n">Ertalabki meditatsiya</div><div class="tk-d">10 min</div></div>
+          <div class="tk"><div class="tk-ico">🃏</div><div class="tk-n">Spaced repetition kartochkalar</div><div class="tk-d">15 min</div></div>
+        </div>
+      </div>
+      <div class="wk">
+        <div class="wk-h">
+          <div><div class="wk-lbl">2-hafta</div><div class="wk-title">Tezkorlik va Ishlov</div></div>
+          <div class="wb w-up">Kutilmoqda</div>
+        </div>
+        <div class="wk-tasks">
+          <div class="tk" style="opacity:.55"><div class="tk-ico">🧠</div><div class="tk-n">Dual N-Back aqliy mashqlar</div><div class="tk-d">20 min</div></div>
+          <div class="tk" style="opacity:.55"><div class="tk-ico">📖</div><div class="tk-n">Tezkor o'qish texnikasi</div><div class="tk-d">20 min</div></div>
+          <div class="tk" style="opacity:.55"><div class="tk-ico">✏️</div><div class="tk-n">Aqliy xaritalash (mind mapping)</div><div class="tk-d">15 min</div></div>
+        </div>
+      </div>
+      <div class="wk">
+        <div class="wk-h">
+          <div><div class="wk-lbl">3-hafta</div><div class="wk-title">Xotira va Ijodkorlik</div></div>
+          <div class="wb w-up">Kutilmoqda</div>
+        </div>
+        <div class="wk-tasks">
+          <div class="tk" style="opacity:.55"><div class="tk-ico">🏛️</div><div class="tk-n">Memory palace texnikasi</div><div class="tk-d">20 min</div></div>
+          <div class="tk" style="opacity:.55"><div class="tk-ico">🎨</div><div class="tk-n">Ijodiy fikrlash mashqlari</div><div class="tk-d">15 min</div></div>
+        </div>
+      </div>
+      <div class="wk">
+        <div class="wk-h">
+          <div><div class="wk-lbl">4-hafta</div><div class="wk-title">Konsolidatsiya va Re-test</div></div>
+          <div class="wb w-up">Kutilmoqda</div>
+        </div>
+        <div class="wk-tasks">
+          <div class="tk" style="opacity:.55"><div class="tk-ico">🔁</div><div class="tk-n">Barcha texnikalarni birlashtirish</div><div class="tk-d">30 min</div></div>
+          <div class="tk" style="opacity:.55"><div class="tk-ico">📊</div><div class="tk-n">Kognitiv re-test (progress tekshiruvi)</div><div class="tk-d">15 min</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="ctr"><button class="btn btn-p btn-lg" onclick="go('dash')">Dashboardga o'tish 🚀</button></div>
+  </div>
+</div>
+
+<!-- ========== DASHBOARD ========== -->
+<div id="s-dash" class="scr">
+  <div class="dc">
+    <div class="dh">
+      <div>
+        <div class="dg" id="dGreet">Salom, Sardor! 👋</div>
+        <div class="dd">Dushanba, 14 Avgust 2026</div>
+      </div>
+      <button class="btn btn-p" onclick="go('onb')">Yangi test →</button>
+    </div>
+    <div class="ds-grid">
+      <div class="sc-card"><div class="sc-lbl">Umumiy Ball</div><div class="sc-val">78</div><div class="sc-ch ch-up">↑ +5 o'tgan haftadan</div></div>
+      <div class="sc-card"><div class="sc-lbl">Streak</div><div class="sc-val">7</div><div class="sc-ch ch-up">↑ kun ketma-ket</div></div>
+      <div class="sc-card"><div class="sc-lbl">Mashqlar</div><div class="sc-val">23</div><div class="sc-ch">Bu oy bajarilgan</div></div>
+      <div class="sc-card"><div class="sc-lbl">Vaqt</div><div class="sc-val">4.2<span style="font-size:14px">h</span></div><div class="sc-ch">Bu hafta</div></div>
+    </div>
+    <div class="dm">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <div class="dcard">
+          <div class="dcard-t">Haftalik Faollik <a href="#">Batafsil →</a></div>
+          <div class="wchart">
+            <div class="wbar-w"><div class="wbar" style="height:45%"></div><div class="wday">Du</div></div>
+            <div class="wbar-w"><div class="wbar" style="height:72%"></div><div class="wday">Se</div></div>
+            <div class="wbar-w"><div class="wbar" style="height:56%"></div><div class="wday">Ch</div></div>
+            <div class="wbar-w"><div class="wbar" style="height:90%"></div><div class="wday">Pa</div></div>
+            <div class="wbar-w"><div class="wbar" style="height:62%"></div><div class="wday">Ju</div></div>
+            <div class="wbar-w"><div class="wbar" style="height:30%"></div><div class="wday">Sh</div></div>
+            <div class="wbar-w"><div class="wbar tod" style="height:78%"></div><div class="wday tod">Bu</div></div>
+          </div>
+        </div>
+        <div class="dcard">
+          <div class="dcard-t">Bugungi Mashqlar <a href="#">Hammasi →</a></div>
+          <div class="ttasks">
+            <div class="tt done" id="dt1" onclick="dtog('dt1','dc1')">
+              <div class="tck on" id="dc1">✓</div>
+              <div class="tti"><div class="ttn">Pomodoro sessiyasi #1</div><div class="tts">Bajarildi · 09:30</div></div>
+              <div class="tpt">+10</div>
+            </div>
+            <div class="tt" id="dt2" onclick="dtog('dt2','dc2')">
+              <div class="tck" id="dc2"></div>
+              <div class="tti"><div class="ttn">Ertalabki meditatsiya</div><div class="tts">10 min · Diqqat uchun</div></div>
+              <div class="tpt">+8</div>
+            </div>
+            <div class="tt" id="dt3" onclick="dtog('dt3','dc3')">
+              <div class="tck" id="dc3"></div>
+              <div class="tti"><div class="ttn">Spaced repetition — 15 kartochka</div><div class="tts">15 min · Xotira uchun</div></div>
+              <div class="tpt">+12</div>
+            </div>
+            <div class="tt" id="dt4" onclick="dtog('dt4','dc4')">
+              <div class="tck" id="dc4"></div>
+              <div class="tti"><div class="ttn">Pomodoro sessiyasi #2</div><div class="tts">25 min · Diqqat uchun</div></div>
+              <div class="tpt">+10</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <div class="dcard">
+          <div class="dcard-t">Kognitiv Profil</div>
+          <div class="cbars">
+            <div class="cbr"><div class="cbr-h"><span class="cbr-n">Xotira</span><span class="cbr-s" style="color:#6366F1">82</span></div><div class="ct"><div class="cf" style="width:82%;background:#6366F1"></div></div></div>
+            <div class="cbr"><div class="cbr-h"><span class="cbr-n">Diqqat</span><span class="cbr-s" style="color:#8B5CF6">71</span></div><div class="ct"><div class="cf" style="width:71%;background:#8B5CF6"></div></div></div>
+            <div class="cbr"><div class="cbr-h"><span class="cbr-n">Mantiq</span><span class="cbr-s" style="color:#3B82F6">90</span></div><div class="ct"><div class="cf" style="width:90%;background:#3B82F6"></div></div></div>
+            <div class="cbr"><div class="cbr-h"><span class="cbr-n">Tezkorlik</span><span class="cbr-s" style="color:#F59E0B">65</span></div><div class="ct"><div class="cf" style="width:65%;background:#F59E0B"></div></div></div>
+            <div class="cbr"><div class="cbr-h"><span class="cbr-n">Ijodkorlik</span><span class="cbr-s" style="color:#10B981">78</span></div><div class="ct"><div class="cf" style="width:78%;background:#10B981"></div></div></div>
+            <div class="cbr"><div class="cbr-h"><span class="cbr-n">Motivatsiya</span><span class="cbr-s" style="color:#EC4899">88</span></div><div class="ct"><div class="cf" style="width:88%;background:#EC4899"></div></div></div>
+          </div>
+        </div>
+        <div class="dcard">
+          <div class="dcard-t">Maqsadlar</div>
+          <div class="goals-list">
+            <div><div class="gi-h"><span class="gi-n">Diqqatni oshirish</span><span class="gi-p">71%</span></div><div class="gt"><div class="gf" style="width:71%"></div></div></div>
+            <div><div class="gi-h"><span class="gi-n">Tezkorlikni yaxshilash</span><span class="gi-p">45%</span></div><div class="gt"><div class="gf" style="width:45%;background:#F59E0B"></div></div></div>
+            <div><div class="gi-h"><span class="gi-n">14 kunlik streak</span><span class="gi-p">50%</span></div><div class="gt"><div class="gf" style="width:50%;background:#10B981"></div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ——— DATA ——— */
+const Qs = [
+  {cat:"Xotira",q:"7, 3, 9, 1, 5, 8, 2 — 4-o'rindagi son?",opts:["1","5","9","3"],c:0},
+  {cat:"Xotira",q:"Oltin, Ko'k, Qizil, Yashil, Sariq — 3-rang?",opts:["Yashil","Ko'k","Qizil","Sariq"],c:2},
+  {cat:"Xotira",q:"Asalari, Arslон, Ot, Mushuk, It — oxirgi hayvon?",opts:["Mushuk","Arslон","It","Ot"],c:2},
+  {cat:"Diqqat",q:"5, 10, 15, ?, 25 — ? o'rniga qaysi son?",opts:["18","20","22","19"],c:1},
+  {cat:"Diqqat",q:"BRAINUP so'zida nechta unli harf bor?",opts:["2","3","4","1"],c:1},
+  {cat:"Diqqat",q:"Qaysi variant butun boshqacha? AAA, BBB, AAB, CCC",opts:["AAA","BBB","AAB","CCC"],c:2},
+  {cat:"Mantiq",q:"Barcha olimlar aqlli. Kamoliddin olim. Xulosa?",opts:["Kamoliddin aqlli","Kamoliddin tezkor","Kamoliddin ijodiy","Kamoliddin kuchli"],c:0},
+  {cat:"Mantiq",q:"2, 4, 8, 16, ? — keyingi son?",opts:["24","32","20","28"],c:1},
+  {cat:"Mantiq",q:"Qaysi so'z boshqacha? Kapalak, Chumoli, Archa, Asalari",opts:["Kapalak","Chumoli","Archa","Asalari"],c:2},
+  {cat:"Tezkorlik",q:"128 ÷ 4 = ?",opts:["32","28","36","24"],c:0},
+  {cat:"Tezkorlik",q:"15 × 7 = ?",opts:["95","100","105","110"],c:2},
+  {cat:"Tezkorlik",q:"45 daqiqa = soatning necha foizi?",opts:["65%","70%","75%","80%"],c:2},
+  {cat:"Ijodkorlik",q:"\"G'ildirak\" bilan bog'liq g'ayrioddiy foydalanish:",opts:["Mashina g'ildiragi","Suvga bosganda uchuvchi kema","Velo sport jihozi","To'g'ri burchakli raqam"],c:1},
+  {cat:"Ijodkorlik",q:"Doira bilan qancha narsa yasash mumkin? Ko'p variant:",opts:["Soat, G'ildirak","Soat, Ko'z, Quyosh, Tugma, G'ildirak","Soat, G'ildirak, Ko'z","Faqat soat"],c:1},
+  {cat:"Ijodkorlik",q:"Ikki xil materialdan yangi narsa — bu qaysi fikrlash?",opts:["Ratsional","Divergent","Konvergent","Analitik"],c:1},
+  {cat:"Motivatsiya",q:"Qiyin vazifa oldida odatda nima qilasiz?",opts:["Qochaman","Kichik qismlarga bo'laman","Yordam so'rayman","Kutaman"],c:1},
+  {cat:"Motivatsiya",q:"Maqsadingizga qancha vaqt sadoqat bilan urinasiz?",opts:["Bir necha kun","Bir-ikki hafta","Bir oy","Bir yil va undan ko'p"],c:3},
+  {cat:"Motivatsiya",q:"Muvaffaqiyatsizlik oldida qanday reaksiya qilasiz?",opts:["Ruhdan tushaman","Sababini tahlil qilaman","E'tibor bermayman","Boshqani ayblaman"],c:1},
+];
+
+const cNames = ['Xotira','Diqqat','Mantiq','Tezkorlik','Ijodkorlik','Motivatsiya'];
+const cScores = [82,71,90,65,78,88];
+const cColors = ['#6366F1','#8B5CF6','#3B82F6','#F59E0B','#10B981','#EC4899'];
+
+let curQ=0, answers=[], timerInt=null, tLeft=900, uName='Sardor';
+
+/* ——— ROUTER ——— */
+const screens = {land:'s-land',onb:'s-onb',test:'s-test',res:'s-res',ana:'s-ana',plan:'s-plan',dash:'s-dash'};
+
+function go(id) {
+  Object.values(screens).forEach(s=>{
+    const el=document.getElementById(s);
+    if(el){el.classList.remove('on');el.style.display='';}
+  });
+  const sid=screens[id];
+  if(!sid)return;
+  const el=document.getElementById(sid);
+  if(!el)return;
+  el.classList.add('on','fade');
+  setTimeout(()=>el.classList.remove('fade'),300);
+  window.scrollTo(0,0);
+  if(id==='res') initRes();
+  if(id==='dash') initDash();
+}
+
+/* ——— ONBOARDING ——— */
+function onbStep(n){
+  [1,2,3].forEach(i=>{
+    document.getElementById('os'+i).style.display=i===n?'block':'none';
+    const c=document.getElementById('oc'+i);
+    c.className='sc '+(i<n?'done':i===n?'act':'off');
+    c.textContent=i<n?'✓':i;
+  });
+  [1,2].forEach(i=>{
+    const l=document.getElementById('ol'+i);
+    if(l) l.className='sl '+(i<n?'done':'');
+  });
+}
+
+function tg(el){
+  el.classList.toggle('sel');
+  const ck=el.querySelector('.gck');
+  ck.textContent=el.classList.contains('sel')?'✓':'';
+}
+
+/* ——— TEST ——— */
+function startTest(){
+  uName=document.getElementById('inp-name')?.value.trim()||'Sardor';
+  curQ=0; answers=[]; tLeft=900;
+  go('test');
+  renderQ();
+  clearInterval(timerInt);
+  timerInt=setInterval(()=>{
+    tLeft--;
+    const m=Math.floor(tLeft/60).toString().padStart(2,'0');
+    const s=(tLeft%60).toString().padStart(2,'0');
+    const disp=document.getElementById('tdisp');
+    const timer=document.getElementById('ttimer');
+    if(disp) disp.textContent=`${m}:${s}`;
+    if(tLeft<=120&&timer){timer.classList.add('warn');}
+    if(tLeft<=30&&timer){timer.classList.remove('warn');timer.classList.add('err');}
+    if(tLeft<=0){clearInterval(timerInt);endTest();}
+  },1000);
+}
+
+function renderQ(){
+  const d=Qs[curQ];
+  const pct=((curQ+1)/Qs.length*100).toFixed(0);
+  document.getElementById('tcat').textContent=d.cat;
+  document.getElementById('tcnt').textContent=`${curQ+1} / ${Qs.length}`;
+  document.getElementById('tpf').style.width=pct+'%';
+  document.getElementById('tq').textContent=d.q;
+  const keys=['A','B','C','D'];
+  document.getElementById('topts').innerHTML=d.opts.map((o,i)=>`
+    <div class="to" onclick="pick(this,${i})">
+      <span class="ok-k">${keys[i]}</span>${o}
+    </div>`).join('');
+}
+
+function pick(el,idx){
+  document.querySelectorAll('.to').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+  answers[curQ]=idx;
+  setTimeout(()=>{
+    if(curQ<Qs.length-1){curQ++;renderQ();}
+    else{clearInterval(timerInt);endTest();}
+  },480);
+}
+
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('s-test').classList.contains('on'))return;
+  const map={a:0,b:1,c:2,d:3,'1':0,'2':1,'3':2,'4':3};
+  const k=e.key.toLowerCase();
+  if(k in map){
+    const opts=document.querySelectorAll('.to');
+    if(opts[map[k]])pick(opts[map[k]],map[k]);
+  }
+});
+
+function endTest(){clearInterval(timerInt);go('res');}
+
+/* ——— RESULTS ——— */
+function initRes(){
+  let ok=0;
+  answers.forEach((a,i)=>{if(a===Qs[i]?.c)ok++;});
+  const sc=Math.max(58,Math.round(62+(ok/Qs.length)*38));
+  document.getElementById('rScore').textContent=sc;
+  document.getElementById('rName').textContent=`${uName} · NamDPI · 2-kurs`;
+  drawRing(sc);
+  document.getElementById('cogBars').innerHTML=cNames.map((n,i)=>`
+    <div class="cbr">
+      <div class="cbr-h"><span class="cbr-n">${n}</span><span class="cbr-s" style="color:${cColors[i]}">${cScores[i]}</span></div>
+      <div class="ct"><div class="cf" style="width:${cScores[i]}%;background:${cColors[i]}"></div></div>
+    </div>`).join('');
+  setTimeout(drawRadar,80);
+}
+
+function drawRing(sc){
+  const c=document.getElementById('srCanvas');if(!c)return;
+  const x=c.getContext('2d'),cx=65,cy=65,r=56,pct=sc/100;
+  x.clearRect(0,0,130,130);
+  x.beginPath();x.arc(cx,cy,r,0,Math.PI*2);x.strokeStyle='#EEF2FF';x.lineWidth=9;x.stroke();
+  x.beginPath();x.arc(cx,cy,r,-Math.PI/2,-Math.PI/2+Math.PI*2*pct);
+  x.strokeStyle='#6366F1';x.lineWidth=9;x.lineCap='round';x.stroke();
+}
+
+function drawRadar(){
+  const c=document.getElementById('radar');if(!c)return;
+  const dpr=window.devicePixelRatio||1,w=c.clientWidth||256,h=240;
+  c.width=w*dpr;c.height=h*dpr;
+  const x=c.getContext('2d');x.scale(dpr,dpr);
+  const cx=w/2,cy=h/2,r=Math.min(w,h)/2-30,n=6;
+  const A=Array.from({length:n},(_,i)=>i*2*Math.PI/n-Math.PI/2);
+  for(let l=1;l<=4;l++){
+    x.beginPath();
+    A.forEach((a,i)=>{const rr=r*l/4,px=cx+rr*Math.cos(a),py=cy+rr*Math.sin(a);i?x.lineTo(px,py):x.moveTo(px,py);});
+    x.closePath();x.strokeStyle='#E5E7EB';x.lineWidth=1;x.stroke();
+  }
+  A.forEach(a=>{x.beginPath();x.moveTo(cx,cy);x.lineTo(cx+r*Math.cos(a),cy+r*Math.sin(a));x.strokeStyle='#E5E7EB';x.lineWidth=1;x.stroke();});
+  x.beginPath();
+  A.forEach((a,i)=>{const rr=r*cScores[i]/100,px=cx+rr*Math.cos(a),py=cy+rr*Math.sin(a);i?x.lineTo(px,py):x.moveTo(px,py);});
+  x.closePath();x.fillStyle='rgba(99,102,241,.14)';x.fill();x.strokeStyle='#6366F1';x.lineWidth=2;x.stroke();
+  A.forEach((a,i)=>{const rr=r*cScores[i]/100,px=cx+rr*Math.cos(a),py=cy+rr*Math.sin(a);x.beginPath();x.arc(px,py,4,0,Math.PI*2);x.fillStyle=cColors[i];x.fill();});
+  x.font=`11px Outfit,sans-serif`;x.fillStyle='#6B7280';x.textAlign='center';
+  A.forEach((a,i)=>{const lr=r+20,px=cx+lr*Math.cos(a),py=cy+lr*Math.sin(a)+4;x.fillText(cNames[i],px,py);});
+}
+
+/* ——— DASHBOARD ——— */
+function initDash(){
+  document.getElementById('dGreet').textContent=`Salom, ${uName||'Sardor'}! 👋`;
+}
+
+function dtog(tid,cid){
+  const t=document.getElementById(tid),c=document.getElementById(cid);
+  if(!t||!c)return;
+  const done=t.classList.toggle('done');
+  c.classList.toggle('on',done);
+  c.textContent=done?'✓':'';
+  const tn=t.querySelector('.ttn');
+  if(tn)tn.style.textDecoration=done?'line-through':'none';
+}
+
+/* INIT */
+go('land');
+</script>
+</body>
+</html>

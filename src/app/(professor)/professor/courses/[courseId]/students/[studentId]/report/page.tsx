@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+﻿import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect, notFound } from "next/navigation";
 import { Header } from "@/components/layout/header";
@@ -11,7 +11,7 @@ import { formatDate } from "@/lib/utils";
 function masteryColor(score: number | null) {
   if (score === null) return "bg-slate-100 dark:bg-[#1e2840] border border-slate-200 dark:border-white/10 text-slate-500";
   if (score >= 0.85) return "bg-emerald-500/10 border border-emerald-500/20 text-emerald-400";
-  if (score >= 0.6) return "bg-blue-500/10 border border-blue-500/20 text-blue-400";
+  if (score >= 0.6) return "bg-[#FEF4E7]0/10 border border-[#B45309]/20 text-amber-400";
   if (score >= 0.3) return "bg-amber-500/10 border border-amber-500/20 text-amber-400";
   return "bg-red-500/10 border border-red-500/20 text-red-400";
 }
@@ -91,7 +91,7 @@ export default async function StudentReportPage({
     : 0;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
       <Header
         title={`${student.firstName} ${student.lastName}`}
         description={`${course.title} — talaba hisoboti`}
@@ -130,7 +130,7 @@ export default async function StudentReportPage({
           {[
             { icon: <Zap className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "O'rtacha mastery", value: `${Math.round(avgMastery * 100)}%`, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
             { icon: <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />, label: "O'zlashtirilgan", value: `${topicsMastered} / ${topics.length}`, iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
-            { icon: <BookOpen className="h-5 w-5 text-blue-600 dark:text-blue-400" />, label: "Boshlangan mavzu", value: `${topicsStarted} / ${topics.length}`, iconBg: "bg-blue-50 dark:bg-blue-950/50" },
+            { icon: <BookOpen className="h-5 w-5 text-[#B45309] dark:text-amber-400" />, label: "Boshlangan mavzu", value: `${topicsStarted} / ${topics.length}`, iconBg: "bg-[#FEF4E7] dark:bg-blue-950/50" },
             { icon: <Zap className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "Amaliyot aniqligi", value: totalAttempts > 0 ? `${Math.round(accuracy * 100)}%` : "—", iconBg: "bg-violet-50 dark:bg-violet-950/50", sub: `${totalAttempts} ta savol` },
           ].map((s) => (
             <div key={s.label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1e2840] p-4 shadow-sm">
@@ -150,7 +150,7 @@ export default async function StudentReportPage({
                 <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300">Mavzular bo&apos;yicha progress</h3>
                 <div className="h-1.5 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden mt-2">
                   <div
-                    className="h-full bg-blue-600 rounded-full"
+                    className="h-full bg-[#B45309] rounded-full"
                     style={{ width: `${topics.length > 0 ? (topicsMastered / topics.length) * 100 : 0}%` }}
                   />
                 </div>

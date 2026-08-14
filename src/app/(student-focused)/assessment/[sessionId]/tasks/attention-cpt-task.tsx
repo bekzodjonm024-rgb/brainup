@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useRef, useCallback, KeyboardEvent } from "react";
 import { Button } from "@/components/ui/button";
@@ -98,8 +98,8 @@ export function AttentionCPTTask({ item, onComplete, disabled }: Props) {
 
       {phase === "intro" && (
         <div className="space-y-5">
-          <div className="rounded-xl border border-blue-500/20 bg-blue-500/5 p-4 text-left space-y-2">
-            <p className="text-sm font-medium text-blue-400">Qoida:</p>
+          <div className="rounded-xl border border-[#B45309]/20 bg-[#FEF4E7]0/5 p-4 text-left space-y-2">
+            <p className="text-sm font-medium text-amber-400">Qoida:</p>
             <p className="text-sm text-slate-500 dark:text-slate-400">
               Har bir harf alohida ko&apos;rinadi. Faqat{" "}
               <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-slate-800 dark:bg-white text-white dark:text-slate-900 font-bold text-lg mx-1">
@@ -114,7 +114,7 @@ export function AttentionCPTTask({ item, onComplete, disabled }: Props) {
             onClick={() => { setPhase("running"); runNextTrial(0); }}
             disabled={disabled}
             size="lg"
-            className="bg-blue-600 hover:bg-blue-500 text-white border-0 shadow-lg shadow-blue-600/20 px-10"
+            className="bg-[#B45309] hover:bg-[#92400E] text-white border-0 shadow-lg shadow-[#1C1208]/12 px-10"
           >
             Boshlash
           </Button>
@@ -147,7 +147,7 @@ export function AttentionCPTTask({ item, onComplete, disabled }: Props) {
           <Button
             onClick={handleSubmit}
             disabled={disabled}
-            className="bg-blue-600 hover:bg-blue-500 text-white border-0 px-10"
+            className="bg-[#B45309] hover:bg-[#92400E] text-white border-0 px-10"
           >
             Davom etish →
           </Button>

@@ -60,7 +60,7 @@ export default async function AdminContentPage({
   const counts = Object.fromEntries(byStatus.map((r) => [r.status, r._count.id]));
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
       <Header title="Kontent" description="Materiallar boshqaruvi" />
       <main className="flex-1 p-6 space-y-4">
         <Suspense>

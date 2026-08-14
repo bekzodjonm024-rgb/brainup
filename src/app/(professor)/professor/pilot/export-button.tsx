@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -41,7 +41,7 @@ export function ExportButton({ type, label, courseId, size = "default" }: Props)
         onClick={handle}
         disabled={loading}
         className={cn(
-          "inline-flex items-center gap-1 text-xs text-blue-600 hover:underline disabled:opacity-50"
+          "inline-flex items-center gap-1 text-xs text-[#B45309] hover:underline disabled:opacity-50"
         )}
       >
         {loading ? <Loader2 className="h-3 w-3 animate-spin" /> : <Download className="h-3 w-3" />}

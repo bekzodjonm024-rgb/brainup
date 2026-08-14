@@ -10,13 +10,28 @@ import { Brain, TrendingUp, RefreshCw, ArrowRight } from "lucide-react";
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex" style={{ backgroundColor: "#f8faff" }}>
+    <div className="min-h-screen flex" style={{ backgroundColor: "#F8F5EF" }}>
 
-      {/* LEFT — orange brand panel */}
-      <div className="hidden lg:flex flex-col justify-between w-[52%] relative overflow-hidden p-14 bg-blue-600 rounded-r-3xl">
-        {/* Decorative circles */}
-        <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-blue-500/30 translate-x-1/3 -translate-y-1/3 pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-blue-700/20 -translate-x-1/4 translate-y-1/4 pointer-events-none" />
+      {/* LEFT — warm dark brand panel */}
+      <div
+        className="hidden lg:flex flex-col justify-between w-[52%] relative overflow-hidden p-14 shrink-0"
+        style={{ background: "#1C1208", borderRadius: "0 32px 32px 0" }}
+      >
+        {/* Warm decorative circles */}
+        <div
+          className="absolute top-0 right-0 w-80 h-80 rounded-full pointer-events-none"
+          style={{
+            background: "rgba(180,83,9,0.12)",
+            transform: "translate(33%, -33%)",
+          }}
+        />
+        <div
+          className="absolute bottom-0 left-0 w-64 h-64 rounded-full pointer-events-none"
+          style={{
+            background: "rgba(180,83,9,0.08)",
+            transform: "translate(-25%, 25%)",
+          }}
+        />
 
         <div className="relative">
           <Link href="/" className="inline-flex items-center gap-2.5 mb-14">
@@ -24,32 +39,41 @@ export default function LoginPage() {
             <span className="font-extrabold text-white text-xl tracking-tight">BrainUP</span>
           </Link>
 
-          <h2 className="font-black text-white text-[2.5rem] leading-tight mb-4 uppercase tracking-tight">
+          <h2
+            className="font-black text-white uppercase tracking-tight leading-tight mb-4"
+            style={{ fontSize: "clamp(2rem,3.2vw,2.6rem)" }}
+          >
             AQLLI<br />O&apos;QISHNI<br />BOSHLANG
           </h2>
-          <p className="text-white/65 text-sm leading-relaxed mb-12 max-w-xs">
+          <p className="text-sm leading-relaxed mb-12 max-w-xs" style={{ color: "rgba(240,234,224,0.55)" }}>
             Kognitiv profil asosida shaxsiy ta&apos;lim yo&apos;nalishi.
             Har bir talaba — alohida yo&apos;l.
           </p>
 
           <div className="space-y-3">
             {[
-              { Icon: Brain,      text: "Diqqat va xotira tahlili",    bg: "bg-white/15" },
-              { Icon: TrendingUp, text: "Adaptiv o'quv rejasi",         bg: "bg-white/15" },
-              { Icon: RefreshCw,  text: "Spaced repetition: 3→30 kun", bg: "bg-white/15" },
-            ].map(({ Icon, text, bg }) => (
+              { Icon: Brain,      text: "Diqqat va xotira tahlili" },
+              { Icon: TrendingUp, text: "Adaptiv o'quv rejasi" },
+              { Icon: RefreshCw,  text: "Spaced repetition: 3→30 kun" },
+            ].map(({ Icon, text }) => (
               <div key={text} className="flex items-center gap-3">
-                <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${bg}`}>
-                  <Icon className="h-4 w-4 text-white" />
+                <div
+                  className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+                  style={{ background: "rgba(180,83,9,0.18)" }}
+                >
+                  <Icon className="h-4 w-4" style={{ color: "#D4973A" }} />
                 </div>
-                <span className="text-sm text-white/75">{text}</span>
+                <span className="text-sm" style={{ color: "rgba(240,234,224,0.65)" }}>{text}</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* NamDPI badge */}
-        <div className="relative flex items-center gap-3 rounded-2xl bg-white/15 border border-white/20 px-4 py-3 w-fit">
+        <div
+          className="relative flex items-center gap-3 px-4 py-3 w-fit rounded-2xl"
+          style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}
+        >
           <Image
             src="/namdpi-logo.jpg"
             alt="NamDPI"
@@ -60,7 +84,7 @@ export default function LoginPage() {
           />
           <div>
             <p className="text-xs font-semibold text-white">NamDPI</p>
-            <p className="text-[11px] text-white/50">Namangan Davlat Pedagogika Instituti</p>
+            <p className="text-[11px]" style={{ color: "rgba(240,234,224,0.45)" }}>Namangan Davlat Pedagogika Instituti</p>
           </div>
         </div>
       </div>
@@ -72,10 +96,13 @@ export default function LoginPage() {
           {/* Mobile brand */}
           <div className="lg:hidden flex flex-col items-center gap-2 mb-10">
             <BrainUPLogo size="lg" href="/" />
-            <span className="font-extrabold text-slate-900 text-xl">BrainUP</span>
-            <div className="flex items-center gap-2 rounded-xl border border-black/8 bg-white px-3 py-1.5 mt-1">
+            <span className="font-extrabold text-xl" style={{ color: "#1C1208" }}>BrainUP</span>
+            <div
+              className="flex items-center gap-2 rounded-xl px-3 py-1.5 mt-1"
+              style={{ border: "1px solid rgba(28,18,8,0.08)", background: "white" }}
+            >
               <Image src="/namdpi-logo.jpg" alt="NamDPI" width={18} height={18} className="rounded-full" unoptimized />
-              <span className="text-xs text-slate-500">NamDPI hamkorligida</span>
+              <span className="text-xs" style={{ color: "#9C8272" }}>NamDPI hamkorligida</span>
             </div>
           </div>
 
@@ -83,9 +110,13 @@ export default function LoginPage() {
             <LoginForm />
           </Suspense>
 
-          <p className="text-center text-xs text-slate-400 mt-6">
+          <p className="text-center text-xs mt-6" style={{ color: "#9C8272" }}>
             Hisobingiz yo&apos;qmi?{" "}
-            <Link href="/register" className="text-blue-600 font-medium hover:text-blue-400 transition-colors inline-flex items-center gap-0.5">
+            <Link
+              href="/register"
+              className="font-medium transition-colors inline-flex items-center gap-0.5"
+              style={{ color: "#B45309" }}
+            >
               Ro&apos;yxatdan o&apos;ting <ArrowRight className="h-3 w-3" />
             </Link>
           </p>

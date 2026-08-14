@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+﻿import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect, notFound } from "next/navigation";
 import { decideNextAction } from "@/lib/modules/adaptive/engine";
@@ -27,9 +27,9 @@ const ACTION_CONFIG: Record<string, {
   PRACTICE: {
     title: "Ko'proq mashq qiling",
     description: "Yaxshi harakat! Mustahkamlash uchun yana bir necha savol yechib ko'ring.",
-    border: "border-blue-500/20",
-    iconBg: "bg-blue-500/10",
-    icon: <Zap className="h-6 w-6 text-blue-400" />,
+    border: "border-[#B45309]/20",
+    iconBg: "bg-[#FEF4E7]0/10",
+    icon: <Zap className="h-6 w-6 text-amber-400" />,
   },
   EXPLAIN_AGAIN: {
     title: "Mavzuni qayta o'rganing",
@@ -41,9 +41,9 @@ const ACTION_CONFIG: Record<string, {
   PREREQUISITE: {
     title: "Avvalgi mavzuni mustahkamlang",
     description: "Bu mavzuni tushunish uchun avval oldingi mavzuni yaxshi o'zlashtirib oling.",
-    border: "border-blue-500/20",
-    iconBg: "bg-blue-600/10",
-    icon: <Layers className="h-6 w-6 text-blue-400" />,
+    border: "border-[#B45309]/20",
+    iconBg: "bg-[#B45309]/10",
+    icon: <Layers className="h-6 w-6 text-amber-400" />,
   },
   RETRIEVE: {
     title: "Takrorlash vaqti",
@@ -153,7 +153,7 @@ export default async function ResultPage({
   }
 
   return (
-    <div className="min-h-screen bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="min-h-screen bg-[#F8F5EF] dark:bg-[#0e1117]">
       <div className="mx-auto max-w-xl px-4 py-8 space-y-6">
         {/* Back */}
         <Link
@@ -187,7 +187,7 @@ export default async function ResultPage({
             </div>
           </div>
           <Link href={getActionHref()}>
-            <Button className="w-full bg-blue-600 hover:bg-blue-500 text-white border-0">
+            <Button className="w-full bg-[#B45309] hover:bg-[#92400E] text-white border-0">
               {getActionLabel()}
               <ArrowRight className="h-4 w-4 ml-2" />
             </Button>

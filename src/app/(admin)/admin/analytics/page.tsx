@@ -152,14 +152,14 @@ export default async function AdminAnalyticsPage() {
   };
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
       <Header title="Statistika" description="Platforma bo'yicha umumiy tahlil" />
       <main className="flex-1 p-6 space-y-6">
 
         {/* Registration trend */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
-            { icon: <Users className="h-5 w-5 text-blue-600 dark:text-blue-400" />, label: "Jami talabalar", value: totalStudents, sub: undefined as string | undefined, iconBg: "bg-blue-50 dark:bg-blue-950/50" },
+            { icon: <Users className="h-5 w-5 text-[#B45309] dark:text-amber-400" />, label: "Jami talabalar", value: totalStudents, sub: undefined as string | undefined, iconBg: "bg-[#FEF4E7] dark:bg-blue-950/50" },
             { icon: <TrendingUp className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />, label: "So'nggi 30 kun", value: `+${newStudents30d}`, sub: "yangi talaba", iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
             { icon: <Zap className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "So'nggi 7 kun", value: `+${newStudents7d}`, sub: "yangi talaba", iconBg: "bg-violet-50 dark:bg-violet-950/50" },
           ].map((s) => (
@@ -183,7 +183,7 @@ export default async function AdminAnalyticsPage() {
                     <span className="text-xs text-slate-500 dark:text-slate-400">{label}</span>
                     <span className="text-xs text-slate-400 dark:text-slate-600">{totalMastery > 0 ? Math.round((count / totalMastery) * 100) : 0}%</span>
                   </div>
-                  <MiniBar value={count} max={totalMastery} color="bg-blue-600" />
+                  <MiniBar value={count} max={totalMastery} color="bg-[#B45309]" />
                 </div>
               ))}
               <p className="text-xs text-slate-400 dark:text-slate-600 pt-1">Jami {totalMastery} ta bilim yozuvi</p>
@@ -244,7 +244,7 @@ export default async function AdminAnalyticsPage() {
             <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 mb-3">Faollik turlari</h3>
             <div className="flex items-center gap-3 text-xs text-slate-500 mb-4">
               <span>Jami: <strong className="text-slate-600 dark:text-slate-300">{totalEvents}</strong></span>
-              <span>7 kun: <strong className="text-blue-400">+{events7d}</strong></span>
+              <span>7 kun: <strong className="text-amber-400">+{events7d}</strong></span>
               <span>30 kun urinish: <strong className="text-emerald-400">+{attempts30d}</strong></span>
             </div>
             <div className="space-y-3">
@@ -278,7 +278,7 @@ export default async function AdminAnalyticsPage() {
               <div className="flex flex-wrap gap-3">
                 {[
                   { label: "Diqqat", value: avgAttention, color: "text-indigo-600 bg-indigo-50 dark:bg-indigo-950/40 border-indigo-200 dark:border-indigo-800" },
-                  { label: "Ishchi xotira", value: avgWM, color: "text-blue-600 bg-blue-50 dark:bg-blue-950/40 border-blue-200 dark:border-blue-800" },
+                  { label: "Ishchi xotira", value: avgWM, color: "text-[#B45309] bg-[#FEF4E7] dark:bg-blue-950/40 border-blue-200 dark:border-blue-800" },
                   { label: "Tezlik", value: avgSpeed, color: "text-amber-600 bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800" },
                   { label: "Xotira", value: avgMemory, color: "text-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800" },
                 ].map((m) => (

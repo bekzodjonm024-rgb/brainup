@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
@@ -19,7 +19,7 @@ interface Props {
 
 const CATEGORY_META: Record<Category, { label: string; color: string }> = {
   ATTENTION:        { label: "Diqqat mashqi",        color: "text-indigo-400" },
-  WORKING_MEMORY:   { label: "Ishchi xotira mashqi", color: "text-blue-400" },
+  WORKING_MEMORY:   { label: "Ishchi xotira mashqi", color: "text-amber-400" },
   PROCESSING_SPEED: { label: "Tezlik mashqi",        color: "text-amber-400" },
   MEMORY:           { label: "Xotira mashqi",        color: "text-emerald-400" },
 };
@@ -175,7 +175,7 @@ export function TrainingRunner({ category, difficulty, planId }: Props) {
           <p className="text-slate-400 text-sm mb-8">{item.prompt}</p>
           <button
             onClick={() => setPhase("running")}
-            className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-colors"
+            className="w-full py-3 rounded-xl bg-[#B45309] hover:bg-[#92400E] text-white font-semibold transition-colors"
           >
             Boshlash
           </button>
@@ -211,7 +211,7 @@ export function TrainingRunner({ category, difficulty, planId }: Props) {
             <button
               onClick={() => router.push("/training")}
               disabled={submitting}
-              className="flex-1 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-colors disabled:opacity-50"
+              className="flex-1 py-3 rounded-xl bg-[#B45309] hover:bg-[#92400E] text-white font-semibold transition-colors disabled:opacity-50"
             >
               {submitting ? "Saqlanmoqda..." : "Tugash"}
             </button>

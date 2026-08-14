@@ -52,7 +52,7 @@ export default async function CoursesPage() {
   ]);
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
       <Header title="Kurslar" description="Mening kurslarim va mavjud kurslar" />
 
       <main className="flex-1 p-6 space-y-8">
@@ -94,13 +94,13 @@ export default async function CoursesPage() {
                       </div>
                       <div className="h-1 bg-slate-200 dark:bg-[#1e2840] rounded-full overflow-hidden">
                         <div
-                          className={`h-full rounded-full ${avgMastery >= 0.85 ? "bg-emerald-500" : avgMastery >= 0.6 ? "bg-blue-600" : avgMastery >= 0.4 ? "bg-amber-500" : "bg-red-500"}`}
+                          className={`h-full rounded-full ${avgMastery >= 0.85 ? "bg-emerald-500" : avgMastery >= 0.6 ? "bg-[#B45309]" : avgMastery >= 0.4 ? "bg-amber-500" : "bg-red-500"}`}
                           style={{ width: `${progress}%` }}
                         />
                       </div>
                     </div>
                     <Link href={`/courses/${course.id}`}>
-                      <Button size="sm" className="w-full bg-blue-600 hover:bg-blue-500 text-white border-0">
+                      <Button size="sm" className="w-full bg-[#B45309] hover:bg-[#92400E] text-white border-0">
                         Davom etish <ArrowRight className="h-3 w-3 ml-1" />
                       </Button>
                     </Link>

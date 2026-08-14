@@ -44,7 +44,7 @@ export default async function PilotPage() {
 
   if (courseIds.length === 0) {
     return (
-      <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+      <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
         <Header title="Pilot monitoring" description="Tadqiqot va pilot nazorat paneli" />
         <main className="flex-1 p-6">
           <div className="rounded-xl border border-slate-200 dark:border-white/8 bg-white dark:bg-[#151f35] py-14 text-center">
@@ -136,7 +136,7 @@ export default async function PilotPage() {
     : new Map<string, string>();
 
   const funnelSteps = [
-    { label: "Yozilgan", count: totalEnrolled, pct: 100, color: "bg-blue-600" },
+    { label: "Yozilgan", count: totalEnrolled, pct: 100, color: "bg-[#B45309]" },
     { label: "Baholangan", count: assessedCount, pct: totalEnrolled ? Math.round((assessedCount / totalEnrolled) * 100) : 0, color: "bg-violet-500" },
     { label: "Mashq qilgan", count: practicedCount, pct: totalEnrolled ? Math.round((practicedCount / totalEnrolled) * 100) : 0, color: "bg-amber-500" },
     { label: "O'zlashtirildi ≥1", count: masteredCount, pct: totalEnrolled ? Math.round((masteredCount / totalEnrolled) * 100) : 0, color: "bg-emerald-500" },
@@ -149,7 +149,7 @@ export default async function PilotPage() {
   };
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
       <Header title="Pilot Monitoring" description="NamDPI tadqiqot va pilot nazorat paneli" />
 
       <main className="flex-1 p-6 space-y-6 max-w-5xl mx-auto w-full">
@@ -175,7 +175,7 @@ export default async function PilotPage() {
         {/* Live stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { icon: <Users className="h-5 w-5 text-blue-600 dark:text-blue-400" />, label: "Jami talabalar", value: totalEnrolled, iconBg: "bg-blue-50 dark:bg-blue-950/50" },
+            { icon: <Users className="h-5 w-5 text-[#B45309] dark:text-amber-400" />, label: "Jami talabalar", value: totalEnrolled, iconBg: "bg-[#FEF4E7] dark:bg-blue-950/50" },
             { icon: <Activity className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />, label: "Bugun faol", value: activeStudentsToday, iconBg: "bg-emerald-50 dark:bg-emerald-950/50" },
             { icon: <Zap className="h-5 w-5 text-amber-600 dark:text-amber-400" />, label: "Bugun eventlar", value: todayEventCount, iconBg: "bg-amber-50 dark:bg-amber-950/50" },
             { icon: <TrendingUp className="h-5 w-5 text-violet-600 dark:text-violet-400" />, label: "Jami urinishlar", value: totalAttempts.toLocaleString(), iconBg: "bg-violet-50 dark:bg-violet-950/50" },

@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+﻿import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect, notFound } from "next/navigation";
 import { Header } from "@/components/layout/header";
@@ -33,7 +33,7 @@ export default async function QuestionsPage({
   const totalCount = topic.questions.length;
 
   return (
-    <div className="flex flex-col flex-1 overflow-auto bg-[#f8faff] dark:bg-[#0e1117]">
+    <div className="flex flex-col flex-1 overflow-auto bg-[#F8F5EF] dark:bg-[#0e1117]">
       <Header title="Savollar banki" description={`${topic.course.title} — ${topic.title}`} />
       <main className="flex-1 p-6 space-y-5">
         <div className="flex items-center justify-between">

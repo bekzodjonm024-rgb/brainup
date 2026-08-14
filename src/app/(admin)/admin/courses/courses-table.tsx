@@ -56,7 +56,7 @@ export function CoursesTable({ courses }: { courses: Course[] }) {
               onClick={() => setFilter(f.key)}
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                 filter === f.key
-                  ? "bg-blue-600 text-white"
+                  ? "bg-[#B45309] text-white"
                   : "bg-slate-100 dark:bg-[#1e2840] text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-700 dark:hover:text-slate-200"
               }`}
             >
@@ -73,7 +73,7 @@ export function CoursesTable({ courses }: { courses: Course[] }) {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Kurs nomi, professor..."
-            className="w-full pl-9 pr-3 h-9 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+            className="w-full pl-9 pr-3 h-9 rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-[#1e2840] text-slate-900 dark:text-slate-200 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-[#B45309] transition-colors"
           />
         </div>
       </div>
