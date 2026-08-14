@@ -531,7 +531,7 @@ export default async function LandingPage() {
           className="pt-6 pb-7"
           style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}
         >
-          <p className="text-center text-[10px] font-bold tracking-[0.22em] uppercase mb-5" style={{ color: "#4A3520" }}>
+          <p className="text-center text-[10px] font-bold tracking-[0.22em] uppercase mb-5" style={{ color: "#9C7E60" }}>
             Hamkor universitetlar
           </p>
           <div className="overflow-hidden">
@@ -550,7 +550,10 @@ export default async function LandingPage() {
         </div>
 
         {/* ── LIGHT CONTENT ISLAND (How It Works + Features) ── */}
-        <div style={{ background: "#F8F5EF", borderRadius: "40px 40px 40px 40px", margin: "0 0 0 0" }}>
+        <div
+          className="mx-3 sm:mx-5 overflow-hidden"
+          style={{ background: "#F8F5EF", borderRadius: 36, marginTop: 28, marginBottom: 28 }}
+        >
 
         {/* ── HOW IT WORKS ── */}
         <section id="how" className="py-20">
@@ -755,7 +758,7 @@ export default async function LandingPage() {
               <Link href="/register" className="transition-colors hover:text-[#F0EAE0]">Ro&apos;yxat</Link>
               <Link href="#how" className="transition-colors hover:text-[#F0EAE0]">Jarayon</Link>
             </div>
-            <p className="text-sm" style={{ color: "#5C4530" }}>© 2026 <span style={{ color: "#B45309", fontWeight: 600 }}>BrainUP</span> · <span style={{ color: "#B45309", fontWeight: 600 }}>NamDPI</span></p>
+            <p className="text-sm" style={{ color: "#8A7060" }}>© 2026 <span style={{ color: "#B45309", fontWeight: 600 }}>BrainUP</span> · <span style={{ color: "#B45309", fontWeight: 600 }}>NamDPI</span></p>
           </div>
         </footer>
 
