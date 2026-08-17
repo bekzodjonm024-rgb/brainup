@@ -3,6 +3,18 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { z } from "zod";
 
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ contentId: string }> }) {
+  const { contentId } = await params;
+  const session = await auth();
+  if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const item = await db.contentItem.findUnique({
+    where: { id: contentId },
+    select: { id: true, title: true, type: true, fileUrl: true, externalUrl: true, status: true },
+  });
+  if (!item) return NextResponse.json({ error: "Not found" }, { status: 404 });
+  return NextResponse.json(item);
+}
+
 const updateSchema = z.object({
   title: z.string().min(2).max(200).optional(),
   body: z.string().optional(),
