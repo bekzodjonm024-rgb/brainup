@@ -9,8 +9,8 @@ const createContentSchema = z.object({
   type: z.nativeEnum(ContentType),
   title: z.string().min(2).max(200),
   body: z.string().optional(),
-  externalUrl: z.string().url().optional().or(z.literal("")),
-  fileUrl: z.string().url().optional().or(z.literal("")),
+  externalUrl: z.string().optional(),
+  fileUrl: z.string().optional(),
   orderIndex: z.number().int().min(0).optional(),
   sources: z.array(z.object({
     title: z.string(),
