@@ -1,10 +1,10 @@
 ﻿"use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ContentStatus } from "@/generated/prisma";
-import { CheckCircle2, XCircle, Trash2, Loader2 } from "lucide-react";
+import { CheckCircle2, XCircle, Trash2, Loader2, UploadCloud } from "lucide-react";
 import { ConfirmDialog } from "@/components/admin/confirm-dialog";
 import { ActionToast, useToast } from "@/components/admin/action-toast";
 
@@ -14,10 +14,12 @@ interface ContentActionsProps {
   title: string;
   courseId: string;
   topicId: string;
+  isFileType?: boolean;
 }
 
-export function ContentActions({ contentId, status, title, courseId, topicId }: ContentActionsProps) {
+export function ContentActions({ contentId, status, title, courseId, topicId, isFileType }: ContentActionsProps) {
   const router = useRouter();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState<string | null>(null);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const { toast, show, dismiss } = useToast();
@@ -32,6 +34,34 @@ export function ContentActions({ contentId, status, title, courseId, topicId }: 
       router.refresh();
     } else {
       show("Xatolik yuz berdi", "error");
+    }
+  }
+
+  async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (fileInputRef.current) fileInputRef.current.value = "";
+
+    setLoading("upload");
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const uploadRes = await fetch("/api/upload", { method: "POST", body: formData });
+      if (!uploadRes.ok) throw new Error();
+      const { url } = await uploadRes.json();
+
+      const updateRes = await fetch(`/api/content/${contentId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fileUrl: url }),
+      });
+      if (!updateRes.ok) throw new Error();
+      show("Fayl yuklandi", "success");
+      router.refresh();
+    } catch {
+      show("Fayl yuklashda xato", "error");
+    } finally {
+      setLoading(null);
     }
   }
 
@@ -51,6 +81,22 @@ export function ContentActions({ contentId, status, title, courseId, topicId }: 
   return (
     <>
       <div className="flex items-center gap-1 shrink-0">
+        {isFileType && (
+          <>
+            <input ref={fileInputRef} type="file" className="hidden" onChange={handleFileUpload} />
+            <Button
+              variant="ghost" size="icon"
+              title="Fayl yuklash / almashtirish"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={loading !== null}
+              className="text-blue-500 hover:text-blue-700 hover:bg-blue-50"
+            >
+              {loading === "upload"
+                ? <Loader2 className="h-4 w-4 animate-spin" />
+                : <UploadCloud className="h-4 w-4" />}
+            </Button>
+          </>
+        )}
         {status !== "APPROVED" && (
           <Button
             variant="ghost" size="icon"

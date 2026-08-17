@@ -5,6 +5,8 @@ import { Header } from "@/components/layout/header";
 import { ContentStatusBadge } from "@/components/shared/content-status-badge";
 import Link from "next/link";
 import { ArrowLeft, FileText, Link as LinkIcon, Video, HelpCircle } from "lucide-react";
+
+const FILE_CONTENT_TYPES = ["PDF", "WORD", "PPT", "BOOK"];
 import { ContentType } from "@/generated/prisma";
 import { AddContentDialog } from "./add-content-dialog";
 import { ContentActions } from "./content-actions";
@@ -152,6 +154,7 @@ export default async function TopicDetailPage({
                         title={item.title}
                         courseId={courseId}
                         topicId={topicId}
+                        isFileType={FILE_CONTENT_TYPES.includes(item.type)}
                       />
                     </div>
                   </div>

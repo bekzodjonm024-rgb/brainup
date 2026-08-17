@@ -7,6 +7,7 @@ const updateSchema = z.object({
   title: z.string().min(2).max(200).optional(),
   body: z.string().optional(),
   externalUrl: z.string().url().optional().or(z.literal("")),
+  fileUrl: z.string().url().optional().or(z.literal("")),
   orderIndex: z.number().int().min(0).optional(),
 });
 
@@ -33,9 +34,15 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ cont
   const parsed = updateSchema.safeParse(body);
   if (!parsed.success) return NextResponse.json({ error: parsed.error.flatten().fieldErrors }, { status: 400 });
 
+  const { fileUrl, externalUrl, ...rest } = parsed.data;
   const updated = await db.contentItem.update({
     where: { id: contentId },
-    data: { ...parsed.data, status: "DRAFT" },
+    data: {
+      ...rest,
+      ...(externalUrl !== undefined ? { externalUrl: externalUrl || null } : {}),
+      ...(fileUrl !== undefined ? { fileUrl: fileUrl || null } : {}),
+      status: "DRAFT",
+    },
     include: { sources: true },
   });
 
