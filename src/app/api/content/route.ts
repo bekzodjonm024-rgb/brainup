@@ -10,6 +10,7 @@ const createContentSchema = z.object({
   title: z.string().min(2).max(200),
   body: z.string().optional(),
   externalUrl: z.string().url().optional().or(z.literal("")),
+  fileUrl: z.string().url().optional().or(z.literal("")),
   orderIndex: z.number().int().min(0).optional(),
   sources: z.array(z.object({
     title: z.string(),
@@ -41,12 +42,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Topilmadi" }, { status: 404 });
   }
 
-  const { sources, externalUrl, ...contentData } = parsed.data;
+  const { sources, externalUrl, fileUrl, ...contentData } = parsed.data;
 
   const content = await db.contentItem.create({
     data: {
       ...contentData,
       externalUrl: externalUrl || null,
+      fileUrl: fileUrl || null,
       status: "DRAFT",
       sources: sources?.length ? { create: sources } : undefined,
     },
