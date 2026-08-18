@@ -42,6 +42,7 @@ export function AddContentDialog({ topicId, asButton }: AddContentDialogProps) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [sourceCount, setSourceCount] = useState(0);
   const [uploadedFile, setUploadedFile] = useState<{ name: string; url: string } | null>(null);
   const [fileError, setFileError] = useState<string | null>(null);
@@ -103,6 +104,7 @@ export function AddContentDialog({ topicId, asButton }: AddContentDialogProps) {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setSubmitError(null);
     setLoading(true);
 
     const sources = Array.from({ length: sourceCount }, (_, i) => ({
@@ -131,16 +133,21 @@ export function AddContentDialog({ topicId, asButton }: AddContentDialogProps) {
       setSourceCount(0);
       setUploadedFile(null);
       router.refresh();
+    } else {
+      const data = await res.json().catch(() => ({}));
+      setSubmitError(data?.error ? JSON.stringify(data.error) : "Material qo'shishda xato yuz berdi");
     }
   }
 
   const needsUrl = ["LINK", "VIDEO", "ARTICLE"].includes(form.type);
   const needsFile = FILE_TYPES.includes(form.type as ContentType);
+  const canSubmit = !needsFile || uploadedFile !== null;
 
   function resetAndClose() {
     setOpen(false);
     setUploadedFile(null);
     setFileError(null);
+    setSubmitError(null);
   }
 
   return (
@@ -282,8 +289,11 @@ export function AddContentDialog({ topicId, asButton }: AddContentDialogProps) {
             ))}
           </div>
 
+          {submitError && (
+            <p className="text-xs text-red-500 bg-red-50 border border-red-200 rounded-lg px-3 py-2">{submitError}</p>
+          )}
           <div className="flex gap-3 pt-2">
-            <Button type="submit" disabled={loading || uploading}>
+            <Button type="submit" disabled={loading || uploading || !canSubmit} title={!canSubmit ? "Avval fayl yuklang" : undefined}>
               {loading && <Loader2 className="h-4 w-4 animate-spin mr-1" />}
               Qo'shish
             </Button>

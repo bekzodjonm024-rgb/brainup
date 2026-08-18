@@ -4,7 +4,7 @@ import { redirect, notFound } from "next/navigation";
 import { Header } from "@/components/layout/header";
 import { ContentStatusBadge } from "@/components/shared/content-status-badge";
 import Link from "next/link";
-import { ArrowLeft, FileText, Link as LinkIcon, Video, HelpCircle } from "lucide-react";
+import { ArrowLeft, FileText, Link as LinkIcon, Video, HelpCircle, Paperclip } from "lucide-react";
 
 const FILE_CONTENT_TYPES = ["PDF", "WORD", "PPT", "BOOK"];
 import { ContentType } from "@/generated/prisma";
@@ -141,6 +141,12 @@ export default async function TopicDetailPage({
                              className="text-xs text-amber-400 hover:underline mt-1 block truncate">
                             {item.externalUrl}
                           </a>
+                        )}
+                        {FILE_CONTENT_TYPES.includes(item.type) && (
+                          <span className={`inline-flex items-center gap-1 text-xs mt-1 ${item.fileUrl ? "text-emerald-500" : "text-amber-400"}`}>
+                            <Paperclip className="h-3 w-3" />
+                            {item.fileUrl ? "Fayl biriktirilgan" : "Fayl yo'q — ☁ tugma bilan yuklang"}
+                          </span>
                         )}
                         {item.sources.length > 0 && (
                           <p className="text-xs text-stone-400 dark:text-slate-600 mt-1">

@@ -5,7 +5,9 @@ import { db } from "@/lib/db";
 export async function POST(_req: NextRequest, { params }: { params: Promise<{ contentId: string }> }) {
   const { contentId } = await params;
   const session = await auth();
-  if (!session?.user?.profileId || session.user.role !== "PROFESSOR") {
+  const role = session?.user?.role;
+
+  if (!session?.user?.profileId || (role !== "PROFESSOR" && role !== "ADMIN")) {
     return NextResponse.json({ error: "Ruxsat yo'q" }, { status: 401 });
   }
 
@@ -14,7 +16,9 @@ export async function POST(_req: NextRequest, { params }: { params: Promise<{ co
     include: { topic: { include: { course: { select: { professorId: true } } } } },
   });
 
-  if (!content || content.topic.course.professorId !== session.user.profileId) {
+  if (!content) return NextResponse.json({ error: "Topilmadi" }, { status: 404 });
+
+  if (role === "PROFESSOR" && content.topic.course.professorId !== session.user.profileId) {
     return NextResponse.json({ error: "Topilmadi" }, { status: 404 });
   }
 
