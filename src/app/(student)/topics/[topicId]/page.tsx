@@ -189,6 +189,7 @@ export default async function TopicLearningPage({
             {topic.contentItems.map((item) => {
               const Icon = typeIcon[item.type] ?? FileText;
               const isLink = item.externalUrl && ["LINK", "VIDEO", "ARTICLE"].includes(item.type);
+              const isViewable = item.type === "PDF";
 
               return (
                 <div key={item.id} className="rounded-xl border border-stone-200 dark:border-white/8 bg-white dark:bg-[#17130E] p-5 space-y-3">
@@ -207,16 +208,17 @@ export default async function TopicLearningPage({
                     </div>
                   )}
                   {item.fileUrl && (
-                    <a
-                      href={item.fileUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      download
-                      className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-[#B45309]/20 bg-[#FEF4E7]/5 text-sm font-medium text-amber-400 hover:bg-[#92400E]/10 transition-colors"
-                    >
-                      <Download className="h-4 w-4" />
-                      Faylni yuklab olish
-                    </a>
+                    <div className="flex items-center gap-2">
+                      <a
+                        href={item.fileUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-[#B45309]/20 bg-[#FEF4E7]/5 text-sm font-medium text-amber-400 hover:bg-[#92400E]/10 transition-colors"
+                      >
+                        <Download className="h-4 w-4" />
+                        {isViewable ? "Ko'rish / yuklab olish" : "Faylni yuklab olish"}
+                      </a>
+                    </div>
                   )}
                   {isLink && (
                     <a
